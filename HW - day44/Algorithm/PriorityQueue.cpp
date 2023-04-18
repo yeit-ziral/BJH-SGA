@@ -20,15 +20,58 @@ public:
 	Priority_Queue(vector<int> container) : container(container) {}
 	~Priority_Queue() {}
 
-	void push(const int& value) {}
+	void push(const int& value) 
+	{
+		container.push_back(value);
 
-	void pop() {}
+		int child = container.size() - 1;
 
-	const int& top() { return 0; }
+		while (child > 0)
+		{
+			int parent = (child - 1) / 2;
 
-	unsigned int size() { return 0; }
+			if (container[parent] < container[child]) // 여기서 에러 발생
+			{
+				swap(container[parent], container[child]);
+				child = parent;
+			}
+			else
+				break;
+		}
+	}
 
-	bool empty() { return false; }
+	void pop() 
+	{
+		if (container.empty())
+			return;
+
+		swap(container[0], container.back());
+		container.pop_back();
+
+		int parent = 0;
+		int child = (parent * 2) + 1;
+
+		while (child < container.size())
+		{
+			if (child + 1 < container.size() && container[child] < container[child + 1])
+				child++;
+
+			if (container[child] > container[parent])
+			{
+				swap(container[child], container[parent]);
+				parent = child;
+				child = (child * 2) + 1;
+			}
+			else
+				break;
+		}
+	}
+
+	const int& top() { return container[0]; }
+
+	unsigned int size() { return container.size(); }
+
+	bool empty() { return container.empty(); }
 
 private:
 	vector<int> container;
@@ -42,11 +85,19 @@ int main()
 
 	priority_queue<int> pq; // heap->완전 이진 트리랑 같다
 
+	Priority_Queue Pq;
+
 	pq.push(10);
 	pq.push(20);
 	pq.push(7);
 	pq.push(4);
 	pq.push(11);
+
+	Pq.push(10);
+	Pq.push(20);
+	Pq.push(7);
+	Pq.push(4);
+	Pq.push(11);
 
 	cout << pq.top() << endl;
 	pq.pop();	// 맨 아래의 오른쪽과 root를 바꾸고 그 leaf를 날림 -> 한칸씩 당겨서 root의 왼쪽 아래 값을 root로 보냄
@@ -57,6 +108,15 @@ int main()
 
 	cout << pq.top() << endl;
 	pq.pop();
+
+	cout << Pq.top() << endl;
+	Pq.pop();
+
+	cout << Pq.top() << endl;
+	Pq.pop();
+
+	cout << Pq.top() << endl;
+	Pq.pop();
 
 	return 0;
 }
