@@ -11,7 +11,7 @@ Mazerunner::Mazerunner(shared_ptr<Maze> maze)
 	//DFS(_pos);
 	_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 	_parent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
-	BFS(_pos);
+	BFS_2();
 }
 
 Mazerunner::~Mazerunner()
@@ -82,6 +82,7 @@ void Mazerunner::LeftHand()
 		{
 			_direction = static_cast<Dir>(newDir);
 			pos += newDirVector2;
+			_maze->GetBlock(pos.y, pos.x)->SetType(MazeBlock::BlockType::VISITED);
 			_path.push_back(pos);
 		}
 
@@ -89,6 +90,7 @@ void Mazerunner::LeftHand()
 		else if (Cango(oldGo.y, oldGo.x))
 		{
 			pos += oldDirVector2;
+			_maze->GetBlock(pos.y, pos.x)->SetType(MazeBlock::BlockType::VISITED);
 			_path.push_back(pos);
 		}
 
@@ -133,6 +135,7 @@ void Mazerunner::DFS(Vector2 here)
 		return;
 
 	_visited[(int)here.y][(int)here.x] = true;
+	_maze->GetBlock(here.y, here.x)->SetType(MazeBlock::BlockType::VISITED);
 	_path.push_back(here);
 
 	Vector2 frontPos[8] =
@@ -232,6 +235,77 @@ void Mazerunner::BFS(Vector2 start)
 	{
 		_path.push_back(iter);
 	}
+}
+
+void Mazerunner::BFS_2()
+{
+	Vector2 frontPos[8] =
+	{
+		Vector2(0,-1), // UP
+		Vector2(1,0), // Right
+		Vector2(0,1), // Down
+		Vector2(-1,0), // Left
+		Vector2(1,1), // Rightup
+		Vector2(-1, 1), // Rightdown
+		Vector2(1, -1), // Leftup
+		Vector2(-1, -1) // Leftdown
+	};
+
+	Vector2 startPos = _maze->Start();
+	Vector2 endPos = _maze->End();
+
+	_discovered = vector<vector<bool>>(_maze->GetY(), vector<bool>(_maze->GetX(), false));
+
+	_parent = vector<vector<Vector2>>(_maze->GetY(), vector<Vector2>(_maze->GetX(), Vector2(-1, -1)));
+
+	queue<Vector2> q;
+	q.push(startPos);
+	_discovered[startPos.y][startPos.x] = true;
+	_parent[startPos.y][startPos.x] = startPos;
+
+	while (true)
+	{
+		if (q.empty() == true)
+			break;
+
+		Vector2 here = q.front();
+
+		if (_discovered[endPos.y][endPos.x] == true)
+			break;
+
+		q.pop();
+
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = here + frontPos[i];
+
+			if (_discovered[there.y][there.x] == true)
+				continue;
+
+			if (Cango(there.y, there.x) == false)
+				continue;
+
+			q.push(there);
+			_discovered[there.y][there.x] = true;
+			_parent[there.y][there.x] = here;
+			_maze->GetBlock(there.y, there.x)->SetType(MazeBlock::BlockType::VISITED);
+		}
+	}
+
+	Vector2 pos = endPos;
+
+	_path.push_back(endPos);
+
+	while (true)
+	{
+		if (pos == startPos)
+			break;
+
+		pos = _parent[pos.y][pos.x];
+		_path.push_back(pos);
+	}
+
+	std::reverse(_path.begin(), _path.end());
 }
 
 bool Mazerunner::Cango(int y, int x)

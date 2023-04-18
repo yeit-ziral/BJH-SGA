@@ -107,7 +107,7 @@ void BFS(int start)
 //    return count;
 //}
 
-int main()
+int BFS()
 {
     CreateGraphByMatrix();
 

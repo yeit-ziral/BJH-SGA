@@ -12,6 +12,8 @@ public:
 
 	void BFS(Vector2 start);
 
+	void BFS_2();
+
 	bool Cango(int y, int x);
 
 private:
