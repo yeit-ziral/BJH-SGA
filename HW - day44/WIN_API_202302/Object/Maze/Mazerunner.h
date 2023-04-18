@@ -26,7 +26,6 @@ private:
 	vector<vector<bool>> _visited;
 
 	// BFS
-	queue<Vector2> _queue;
 	vector<vector<bool>> _discovered;
 	vector<vector<Vector2>> _parent;
 

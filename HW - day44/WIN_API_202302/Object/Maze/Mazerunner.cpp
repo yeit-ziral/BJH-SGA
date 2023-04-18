@@ -9,6 +9,8 @@ Mazerunner::Mazerunner(shared_ptr<Maze> maze)
 	// DFS
 	_visited = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 	//DFS(_pos);
+	_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
+	_parent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
 	BFS(_pos);
 }
 
@@ -169,6 +171,8 @@ void Mazerunner::BFS(Vector2 start)
 	_parent[(int)start.y][(int)start.x] = start;
 
 	_discovered[(int)start.y][(int)start.x] = true;
+
+	queue<Vector2> _queue;
 
 	_queue.push(start);
 
