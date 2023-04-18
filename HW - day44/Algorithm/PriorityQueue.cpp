@@ -30,7 +30,7 @@ public:
 		{
 			int parent = (child - 1) / 2;
 
-			if (container[parent] < container[child]) // 여기서 에러 발생
+			if (container[parent] < container[child]) 
 			{
 				swap(container[parent], container[child]);
 				child = parent;
