@@ -11,6 +11,13 @@ Mazerunner::Mazerunner(shared_ptr<Maze> maze)
 	//DFS(_pos);
 	_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 	_parent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
+
+	int weight = 0;
+
+	_best = vector<vector<int>>(_maze->GetY(), vector<int>(_maze->GetX(), -1));
+
+	int endPosBest = 0;
+
 	BFS_2();
 }
 
@@ -41,12 +48,6 @@ void Mazerunner::Update()
 	}
 
 	_maze->GetBlock((int)_pos.y, (int)_pos.x)->SetType(MazeBlock::BlockType::PLAYER);
-
-	/*if (_pathIndex > 1) 
-	{
-		_footPrint = _path[_pathIndex - 2];
-		_maze->GetBlock((int)_footPrint.y, (int)_footPrint.x)->SetType(MazeBlock::BlockType::PLAYER);
-	}*/
 }
 
 void Mazerunner::LeftHand()
@@ -258,6 +259,8 @@ void Mazerunner::BFS_2()
 
 	_parent = vector<vector<Vector2>>(_maze->GetY(), vector<Vector2>(_maze->GetX(), Vector2(-1, -1)));
 
+	_best = vector<vector<int>>(_maze->GetY(), vector<int>(_maze->GetX(), -1));
+
 	queue<Vector2> q;
 	q.push(startPos);
 	_discovered[startPos.y][startPos.x] = true;
@@ -265,14 +268,12 @@ void Mazerunner::BFS_2()
 
 	while (true)
 	{
-		int weight = 0;
-
 		if (q.empty() == true)
 			break;
 
 		Vector2 here = q.front();
 
-		_best = vector<vector<int>>(_maze->GetY(), vector<int>(_maze->GetX(), weight));
+		
 
 		if (_discovered[endPos.y][endPos.x] == true)
 			break;
@@ -295,9 +296,9 @@ void Mazerunner::BFS_2()
 			_parent[there.y][there.x] = here;
 			_maze->GetBlock(there.y, there.x)->SetType(MazeBlock::BlockType::VISITED);
 
-			weight++;
+			++weight;
 
-			_best[there.y][there.x] = weight;
+			_best[here.y][here.x] = weight;
 		}
 	}
 
@@ -316,7 +317,14 @@ void Mazerunner::BFS_2()
 
 	std::reverse(_path.begin(), _path.end());
 
-	int endPosBest = _best[endPos.y][endPos.x];
+	for (int i = 0; i < _path.size(); i++)
+	{
+		_best[_path[i].y][_path[i].x] = i;
+	}
+
+	int last = _path.size() - 2;
+
+	int endPosBest = _best[_path[last].y][_path[last].x];
 }
 
 bool Mazerunner::Cango(int y, int x)

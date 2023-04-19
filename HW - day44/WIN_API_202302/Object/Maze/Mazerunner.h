@@ -36,7 +36,9 @@ private:
 	// Djikstra
 	vector<vector<int>> _best;
 
-	int endPosBest = 0;
+	int weight;
+
+	int endPosBest;
 
 	int _pathIndex = 0;
 	float _time = 0.0f;

@@ -21,7 +21,13 @@ void MazeScene::Render(HDC hdc)
 {
 	_maze->Render(hdc);
 
-	std::string endBestStr = std::to_string(_runner->GetEndPosBest());
+	int endBest = _runner->GetEndPosBest();
 
-	TextOut(hdc, WIN_WIDTH * 0.5f, 0, endBestStr.c_str(), endBestStr.length());
+	string endBestStr = to_string(endBest);
+
+	wstring wstr(endBestStr.begin(), endBestStr.end());
+
+	LPCWSTR result = wstr.c_str();
+
+	TextOut(hdc, WIN_WIDTH * 0.5f, 0, result, endBestStr.length());
 }
