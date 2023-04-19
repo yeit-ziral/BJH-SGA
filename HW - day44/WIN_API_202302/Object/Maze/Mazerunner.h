@@ -16,6 +16,8 @@ public:
 
 	bool Cango(int y, int x);
 
+	int GetEndPosBest() { return endPosBest; }
+
 private:
 	shared_ptr<Maze> _maze;
 
@@ -32,7 +34,9 @@ private:
 	vector<vector<Vector2>> _parent;
 
 	// Djikstra
-	vector<Vector2> _best;
+	vector<vector<int>> _best;
+
+	int endPosBest = 0;
 
 	int _pathIndex = 0;
 	float _time = 0.0f;

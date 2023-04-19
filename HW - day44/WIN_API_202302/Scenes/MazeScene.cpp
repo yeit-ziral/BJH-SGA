@@ -20,4 +20,8 @@ void MazeScene::Update()
 void MazeScene::Render(HDC hdc)
 {
 	_maze->Render(hdc);
+
+	std::string endBestStr = std::to_string(_runner->GetEndPosBest());
+
+	TextOut(hdc, WIN_WIDTH * 0.5f, 0, endBestStr.c_str(), endBestStr.length());
 }

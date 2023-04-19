@@ -265,10 +265,14 @@ void Mazerunner::BFS_2()
 
 	while (true)
 	{
+		int weight = 0;
+
 		if (q.empty() == true)
 			break;
 
 		Vector2 here = q.front();
+
+		_best = vector<vector<int>>(_maze->GetY(), vector<int>(_maze->GetX(), weight));
 
 		if (_discovered[endPos.y][endPos.x] == true)
 			break;
@@ -286,9 +290,14 @@ void Mazerunner::BFS_2()
 				continue;
 
 			q.push(there);
+
 			_discovered[there.y][there.x] = true;
 			_parent[there.y][there.x] = here;
 			_maze->GetBlock(there.y, there.x)->SetType(MazeBlock::BlockType::VISITED);
+
+			weight++;
+
+			_best[there.y][there.x] = weight;
 		}
 	}
 
@@ -306,6 +315,8 @@ void Mazerunner::BFS_2()
 	}
 
 	std::reverse(_path.begin(), _path.end());
+
+	int endPosBest = _best[endPos.y][endPos.x];
 }
 
 bool Mazerunner::Cango(int y, int x)
