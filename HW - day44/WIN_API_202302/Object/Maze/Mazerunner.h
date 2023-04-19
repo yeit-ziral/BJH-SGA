@@ -31,6 +31,9 @@ private:
 	vector<vector<bool>> _discovered;
 	vector<vector<Vector2>> _parent;
 
+	// Djikstra
+	vector<Vector2> _best;
+
 	int _pathIndex = 0;
 	float _time = 0.0f;
 };

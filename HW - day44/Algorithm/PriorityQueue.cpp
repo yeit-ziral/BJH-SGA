@@ -10,6 +10,7 @@
 
 using namespace std;
 
+template<typename T = int, typename Container = vector<int>, typename Pred = less<T>>
 class Priority_Queue
 {
 public:
@@ -17,26 +18,36 @@ public:
 	// 자식은 n * 2 + 1, n * 2 + 2 이다.
 
 	Priority_Queue() {}
-	Priority_Queue(vector<int> container) : container(container) {}
+	Priority_Queue(Container container) : container(container) {}
 	~Priority_Queue() {}
 
-	void push(const int& value) 
+	void push(const T& value) 
 	{
 		container.push_back(value);
 
-		int child = container.size() - 1;
+		int nowIndex = static_cast<int> (container.size() - 1);
 
-		while (child > 0)
+		while (true)
 		{
-			int parent = (child - 1) / 2;
-
-			if (container[parent] < container[child]) 
+			if (nowIndex <= 0)
 			{
-				swap(container[parent], container[child]);
-				child = parent;
+				return;
 			}
-			else
+
+			int parent = (nowIndex - 1) / 2;
+
+			Pred p;
+			if (!p(container[parent], container[nowIndex]))
 				break;
+
+			if (container[parent] >= container[nowIndex])
+			{
+				break;
+			}
+			
+			std::swap(container[parent], container[nowIndex]);
+
+			nowIndex = parent;
 		}
 	}
 
@@ -45,39 +56,58 @@ public:
 		if (container.empty())
 			return;
 
-		swap(container[0], container.back());
+		std::swap(container[0], container.back());
+
 		container.pop_back();
 
-		int parent = 0;
-		int child = (parent * 2) + 1;
+		int nowIndex = 0;
 
-		while (child < container.size())
+		while (true)
 		{
-			if (child + 1 < container.size() && container[child] < container[child + 1])
-				child++;
+			int leftChild = nowIndex * 2 + 1;
+			int rightChild = nowIndex * 2 + 2;
 
-			if (container[child] > container[parent])
-			{
-				swap(container[child], container[parent]);
-				parent = child;
-				child = (child * 2) + 1;
-			}
-			else
+			// Child 자체가 없다.
+			if (leftChild >= (int)container.size())
 				break;
+
+			int nextIndex = nowIndex;
+
+			Pred p;
+
+			if (p(container[nextIndex], container[leftChild]))
+				nextIndex = leftChild;
+
+			/*if (container[nextIndex] < container[leftChild]) // 위의 함수와 같음
+			{
+				nextIndex = leftChild;
+			}*/
+
+			if (rightChild < (int)container.size() && container[nextIndex] < container[rightChild])
+			{
+				nextIndex = rightChild;
+			}
+
+			if (nextIndex == nowIndex)
+				break;
+
+			std::swap(container[nowIndex], container[nextIndex]);
+
+			nowIndex = nextIndex;
 		}
 	}
 
-	const int& top() { return container[0]; }
+	const T& top() { return container[0]; }
 
 	unsigned int size() { return container.size(); }
 
 	bool empty() { return container.empty(); }
 
 private:
-	vector<int> container;
+	Container container;
 };
 
-int main()
+int Priority_queue()
 {
 	// priority_queue는 완전이진트리로 구성되어있다.
 	// 완전이진트리는 배열을 이용하여 구할 수 있다.
@@ -85,7 +115,7 @@ int main()
 
 	priority_queue<int> pq; // heap->완전 이진 트리랑 같다
 
-	Priority_Queue Pq;
+	Priority_Queue<> Pq;
 
 	pq.push(10);
 	pq.push(20);
