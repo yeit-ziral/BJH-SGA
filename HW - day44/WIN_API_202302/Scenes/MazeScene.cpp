@@ -29,5 +29,5 @@ void MazeScene::Render(HDC hdc)
 
 	LPCWSTR result = wstr.c_str();
 
-	TextOut(hdc, WIN_WIDTH * 0.5f, 0, result, endBestStr.length());
+	TextOut(hdc, WIN_WIDTH * 0.5f, 5.0f, result, endBestStr.length());
 }

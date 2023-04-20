@@ -32,7 +32,7 @@ void Mazerunner::Update()
 	if (_pathIndex >= _path.size())
 		return;
 	
-	_time += 0.4f;
+	_time += 0.08f;
 	//_maze->GetBlock((int)_pos.y, (int)_pos.x)->SetType(MazeBlock::BlockType::FOOTPRINT);
 
 	if (_time > 1.0f)
