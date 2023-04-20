@@ -12,13 +12,14 @@ Mazerunner::Mazerunner(shared_ptr<Maze> maze)
 	_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 	_parent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
 
-	int weight = 0;
+	//Dijkskra
+	_best = vector<vector<int>>(_maze->GetY(), vector<int>(_maze->GetX(), INT_MAX));
 
-	_best = vector<vector<int>>(_maze->GetY(), vector<int>(_maze->GetX(), -1));
+	_diParent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
 
-	int endPosBest = 0;
+	_diVisited = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 
-	BFS_2();
+	Dijkstra();
 }
 
 Mazerunner::~Mazerunner()
@@ -296,9 +297,9 @@ void Mazerunner::BFS_2()
 			_parent[there.y][there.x] = here;
 			_maze->GetBlock(there.y, there.x)->SetType(MazeBlock::BlockType::VISITED);
 
-			++weight;
+			//++weight;
 
-			_best[here.y][here.x] = weight;
+			//_best[here.y][here.x] = weight;
 		}
 	}
 
@@ -325,6 +326,107 @@ void Mazerunner::BFS_2()
 	int last = _path.size() - 2;
 
 	int endPosBest = _best[_path[last].y][_path[last].x];
+}
+
+void Mazerunner::Dijkstra()
+{
+	Vector2 frontPos[8] =
+	{
+		Vector2(0,-1), // UP
+		Vector2(1,0), // Right
+		Vector2(0,1), // Down
+		Vector2(-1,0), // Left
+		Vector2(1,1), // Rightup
+		Vector2(-1, 1), // Rightdown
+		Vector2(1, -1), // Leftup
+		Vector2(-1, -1) // Leftdown
+	};
+
+	Vector2 startPos = _maze->Start();
+
+	Vector2 endPos = _maze->End();
+
+	priority_queue<Vertex, vector<Vertex>, greater<Vertex>> pq;
+
+	Vertex startV = Vertex(_maze->Start(), 0);
+
+	pq.push(startV);
+
+	_best[startV.vertexPos.y][startV.vertexPos.x] = 0;
+
+	_diVisited[startV.vertexPos.y][startV.vertexPos.x] = true;
+
+	_diParent[startV.vertexPos.y][startV.vertexPos.x] = startV.vertexPos;
+
+	while (true)
+	{
+		if (pq.empty() == true)
+			break;
+
+		int cost = pq.top().g;
+
+		int temp = 0;
+
+		Vector2 here = pq.top().vertexPos;
+
+		pq.pop();
+
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = here + frontPos[i];
+
+			if (here == there)
+				continue;
+
+			if (Cango(there.y, there.x) == false)
+				continue;
+
+			int nextCost = _best[here.y][here.x];
+			
+			if(i < 4)
+				int nextCost = _best[here.y][here.x] + 10;
+			if(i >= 4)
+				int nextCost = _best[here.y][here.x] + 14;
+
+			if (nextCost >= _best[there.y][there.x])
+				continue;
+
+			Vertex v = Vertex(there, nextCost);
+
+			pq.push(v);
+
+			_best[there.y][there.x] = nextCost;
+
+			_diVisited[there.y][there.x] = true;
+			
+			_diParent[there.y][there.x] = here;
+			
+			_maze->GetBlock(there.y, there.x)->SetType(MazeBlock::BlockType::VISITED);
+		}
+
+		if (_diVisited[endPos.y][endPos.x] == true)
+		{
+			break;
+		}
+	}
+
+	Vector2 targetPos = endPos;
+
+	endPosBest = _best[endPos.y][endPos.x];
+
+	while (true)
+	{
+		if (_diParent[targetPos.y][targetPos.x] == targetPos)
+			break;
+
+		targetPos = _diParent[targetPos.y][targetPos.x];
+
+		_path.push_back(targetPos);
+	}
+
+	reverse(_path.begin(), _path.end());
+
+	_path.push_back(endPos);
 }
 
 bool Mazerunner::Cango(int y, int x)

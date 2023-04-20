@@ -21,7 +21,7 @@ void MazeScene::Render(HDC hdc)
 {
 	_maze->Render(hdc);
 
-	int endBest = _runner->GetEndPosBest();
+	int endBest = _runner->endPosBest;
 
 	string endBestStr = to_string(endBest);
 

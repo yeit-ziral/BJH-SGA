@@ -14,9 +14,11 @@ public:
 
 	void BFS_2();
 
+	void Dijkstra();
+
 	bool Cango(int y, int x);
 
-	int GetEndPosBest() { return endPosBest; }
+	int endPosBest = 0;
 
 private:
 	shared_ptr<Maze> _maze;
@@ -33,12 +35,27 @@ private:
 	vector<vector<bool>> _discovered;
 	vector<vector<Vector2>> _parent;
 
-	// Djikstra
+	// Dijkstra
+	struct Vertex
+	{
+		Vertex(Vector2 pos, int g) : vertexPos(pos), g(g) { }
+
+		bool operator<(const Vertex& other) const
+		{
+			return g < other.g;
+		}
+
+		bool operator>(const Vertex& other) const
+		{
+			return g > other.g;
+		}
+
+		Vector2 vertexPos;
+		int g;
+	};
 	vector<vector<int>> _best;
-
-	int weight;
-
-	int endPosBest;
+	vector<vector<Vector2>> _diParent;
+	vector<vector<bool>> _diVisited;
 
 	int _pathIndex = 0;
 	float _time = 0.0f;
