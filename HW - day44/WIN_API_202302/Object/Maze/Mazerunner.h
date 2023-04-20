@@ -2,6 +2,40 @@
 class Mazerunner
 {
 public:
+	struct Vertex2_Dijkstra
+	{
+		Vector2 pos;
+		int g;
+
+		bool operator < (const Vertex2_Dijkstra& other) const
+		{
+			return this->g < other.g;
+		}
+
+		bool operator > (const Vertex2_Dijkstra& other) const
+		{
+			return this->g > other.g;
+		}
+	};
+
+	struct Vertex
+	{
+		Vector2 pos;
+		int g = 0;
+		int h = 0;
+		int f = 0;
+
+		bool operator < (const Vertex& other) const
+		{
+			return this->f < other.f;
+		}
+
+		bool operator > (const Vertex& other) const
+		{
+			return this->f > other.f;
+		}
+	};
+
 	Mazerunner(shared_ptr<Maze> maze);
 	~Mazerunner();
 
@@ -16,7 +50,11 @@ public:
 
 	void Dijkstra();
 
+	void Dijkstra2();
+
 	bool Cango(int y, int x);
+
+	void Astar();
 
 	int endPosBest = 0;
 
@@ -36,22 +74,22 @@ private:
 	vector<vector<Vector2>> _parent;
 
 	// Dijkstra
-	struct Vertex
+	struct Vertex2
 	{
-		Vertex(Vector2 pos, int g) : vertexPos(pos), g(g) { }
+		Vertex2(Vector2 pos, int g) : vertexPos(pos), g(g) { }
 
-		bool operator<(const Vertex& other) const
+		bool operator<(const Vertex2& other) const
 		{
 			return g < other.g;
 		}
 
-		bool operator>(const Vertex& other) const
+		bool operator>(const Vertex2& other) const
 		{
 			return g > other.g;
 		}
 
 		Vector2 vertexPos;
-		int g;
+		int g; 
 	};
 	vector<vector<int>> _best;
 	vector<vector<Vector2>> _diParent;
