@@ -141,7 +141,7 @@ void Djikstra(int start)
     }
 }
 
-int main()
+int Dijkstra()
 {
     CreateGraphByMatrix();
 

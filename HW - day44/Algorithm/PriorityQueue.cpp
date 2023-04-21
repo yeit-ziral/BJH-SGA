@@ -8,6 +8,9 @@
 #include <queue>
 #include <concurrent_priority_queue.h> // #include<queue> 만 있어도 사용 가능
 
+// 완전 이진 트리
+// map도 이진 트리 (완전 이진 트리는 아님)
+
 using namespace std;
 
 template<typename T = int, typename Container = vector<int>, typename Pred = less<T>>
