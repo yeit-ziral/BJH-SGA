@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Object\Cannon\Arkanoid.h" />
+    <ClInclude Include="Math\DisJoinSet.h" />
     <ClInclude Include="Object\Maze\Mazerunner.h" />
     <ClInclude Include="Object\Maze\Maze.h" />
     <ClInclude Include="Object\Maze\MazeBlock.h" />

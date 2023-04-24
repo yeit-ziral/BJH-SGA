@@ -37,7 +37,7 @@ vector<string> solution(vector<vector<string>> tickets) {
     return answer;
 }
 
-int main()
+int Yeit()
 {
     vector<vector<string>> tickets = { {"ICN", "SFO"},{"ICN", "ATL"},{"SFO", "ATL"},{"ATL", "ICN"}, {"ATL", "SFO"} };
 
