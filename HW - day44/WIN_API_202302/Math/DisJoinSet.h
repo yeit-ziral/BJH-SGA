@@ -1,12 +1,5 @@
-#include <iostream>
-#include <vector>
-#include <list>
-#include <map>
-#include <unordered_map>
-#include <algorithm>
-#include <stack>
-#include <queue>
-#include <concurrent_priority_queue.h>
+#pragma once
+#include "../framework.h"
 
 using namespace std;
 
@@ -122,19 +115,3 @@ private:
 	vector<int> _parent;
 	vector<int> _rank;
 };
-
-int mainx()
-{
-	NaiveDJ guild = NaiveDJ(10);
-
-	cout << guild.FindLeader(5) << endl;
-
-	guild.Merge(1, 5);
-	guild.Merge(5, 2);
-	guild.Merge(5, 9);
-	guild.Merge(5, 3);
-
-	cout << guild.FindLeader(3) << endl;
-
-	return 0;
-}

@@ -30,9 +30,19 @@ Mazerunner::~Mazerunner()
 void Mazerunner::Update()
 {
 	if (_pathIndex >= _path.size())
+	{
+		_maze->CreateMazeByKruskal();
+		_pos = _maze->Start();
+		_pathIndex = 0;
+		_path.clear();
+		Astar();
+		Vector2 end = _maze->End();
+		_maze->GetBlock(end.y, end.x)->GetType(MazeBlock::BlockType::END);
+
 		return;
+	}
 	
-	_time += 0.08f;
+	_time += 0.3f;
 	//_maze->GetBlock((int)_pos.y, (int)_pos.x)->SetType(MazeBlock::BlockType::FOOTPRINT);
 
 	if (_time > 1.0f)
@@ -586,7 +596,10 @@ void Mazerunner::Astar()
 		pq.pop();
 
 		if (here == end)
+		{
+			_maze->GetBlock(end.y, end.x)->SetType(MazeBlock::BlockType::END);
 			break;
+		}
 
 		if (_best[here.y][here.x] < f)
 			continue;

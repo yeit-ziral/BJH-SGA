@@ -24,6 +24,7 @@
 #include <algorithm>
 #include <memory>
 #include <time.h>
+#include <iostream>
 
 
 using namespace std;
@@ -33,6 +34,7 @@ using namespace std;
 // Math
 #include "Math/Vector2.h"
 #include "Math/Line.h"
+#include "Math/DisJoinSet.h"
 #include "Math/Collider.h"
 #include "Math/CircleCollider.h"
 #include "Math/RectCollider.h"
