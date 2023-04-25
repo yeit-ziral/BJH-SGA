@@ -37,7 +37,7 @@ void Mazerunner::Update()
 		_path.clear();
 		Astar();
 		Vector2 end = _maze->End();
-		_maze->GetBlock(end.y, end.x)->GetType(MazeBlock::BlockType::END);
+		//_maze->GetBlock(end.y, end.x)->GetType(MazeBlock::BlockType::END);
 
 		return;
 	}

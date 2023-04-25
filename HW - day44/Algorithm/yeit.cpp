@@ -10,29 +10,38 @@ vector<string> path;
 vector<bool> visited;
 
 
-void dfs(string cur, vector<vector<string>> tickets)
-{
-    if (all_of(visited.begin(), visited.end(), [](const bool& value)->bool {return value == true; }))
-        return;
-
-    path.push_back(cur);
-
-    for (int i = 0; i < tickets.size(); i++)
-        if (!visited[i] && tickets[i][0] == cur)
-        {
-            visited[i] == true;
-            cnt++;
-            dfs(tickets[i][1], tickets);
-
-            if (!flag)
-            {
-                answer.pop_back();
-                visited[i] == true;
-            }
-        }
-}
+//void dfs(string cur, vector<vector<string>> tickets)
+//{
+//    if (all_of(visited.begin(), visited.end(), [](const bool& value)->bool {return value == true; }))
+//        return;
+//
+//    path.push_back(cur);
+//
+//    for (int i = 0; i < tickets.size(); i++)
+//        if (!visited[i] && tickets[i][0] == cur)
+//        {
+//            visited[i] == true;
+//            cnt++;
+//            dfs(tickets[i][1], tickets);
+//
+//            if (!flag)
+//            {
+//                answer.pop_back();
+//                visited[i] == true;
+//            }
+//        }
+//}
 
 const int INF = 987654321;
+
+vector<vector<string>> morse =
+{
+    {".-", "a"}, {"-...",  "b"}, {"-.-.", "c"}, {"-..", "d"}, {".", "e"}, {"..-.", "f"},
+    {"--.", "g"}, {"....", "h"}, {"..", "i"}, {".---", "j"}, {"-.-", "k"}, {".-..", "l"},
+    {"--", "m"}, {"-.", "n"}, {"---", "o"},{".--.", "p"}, {"--.-", "q"}, {".-.", "r"},
+    {"...", "s"}, {"-", "t"}, {"..-", "u"}, {"...-", "v"}, {".--", "w"}, {"-..-", "x"},
+    {"-.--", "y"}, {"--..", "z"}
+};
 
 int dx[4] = { 1, -1, 0, 0 };
 int dy[4] = { 0, 0, 1, -1 };
@@ -58,7 +67,7 @@ int solution(vector<vector<int>> maps)
 
         q.pop();
 
-        for (int i = i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             int nx = x + dx[i];
             int ny = y + dy[i];
@@ -91,7 +100,7 @@ int solution(vector<vector<int>> maps)
 
 vector<string> solution(vector<vector<string>> tickets) {
     sort(tickets.begin(), tickets.end());
-    dfs("ICN", tickets);
+    //dfs("ICN", tickets);
     return answer;
 }
 
