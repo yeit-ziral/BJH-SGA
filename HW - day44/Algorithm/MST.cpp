@@ -170,7 +170,7 @@ vector<Edge> Kruskal(vector<Edge>& edges)
 	return result;
 }
 
-int main()
+int main4()
 {
     CreateGraphByMatrix();
 
