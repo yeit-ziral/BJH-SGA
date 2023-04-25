@@ -95,7 +95,7 @@ int solution(int n, vector<vector<int>> costs) {
 			continue;
 
 		sets.Merge(u, v);
-		answer++;
+		answer += road.cost;
 	}
 
 	//priority_queue<int> pq;
