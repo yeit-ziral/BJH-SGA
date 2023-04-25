@@ -20,7 +20,7 @@ Maze::Maze()
 		_blocks.push_back(blocksX);
 	}
 
-	CreateMazeByKruskal();
+	CreateMazeByPrim();
 
 	_blocks[1][1]->SetType(MazeBlock::BlockType::START);
 	_blocks[_poolCountY - 2][_poolCountX - 2]->SetType(MazeBlock::BlockType::END);
