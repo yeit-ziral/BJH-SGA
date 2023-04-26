@@ -108,7 +108,7 @@ int solution(int n, vector<vector<int>> costs) {
 	return answer;
 }
 
-int main()
+//int main()
 {
 	vector<vector<int>> costs = { {0, 1, 1},{0, 2, 2},{1, 2, 5},{1, 3, 1},{2, 3, 8} };
 
