@@ -30,7 +30,7 @@ public:
 	Node* Next(Node* root);
 
 	void Replace(Node* node1, Node* node2); // node1 은 교체된 다음 삭제
-	void Delete(Node* Node); // 해당 노드 삭제
+	void Delete(Node* node); // 해당 노드 삭제
 
 public:
 	Node* _root = nullptr;

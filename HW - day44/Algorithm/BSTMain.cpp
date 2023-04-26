@@ -37,5 +37,8 @@ int main()
 	else
 		cout << "can't find" << endl;
 
+	tree.Delete(tree._root);
+	tree.PrintTree(tree._root);
+
 	return 0;
 }

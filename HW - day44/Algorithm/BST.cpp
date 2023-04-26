@@ -54,15 +54,15 @@ void BinarySearchTree::PrintTree(Node* root)
 	if (root == nullptr)
 		return;
 
-	//// 전위
-	//std::cout << root->key << std::endl;
-	//PrintTree(root->left);
-	//PrintTree(root->right);
-
-	// 중위
-	PrintTree(root->left);
+	// 전위
 	std::cout << root->key << std::endl;
+	PrintTree(root->left);
 	PrintTree(root->right);
+
+	//// 중위
+	//PrintTree(root->left);
+	//std::cout << root->key << std::endl;
+	//PrintTree(root->right);
 
 	//// 후위
 	//PrintTree(root->left);
@@ -222,6 +222,29 @@ void BinarySearchTree::Replace(Node* node1, Node* node2)
 	delete node1;
 }
 
-void BinarySearchTree::Delete(Node* Node)
+void BinarySearchTree::Delete(Node* node)
 {
+	if (node->right == nullptr && node->left == nullptr)
+	{
+		delete node;
+	}
+	else
+	{
+		if (node->right != nullptr)
+		{
+			Node* next = Next(node);
+
+			node->key = next->key;
+
+			Delete(next);
+		}
+		else if (node->left != nullptr)
+		{
+			Node* previous = Previous(node);
+
+			node->key = previous->key;
+
+			Delete(previous);
+		}
+	}
 }
