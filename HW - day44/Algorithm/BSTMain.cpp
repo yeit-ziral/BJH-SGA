@@ -28,16 +28,24 @@ int main()
 
 	tree.PrintTree(tree._root);
 
+	cout << endl;
+
 	cout << tree.Min(tree._root)->key << endl;
 	cout << tree.Max(tree._root)->key << endl;
 
-	Node* searchNode = tree.Search(tree._root, 0);
+	cout << endl;
+
+	Node* searchNode = tree.Search(tree._root, 10);
 	if (searchNode != nullptr)
-		cout << searchNode << endl;
+		cout << searchNode->key << endl;
 	else
 		cout << "can't find" << endl;
 
-	tree.Delete(tree._root);
+	cout << endl;
+
+	tree.Delete(searchNode);
+
+	tree.PrintTree(tree._root);
 
 	return 0;
 }

@@ -54,15 +54,15 @@ void BinarySearchTree::PrintTree(Node* root)
 	if (root == nullptr)
 		return;
 
-	// 전위
-	std::cout << root->key << std::endl;
-	PrintTree(root->left);
-	PrintTree(root->right);
-
-	//// 중위
-	//PrintTree(root->left);
+	//// 전위
 	//std::cout << root->key << std::endl;
+	//PrintTree(root->left);
 	//PrintTree(root->right);
+
+	// 중위
+	PrintTree(root->left);
+	std::cout << root->key << std::endl;
+	PrintTree(root->right);
 
 	//// 후위
 	//PrintTree(root->left);
@@ -173,7 +173,7 @@ Node* BinarySearchTree::Max(Node* root)
 
 Node* BinarySearchTree::Previous(Node* root)
 {
-	if (root->left == nullptr)
+	/*if (root->left == nullptr)
 		return nullptr;
 	else
 		root = root->left;
@@ -181,12 +181,20 @@ Node* BinarySearchTree::Previous(Node* root)
 	if (root->right == nullptr)
 		return root;
 	else
-		return Max(root);
+		return Max(root);*/
+
+	if (root == nullptr)
+		return root;
+
+	if (root->left == nullptr)
+		return nullptr;
+
+	return Max(root->left);
 }
 
 Node* BinarySearchTree::Next(Node* root)
 {
-	if (root->right == nullptr)
+	/*if (root->right == nullptr)
 		return nullptr;
 	else
 		root = root->right;
@@ -194,7 +202,14 @@ Node* BinarySearchTree::Next(Node* root)
 	if (root->left == nullptr)
 		return root;
 	else
-		return Min(root);
+		return Min(root);*/
+	if (root == nullptr)
+		return root;
+
+	if (root->right == nullptr)
+		return nullptr;
+
+	return Min(root->right);
 }
 
 void BinarySearchTree::Replace(Node* node1, Node* node2)
@@ -224,7 +239,7 @@ void BinarySearchTree::Replace(Node* node1, Node* node2)
 
 void BinarySearchTree::Delete(Node* node)
 {
-	if (node->right == nullptr && node->left == nullptr)
+	/*if (node->right == nullptr && node->left == nullptr)
 	{
 		delete node;
 	}
@@ -246,5 +261,21 @@ void BinarySearchTree::Delete(Node* node)
 
 			Delete(previous);
 		}
+	}*/
+
+	if (node == nullptr)
+		return;
+
+	if (node->left == nullptr)
+		Replace(node, node->right);
+
+	else if (node->right == nullptr)
+		Replace(node, node->left);
+	else
+	{
+		Node* prev = Previous(node);
+		node->key = prev->key;
+		node->data = prev->data;
+		Delete(prev);
 	}
 }
