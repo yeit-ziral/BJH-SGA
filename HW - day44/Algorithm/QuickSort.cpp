@@ -56,7 +56,7 @@ void QuickSort(vector<int>& v, int left, int right)
 	QuickSort(v, pivotIndex + 1, right);
 }
 
-int main()
+int QuickSort()
 {
 	vector<int> v = { 55, 30, 15, 100, 1, 5, 70, 40 };
 
