@@ -117,47 +117,71 @@
 
 using namespace std;
 
-void Sapperate(string letter)
+void Sapperate(string letter, vector<string> Letter)
 {
-	map<int, string> a;
+	map<int, string> A;
 
 	while (true)
+	{
+		string a;
+
+		string s;
+
+		for (int i = 0; i < letter.size(); i++)
+		{
+			
+
+			if (s == " ")
+				break;
+
+			a += s;
+		}
+
+		Letter.push_back(a);
+	}
+
+
+	/*while (true)
 	{
 		if (letter.empty())
 			break;
 		
-		vector<string> Letter;
+		Letter;
+
+		string le;
 
 		for (int i = 0; i < letter.size(); i++)
 		{
 			while (letter[i] != ' ')
 			{
 				string s(1, letter[i]);
-				Letter.push_back(s);
+				
+				le += s;
 
 				letter.erase(0, i + 1);
 			}
 		}
 
-		string temp;
+		Letter.push_back(le);
 
-		for (int i = 0; i < Letter.size(); i++)
-		{
-			temp += Letter[i];
-		}
-
-		Letter.erase();
-
-		Sapperate(letter);
-	}
-
-	return Letter;
+		Sapperate(letter, Letter);
+	}*/
 }
 
 string solution(string letter) {
 	string answer = "";
 
-	Sapperate(letter);
+	vector<string> Letter;
+
+	std::string delimiter = " ";
+	size_t pos = 0;
+	std::string token;
+	while ((pos = letter.find(delimiter)) != std::string::npos) {
+		token = letter.substr(0, pos);
+		Letter.push_back(token);
+		letter.erase(0, pos + delimiter.length());
+	}
+	Letter.push_back(letter);
 
 	map<string, string> morse =
 	{
@@ -168,7 +192,7 @@ string solution(string letter) {
 		{"y" , "-.--"}, {"z" , "--.."}
 	};
 
-	for (int i = 0; i < letter.size(); i++)
+	for (int i = 0; i < Letter.size(); i++)
 	{
 		for (auto iter : morse) {
 			if (iter.second == Letter[i])
@@ -181,13 +205,45 @@ string solution(string letter) {
 	return answer;
 }
 
+using namespace std;
+
+int solution(string before, string after) {
+	int answer = 0;
+	vector<char> a;
+	vector<char> b;
+	for (auto s : before)
+	{
+		b.push_back(s);
+	}
+
+	for (auto s : after)
+	{
+		a.push_back(s);
+	}
+
+	if (before.size() != after.size())
+		answer = 1;
+	else
+	{
+		for (int i = 0; i < b.size(); i++)
+		{
+			for (int j = 0; j < a.size(); j++)
+			{
+				if (b[i] == a[j])
+				{
+					b.erase(b[i], b[i]);
+				}
+			}
+		}
+	}
+
+	return answer;
+}
+
 int main()
 {
-	/*vector<vector<int>> costs = { {0, 1, 1},{0, 2, 2},{1, 2, 5},{1, 3, 1},{2, 3, 8} };
 
-	cout << solution(4, costs) << endl;*/
-
-	string Letter1 = "hello";
+	string Letter1 = ".... . .-.. .-.. ---";
 
 	std::cout << solution(Letter1) << std::endl;
 
