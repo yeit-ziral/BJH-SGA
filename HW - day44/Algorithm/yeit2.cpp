@@ -253,3 +253,72 @@ using namespace std;
 //	return 0;
 //}
 
+#define MAX 8
+
+int answer = 0;
+bool visited[MAX] = { 0 };
+
+void dfs(int cnt, int k, vector<vector<int>>& dungeons) 
+{
+    if (cnt > answer) answer = cnt;
+
+    for (int i = 0; i < dungeons.size(); i++) {
+        if (!visited[i] && dungeons[i][0] <= k) {
+            visited[i] = true;
+            dfs(cnt + 1, k - dungeons[i][1], dungeons);
+            visited[i] = false;
+        }
+    }
+}
+
+int solution(int k, vector<vector<int>> dungeons) 
+{
+    dfs(0, k, dungeons);
+
+    return answer;
+};
+
+bool compare(pair<int, int> a, pair<int, int> b)
+{
+    return a.first > b.first;
+}
+
+vector<int> solution(vector<int> emergency) 
+{
+    vector<int> answer;
+    vector<pair<int, int>> pq;
+
+    for (int i = 0; i < emergency.size(); i++)
+    {
+        pq.push_back({ emergency[i], i + 1 });
+    }
+
+    sort(pq.begin(), pq.end(), compare);
+
+    for (int i = 0; i < pq.size(); i++)
+    {
+        pq[i].second = i + 1;
+    }
+
+    for (int i = 0; i < emergency.size(); i++)
+    {
+        for (int j = 0; j < pq.size(); j++)
+        {
+            if (emergency[i] == pq[j].first)
+                answer.push_back(pq[j].second);
+        }
+    }
+
+    return answer;
+}
+
+int main()
+{
+    vector<int> emergency = { 3, 76, 24 };
+
+    vector<int> answer;
+
+    solution(emergency);
+
+    return 0;
+}
