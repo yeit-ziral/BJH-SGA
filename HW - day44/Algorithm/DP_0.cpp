@@ -43,27 +43,23 @@ int Fibonacci(int n, int& count)
 	return chache[n] = Fibonacci(n - 1, count) + Fibonacci(n - 2, count);
 }
 
-int Fchache[100];
-
-int Factorial(int n)
-{
-	if (n == 0 || n == 1)
-		return 1;
-
-	if (Fchache[n] != -1)
-		return chache[n];
-
-	return Fchache[n] = Factorial(n - 1) * n;
-}
+int chacheC[101][101];
 
 int nCr(int n, int r)
 {
-	if (n >= r)
-	{
-		return Factorial(n) / (Factorial(r) * Factorial(n - r));
-	}
-	else
-		return -1;
+	if (n < r || r < 0)
+		return 0;
+
+	if (n == 1 && r == 0)
+		return 1;
+
+	if (n == 1 && r == 1)
+		return 1;
+
+	if (chacheC[n][r] != -1)
+		return chacheC[n][r];
+
+	return chacheC[n][r] = nCr(n - 1, r - 1) + nCr(n - 1, r);
 }
 
 int main()
@@ -75,22 +71,23 @@ int main()
 		chache[i] = -1;
 	}
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 101; i++)
 	{
-		Fchache[i] = -1;
+		for (int j = 0; j < 101; j++)
+		{
+			chacheC[i][j] = -1;
+		}
 	}
+
+	cout << Fibonacci(70, count) << endl;
 
 	__int64 start = GetTickCount64();
 
-	cout << Fibonacci(70, count) << endl;
+	cout << nCr(100, 10) << endl;
 
 	__int64 end = GetTickCount64();
 
 	cout << end - start << "ms" << endl;
-
-	cout << Factorial(100) << endl;
-
-	cout << nCr(100, 10) << endl;
 
 	return 0;
 }
