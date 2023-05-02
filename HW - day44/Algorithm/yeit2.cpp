@@ -312,7 +312,7 @@ vector<int> solution(vector<int> emergency)
     return answer;
 }
 
-int main()
+int main2()
 {
     vector<int> emergency = { 3, 76, 24 };
 
@@ -321,4 +321,31 @@ int main()
     solution(emergency);
 
     return 0;
+}
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include <vector>
+
+// 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
+char* solution(const char* s) {
+    // return 값은 malloc 등 동적 할당을 사용해주세요. 할당 길이는 상황에 맞게 변경해주세요.
+    char* answer = (char*)malloc(sizeof(char));
+
+    vector<char> v;
+
+    for (auto c : s)
+    {
+        v.push_back(c);
+    }
+
+    return answer;
+}
+
+int main3()
+{
+    string s = "abcabcadc";
+
+    solution(s);
 }
