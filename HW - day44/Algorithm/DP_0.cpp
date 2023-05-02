@@ -62,7 +62,7 @@ int nCr(int n, int r)
 	return chacheC[n][r] = nCr(n - 1, r - 1) + nCr(n - 1, r);
 }
 
-int main()
+int DP_0()
 {
 	int count = 0;
 
