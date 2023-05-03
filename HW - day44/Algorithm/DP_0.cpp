@@ -71,22 +71,23 @@ int DP_0()
 		chache[i] = -1;
 	}
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 101; i++)
 	{
-		Fchache[i] = -1;
+		for (int j = 0; j < 101; j++)
+		{
+			chacheC[i][j] = -1;
+		}
 	}
+
+	cout << Fibonacci(70, count) << endl;
 
 	__int64 start = GetTickCount64();
 
-	cout << Fibonacci(70, count) << endl;
+	cout << nCr(100, 10) << endl;
 
 	__int64 end = GetTickCount64();
 
 	cout << end - start << "ms" << endl;
-
-	cout << Factorial(100) << endl;
-
-	cout << nCr(100, 10) << endl;
 
 	return 0;
 }

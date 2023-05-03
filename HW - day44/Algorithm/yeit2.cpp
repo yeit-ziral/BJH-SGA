@@ -329,23 +329,238 @@ int main2()
 #include <vector>
 
 // 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
-char* solution(const char* s) {
-    // return 값은 malloc 등 동적 할당을 사용해주세요. 할당 길이는 상황에 맞게 변경해주세요.
-    char* answer = (char*)malloc(sizeof(char));
+string solution(string s) {
+    string answer = "";
 
-    vector<char> v;
+    vector<pair<char, int>> vec;
 
+    for (char ch = 'a'; ch <= 'z'; ch++)
+    {
+        vec.push_back({ ch, 0 });
+    }
+
+    vector <char> v2;
     for (auto c : s)
     {
-        v.push_back(c);
+        v2.push_back(c);
+    }
+
+    for (int i = 0; i < v2.size(); i++)
+    {
+        for (int j = 0; j < vec.size(); j++)
+        {
+            if (v2[i] == vec[j].first)
+                vec[j].second++;
+        }
+    }
+
+    for (int i = 0; i < vec.size(); i++)
+    {
+        if (vec[i].second == 1)
+            answer += vec[i].first;
     }
 
     return answer;
 }
 
-int main3()
-{
-    string s = "abcabcadc";
+#include <string>
+#include <vector>
 
-    solution(s);
+using namespace std;
+
+string Sub(vector<char> b1, vector<char>b2)
+{
+    /*int size = 0;
+
+    if (b1.size() <= b2.size())
+    {
+        size = b2.size() + 1;
+
+        for (int i = 0; i < size; i++)
+        {
+            if (b1[i] == nullptr)
+                b1[i].push_back('0');
+        }
+
+        b2.push_back('0');
+    }
+    else
+    {
+        size = b1.size() + 1;
+
+        for (int i = 0; i < size; i++)
+        {
+            if (b2[i] == nullptr)
+                b2[i].push_back('0');
+        }
+
+        b1.push_back('0');
+    }
+
+    vector<char> sub[size];
+
+    for (int i = 0; i < size; i++)
+    {
+        if (sub[i] == '0')
+        {
+            if (b1[i] == '1' && b2[i] == '1')
+            {
+                sub[i] = '0';
+                sub[i + 1] = '1';
+            }
+            else if (b1[i] == '0' && b2[i] == '0')
+            {
+                sub[i] = '0';
+            }
+            else
+            {
+                sub[i] = '1';
+            }
+        }
+        else
+        {
+            if (b1[i] == '1' && b2[i] == '1')
+            {
+                sub[i] = '1';
+                sub[i + 1] = '1';
+            }
+            else if (b1[i] == '0' && b2[i] == '0')
+            {
+                sub[i] = '1';
+            }
+            else
+            {
+                sub[i] = '0';
+                sub[i + 1] = '1';
+            }
+        }
+    }
+
+    reverse(sub.begin(), sub.end());
+
+    string result;
+
+    for (int i = 0; i < sub.size(); i++)
+    {
+        if (sub[0] == '0')
+            continue;
+
+        result += sub[i];
+    }*/
+    int size = 0;
+
+    if (b1.size() <= b2.size())
+    {
+        size = b2.size() + 1;
+
+        for (int i = 0; i < size; i++)
+        {
+            if (i >= b1.size())
+                b1.push_back('0');
+        }
+
+        b2.push_back('0');
+    }
+    else
+    {
+        size = b1.size() + 1;
+
+        for (int i = 0; i < size; i++)
+        {
+            if (i >= b2.size())
+                b2.push_back('0');
+        }
+
+        b1.push_back('0');
+    }
+
+    vector<char> sub(size, '0');
+
+    for (int i = 0; i < size; i++)
+    {
+        if (sub[i] == '0')
+        {
+            if (b1[i] == '1' && b2[i] == '1')
+            {
+                sub[i] = '0';
+                sub[i + 1] = '1';
+            }
+            else if (b1[i] == '0' && b2[i] == '0')
+            {
+                sub[i] = '0';
+            }
+            else
+            {
+                sub[i] = '1';
+            }
+        }
+        else
+        {
+            if (b1[i] == '1' && b2[i] == '1')
+            {
+                sub[i] = '1';
+                sub[i + 1] = '1';
+            }
+            else if (b1[i] == '0' && b2[i] == '0')
+            {
+                sub[i] = '1';
+            }
+            else
+            {
+                sub[i] = '0';
+                sub[i + 1] = '1';
+            }
+        }
+    }
+
+    reverse(sub.begin(), sub.end());
+
+    string result;
+
+    for (int i = 0; i < sub.size(); i++)
+    {
+        if (sub[0] == '0')
+            continue;
+
+        result += sub[i];
+    }
+
+    return result;
+}
+
+string solution(string bin1, string bin2) {
+    string answer = "";
+
+    vector<char> b1;
+
+    vector<char> b2;
+
+    for (auto a : bin1)
+    {
+        b1.push_back(a);
+    }
+
+    reverse(b1.begin(), b1.end());
+
+    for (auto a : bin2)
+    {
+        b2.push_back(a);
+    }
+
+    reverse(b2.begin(), b2.end());
+
+    answer = Sub(b1, b2);
+
+    return answer;
+}
+
+int main()
+{
+    string b1 = "100";
+
+    string b2 = "11";
+
+    cout << solution(b1, b2) << endl;
+
+    return 0;
 }
