@@ -43,30 +43,26 @@ int Fibonacci(int n, int& count)
 	return chache[n] = Fibonacci(n - 1, count) + Fibonacci(n - 2, count);
 }
 
-int Fchache[100];
-
-int Factorial(int n)
-{
-	if (n == 0 || n == 1)
-		return 1;
-
-	if (Fchache[n] != -1)
-		return chache[n];
-
-	return Fchache[n] = Factorial(n - 1) * n;
-}
+int chacheC[101][101];
 
 int nCr(int n, int r)
 {
-	if (n >= r)
-	{
-		return Factorial(n) / (Factorial(r) * Factorial(n - r));
-	}
-	else
-		return -1;
+	if (n < r || r < 0)
+		return 0;
+
+	if (n == 1 && r == 0)
+		return 1;
+
+	if (n == 1 && r == 1)
+		return 1;
+
+	if (chacheC[n][r] != -1)
+		return chacheC[n][r];
+
+	return chacheC[n][r] = nCr(n - 1, r - 1) + nCr(n - 1, r);
 }
 
-int main()
+int DP_0()
 {
 	int count = 0;
 
