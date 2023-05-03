@@ -554,6 +554,43 @@ string solution(string bin1, string bin2) {
     return answer;
 }
 
+vector<int> solution(vector<vector<int>> score) {
+    vector<int> answer;
+
+    priority_queue<vector<int>> scale;
+
+    for (int i = 0; i < score.size(); i++)
+    {
+        int average = (score[i][0] + score[i][1]) / 2;
+        vector<int> temp = { average, i, 0 };
+        scale.push(temp);
+    }
+
+    vector<vector<int>> temp;
+
+    while (!scale.empty()) {
+        temp.push_back(scale.top());
+        scale.pop();
+    }
+
+    temp[0][2] = 1;
+
+    for (int i = 1; i < temp.size(); i++)
+    {
+        temp[i][2] = i + 1;
+
+        if (temp[i][0] == temp[i - 1][0])
+            temp[i][2] = temp[i - 1][2];
+    }
+
+    for (auto i : temp)
+    {
+        answer.push_back(i[2]);
+    }
+
+    return answer;
+}
+
 int main()
 {
     string b1 = "100";
@@ -563,4 +600,18 @@ int main()
     cout << solution(b1, b2) << endl;
 
     return 0;
+}
+
+vector<pair<int, int>> a;
+
+for (int i = 0; i < numlist.size(); i++)
+{
+    a.push_back({ abs(numlist[i] - n), numlist[i] });
+}
+
+sort(a.begin(), a.end());
+
+for (int i = 0; i < a.size(); i++)
+{
+    answer.push_back(a[i].second;
 }
