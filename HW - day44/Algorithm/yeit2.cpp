@@ -591,7 +591,7 @@ vector<int> solution(vector<vector<int>> score) {
     return answer;
 }
 
-int main()
+int main2()
 {
     string b1 = "100";
 
@@ -600,18 +600,4 @@ int main()
     cout << solution(b1, b2) << endl;
 
     return 0;
-}
-
-vector<pair<int, int>> a;
-
-for (int i = 0; i < numlist.size(); i++)
-{
-    a.push_back({ abs(numlist[i] - n), numlist[i] });
-}
-
-sort(a.begin(), a.end());
-
-for (int i = 0; i < a.size(); i++)
-{
-    answer.push_back(a[i].second;
 }

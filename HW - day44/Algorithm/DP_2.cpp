@@ -34,6 +34,8 @@ int len = seq.size() - 1;
 
 int a;
 
+int b = 0;
+
 int LIS(int pos)
 {
 	if (pos == len)
@@ -42,21 +44,37 @@ int LIS(int pos)
 	if (ca[pos] != -1)
 		return ca[pos];
 
-	int b = seq[pos];
+	vector<int> A;
+
+	a = A.size();
+
+	if (seq[pos] > seq[pos + 1])
+	{
+		A.clear();
+		A.push_back(seq[pos]);
+		ca[pos] = LIS(pos + 1);
+	}
+	else
+	{
+		A.push_back(seq[pos]);
+		ca[pos] = LIS(pos + 1) + 1;
+	}
 
 	if (a > b)
 	{
-		a = a;
+		b = a;
+
+		ca[pos] = a;
 	}
 	else
 	{
-		a = b;
+		ca[pos] = b;
 	}
 
-	if (seq[pos] > seq[pos + 1])
-		ca[pos] = LIS(pos + 1);
-	else
-		ca[pos] = LIS(pos + 1) + 1;
+	for (int i = pos - 1; i > 0; i--)
+	{
+		LIS(i);
+	}
 
 
 	return ca[pos];
