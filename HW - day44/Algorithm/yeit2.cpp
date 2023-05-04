@@ -591,13 +591,38 @@ vector<int> solution(vector<vector<int>> score) {
     return answer;
 }
 
-int main2()
+
+// 해시 >> 의상
+int solution(vector<vector<string>> clothes) {
+    int answer = 1;
+
+    unordered_map<string, vector<string>> clothes_map;
+
+    for (auto item : clothes) {
+        clothes_map[item[1]].push_back(item[0]);
+    }
+
+    vector<vector<string>> clothet;
+    for (auto item : clothes_map) {
+        clothet.push_back(item.second);
+    }
+
+
+    for (int i = 0; i < clothet.size(); i++)
+    {
+        answer *= (clothet[i].size() + 1);
+    }
+
+    answer--;
+
+    return answer;
+}
+
+int main()
 {
-    string b1 = "100";
+    vector<vector<string>> clothes = { {"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"} };
 
-    string b2 = "11";
-
-    cout << solution(b1, b2) << endl;
+    cout << solution(clothes) << endl;
 
     return 0;
 }
