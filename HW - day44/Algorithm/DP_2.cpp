@@ -89,13 +89,13 @@ int LIS(int pos)
 {
 	// 기저
 	if (pos == len)
-		return -1;
+		return 1;
 
 	// 캐싱
 	int& ref = ca[pos];
 
 	// 구하기
-	ref = 1; // ref = -1이라서 발생하는 에러 예방
+	//ref = 1; // ref = -1이라서 발생하는 에러 예방
 	for (int next = pos + 1; next < seq.size(); next++)
 	{
 		if (seq[pos] <= seq[next])
@@ -114,8 +114,8 @@ int myLis(int pos)
 
 	int& ref = ca[pos];
 
-	if (ref != -1)
-		return ref;
+	/*if (ref != -1)
+		return ref;*/
 
 	int maxLis = 0;
 
