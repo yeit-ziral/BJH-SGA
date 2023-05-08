@@ -278,6 +278,7 @@ int solution(int k, vector<vector<int>> dungeons)
     return answer;
 };
 
+// 프로그래머스 입문 진료순서 구하기
 bool compare(pair<int, int> a, pair<int, int> b)
 {
     return a.first > b.first;
@@ -323,12 +324,14 @@ int main2()
     return 0;
 }
 
+
+// 프로그래머스 입문 한번만 등장한 문자
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <vector>
 
-// 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
+      // 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
 string solution(string s) {
     string answer = "";
 
@@ -618,7 +621,7 @@ int solution(vector<vector<string>> clothes) {
     return answer;
 }
 
-int main()
+int main4()
 {
     vector<vector<string>> clothes = { {"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"} };
 
