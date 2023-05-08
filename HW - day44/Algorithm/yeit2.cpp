@@ -328,18 +328,13 @@ int main2()
     return 0;
 }
 
-<<<<<<< Updated upstream
-
 // 프로그래머스 입문 한번만 등장한 문자
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <vector>
 
-      // 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
-=======
 // 파라미터로 주어지는 문자열은 const로 주어집니다. 변경하려면 문자열을 복사해서 사용하세요.
->>>>>>> Stashed changes
 string solution(string s) {
     string answer = "";
 
@@ -629,11 +624,7 @@ int solution(vector<vector<string>> clothes) {
     return answer;
 }
 
-<<<<<<< Updated upstream
-int main4()
-=======
 int main3()
->>>>>>> Stashed changes
 {
     vector<vector<string>> clothes = { {"yellow_hat", "headgear"}, {"blue_sunglasses", "eyewear"}, {"green_turban", "headgear"} };
 

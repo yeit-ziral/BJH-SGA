@@ -140,7 +140,7 @@ int myLis(int pos)
 		ref = maxLis;
 }
 
-int mainLis()
+int main()
 {
 	int lis = 0;
 
