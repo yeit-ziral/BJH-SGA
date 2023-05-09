@@ -376,15 +376,15 @@ void InitDevice()
     vertices.push_back(temp); // 오른쪽 아래
 
     // 사각형 반쪽 삼각형
-    temp.pos = XMFLOAT3(-0.5f, 0.5f, 0.0f);
+    temp.pos = XMFLOAT3(-0.5f - 0.1f, 0.5f - 0.1f, 0.0f);
     temp.color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
     vertices.push_back(temp); // 왼쪽 위
 
-    temp.pos = XMFLOAT3(0.5f, -0.5f, 0.0f);
+    temp.pos = XMFLOAT3(0.5f - 0.1f, -0.5f - 0.1f, 0.0f);
     temp.color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
     vertices.push_back(temp); // 오른쪽 아래
 
-    temp.pos = XMFLOAT3(-0.5f, -0.5f, 0.0f);
+    temp.pos = XMFLOAT3(-0.5f - 0.1f, -0.5f - 0.1f, 0.0f);
     temp.color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
     vertices.push_back(temp); // 왼쪽 아래
 
