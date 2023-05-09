@@ -282,10 +282,10 @@ void InitDevice()
     sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     sd.BufferDesc.RefreshRate.Numerator = 60;
     sd.BufferDesc.RefreshRate.Denominator = 1;
-    // Numerator / Denominator => 화면 프레임 갱싱 속도 FPS
+    // Numerator / Denominator => 화면 프레임 갱식 속도... FPS
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
     sd.OutputWindow = hWnd;
-    sd.SampleDesc.Count = 10;
+    sd.SampleDesc.Count = 1;
     sd.SampleDesc.Quality = 0;
     sd.Windowed = true; // 창모드
 
@@ -307,8 +307,8 @@ void InitDevice()
 
     ComPtr<ID3D11Texture2D> backBuffer;
 
-    swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf()); // (void**) => 어떤 포인터가 올 지 모른다 상관없다
-    device->CreateRenderTargetView(backBuffer.Get(), nullptr, renderTargetView.GetSddressOf());
+    swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf());
+    device->CreateRenderTargetView(backBuffer.Get(), nullptr, renderTargetView.GetAddressOf());
 
     deviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), nullptr);
 
@@ -324,7 +324,7 @@ void InitDevice()
     D3D11_INPUT_ELEMENT_DESC layOut[] =
     {
         {
-            "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, // -> XMFLOAT3로 넘겨주겠다는 의미
+            "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,0,0,
             D3D11_INPUT_PER_VERTEX_DATA, 0
         }
     };
@@ -335,7 +335,7 @@ void InitDevice()
 
     ComPtr<ID3DBlob> vertexBlob; // VertexShader 만들 때 필요한 얘
 
-    D3DCompileFromFile(L"Shader/tutorialShader.hlsl", nullptr, nullptr, "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
+    D3DCompileFromFile(L"Shader/TutorialShader.hlsl", nullptr, nullptr, "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
 
     device->CreateVertexShader(vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), nullptr, vertexShader.GetAddressOf());
 
