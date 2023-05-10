@@ -419,6 +419,50 @@ void InitDevice()
     wstring path = L"Resource/Goomba.png";
     LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, nullptr, image);
 
+
+    //hr = CoCreateInstance(
+    //    CLSID_WICImagingFactory,
+    //    NULL,
+    //    CLSCTX_INPROC_SERVER,
+    //    IID_PPV_ARGS(&m_pIWICFactory)
+    //);
+    //
+    //HRESULT hr = S_OK;
+    //
+    //IWICBitmapDecoder* pIDecoder = NULL;
+    //IWICBitmapFrameDecode* pIDecoderFrame = NULL;
+    //IWICBitmapFlipRotator* pIFlipRotator = NULL;
+    //
+    //hr = m_pIWICFactory->CreateDecoderFromFilename(
+    //    L"turtle.jpg",                  // Image to be decoded
+    //    NULL,                           // Do not prefer a particular vendor
+    //    GENERIC_READ,                   // Desired read access to the file
+    //    WICDecodeMetadataCacheOnDemand, // Cache metadata when needed
+    //    &pIDecoder                      // Pointer to the decoder
+    //);
+    //
+    //// Retrieve the first bitmap frame.
+    //if (SUCCEEDED(hr))
+    //{
+    //    hr = pIDecoder->GetFrame(0, &pIDecoderFrame);
+    //}
+    //
+    //// Create the flip/rotator.
+    //if (SUCCEEDED(hr))
+    //{
+    //    hr = m_pIWICFactory->CreateBitmapFlipRotator(&pIFlipRotator);
+    //}
+    //
+    //// Initialize the flip/rotator to flip the original source horizontally.
+    //if (SUCCEEDED(hr))
+    //{
+    //    hr = pIFlipRotator->Initialize(
+    //        pIDecoderFrame,                     // Bitmap source to flip.
+    //        WICBitmapTransformFlipHorizontal);  // Flip the pixels along the 
+    //                                            //  vertical y-axis.
+    //}
+
+
     // 판박이 만드는 작업
     CreateShaderResourceView(device.Get(), image.GetImages(), image.GetImageCount(), image.GetMetadata(),
     shaderResourceView.GetAddressOf());

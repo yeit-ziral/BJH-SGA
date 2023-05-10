@@ -23,7 +23,7 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
-//DirectTex
+//DirectXTex
 #include "../DirectTex/DirectXTex.h"
 
 #pragma comment(lib,"d3d11.lib")

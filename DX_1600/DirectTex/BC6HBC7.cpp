@@ -1184,7 +1184,7 @@ namespace
 
 
     //-------------------------------------------------------------------------------------
-    void OptimizeRGB(
+    float OptimizeRGB(
         _In_reads_(NUM_PIXELS_PER_BLOCK) const HDRColorA* const pPoints,
         _Out_ HDRColorA* pX,
         _Out_ HDRColorA* pY,
@@ -1192,6 +1192,7 @@ namespace
         size_t cPixels,
         _In_reads_(cPixels) const size_t* pIndex) noexcept
     {
+        constexpr float fError = FLT_MAX;
         const float *pC = (3 == cSteps) ? pC3 : pC4;
         const float *pD = (3 == cSteps) ? pD3 : pD4;
 
@@ -1222,7 +1223,7 @@ namespace
         {
             pX->r = X.r; pX->g = X.g; pX->b = X.b;
             pY->r = Y.r; pY->g = Y.g; pY->b = Y.b;
-            return;
+            return 0.0f;
         }
 
         // Try all four axis directions, to determine which diagonal best fits data
@@ -1275,7 +1276,7 @@ namespace
         {
             pX->r = X.r; pX->g = X.g; pX->b = X.b;
             pY->r = Y.r; pY->g = Y.g; pY->b = Y.b;
-            return;
+            return 0.0f;
         }
 
         // Use Newton's Method to find local minima of sum-of-squares error.
@@ -1374,11 +1375,12 @@ namespace
 
         pX->r = X.r; pX->g = X.g; pX->b = X.b;
         pY->r = Y.r; pY->g = Y.g; pY->b = Y.b;
+        return fError;
     }
 
 
     //-------------------------------------------------------------------------------------
-    void OptimizeRGBA(
+    float OptimizeRGBA(
         _In_reads_(NUM_PIXELS_PER_BLOCK) const HDRColorA* const pPoints,
         _Out_ HDRColorA* pX,
         _Out_ HDRColorA* pY,
@@ -1386,6 +1388,7 @@ namespace
         size_t cPixels,
         _In_reads_(cPixels) const size_t* pIndex) noexcept
     {
+        constexpr float fError = FLT_MAX;
         const float *pC = (3 == cSteps) ? pC3 : pC4;
         const float *pD = (3 == cSteps) ? pD3 : pD4;
 
@@ -1414,7 +1417,7 @@ namespace
         {
             *pX = X;
             *pY = Y;
-            return;
+            return 0.0f;
         }
 
         // Try all four axis directions, to determine which diagonal best fits data
@@ -1465,13 +1468,13 @@ namespace
         {
             *pX = X;
             *pY = Y;
-            return;
+            return 0.0f;
         }
 
         // Use Newton's Method to find local minima of sum-of-squares error.
         const auto fSteps = static_cast<float>(cSteps - 1u);
 
-        for (size_t iIteration = 0; iIteration < 8; iIteration++)
+        for (size_t iIteration = 0; iIteration < 8 && fError > 0.0f; iIteration++)
         {
             // Calculate new steps
             HDRColorA pSteps[BC7_MAX_INDICES];
@@ -1541,6 +1544,7 @@ namespace
 
         *pX = X;
         *pY = Y;
+        return fError;
     }
 
 
@@ -1692,7 +1696,7 @@ void D3DX_BC6H::Decode(bool bSigned, HDRColorA* pOut) const noexcept
                 case BZ: aEndPts[1].B.b |= 1 << uint32_t(desc[uCurBit].m_uBit); break;
                 default:
                     {
-                    #if defined(_WIN32) && defined(_DEBUG)
+                    #ifdef _DEBUG
                         OutputDebugStringA("BC6H: Invalid header bits encountered during decoding\n");
                     #endif
                         FillWithErrorColors(pOut);
@@ -1736,7 +1740,7 @@ void D3DX_BC6H::Decode(bool bSigned, HDRColorA* pOut) const noexcept
             const size_t uNumBits = IsFixUpOffset(info.uPartitions, uShape, i) ? info.uIndexPrec - 1u : info.uIndexPrec;
             if (uStartBit + uNumBits > 128)
             {
-            #if defined(_WIN32) && defined(_DEBUG)
+            #ifdef _DEBUG
                 OutputDebugStringA("BC6H: Invalid block encountered during decoding\n");
             #endif
                 FillWithErrorColors(pOut);
@@ -1746,7 +1750,7 @@ void D3DX_BC6H::Decode(bool bSigned, HDRColorA* pOut) const noexcept
 
             if (uIndex >= ((info.uPartitions > 0) ? 8 : 16))
             {
-            #if defined(_WIN32) && defined(_DEBUG)
+            #ifdef _DEBUG
                 OutputDebugStringA("BC6H: Invalid index encountered during decoding\n");
             #endif
                 FillWithErrorColors(pOut);
@@ -1781,7 +1785,7 @@ void D3DX_BC6H::Decode(bool bSigned, HDRColorA* pOut) const noexcept
     }
     else
     {
-    #if defined(_WIN32) && defined(_DEBUG)
+    #ifdef _DEBUG
         const char* warnstr = "BC6H: Invalid mode encountered during decoding\n";
         switch (uMode)
         {
@@ -2592,7 +2596,7 @@ void D3DX_BC7::Decode(HDRColorA* pOut) const noexcept
         {
             if (uStartBit + RGBAPrec.r > 128)
             {
-            #if defined(_WIN32) && defined(_DEBUG)
+            #ifdef _DEBUG
                 OutputDebugStringA("BC7: Invalid block encountered during decoding\n");
             #endif
                 FillWithErrorColors(pOut);
@@ -2607,7 +2611,7 @@ void D3DX_BC7::Decode(HDRColorA* pOut) const noexcept
         {
             if (uStartBit + RGBAPrec.g > 128)
             {
-            #if defined(_WIN32) && defined(_DEBUG)
+            #ifdef _DEBUG
                 OutputDebugStringA("BC7: Invalid block encountered during decoding\n");
             #endif
                 FillWithErrorColors(pOut);
@@ -2622,7 +2626,7 @@ void D3DX_BC7::Decode(HDRColorA* pOut) const noexcept
         {
             if (uStartBit + RGBAPrec.b > 128)
             {
-            #if defined(_WIN32) && defined(_DEBUG)
+            #ifdef _DEBUG
                 OutputDebugStringA("BC7: Invalid block encountered during decoding\n");
             #endif
                 FillWithErrorColors(pOut);
@@ -2637,7 +2641,7 @@ void D3DX_BC7::Decode(HDRColorA* pOut) const noexcept
         {
             if (uStartBit + RGBAPrec.a > 128)
             {
-            #if defined(_WIN32) && defined(_DEBUG)
+            #ifdef _DEBUG
                 OutputDebugStringA("BC7: Invalid block encountered during decoding\n");
             #endif
                 FillWithErrorColors(pOut);
@@ -2654,7 +2658,7 @@ void D3DX_BC7::Decode(HDRColorA* pOut) const noexcept
         {
             if (uStartBit > 127)
             {
-            #if defined(_WIN32) && defined(_DEBUG)
+            #ifdef _DEBUG
                 OutputDebugStringA("BC7: Invalid block encountered during decoding\n");
             #endif
                 FillWithErrorColors(pOut);
@@ -2692,7 +2696,7 @@ void D3DX_BC7::Decode(HDRColorA* pOut) const noexcept
             const size_t uNumBits = IsFixUpOffset(ms_aInfo[uMode].uPartitions, uShape, i) ? uIndexPrec - 1u : uIndexPrec;
             if (uStartBit + uNumBits > 128)
             {
-            #if defined(_WIN32) && defined(_DEBUG)
+            #ifdef _DEBUG
                 OutputDebugStringA("BC7: Invalid block encountered during decoding\n");
             #endif
                 FillWithErrorColors(pOut);
@@ -2709,7 +2713,7 @@ void D3DX_BC7::Decode(HDRColorA* pOut) const noexcept
                 const size_t uNumBits = i ? uIndexPrec2 : uIndexPrec2 - 1u;
                 if (uStartBit + uNumBits > 128)
                 {
-                #if defined(_WIN32) && defined(_DEBUG)
+                #ifdef _DEBUG
                     OutputDebugStringA("BC7: Invalid block encountered during decoding\n");
                 #endif
                     FillWithErrorColors(pOut);
@@ -2751,7 +2755,7 @@ void D3DX_BC7::Decode(HDRColorA* pOut) const noexcept
     }
     else
     {
-    #if defined(_WIN32) && defined(_DEBUG)
+    #ifdef _DEBUG
         OutputDebugStringA("BC7: Reserved mode 8 encountered during decoding\n");
     #endif
         // Per the BC7 format spec, we must return transparent black
