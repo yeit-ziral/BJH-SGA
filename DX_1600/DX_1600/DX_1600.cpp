@@ -346,7 +346,7 @@ void InitDevice()
             D3D11_INPUT_PER_VERTEX_DATA,0
         },
         {
-            "UV", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 28/*XMFLOAT3의 사이즈 + XMFLOAT4의 사이즈*/,
+            "UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28/*XMFLOAT3의 사이즈 + XMFLOAT4의 사이즈*/,
             D3D11_INPUT_PER_VERTEX_DATA,0
         }
     };
