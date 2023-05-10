@@ -71,12 +71,19 @@ ComPtr<ID3D11PixelShader> pixelShader;
 // inputLayout : 정보의 배치
 ComPtr<ID3D11InputLayout> inputLayout;
 
+// 판박이 만드는 작업 (Texture maping : Texture를 판박이 붙이듯 그려넣는것) 
+ComPtr<ID3D11ShaderResourceView> shaderResourceView;
+
+// 판박이 붙혀주는 사람
+ComPtr<ID3D11SamplerState> samplerState;
+
 HWND hWnd;
 
 struct Vertex
 {
     XMFLOAT3 pos;
     XMFLOAT4 color;
+    XMFLOAT2 uv;
 };
 
 void InitDevice();
@@ -320,8 +327,8 @@ void InitDevice()
     deviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), nullptr);
 
     D3D11_VIEWPORT vp;
-    vp.Width = width;
-    vp.Height = height;
+    vp.Width = width;       // unreal 엔진에서 클립 스페이스의 넓이
+    vp.Height = height;     // unreal 엔진에서 클립 스페이스의 높이
     vp.MinDepth = 0.0f;
     vp.MaxDepth = 1.0f;
     vp.TopLeftX = 0;
@@ -336,6 +343,10 @@ void InitDevice()
         },
         {
             "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12/*XMFLOAT3의 사이즈*/,
+            D3D11_INPUT_PER_VERTEX_DATA,0
+        },
+        {
+            "UV", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 28/*XMFLOAT3의 사이즈 + XMFLOAT4의 사이즈*/,
             D3D11_INPUT_PER_VERTEX_DATA,0
         }
     };
@@ -365,27 +376,33 @@ void InitDevice()
     Vertex temp;
     temp.pos = XMFLOAT3(-0.5f, 0.5f, 0.0f);
     temp.color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+    temp.uv = { 0.0f, 0.0f };
     vertices.push_back(temp); // 왼쪽 위
 
     temp.pos = XMFLOAT3(0.5f, 0.5f, 0.0f);
     temp.color = XMFLOAT4(0.7f, 0.6f, 1.0f, 1.0f);
+    temp.uv = { 1.0f, 0.0f };
     vertices.push_back(temp); // 오른쪽 위
 
     temp.pos = XMFLOAT3(0.5f, -0.5f, 0.0f);
     temp.color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+    temp.uv = { 1.0f, 1.0f };
     vertices.push_back(temp); // 오른쪽 아래
 
     // 사각형 반쪽 삼각형
-    temp.pos = XMFLOAT3(-0.5f - 0.1f, 0.5f - 0.1f, 0.0f);
+    temp.pos = XMFLOAT3(-0.5f, 0.5f, 0.0f);
     temp.color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+    temp.uv = { 0.0f, 0.0f };
     vertices.push_back(temp); // 왼쪽 위
 
-    temp.pos = XMFLOAT3(0.5f - 0.1f, -0.5f - 0.1f, 0.0f);
+    temp.pos = XMFLOAT3(0.5f, -0.5f, 0.0f);
     temp.color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+    temp.uv = { 1.0f, 1.0f };
     vertices.push_back(temp); // 오른쪽 아래
 
-    temp.pos = XMFLOAT3(-0.5f - 0.1f, -0.5f - 0.1f, 0.0f);
+    temp.pos = XMFLOAT3(-0.5f, -0.5f, 0.0f);
     temp.color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+    temp.uv = { 0.0f, 1.0f };
     vertices.push_back(temp); // 왼쪽 아래
 
     D3D11_BUFFER_DESC bd = {};
@@ -397,6 +414,24 @@ void InitDevice()
     initData.pSysMem = vertices.data();
 
     device->CreateBuffer(&bd, &initData, vertexBuffer.GetAddressOf());
+
+    ScratchImage image;
+    wstring path = L"Resource/Goomba.png";
+    LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, nullptr, image);
+
+    // 판박이 만드는 작업
+    CreateShaderResourceView(device.Get(), image.GetImages(), image.GetImageCount(), image.GetMetadata(),
+    shaderResourceView.GetAddressOf());
+
+    // 판박이 붙이는 아저씨 만드는 작업
+    D3D11_SAMPLER_DESC sampDesc = {};
+    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+    sampDesc.MinLOD = 0;
+    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
     return;
 }
@@ -419,13 +454,17 @@ void Render()
 
     deviceContext->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
 
-    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST); // 그리는 방향도 중요
+    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST); // 그리는 방향도 중요, 삼각형 그리기
+
+    deviceContext->PSSetShaderResources(0, 1, shaderResourceView.GetAddressOf());
+
+    deviceContext->PSSetSamplers(0, 1, samplerState.GetAddressOf());
 
     deviceContext->VSSetShader(vertexShader.Get(), nullptr, 0);
     
     deviceContext->PSSetShader(pixelShader.Get(), nullptr, 0);
 
-    deviceContext->Draw(6, 0);
+    deviceContext->Draw(6, 0); // DrawCall -> 이게 많아지면 프레임 드랍이 나옴
 
     swapChain->Present(0,0);
 }
