@@ -17,6 +17,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <string>
+#include <memory>
 #include <wrl/client.h>
 
 #include <d3d11.h>
@@ -32,3 +33,27 @@
 using namespace std;
 using namespace DirectX;
 using namespace Microsoft::WRL;
+
+// Types
+#include "Types.h"
+
+//Framework
+#include "FrameWork/Device/Device.h"
+
+//Render
+#include "FrameWork/Render/VertexLayOut.h"
+#include "FrameWork/Render/VertexBuffer.h"
+#include "FrameWork/Render/VertexShader.h"
+#include "FrameWork/Render/PixelShader.h"
+
+//TextureMapping
+#include "FrameWork/TextureMapping/SamplerState.h"
+#include "FrameWork/TextureMapping/SRV.h"
+
+// Scene
+#include "Scene/Scene.h"
+
+// Program
+#include "Program/program.h"
+
+extern HWND hWnd;
