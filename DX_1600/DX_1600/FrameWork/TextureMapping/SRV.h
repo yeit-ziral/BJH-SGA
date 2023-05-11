@@ -5,7 +5,7 @@ public:
 	SRV(wstring file);
 	~SRV();
 
-	void Set();
+	void Set(int slot = 0);
 
 private:
 	// 판박이 만드는 작업 (Texture maping : Texture를 판박이 붙이듯 그려넣는것) 

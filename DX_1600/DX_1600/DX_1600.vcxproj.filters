@@ -57,7 +57,7 @@
     <ClInclude Include="FrameWork\TextureMapping\SamplerState.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\GoombaScene.h">
+    <ClInclude Include="Scene\TutorialScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,7 +92,7 @@
     <ClCompile Include="FrameWork\TextureMapping\SamplerState.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\GoombaScene.cpp">
+    <ClCompile Include="Scene\TutorialScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

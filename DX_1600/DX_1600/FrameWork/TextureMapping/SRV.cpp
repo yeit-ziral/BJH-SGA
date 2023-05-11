@@ -4,7 +4,7 @@
 SRV::SRV(wstring file)
 {
     ScratchImage image;
-    wstring path = L"Resource/Goomba.png";
+    wstring path = file;
     LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, nullptr, image);
 
     // 판박이 만드는 작업
@@ -16,7 +16,7 @@ SRV::~SRV()
 {
 }
 
-void SRV::Set()
+void SRV::Set(int slot)
 {
     DC->PSSetShaderResources(0, 1, shaderResourceView.GetAddressOf());
 }

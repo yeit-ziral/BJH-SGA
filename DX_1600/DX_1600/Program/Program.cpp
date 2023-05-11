@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "Program.h"
 
+#include "../Scene/TutorialScene.h"
+
 Program::Program()
 {
 	_curScene = make_shared<GoombaScene>();
