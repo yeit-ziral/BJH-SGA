@@ -5,7 +5,7 @@
 
 Program::Program()
 {
-	_curScene = make_shared<GoombaScene>();
+	_curScene = make_shared<TutorialScene>();
 }
 
 Program::~Program()

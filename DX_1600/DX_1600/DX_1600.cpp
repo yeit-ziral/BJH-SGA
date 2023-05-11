@@ -47,7 +47,6 @@
 
 HWND hWnd;
 
-void InitDevice();
 void Render();
 
 // 전역 변수:
@@ -237,11 +236,6 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
-}
-
-void InitDevice()
-{
-    return;
 }
 
 void Render()
