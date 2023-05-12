@@ -11,7 +11,7 @@ SRV::SRV(wstring file)
 
     // 판박이 만드는 작업
     CreateShaderResourceView(DEVICE.Get(), image.GetImages(), image.GetImageCount(), image.GetMetadata(),
-        shaderResourceView.GetAddressOf());
+        _shaderResourceView.GetAddressOf());
 }
 
 SRV::~SRV()
@@ -20,5 +20,5 @@ SRV::~SRV()
 
 void SRV::Set(int slot)
 {
-    DC->PSSetShaderResources(slot, 1, shaderResourceView.GetAddressOf());
+    DC->PSSetShaderResources(slot, 1, _shaderResourceView.GetAddressOf());
 }

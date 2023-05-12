@@ -61,6 +61,6 @@ using namespace Microsoft::WRL;
 #include "Scene/Scene.h"
 
 // Program
-#include "Program/program.h"
+#include "Program/Program.h"
 
 extern HWND hWnd;
