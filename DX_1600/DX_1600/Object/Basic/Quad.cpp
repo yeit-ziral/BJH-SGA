@@ -20,7 +20,7 @@ Quad::Quad(wstring srvFile)
     _ss = make_shared<SamplerState>();
     CreateVertices();
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex), _vertices.size(), 0);
-    _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size(), 0);
+    _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
 }
 
 Quad::~Quad()
