@@ -158,6 +158,9 @@
     <ClInclude Include="FrameWork\Render\VertexLayOut.h" />
     <ClInclude Include="FrameWork\TextureMapping\SRV.h" />
     <ClInclude Include="FrameWork\TextureMapping\SamplerState.h" />
+    <ClInclude Include="FrameWork\Math\Vector2.h" />
+    <ClInclude Include="FrameWork\Render\IndexBuffer.h" />
+    <ClInclude Include="Object\Basic\Quad.h" />
     <ClInclude Include="Scene\TutorialScene.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Program\Program.h" />
@@ -181,6 +184,9 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">framework.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="FrameWork\Render\PixelShader.cpp" />
+    <ClCompile Include="FrameWork\Math\Vector2.cpp" />
+    <ClCompile Include="FrameWork\Render\IndexBuffer.cpp" />
+    <ClCompile Include="Object\Basic\Quad.cpp" />
     <ClCompile Include="Scene\TutorialScene.cpp" />
     <ClCompile Include="Program\Program.cpp" />
     <ClCompile Include="FrameWork\TextureMapping\SamplerState.cpp" />
@@ -195,6 +201,7 @@
   <ItemGroup>
     <Image Include="DX_1600.ico" />
     <Image Include="Resource\Goomba.png" />
+    <Image Include="Resource\Zelda.png" />
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>

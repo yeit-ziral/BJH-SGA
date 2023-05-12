@@ -40,15 +40,22 @@ using namespace Microsoft::WRL;
 //Framework
 #include "FrameWork/Device/Device.h"
 
+// Math
+#include "FrameWork/Math/Vector2.h"
+
 //Render
 #include "FrameWork/Render/VertexLayOut.h"
 #include "FrameWork/Render/VertexBuffer.h"
+#include "FrameWork/Render/IndexBuffer.h"
 #include "FrameWork/Render/VertexShader.h"
 #include "FrameWork/Render/PixelShader.h"
 
 //TextureMapping
 #include "FrameWork/TextureMapping/SamplerState.h"
 #include "FrameWork/TextureMapping/SRV.h"
+
+// Object
+#include "Object/Basic/Quad.h"
 
 // Scene
 #include "Scene/Scene.h"

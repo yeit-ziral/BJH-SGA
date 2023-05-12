@@ -106,6 +106,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             // 메인루프
             //Render();
+
+            program->Update();
+            program->Render();
         }
     }
 
