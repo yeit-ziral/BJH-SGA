@@ -69,6 +69,12 @@
     <ClInclude Include="FrameWork\Render\IndexBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="FrameWork\Render\ConstantBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameWork\Render\GlobalBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -113,6 +119,9 @@
     <ClCompile Include="FrameWork\Render\IndexBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="FrameWork\Render\ConstantBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc">
@@ -135,5 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
+    <FxCompile Include="Shader\TextureVs.hlsl" />
+    <FxCompile Include="Shader\TexturePs.hlsl" />
   </ItemGroup>
 </Project>

@@ -44,6 +44,8 @@ using namespace Microsoft::WRL;
 #include "FrameWork/Math/Vector2.h"
 
 //Render
+#include "FrameWork/Render/ConstantBuffer.h"
+#include "FrameWork/Render/GlobalBuffer.h"
 #include "FrameWork/Render/VertexLayOut.h"
 #include "FrameWork/Render/VertexBuffer.h"
 #include "FrameWork/Render/IndexBuffer.h"
