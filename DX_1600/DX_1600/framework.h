@@ -20,6 +20,8 @@
 #include <memory>
 #include <wrl/client.h>
 
+#include <windowsx.h>
+
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
@@ -67,3 +69,7 @@ using namespace Microsoft::WRL;
 #include "Program/Program.h"
 
 extern HWND hWnd;
+
+Vector2 a = Vector2 (GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+a.x = GET_X_LPARAM(lParam);
+a.y = GET_Y_LPARAM(lParam);
