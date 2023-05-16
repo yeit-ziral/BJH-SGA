@@ -11,6 +11,10 @@ public:
 
 	void CreateVertices();
 
+	shared_ptr<Transform> GetTransform() { return _transform; }
+
+	void SetParent(shared_ptr<Transform> parent) { _parent = parent; }
+
 private:
 	vector<Vertex> _vertices;
 	vector<UINT> _indices;
@@ -23,5 +27,9 @@ private:
 	shared_ptr<PixelShader> _ps;
 	shared_ptr<SRV> _srv;
 	shared_ptr<SamplerState> _ss;
+
+	weak_ptr<Transform> _parent;
+
+	shared_ptr<Transform> _transform;
 };
 

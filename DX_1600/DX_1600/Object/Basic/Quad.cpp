@@ -23,6 +23,8 @@ Quad::Quad(wstring srvFile)
     CreateVertices();
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex), _vertices.size(), 0);
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
+
+    _transform = make_shared<Transform>();
 }
 
 Quad::~Quad()
@@ -31,6 +33,7 @@ Quad::~Quad()
 
 void Quad::Update()
 {
+    _transform->Update();
 }
 
 void Quad::Render()
@@ -38,6 +41,7 @@ void Quad::Render()
     _vertexBuffer->Set(0);
     _indexBuffer->Set();
 
+    _transform->SetBuffer(0);
     _vs->Set();
 
     _srv->Set(0);

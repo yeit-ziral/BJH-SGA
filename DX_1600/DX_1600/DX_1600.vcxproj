@@ -164,6 +164,7 @@
     <ClInclude Include="FrameWork\Render\IndexBuffer.h" />
     <ClInclude Include="Object\Basic\Quad.h" />
     <ClInclude Include="Scene\TutorialScene.h" />
+    <ClInclude Include="FrameWork\Math\Transform.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Resource.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="FrameWork\Render\VertexBuffer.cpp" />
     <ClCompile Include="FrameWork\Render\VertexShader.cpp" />
     <ClCompile Include="FrameWork\TextureMapping\SRV.cpp" />
+    <ClCompile Include="FrameWork\Math\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc" />
