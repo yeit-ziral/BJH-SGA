@@ -23,7 +23,7 @@ public:
 private:
 	shared_ptr<class MatrixBuffer> _matrixBuffer; // world 받는 놈(다른 것도 넣을 수 있어서 matrix라고 함)
 
-	Vector2 _scale = { 1, 1 };
+	Vector2 _scale = { 1.0f, 1.0f };
 	float _angle = 0.0f;
 	Vector2 _pos = { 0.0f, 0.0f };
 

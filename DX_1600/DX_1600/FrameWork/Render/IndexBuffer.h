@@ -2,7 +2,7 @@
 class IndexBuffer
 {
 public:
-	IndexBuffer(void* data, UINT count, UINT _offset = 0);
+	IndexBuffer(void* data, UINT count, UINT offset = 0);
 	~IndexBuffer();
 
 	void CreateIndexBuffer();

@@ -11,7 +11,7 @@ TutorialScene::TutorialScene()
     _quad2->GetTransform()->SetPosition(CENTER);
     _quad1->GetTransform()->SetPosition(Vector2(1000, 0));
 
-    _quad1->GetTransform()->GetScale({0.1f, 0.1f });
+    _quad2->GetTransform()->SetScale({ 0.1f, 0.1f });
 }
 
 TutorialScene::~TutorialScene()

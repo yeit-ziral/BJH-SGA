@@ -7,7 +7,7 @@ ConstantBuffer::ConstantBuffer(void* data, UINT dataSize)
 {
 	D3D11_BUFFER_DESC bd = {};
 	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = dataSize;
+	bd.ByteWidth = _dataSize;
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
 	D3D11_SUBRESOURCE_DATA initData = {};
