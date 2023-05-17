@@ -2,6 +2,7 @@
 #include "Program.h"
 
 #include "../Scene/TutorialScene.h"
+#include "../Scene/SolarSystem.h"
 
 Program::Program()
 {
