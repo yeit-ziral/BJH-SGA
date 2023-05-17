@@ -61,15 +61,19 @@ using namespace Microsoft::WRL;
 
 // Object
 #include "Object/Basic/Quad.h"
+#include "Object/SolarSystem/Planet.h"
 
 // Scene
 #include "Scene/Scene.h"
+#include "Scene/TutorialScene.h"
+#include "Scene/SolarSystem.h"
 
 // Program
 #include "Program/Program.h"
 
 extern HWND hWnd;
+extern Vector2 mousePos;
 
-Vector2 a = Vector2 (GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
-a.x = GET_X_LPARAM(lParam);
-a.y = GET_Y_LPARAM(lParam);
+//Vector2 a = Vector2 (GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+//a.x = GET_X_LPARAM(lParam);
+//a.y = GET_Y_LPARAM(lParam);
