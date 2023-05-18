@@ -10,5 +10,7 @@ public:
 
 private:
 	shared_ptr<Player> _player;
+	shared_ptr<Player> _bow;
+	shared_ptr<Player> _bullets;
 };
 

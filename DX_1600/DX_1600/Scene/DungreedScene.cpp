@@ -12,9 +12,10 @@ DungreedScene::~DungreedScene()
 
 void DungreedScene::Update()
 {
-	_player->
+	_player->Update();
 }
 
 void DungreedScene::Render()
 {
+	_player->Render();
 }
