@@ -34,6 +34,11 @@ void Transform::SetBuffer(UINT slot)
 	_matrixBuffer->SetVSBuffer(slot);
 }
 
+void Transform::MoveCenter(const Vector2& value)
+{
+	_pos += value;
+}
+
 const Vector2& Transform::GetWorldPosition()
 {
 	XMFLOAT4X4 temp;

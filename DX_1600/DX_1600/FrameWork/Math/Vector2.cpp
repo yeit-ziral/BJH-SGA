@@ -31,6 +31,11 @@ bool Vector2::operator>(const Vector2& other) const
 	return x > other.x;
 }
 
+float Vector2::Angle()
+{
+	return atan2f(x, y);
+}
+
 int Vector2::ManhattanDistance(const Vector2& other) const
 {
 	return int(abs((x - other.x)) + (abs(y - other.y)));

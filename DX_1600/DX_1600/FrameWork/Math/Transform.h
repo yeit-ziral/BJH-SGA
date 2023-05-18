@@ -16,6 +16,8 @@ public:
 	void AddAngle(float value) { _angle += value; }
 	void AddVector2(Vector2 value) { _pos += value; }
 
+	void MoveCenter(const Vector2& value);
+
 	const Vector2& GetScale() { return _scale; }
 	const float& GetAngle() { return _angle; }
 	const Vector2& GetPos() { return _pos; }

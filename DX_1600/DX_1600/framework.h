@@ -63,6 +63,10 @@ using namespace Microsoft::WRL;
 #include "Object/Basic/Quad.h"
 #include "Object/SolarSystem/Planet.h"
 
+#include "Object/Dungreed/Bullets.h"
+#include "Object/Dungreed/Bow.h"
+#include "Object/Dungreed/Player.h"
+
 // Scene
 #include "Scene/Scene.h"
 
