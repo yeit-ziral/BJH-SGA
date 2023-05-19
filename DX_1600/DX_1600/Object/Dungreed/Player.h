@@ -9,17 +9,19 @@ public:
 	void Update();
 	void Render();
 
+	void SetBowAngle(float angle);
+	const Vector2& GetPos() { return _player->GetTransform()->GetPos(); }
+
 	void SetPosition(Vector2 pos) { _player->GetTransform()->SetPosition(pos); }
-	void SetParent(shared_ptr<Transform> parent) { _player->GetTransform()->SetParent(parent); _revolution->SetParent(parent); }
 
 	shared_ptr<Transform> GetTransform() { return _player->GetTransform(); }
-	shared_ptr<Transform> GetRevolution() { return _revolution; }
+	shared_ptr<Transform> GetRevolution() { return _bowSlot; }
 
 private:
 	bool _isControlled = true;
 
 	shared_ptr<Quad> _player;
-	shared_ptr<Transform> _revolution;
+	shared_ptr<Transform> _bowSlot;
 
 	float _RAngle = 0.0f;
 };

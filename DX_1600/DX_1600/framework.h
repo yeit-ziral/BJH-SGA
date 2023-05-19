@@ -56,8 +56,10 @@ using namespace Microsoft::WRL;
 #include "FrameWork/Render/PixelShader.h"
 
 //TextureMapping
-#include "FrameWork/TextureMapping/SamplerState.h"
 #include "FrameWork/TextureMapping/SRV.h"
+#include "FrameWork/TextureMapping/SamplerState.h"
+#include "FrameWork/TextureMapping/BlendState.h"
+#include "FrameWork/TextureMapping/StateManager.h"
 
 // Object
 #include "Object/Basic/Quad.h"

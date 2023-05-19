@@ -36,6 +36,10 @@ void Program::Render()
 
 	_view->SetVSBuffer(1);
 	_projection->SetVSBuffer(2);
+
+	ALPHA->SetState(); // 누끼 딴거 사물만 남기고 배경 지움
+	ADDITIVE->SetState(); // 더 밝게 만드는 것
+
 	_curScene->Render();
 
 	Device::GetInstance()->Present();

@@ -26,7 +26,6 @@ private:
 	shared_ptr<VertexShader> _vs;
 	shared_ptr<PixelShader> _ps;
 	shared_ptr<SRV> _srv;
-	shared_ptr<SamplerState> _ss;
 
 	weak_ptr<Transform> _parent;
 

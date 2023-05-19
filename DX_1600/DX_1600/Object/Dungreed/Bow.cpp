@@ -20,24 +20,26 @@ void Bow::Fire()
 {
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x0001)
 	{
-		auto iter = std::find_if(_bullets.begin(), _bullets.end(),
-			[](const shared_ptr<Bullets>& bullet)-> bool
-			{
-				if (bullet->IsActive() == false)
-					return true;
-				return false;
-			});
-
 		Vector2 temp = mousePos - _bow->GetTransform()->GetWorldPosition();
-		if (iter != _bullets.end())
+		
+		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(), [](const shared_ptr<Bullets> obj)->bool
 		{
-			(*iter)->Shoot(temp.NormalVector2(), _bow->GetTransform()->GetWorldPosition(), 0.1f, temp.Angle());
-		}
+			return !obj->IsActive();
+		});
+
+		if (bulletIter == _bullets.end())
+			return;
+
+		(*bulletIter)->Shoot(dir, _bow->GetTransform()->GetWorldPosition());
 	}
 }
 
 void Bow::Update()
 {
+	_bow->Update();
+	for (auto bullet : _bullets)
+		bullet->Update();
+	
 }
 
 void Bow::Render()

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FrameWork\TextureMapping\BlendState.h" />
     <ClInclude Include="Object\Dungreed\Bow.h" />
     <ClInclude Include="Object\Dungreed\Bullets.h" />
     <ClInclude Include="Object\Dungreed\Player.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Scene\TutorialScene.h" />
     <ClInclude Include="FrameWork\Math\Transform.h" />
     <ClInclude Include="Scene\SolarSystem.h" />
+    <ClInclude Include="FrameWork\TextureMapping\StateManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Resource.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="FrameWork\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FrameWork\TextureMapping\BlendState.cpp" />
     <ClCompile Include="Object\Dungreed\Bow.cpp" />
     <ClCompile Include="Object\Dungreed\Bullets.cpp" />
     <ClCompile Include="Object\Dungreed\Player.cpp" />
@@ -211,6 +214,7 @@
     <ClCompile Include="FrameWork\TextureMapping\SRV.cpp" />
     <ClCompile Include="FrameWork\Math\Transform.cpp" />
     <ClCompile Include="Scene\SolarSystem.cpp" />
+    <ClCompile Include="FrameWork\TextureMapping\StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc" />
