@@ -6,8 +6,6 @@ public:
 	Player(wstring file, Vector2 scale);
 	~Player();
 
-	void Shoot();
-
 	void Update();
 	void Render();
 
@@ -22,5 +20,6 @@ private:
 
 	shared_ptr<Quad> _player;
 	shared_ptr<Transform> _revolution;
-};
 
+	float _RAngle = 0.0f;
+};

@@ -3,7 +3,8 @@
 
 Bow::Bow(wstring file, Vector2 scale)
 {
-	_bow = make_shared<Quad>(L"Resource/Bow.png");
+	_bow = make_shared<Quad>(file);
+	_bow->GetTransform()->SetScale(scale);
 	for (int i = 0; i < 30; i++)
 	{
 		shared_ptr<Bullets> bullet = make_shared<Bullets>();
