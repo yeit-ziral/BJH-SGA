@@ -5,7 +5,7 @@ public:
 	Bow(wstring file, Vector2 scale);
 	~Bow();
 
-	void Shoot();
+	void Fire();
 
 	void Update();
 	void Render();

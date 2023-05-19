@@ -1,6 +1,7 @@
 #pragma once
 class Bullets
 {
+public:
     Bullets(wstring file, Vector2 scale);
     ~Bullets();
 
