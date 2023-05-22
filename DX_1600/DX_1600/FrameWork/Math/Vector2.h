@@ -53,7 +53,7 @@ public:
         return sqrtf(powf(resultX, 2) + powf(resultY, 2));
     }
 
-    float Angle();
+    float Angle() const;
 
     int ManhattanDistance(const Vector2& other) const;
 

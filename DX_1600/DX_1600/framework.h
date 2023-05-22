@@ -46,6 +46,10 @@ using namespace Microsoft::WRL;
 #include "FrameWork/Math/Vector2.h"
 #include "FrameWork/Math/Transform.h"
 
+// Utility
+#include "FrameWork/Utility/InputManager.h"
+#include "FrameWork/Utility/Timer.h"
+
 //Render
 #include "FrameWork/Render/ConstantBuffer.h"
 #include "FrameWork/Render/GlobalBuffer.h"
@@ -76,4 +80,3 @@ using namespace Microsoft::WRL;
 #include "Program/Program.h"
 
 extern HWND hWnd;
-extern Vector2 mousePos;

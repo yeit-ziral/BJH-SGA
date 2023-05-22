@@ -26,9 +26,6 @@ Player::~Player()
 
 void Player::Update()
 {
-	if (GetAsyncKeyState(VK_LBUTTON) & 0x0001)
-		Fire();
-
 	SetBowAngle();
 
 	_bowSlot->SetPosition(_player->GetTransform()->GetPos());
@@ -39,6 +36,8 @@ void Player::Update()
 
 	for (auto bullet : _bullets)
 		bullet->Update();
+
+	Fire();
 }
 
 void Player::Render()
@@ -52,22 +51,22 @@ void Player::Render()
 
 void Player::SetBowAngle()
 {
-	Vector2 playerToMouse = mousePos - GetPos();
+	Vector2 playerToMouse = MOUSE_POS - GetPos();
 	float angle = playerToMouse.Angle();
 	_bowSlot->SetAngle(angle);
 }
 
 void Player::Fire()
 {
-	Vector2 dir = mousePos - GetPos();
+	if (GetAsyncKeyState(VK_LBUTTON) & 0x0001)
+	{
+		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
+			[](const shared_ptr<Bullets>& obj)-> bool {return !obj->IsActive(); });
 
-	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(), [](const shared_ptr<Bullets> obj)-> bool
+		Vector2 dir = MOUSE_POS - _bowSlot->GetPos();
+		if (bulletIter != _bullets.end())
 		{
-			return !obj->IsActive();
-		});
-
-	if (bulletIter == _bullets.end())
-		return;
-
-	(*bulletIter)->Shoot(dir, _bow->GetTransform()->GetWorldPosition());
+			(*bulletIter)->Shoot(dir, _bow->GetTransform()->GetWorldPosition());
+		}
+	}
 }

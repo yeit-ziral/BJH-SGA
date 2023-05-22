@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="FrameWork\TextureMapping\BlendState.h" />
+    <ClInclude Include="FrameWork\Utility\InputManager.h" />
     <ClInclude Include="Object\Dungreed\Bow.h" />
     <ClInclude Include="Object\Dungreed\Bullets.h" />
     <ClInclude Include="Object\Dungreed\Player.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="FrameWork\Math\Transform.h" />
     <ClInclude Include="Scene\SolarSystem.h" />
     <ClInclude Include="FrameWork\TextureMapping\StateManager.h" />
+    <ClInclude Include="FrameWork\Utility\Timer.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Resource.h" />
@@ -183,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FrameWork\TextureMapping\BlendState.cpp" />
+    <ClCompile Include="FrameWork\Utility\InputManager.cpp" />
     <ClCompile Include="Object\Dungreed\Bow.cpp" />
     <ClCompile Include="Object\Dungreed\Bullets.cpp" />
     <ClCompile Include="Object\Dungreed\Player.cpp" />
@@ -215,6 +218,7 @@
     <ClCompile Include="FrameWork\Math\Transform.cpp" />
     <ClCompile Include="Scene\SolarSystem.cpp" />
     <ClCompile Include="FrameWork\TextureMapping\StateManager.cpp" />
+    <ClCompile Include="FrameWork\Utility\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc" />
