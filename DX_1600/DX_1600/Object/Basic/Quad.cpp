@@ -66,6 +66,7 @@ void Quad::CreateVertices()
     temp.pos = XMFLOAT3(-halfSize.x, halfSize.y, 0.0f);
     temp.color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
     temp.uv = { 0.0f, 0.0f };
+    leftTopPoint = Vector2(-halfSize.x, halfSize.y);
     _vertices.push_back(temp); // ¿ÞÂÊ À§
 
     temp.pos = XMFLOAT3(halfSize.x, halfSize.y, 0.0f);

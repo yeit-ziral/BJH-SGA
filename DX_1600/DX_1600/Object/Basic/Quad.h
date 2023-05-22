@@ -30,5 +30,7 @@ private:
 	weak_ptr<Transform> _parent;
 
 	shared_ptr<Transform> _transform;
+
+	Vector2 leftTopPoint;
 };
 

@@ -26,8 +26,8 @@ BlendState::~BlendState()
 
 void BlendState::SetState()
 {
-	float blendFector[] = { 0,0,0,0 };
-	DC->OMSetBlendState(_state.Get(), blendFactor, 0xffffffff)
+	float blendFactor[] = { 0,0,0,0 };
+	DC->OMSetBlendState(_state.Get(), blendFactor, 0xffffffff);
 }
 
 void BlendState::Alpha()
