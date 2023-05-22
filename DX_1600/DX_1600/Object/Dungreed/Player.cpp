@@ -15,7 +15,7 @@ Player::Player()
 
 	for (int i = 0; i < 30; i++)
 	{
-		shared_ptr<Bullets> bullet = make_shared<Bullets>(_bow->GetTransform()->GetWorldPosition());
+		shared_ptr<Bullets> bullet = make_shared<Bullets>();
 		_bullets.push_back(bullet);
 	}
 }
@@ -26,13 +26,13 @@ Player::~Player()
 
 void Player::Update()
 {
-	SetBowAngle();
-
 	_bowSlot->SetPosition(_player->GetTransform()->GetPos());
 
+	SetBowAngle();
+
 	_player->Update();
-	_bowSlot->Update();
 	_bow->Update();
+	_bowSlot->Update();
 
 	for (auto bullet : _bullets)
 		bullet->Update();

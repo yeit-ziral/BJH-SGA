@@ -10,12 +10,11 @@ public:
 	void Render();
 
 	void SetBowAngle();
+	void Fire();
 
 	void SetPosition(Vector2 pos) { _player->GetTransform()->SetPosition(pos); }
-	void Move(Vector2 movePos) { _player->GetTransform()->SetPosition(movePos); }
+	void Move(Vector2 movePos) { _player->GetTransform()->AddVector2(movePos); }
 	const Vector2& GetPos() { return _player->GetTransform()->GetPos(); }
-
-	void Fire();
 
 private:
 	shared_ptr<Quad> _player;

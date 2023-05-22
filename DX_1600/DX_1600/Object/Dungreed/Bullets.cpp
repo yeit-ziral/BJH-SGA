@@ -40,6 +40,6 @@ void Bullets::Shoot(const Vector2& dir, Vector2 startPos)
 
 	_dir = dir.NormalVector2();
 	float angle = _dir.Angle();
-	_bullet->GetTransform()->SetAngle(angle);
 	_bullet->GetTransform()->SetPosition(startPos);
+	_bullet->GetTransform()->SetAngle(angle);
 }

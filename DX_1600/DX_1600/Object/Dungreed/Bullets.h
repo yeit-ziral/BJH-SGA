@@ -19,7 +19,7 @@ public:
 private:
     bool _isActive = false;
 
-    float _speed = 20.0f;
+    float _speed = 100.0f;
     Vector2 _dir = Vector2();
 
     shared_ptr<Quad> _bullet;

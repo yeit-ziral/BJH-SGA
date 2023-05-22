@@ -10,10 +10,10 @@ Timer::Timer()
 	// B : 1초에 100번 업데이트 -> 100 * (1/100) = 1
 
 	// 1초에 몇번 진동하는지
-	QueryPerformanceFrequency((LARGE_INTEGER*) &_periodFrequency);
+	QueryPerformanceFrequency((LARGE_INTEGER*)&_periodFrequency);
 	
 	// 프로그램이 시작할 때 지금까지 CPU의 진동수
-	QueryPerformanceCounter((LARGE_INTEGER*) &_lastTime);
+	QueryPerformanceCounter((LARGE_INTEGER*)&_lastTime);
 
 	_timeScale = 1.0 / (double)_periodFrequency;
 }

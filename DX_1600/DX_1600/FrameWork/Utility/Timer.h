@@ -35,13 +35,13 @@ public:
 
 	int GetFPS() { return _frameRate; }
 	double GetDeltaTime() { return _deltaTime; }
-	double GetTimeScale() { return _timeScale; }
+	double GetRunTime() { return _runTime; }
 
 private:
 	static Timer* _instance;
 
 	double _timeScale = 0.0;
-	double _deltaTime = 0.0;
+	double _deltaTime = 0.0; // 1번 업데이트 하는데 걸리는 시간
 
 	unsigned __int64 _curTime = 0;
 	unsigned __int64 _lastTime = 0;
