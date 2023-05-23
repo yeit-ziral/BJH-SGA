@@ -58,7 +58,7 @@ void Quad::CreateVertices()
 {
     // 시계방향으로 그리기
     // 
-    Vertex temp;
+    Vertex_Texture temp;
     Vector2 halfSize;
     halfSize.x = (_srv->GetImageSize().x) * 0.5f;
     halfSize.y = (_srv->GetImageSize().y) * 0.5f;

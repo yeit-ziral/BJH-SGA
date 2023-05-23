@@ -16,7 +16,7 @@ public:
 	void SetParent(shared_ptr<Transform> parent) { _parent = parent; }
 
 private:
-	vector<Vertex> _vertices;
+	vector<Vertex_Texture> _vertices;
 	vector<UINT> _indices;
 
 	// Á¤Á¡(pos, color, uv) 6°³

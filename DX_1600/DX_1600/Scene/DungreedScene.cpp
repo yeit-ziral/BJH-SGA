@@ -32,3 +32,8 @@ void DungreedScene::Render()
 {
 	_player->Render();
 }
+
+void DungreedScene::PostRender()
+{
+	ImGui::Text("mouseX : %d, mouseY : %d", (int)MOUSE_POS.x, (int)MOUSE_POS.y);
+}
