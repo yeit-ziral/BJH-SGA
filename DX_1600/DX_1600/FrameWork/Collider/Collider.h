@@ -1,15 +1,15 @@
 #pragma once
-class CircleCollider
+class Collider
 {
 public:
-	CircleCollider(float radius);
-	~CircleCollider();
+	Collider();
+	virtual ~Collider();
 
 	void Update();
 	void Render();
 
 	void CreateData();
-	void CreateVertices();
+	virtual void CreateVertices();
 
 
 	void SetRed() { _colorBuffer->SetColor(RED); _colorBuffer->Update(); }
@@ -18,16 +18,10 @@ public:
 	void SetPosition(Vector2 pos) { _transform->SetPosition(pos); }
 	Vector2 GetPos() { return _transform->GetPos(); }
 
-	bool IsCollision(shared_ptr<CircleCollider> other);
+	virtual bool IsCollision(shared_ptr<CircleCollider> other) {}
 
 	const shared_ptr<Transform> GetTransform() { return _transform; }
 	void SetParent(shared_ptr<Transform> transform) { _transform->SetParent(transform); }
-
-	//Rect와 공유하지 않는 함수
-	void SetScale(float value) { _transform->SetScale({ value, value }); }
-	float GetRadius() { return _radius; }
-	float GetWorldRadius() { return _radius * _transform->GetWorldScale().x; }
-
 
 private:
 	vector<Vertex> _vertices;
@@ -41,7 +35,5 @@ private:
 	shared_ptr<Transform> _transform;
 
 	Vector2 _center;
-	float _radius;
-
 };
 

@@ -8,6 +8,13 @@
 
 #define CENTER Vector2(WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f)
 
+#define RED			XMFLOAT4{1.0f,0.0f,0.0f,1.0f}
+#define GREEN		XMFLOAT4{0.0f,1.0f,0.0f,1.0f}
+#define BLUE		XMFLOAT4{0.0f,0.0f,1.0f,1.0f}
+#define WHITE		XMFLOAT4{1.0f,1.0f,1.0f,1.0f}
+#define BLACK		XMFLOAT4{0.0f,0.0f,0.0f,1.0f}
+#define GREY		XMFLOAT4{0.5f,0.5f,0.5f,1.0f}
+
 #define DEVICE	Device::GetInstance()->GetDevice()
 #define DC		Device::GetInstance()->GetDC()
 

@@ -117,6 +117,9 @@
     <ClInclude Include="FrameWork\Collider\CircleCollider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="FrameWork\Collider\Collider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -204,6 +207,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="FrameWork\Collider\CircleCollider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameWork\Collider\Collider.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
