@@ -43,19 +43,6 @@ bool CircleCollider::IsCollision(Vector2 pos)
 	return distance < GetWorldRadius();
 }
 
-bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
-{
-	Vector2 center1= _transform->GetWorldPosition();
-	Vector2 center2= other->_transform->GetWorldPosition();
-
-	float distance = (center1 - center2).Length();
-
-	float radius1 = GetWorldRadius();
-	float radius2 = other->GetWorldRadius();
-
-	return distance < GetWorldRadius() + other->GetWorldRadius();
-}
-
 bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 {
 	return other->IsCollision(shared_from_this());
@@ -73,4 +60,17 @@ void CircleCollider::Block(shared_ptr<CircleCollider> movable)
 	dir.Normallize();
 
 	movable->GetTransform()->AddVector2(dir * scalar);
+}
+
+bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
+{
+	Vector2 center1= _transform->GetWorldPosition();
+	Vector2 center2= other->_transform->GetWorldPosition();
+
+	float distance = (center1 - center2).Length();
+
+	float radius1 = GetWorldRadius();
+	float radius2 = other->GetWorldRadius();
+
+	return distance < GetWorldRadius() + other->GetWorldRadius();
 }

@@ -29,6 +29,8 @@ public:
 
 	AABBRectInfo GetAABBInfo();
 
+	virtual void Block(shared_ptr<RectCollider> movable);
+
 private:
 	Vector2 _size;
 };

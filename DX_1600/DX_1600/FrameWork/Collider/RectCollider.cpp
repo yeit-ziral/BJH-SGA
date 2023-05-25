@@ -57,6 +57,27 @@ RectCollider::AABBRectInfo RectCollider::GetAABBInfo()
     return result;
 }
 
+void RectCollider::Block(shared_ptr<RectCollider> movable)
+{
+    if (!IsCollision(movable))
+        return;
+
+    Vector2 movableCenter = movable->GetTransform()->GetWorldPosition();
+    Vector2 blockCenter = GetTransform()->GetWorldPosition();
+    Vector2 dir = movableCenter - blockCenter;
+    float scalarX = abs((movable->GetWorldSize().x + GetWorldSize().x) * 0.5f - dir.Length());
+    float scalarY = abs((movable->GetWorldSize().y + GetWorldSize().y) * 0.5f - dir.Length());
+
+    if (movableCenter.x <= blockCenter.x && movableCenter.x >= blockCenter.x)
+    {
+        movable->GetTransform()->AddVector2(Vector2(dir.x * scalarX, 0.0f));
+    }
+    else if (movableCenter.y <= blockCenter.y && movableCenter.y >= blockCenter.y)
+    {
+        movable->GetTransform()->AddVector2(Vector2(0.0f, dir.y * scalarY));
+    }
+}
+
 bool RectCollider::IsCollision(Vector2 pos)
 {
     AABBRectInfo info = GetAABBInfo();
