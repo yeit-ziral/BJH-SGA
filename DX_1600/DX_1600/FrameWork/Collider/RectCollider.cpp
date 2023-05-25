@@ -64,17 +64,25 @@ void RectCollider::Block(shared_ptr<RectCollider> movable)
 
     Vector2 movableCenter = movable->GetTransform()->GetWorldPosition();
     Vector2 blockCenter = GetTransform()->GetWorldPosition();
-    Vector2 dir = movableCenter - blockCenter;
-    float scalarX = abs((movable->GetWorldSize().x + GetWorldSize().x) * 0.5f - dir.Length());
-    float scalarY = abs((movable->GetWorldSize().y + GetWorldSize().y) * 0.5f - dir.Length());
+    Vector2 dis = (this->GetWorldSize() + movable->GetWorldSize()) * 0.5f;
 
-    if (movableCenter.x <= blockCenter.x && movableCenter.x >= blockCenter.x)
+    Vector2 dir = movableCenter - blockCenter;
+
+    if (dis.x - abs(dir.x) < dis.y - abs(dir.y))
     {
-        movable->GetTransform()->AddVector2(Vector2(dir.x * scalarX, 0.0f));
+        float scalar = dis.x - abs(dir.x);
+        if (dir.x < 0)
+            scalar *= -1;
+        
+        movable->GetTransform()->AddVector2(Vector2(scalar, 0.0f));
     }
-    else if (movableCenter.y <= blockCenter.y && movableCenter.y >= blockCenter.y)
+    else
     {
-        movable->GetTransform()->AddVector2(Vector2(0.0f, dir.y * scalarY));
+        float scalar = dis.y - abs(dir.y);
+        if (dir.y < 0)
+            scalar *= -1;
+
+        movable->GetTransform()->AddVector2(Vector2(0.0f, scalar));
     }
 }
 
