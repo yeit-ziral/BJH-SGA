@@ -65,6 +65,7 @@ using namespace Microsoft::WRL;
 #include "FrameWork/Render/PixelShader.h"
 
 // Collider
+#include "FrameWork/Collider/Collider.h"
 #include "FrameWork/Collider/RectCollider.h"
 #include "FrameWork/Collider/CircleCollider.h"
 
