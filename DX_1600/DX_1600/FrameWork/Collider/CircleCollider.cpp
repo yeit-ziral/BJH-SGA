@@ -5,6 +5,7 @@ CircleCollider::CircleCollider(float radius)
 	: _radius(radius)
 {
 	_type = ColliderType::CIRCLE;
+	CreateVertices();
 	CreateData();
 }
 

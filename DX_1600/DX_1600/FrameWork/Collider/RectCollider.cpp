@@ -5,6 +5,7 @@ RectCollider::RectCollider(Vector2 size)
 	: _size(size)
 {
     _type = ColliderType::RECT;
+    CreateVertices();
     CreateData();
 }
 
@@ -86,6 +87,19 @@ bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
         return false;
     else
         return true;
+
+    /*auto it = find_if(other->GetVertices().begin(), other->GetVertices().end(), [this](const Vertex& ver)
+    {
+        float a = ver.pos.x;
+        float b = ver.pos.y;
+
+        return (a > Left() && a < Right()) && (b < Top() && b > Bottom());
+    });
+
+    if (it != other->GetVertices().end())
+        return true;
+    else
+        return false;*/
 }
 
 bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
@@ -100,4 +114,17 @@ bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
         return false;
     else
         return true;
+
+    /*auto it = find_if(other->GetVertices().begin(), other->GetVertices().end(), [this](const Vertex& ver)
+    {
+        float a = ver.pos.x;
+        float b = ver.pos.y;
+
+        return (a > Left() && a < Right()) && (b < Top() && b > Bottom());
+    });
+
+    if (it != other->GetVertices().end())
+        return true;
+    else
+        return false;*/
 }

@@ -12,8 +12,6 @@ Collider::~Collider()
 
 void Collider::CreateData()
 {
-	CreateVertices();
-
 	_vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex), _vertices.size());
 
 	_vs = make_shared<VertexShader>(L"Shader/ColliderVS.hlsl");
