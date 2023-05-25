@@ -2,9 +2,18 @@
 
 class RectCollider : public Collider
 {
+private:
+	struct AABBRectInfo
+	{
+		float left = 0.0f;
+		float top = 0.0f;
+		float right = 0.0f;
+		float bottom = 0.0f;
+	};
+
 public:
 	RectCollider(Vector2 size);
-	~RectCollider();
+	virtual ~RectCollider();
 
 	virtual void Update() override;
 	virtual void Render() override;
@@ -18,10 +27,7 @@ public:
 	void SetScale(Vector2 scale) { _transform->SetScale(scale); }
 	Vector2 GetWorldSize() const { return Vector2(_transform->GetWorldScale().x * _size.x, _transform->GetWorldScale().y * _size.y); }
 
-	float Left() const { return _transform->GetWorldPosition().x - GetWorldSize().x * 0.5f; }
-	float Right() const { return _transform->GetWorldPosition().x + GetWorldSize().x * 0.5f; }
-	float Top() const { return _transform->GetWorldPosition().y - GetWorldSize().y * 0.5f; }
-	float Bottom() const { return _transform->GetWorldPosition().y + GetWorldSize().y * 0.5f; }
+	AABBRectInfo GetAABBInfo();
 
 private:
 	Vector2 _size;

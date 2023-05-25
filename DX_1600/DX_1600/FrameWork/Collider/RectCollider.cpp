@@ -6,7 +6,7 @@ RectCollider::RectCollider(Vector2 size)
 {
     _type = ColliderType::RECT;
     CreateVertices();
-    CreateData();
+    Collider::CreateData();
 }
 
 RectCollider::~RectCollider()
@@ -15,22 +15,12 @@ RectCollider::~RectCollider()
 
 void RectCollider::Update()
 {
-    _transform->Update();
+    Collider::Update();
 }
 
 void RectCollider::Render()
 {
-    _vertexBuffer->Set(0);
-
-    _transform->SetBuffer(0);
-    _colorBuffer->SetPSBuffer(0);
-
-    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-    _vs->Set();
-    _ps->Set();
-
-    DC->Draw(_vertices.size(), 0);
+    Collider::Render();
 }
 
 void RectCollider::CreateVertices()
@@ -56,11 +46,24 @@ void RectCollider::CreateVertices()
     _vertices.push_back(temp); // 왼쪽 위
 }
 
+RectCollider::AABBRectInfo RectCollider::GetAABBInfo()
+{
+    AABBRectInfo result;
+    result.left = _transform->GetWorldPosition().x - GetWorldSize().x * 0.5f;
+    result.top = _transform->GetWorldPosition().y + GetWorldSize().y * 0.5f;
+    result.right = _transform->GetWorldPosition().x + GetWorldSize().x * 0.5f;
+    result.bottom = _transform->GetWorldPosition().y - GetWorldSize().y * 0.5f;
+
+    return result;
+}
+
 bool RectCollider::IsCollision(Vector2 pos)
 {
-    if (pos.x < Left() || pos.x > Right())
+    AABBRectInfo info = GetAABBInfo();
+
+    if (pos.x < info.left || pos.x > info.right)
         return false;
-    if (pos.y < Top() || pos.y > Bottom())
+    if (pos.y < info.bottom || pos.y > info.top)
         return false;
 
     return true;
@@ -68,26 +71,32 @@ bool RectCollider::IsCollision(Vector2 pos)
 
 bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
 {
-    Vector2 rectCenter = _transform->GetWorldPosition();
-    Vector2 circleCenter = other->GetTransform()->GetWorldPosition();
-    Vector2 distance = this->GetWorldSize() * 0.5f + Vector2(other->GetWorldRadius(), other->GetWorldRadius());
+    AABBRectInfo info = GetAABBInfo();
 
-    Vector2 leftTop = Vector2(_vertices[0].pos.x, _vertices[0].pos.y);
-    Vector2 rightTop = Vector2(_vertices[1].pos.x, _vertices[1].pos.y);
-    Vector2 leftBottom = Vector2(_vertices[2].pos.x, _vertices[2].pos.y);
-    Vector2 rightBottom = Vector2(_vertices[3].pos.x, _vertices[3].pos.y);
+    Vector2 leftTop = Vector2(info.left, info.top);
+    Vector2 leftBottom = Vector2(info.left, info.bottom);
+    Vector2 rightTop = Vector2(info.right, info.top);
+    Vector2 rightBottom = Vector2(info.right, info.bottom);
 
-    if (other->IsCollision(leftTop) || other->IsCollision(leftBottom)
-        || other->IsCollision(rightTop) || other->IsCollision(rightBottom))
+    if (other->IsCollision(leftTop) || other->IsCollision(leftBottom) ||
+        other->IsCollision(rightTop) || other->IsCollision(rightBottom))
         return true;
 
-    if (abs(rectCenter.x - circleCenter.x) > distance.x)
-        return false;
-    else if (abs(rectCenter.y - circleCenter.y) > distance.y)
-        return false;
-    else
-        return true;
+    if (info.right > other->GetTransform()->GetWorldPosition().x && info.left < other->GetTransform()->GetWorldPosition().x)
+    {
+        if (info.top - other->GetWorldRadius() > other->GetTransform()->GetWorldPosition().y
+            && info.bottom + other->GetWorldRadius() < other->GetTransform()->GetWorldPosition().y)
+            return true;
+    }
+    if (info.bottom < other->GetTransform()->GetWorldPosition().y && info.top > other->GetTransform()->GetWorldPosition().y)
+    {
+        if (info.left - other->GetWorldRadius() < other->GetTransform()->GetWorldPosition().x
+            && info.right + other->GetWorldRadius() > other->GetTransform()->GetWorldPosition().x)
+            return true;
+    }
+    return false;
 
+    // 많은 정점을 다 확인해야되서 좋지 않음
     /*auto it = find_if(other->GetVertices().begin(), other->GetVertices().end(), [this](const Vertex& ver)
     {
         float a = ver.pos.x;
@@ -114,17 +123,4 @@ bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
         return false;
     else
         return true;
-
-    /*auto it = find_if(other->GetVertices().begin(), other->GetVertices().end(), [this](const Vertex& ver)
-    {
-        float a = ver.pos.x;
-        float b = ver.pos.y;
-
-        return (a > Left() && a < Right()) && (b < Top() && b > Bottom());
-    });
-
-    if (it != other->GetVertices().end())
-        return true;
-    else
-        return false;*/
 }

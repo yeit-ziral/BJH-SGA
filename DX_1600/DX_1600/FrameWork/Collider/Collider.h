@@ -1,10 +1,7 @@
 #pragma once
-class CircleCollider;
-class RectCollider;
-
 class Collider
 {
-public:
+protected:
 	enum class ColliderType
 	{
 		NONE,
@@ -12,19 +9,20 @@ public:
 		RECT
 	};
 
+public:
 	Collider();
 	virtual~Collider();
 
-	virtual void Update() abstract;
-	virtual void Render() abstract;
+	virtual void Update();
+	virtual void Render();
 
 	void CreateData();
 	virtual void CreateVertices() abstract;
 
 	bool IsCollision(shared_ptr<Collider> col);
-	virtual bool IsCollision(Vector2 pos) abstract;
-	virtual bool IsCollision(shared_ptr<CircleCollider> other) abstract;
-	virtual bool IsCollision(shared_ptr<RectCollider> other) abstract;
+	virtual bool IsCollision(const Vector2 pos) abstract;
+	virtual bool IsCollision(shared_ptr<class CircleCollider> other) abstract;
+	virtual bool IsCollision(shared_ptr<class RectCollider> other) abstract;
 
 	void SetRed() { _colorBuffer->SetColor(RED); _colorBuffer->Update(); }
 	void SetGreen() { _colorBuffer->SetColor(GREEN); _colorBuffer->Update(); }

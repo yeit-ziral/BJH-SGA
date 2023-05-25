@@ -5,12 +5,12 @@ class CircleCollider : public Collider, public enable_shared_from_this<CircleCol
 {
 public:
 	CircleCollider(float radius);
-	virtual~CircleCollider() override;
+	virtual ~CircleCollider();
 
 	virtual void Update() override;
 	virtual void Render() override;
 
-	void CreateVertices();
+	virtual void CreateVertices() override;
 
 	virtual bool IsCollision(Vector2 pos) override;
 	virtual bool IsCollision(shared_ptr<CircleCollider> other) override;
@@ -20,6 +20,8 @@ public:
 	void SetScale(float value) { _transform->SetScale({ value, value }); }
 	float GetRadius() { return _radius; }
 	float GetWorldRadius() { return _radius * _transform->GetWorldScale().x; }
+
+	virtual void Block(shared_ptr<CircleCollider> movable);
 
 
 private:

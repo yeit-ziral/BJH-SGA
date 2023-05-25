@@ -6,7 +6,7 @@ CircleCollider::CircleCollider(float radius)
 {
 	_type = ColliderType::CIRCLE;
 	CreateVertices();
-	CreateData();
+	Collider::CreateData();
 }
 
 CircleCollider::~CircleCollider()
@@ -15,23 +15,12 @@ CircleCollider::~CircleCollider()
 
 void CircleCollider::Update()
 {
-	_transform->Update();
+	Collider::Update();
 }
 
 void CircleCollider::Render()
 {
-	_vertexBuffer->Set(0);
-
-	_transform->SetBuffer(0);		// vs·Î º¸³¿
-
-	_colorBuffer->SetPSBuffer(0);	// ps·Î º¸³¿
-
-	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-	_vs->Set();
-	_ps->Set();
-
-	DC->Draw(_vertices.size(), 0);
+	Collider::Render();
 }
 
 void CircleCollider::CreateVertices()
@@ -70,4 +59,18 @@ bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
 bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 {
 	return other->IsCollision(shared_from_this());
+}
+
+void CircleCollider::Block(shared_ptr<CircleCollider> movable)
+{
+	if (!IsCollision(movable))
+		return;
+
+	Vector2 movableCenter = movable->GetTransform()->GetWorldPosition();
+	Vector2 blockCenter = GetTransform()->GetWorldPosition();
+	Vector2 dir = movableCenter - blockCenter;
+	float scalar = abs((movable->GetWorldRadius() + GetWorldRadius()) - dir.Length());
+	dir.Normallize();
+
+	movable->GetTransform()->AddVector2(dir * scalar);
 }
