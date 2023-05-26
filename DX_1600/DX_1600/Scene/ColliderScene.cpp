@@ -3,15 +3,15 @@
 
 ColliderScene::ColliderScene()
 {
-	_rectCollider = make_shared<RectCollider>(Vector2(100.0f, 100.0f));
+	_rectCollider = make_shared<RectCollider>(Vector2(50.0f, 80.0f));
 	_rectCollider2 = make_shared<RectCollider>(Vector2(100.0f, 100.0f));
 	_circleCollider = make_shared<CircleCollider>(50.0f);
-	_circleCollider2 = make_shared<CircleCollider>(100.0f);
+	_circleCollider2 = make_shared<CircleCollider>(50.0f);
 	_circleCollider2->SetParent(_rectCollider->GetTransform());
 
 	_rectCollider->SetPosition(CENTER);
-	_rectCollider->SetScale(Vector2(1.5f, 1.5f));
-	_circleCollider2->SetPosition(Vector2(160.0f, 0.0f));
+	_rectCollider->SetScale(Vector2(2.0f, 2.0f));
+	_circleCollider2->SetPosition(Vector2(100.0f, 0.0f));
 }
 
 ColliderScene::~ColliderScene()
@@ -37,8 +37,11 @@ void ColliderScene::Update()
 	else
 		_rectCollider->SetGreen();
 
+	_circleCollider ->SetPosition(MOUSE_POS);
 	_rectCollider2->SetPosition(MOUSE_POS);
-	_rectCollider2->Block(_rectCollider);
+
+	_rectCollider2->Block(_circleCollider2);
+
 }
 
 void ColliderScene::Render()

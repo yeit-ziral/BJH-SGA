@@ -57,33 +57,114 @@ RectCollider::AABBRectInfo RectCollider::GetAABBInfo()
     return result;
 }
 
-void RectCollider::Block(shared_ptr<RectCollider> movable)
+RectCollider::OBBRectInfo RectCollider::GetOBBRectInfo()
+{
+    OBBRectInfo info;
+
+    info.worldPos = _transform->GetWorldPosition();
+
+    XMFLOAT4X4 matrix;
+    XMStoreFloat4x4(&matrix, _transform->GetMatrix());
+
+    info.direction[0] = { matrix._11, matrix._12 };
+    info.direction[1] = { matrix._21, matrix._22 };
+
+    info.length[0] = GetWorldSize().x * 0.5f;
+    info.length[1] = GetWorldSize().y * 0.5f;
+
+    return info;
+}
+
+bool RectCollider::Block(shared_ptr<RectCollider> movable)
 {
     if (!IsCollision(movable))
-        return;
+        return false;
 
     Vector2 movableCenter = movable->GetTransform()->GetWorldPosition();
     Vector2 blockCenter = GetTransform()->GetWorldPosition();
-    Vector2 dis = (this->GetWorldSize() + movable->GetWorldSize()) * 0.5f;
+    Vector2 sum = (this->GetWorldSize() + movable->GetWorldSize()) * 0.5f;
 
     Vector2 dir = movableCenter - blockCenter;
 
-    if (dis.x - abs(dir.x) < dis.y - abs(dir.y))
+    Vector2 overlap = Vector2(sum.x - abs(dir.x), sum.y - abs(dir.y));
+
+    Vector2 fixedPos = movable->GetTransform()->GetPos();
+
+    dir.Normallize();
+
+    if (overlap.x > overlap.y)
     {
-        float scalar = dis.x - abs(dir.x);
-        if (dir.x < 0)
-            scalar *= -1;
-        
-        movable->GetTransform()->AddVector2(Vector2(scalar, 0.0f));
+        dir.y /= abs(dir.y);
+
+        if (dir.y < 0)
+            dir.y = -1.0f;
+        else if (dir.y > 0.0f)
+            dir.y = 1.0f;
+
+        fixedPos.y += dir.y * overlap.y;
     }
     else
     {
-        float scalar = dis.y - abs(dir.y);
-        if (dir.y < 0)
-            scalar *= -1;
+        dir.x /= abs(dir.x);
 
-        movable->GetTransform()->AddVector2(Vector2(0.0f, scalar));
+        if (dir.x < 0)
+            dir.x = -1.0f;
+        else if (dir.x > 0.0f)
+            dir.x = 1.0f;
+
+        fixedPos.x += dir.x * overlap.x;
     }
+
+    movable->GetTransform()->SetPosition(fixedPos);
+
+    return true;
+}
+
+bool RectCollider::Block(shared_ptr<CircleCollider> movable)
+{
+    if (!IsCollision(movable))
+        return false;
+
+    Vector2 virtualHalfSize = Vector2(movable->GetWorldRadius(), movable->GetWorldRadius());
+
+    Vector2 movableCenter = movable->GetTransform()->GetWorldPosition();
+    Vector2 blockCenter = GetTransform()->GetWorldPosition();
+    Vector2 sum = this->GetWorldSize() * 0.5f + virtualHalfSize;
+
+    Vector2 dir = movableCenter - blockCenter;
+
+    Vector2 overlap = Vector2(sum.x - abs(dir.x), sum.y - abs(dir.y));
+
+    Vector2 fixedPos = movable->GetTransform()->GetPos();
+
+    dir.Normallize();
+
+    if (overlap.x > overlap.y)
+    {
+        dir.y /= abs(dir.y);
+
+        if (dir.y < 0)
+            dir.y = -1.0f;
+        else if (dir.y > 0.0f)
+            dir.y = 1.0f;
+
+        fixedPos.y += dir.y * overlap.y;
+    }
+    else
+    {
+        dir.x /= abs(dir.x);
+
+        if (dir.x < 0)
+            dir.x = -1.0f;
+        else if (dir.x > 0.0f)
+            dir.x = 1.0f;
+
+        fixedPos.x += dir.x * overlap.x;
+    }
+
+    movable->GetTransform()->SetPosition(fixedPos);
+
+    return true;
 }
 
 bool RectCollider::IsCollision(Vector2 pos)
@@ -113,8 +194,9 @@ bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
 
     if (info.right > other->GetTransform()->GetWorldPosition().x && info.left < other->GetTransform()->GetWorldPosition().x)
     {
-        if (info.top - other->GetWorldRadius() > other->GetTransform()->GetWorldPosition().y
-            && info.bottom + other->GetWorldRadius() < other->GetTransform()->GetWorldPosition().y)
+        float top = info.top - other->GetWorldRadius();
+        if (info.top + other->GetWorldRadius() > other->GetTransform()->GetWorldPosition().y
+            && info.bottom - other->GetWorldRadius() < other->GetTransform()->GetWorldPosition().y)
             return true;
     }
     if (info.bottom < other->GetTransform()->GetWorldPosition().y && info.top > other->GetTransform()->GetWorldPosition().y)
