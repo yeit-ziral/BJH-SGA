@@ -2,9 +2,9 @@
 #include "CircleCollider.h"
 
 CircleCollider::CircleCollider(float radius)
-	: _radius(radius)
+: _radius(radius)
+, Collider(ColliderType::CIRCLE)
 {
-	_type = ColliderType::CIRCLE;
 	CreateVertices();
 	Collider::CreateData();
 }
@@ -27,16 +27,16 @@ void CircleCollider::CreateVertices()
 {
     Vertex temp;
 
-	float A = PI * (1.0f / 18.0f);
+	float theta = PI * (1.0f / 18.0f);
 
 	for (int i = 0; i < 37; i++)
 	{
-		temp.pos = XMFLOAT3(_radius * cos(i * A), _radius * sin(i * A), 0.0f);
+		temp.pos = XMFLOAT3(_radius * cos(i * theta), _radius * sin(i * theta), 0.0f);
 		_vertices.push_back(temp);
 	}
 }
 
-bool CircleCollider::IsCollision(Vector2 pos)
+bool CircleCollider::IsCollision(const Vector2& pos)
 {
 	float distance = (_transform->GetWorldPosition() - pos).Length();
 
@@ -50,12 +50,12 @@ bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 
 bool CircleCollider::Block(shared_ptr<CircleCollider> movable)
 {
-	if (!IsCollision(movable))
+	if(!IsCollision(movable))
 		return false;
 
-	Vector2 movableCenter = movable->GetTransform()->GetWorldPosition();
+	Vector2 moveableCenter = movable->GetTransform()->GetWorldPosition();
 	Vector2 blockCenter = GetTransform()->GetWorldPosition();
-	Vector2 dir = movableCenter - blockCenter;
+	Vector2 dir = moveableCenter - blockCenter;
 	float scalar = abs((movable->GetWorldRadius() + GetWorldRadius()) - dir.Length());
 	dir.Normallize();
 
@@ -66,8 +66,8 @@ bool CircleCollider::Block(shared_ptr<CircleCollider> movable)
 
 bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
 {
-	Vector2 center1= _transform->GetWorldPosition();
-	Vector2 center2= other->_transform->GetWorldPosition();
+	Vector2 center1 = _transform->GetWorldPosition();
+	Vector2 center2 = other->_transform->GetWorldPosition();
 
 	float distance = (center1 - center2).Length();
 

@@ -10,7 +10,7 @@ protected:
 	};
 
 public:
-	Collider();
+	Collider(ColliderType type);
 	virtual~Collider();
 
 	virtual void Update();
@@ -20,7 +20,7 @@ public:
 	virtual void CreateVertices() abstract;
 
 	bool IsCollision(shared_ptr<Collider> col);
-	virtual bool IsCollision(const Vector2 pos) abstract;
+	virtual bool IsCollision(const Vector2& pos) abstract;
 	virtual bool IsCollision(shared_ptr<class CircleCollider> other) abstract;
 	virtual bool IsCollision(shared_ptr<class RectCollider> other) abstract;
 

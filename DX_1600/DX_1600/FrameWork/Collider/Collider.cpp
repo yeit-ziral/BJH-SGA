@@ -1,10 +1,9 @@
 #include "framework.h"
 #include "Collider.h"
 
-Collider::Collider()
+Collider::Collider(ColliderType type)
+: _type(type)
 {
-	_type = ColliderType::NONE;
-	
 }
 
 Collider::~Collider()
@@ -18,17 +17,17 @@ void Collider::Update()
 
 void Collider::Render()
 {
-	_vertexBuffer->Set(0);
+    _vertexBuffer->Set(0);
 
-	_transform->SetBuffer(0);
-	_colorBuffer->SetPSBuffer(0);
+    _transform->SetBuffer(0);
+    _colorBuffer->SetPSBuffer(0);
 
-	DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
-	_vs->Set();
-	_ps->Set();
+    _vs->Set();
+    _ps->Set();
 
-	DC->Draw(_vertices.size(), 0);
+    DC->Draw(_vertices.size(), 0);
 }
 
 void Collider::CreateData()
@@ -44,27 +43,23 @@ void Collider::CreateData()
 	SetGreen();
 }
 
-bool Collider::IsCollision(shared_ptr<Collider> col)
+bool Collider::IsCollision(shared_ptr<Collider> other)
 {
-	switch (col->_type)
+	switch (other->_type)
 	{
-	case Collider::ColliderType::NONE:
-	{
+	case Collider::ColType::NONE:
 		return false;
-		break;
-	}
-	case Collider::ColliderType::CIRCLE:
+	case Collider::ColType::CIRCLE:
 	{
-		auto circle = dynamic_pointer_cast<CircleCollider>(col);
+		auto circle = dynamic_pointer_cast<CircleCollider>(other);
 		return IsCollision(circle);
 	}
-	case Collider::ColliderType::RECT:
+	case Collider::ColType::RECT:
 	{
-		auto rect = dynamic_pointer_cast<RectCollider>(col);
+		auto rect = dynamic_pointer_cast<RectCollider>(other);
 		return IsCollision(rect);
 	}
 	default:
-		break;
+		return false;
 	}
-	return false;
 }
