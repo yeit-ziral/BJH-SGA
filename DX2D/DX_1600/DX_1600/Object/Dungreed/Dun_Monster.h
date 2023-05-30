@@ -13,6 +13,9 @@ public:
 	int GetAttacked() { return _hp -= 1; }
 
 	bool _isAlive = true;
+
+	shared_ptr<CircleCollider> GetCircleCollider() { return _monster; }
+
 private:
 	shared_ptr<Quad> _quad;
 	shared_ptr<CircleCollider> _monster;

@@ -7,6 +7,7 @@ Dun_Monster::Dun_Monster()
 	float a = _quad->GetTransform()->GetWorldScale().x * 0.5f;
 	_monster = make_shared<CircleCollider>(50);
 	_monster->GetTransform()->SetPosition(Vector2(500.0f, WIN_HEIGHT * 0.5f));
+	_quad->GetTransform()->SetScale({ 0.5f,0.5f });
 
 	_hp = 10;
 }

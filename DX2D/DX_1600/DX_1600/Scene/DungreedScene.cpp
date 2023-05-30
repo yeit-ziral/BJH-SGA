@@ -2,6 +2,7 @@
 #include "DungreedScene.h"
 
 #include "../Object/Dungreed/Dun_Player.h"
+#include "../Object/Dungreed/Dun_Bullet.h"
 #include "../Object/Dungreed/Dun_Ground.h"
 #include "../Object/Dungreed/Dun_Monster.h"
 
@@ -32,25 +33,32 @@ void DungreedScene::Update()
 
 	_player->Update();
 	_ground->Update();
-	_monster->Update();
+	if (_monster->_isAlive == true)
+		_monster->Update();
 
-	if (_ground->GetGroundCollider()->Block(_player->GetCircleCollider()))
-		_ground->GetGroundCollider()->SetRed();
+	_ground->GetGroundCollider()->Block(_player->GetCircleCollider());
 
-	/*auto it = find_if(_player->GetBullet().begin(), _player->GetBullet().end(), []()-> bool
+	for (auto bullet : _player->GetBullet())
+	{
+		if (bullet->GetBulletCollider()->IsCollision(_monster->GetCircleCollider()))
 		{
+			bullet->_isActive = false;
 
-		});*/
+			_monster->GetAttacked();
+		}
+	}
 }
 
 void DungreedScene::Render()
 {
 	_player->Render();
 	_ground->Render();
-	_monster->Render();
+	if (_monster->_isAlive == true)
+		_monster->Render();
 }
 
 void DungreedScene::PostRender()
 {
 	ImGui::Text("mouseX : %d, mouseY : %d", (int)MOUSE_POS.x, (int)MOUSE_POS.y);
+	ImGui::Text("MonsterHP : %d", (int)_monster->GetHp());
 }

@@ -12,7 +12,7 @@ public:
 
 	bool _isActive = false;
 
-	shared_ptr<CircleCollider> GetBulletCollider() { return _bullet; }
+	const shared_ptr<CircleCollider>& GetBulletCollider() { return _bullet; }
 
 private:
 	shared_ptr<Quad> _quad;
