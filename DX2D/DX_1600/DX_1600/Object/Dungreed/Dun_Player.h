@@ -18,13 +18,7 @@ public:
 
 	void Fire();
 
-<<<<<<< Updated upstream
-	vector<shared_ptr<class Dun_Bullet>> GetBullet() { return _bullets; }
-=======
-	shared_ptr<CircleCollider> GetCircleCollider() { return _player; }
-
 	const vector<shared_ptr<class Dun_Bullet>>& GetBullet() { return _bullets; }
->>>>>>> Stashed changes
 
 protected:
 	shared_ptr<Quad> _quad;
@@ -34,4 +28,3 @@ protected:
 
 	vector<shared_ptr<class Dun_Bullet>> _bullets;
 };
-

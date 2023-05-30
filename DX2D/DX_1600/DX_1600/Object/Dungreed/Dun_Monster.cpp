@@ -7,7 +7,7 @@ Dun_Monster::Dun_Monster()
 	_monster = make_shared<CircleCollider>(_quad->GetImageSize().x);
 
 	_quad->GetTransform()->SetParent(_monster->GetTransform());
-	_quad->GetTransform()->SetScale({ 0.5f,0.5f });
+	_monster->SetScale(0.5f);
 }
 
 Dun_Monster::~Dun_Monster()
@@ -36,14 +36,15 @@ void Dun_Monster::Render()
 	_quad->Render();
 }
 
-int Dun_Monster::GetAttacked(int amount)
+void Dun_Monster::GetAttacked(int amount)
 {
 	if (!_isAlive)
-		return _hp;
+		return;
 	_hp -= amount;
 
 	if (_hp <= 0)
+	{
 		_isAlive = false;
-
-	return _hp;
+		_hp = 0;
+	}
 }

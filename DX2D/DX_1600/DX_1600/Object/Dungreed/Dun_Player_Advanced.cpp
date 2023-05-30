@@ -25,7 +25,6 @@ void Dun_Player_Advanced::Collider_Update()
 
 void Dun_Player_Advanced::Update()
 {
-
 	Input();
 	Falling();
 

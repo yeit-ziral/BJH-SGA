@@ -13,7 +13,6 @@ public:
 private:
 	shared_ptr<class Dun_Monster> _monster;
 	shared_ptr<class Dun_Player_Advanced> _player;
-	shared_ptr<class Dun_Ground> _ground;
 	shared_ptr<RectCollider> _floor;
 };
 

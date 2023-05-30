@@ -9,19 +9,15 @@ public:
 	void Update();
 	void Render();
 
-	int GetHp() { return _hp; }
+	const int& GetHp() { return _hp; }
 
-	int GetAttacked(int amount);
+	void GetAttacked(int amount);
 
 	bool _isAlive = true;
 
-<<<<<<< Updated upstream
 	shared_ptr<CircleCollider> GetCircleCollider() { return _monster; }
 
 	void SetPosition(Vector2 pos) { _monster->SetPosition(pos); }
-=======
-	shared_ptr<CircleCollider> GetMonsterCollider() { return _monster; }
->>>>>>> Stashed changes
 
 private:
 	shared_ptr<Quad> _quad;

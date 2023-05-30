@@ -6,12 +6,6 @@
 Dun_Player::Dun_Player()
 {
 	_quad = make_shared<Quad>(L"Resource/Player.png");
-<<<<<<< Updated upstream
-=======
-	float a = _quad->GetTransform()->GetWorldScale().x * 0.5f;
-	_player = make_shared<CircleCollider>(50);
-	_player->GetTransform()->SetPosition(Vector2(100.0f,WIN_HEIGHT * 0.7f));
->>>>>>> Stashed changes
 
 	_bowSlot = make_shared<Transform>();
 
@@ -48,7 +42,7 @@ void Dun_Player::Update()
 	_bowSlot->Update();
 	_bow->Update();
 
-	for(auto bullet : _bullets)
+	for (auto bullet : _bullets)
 		bullet->Update();
 }
 

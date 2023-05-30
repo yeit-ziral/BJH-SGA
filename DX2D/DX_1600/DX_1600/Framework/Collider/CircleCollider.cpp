@@ -64,6 +64,44 @@ bool CircleCollider::Block(shared_ptr<CircleCollider> movable)
 	return true;
 }
 
+bool CircleCollider::Block(shared_ptr<RectCollider> movable)
+{
+	if (!IsCollision(movable))
+		return false;
+
+	Vector2 moveableCenter = movable->GetTransform()->GetWorldPosition();
+	Vector2 blockCenter = GetTransform()->GetWorldPosition();
+	Vector2 virtuaHalfSize = Vector2(this->GetWorldRadius(), this->GetWorldRadius());
+	Vector2 sum = movable->GetWorldSize() * 0.5f + virtuaHalfSize;
+	Vector2 dir = moveableCenter - blockCenter;
+	Vector2 overlap = Vector2(sum.x - abs(dir.x), sum.y - abs(dir.y));
+
+	Vector2 fixedPos = movable->GetTransform()->GetPos();
+
+	if (overlap.x < overlap.y)
+	{
+		float scalar = overlap.x;
+		if (dir.x < 0)
+			scalar *= -1;
+
+		fixedPos.x += scalar;
+
+		// moveable->GetTransform()->AddVector2(Vector2(scalar, 0.0f));
+	}
+	else
+	{
+		float scalar = overlap.y;
+		if (dir.y < 0)
+			scalar *= -1;
+		fixedPos.y += scalar;
+
+		// moveable->GetTransform()->AddVector2(Vector2(0.0f, scalar));
+	}
+	movable->SetPosition(fixedPos);
+
+	return true;
+}
+
 bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
 {
 	Vector2 center1 = _transform->GetWorldPosition();

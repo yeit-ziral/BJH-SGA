@@ -30,6 +30,10 @@ void Dun_Bullet::Update()
 
 	_bullet->GetTransform()->AddVector2(_dir * _speed * DELTA_TIME);
 
+	if (_bullet->GetTransform()->GetWorldPosition().y > WIN_HEIGHT || _bullet->GetTransform()->GetWorldPosition().y < 0
+		|| _bullet->GetTransform()->GetWorldPosition().x > WIN_WIDTH || _bullet->GetTransform()->GetWorldPosition().x < 0)
+		_isActive = false;
+
 	_quad->Update();
 }
 
