@@ -5,6 +5,7 @@ public:
 	Dun_Bullet();
 	~Dun_Bullet();
 
+	void Collider_Update();
 	void Update();
 	void Render();
 
