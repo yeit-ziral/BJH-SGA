@@ -15,9 +15,13 @@ public:
 
 	bool _isAlive = true;
 
+<<<<<<< Updated upstream
 	shared_ptr<CircleCollider> GetCircleCollider() { return _monster; }
 
 	void SetPosition(Vector2 pos) { _monster->SetPosition(pos); }
+=======
+	shared_ptr<CircleCollider> GetMonsterCollider() { return _monster; }
+>>>>>>> Stashed changes
 
 private:
 	shared_ptr<Quad> _quad;

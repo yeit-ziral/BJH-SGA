@@ -15,6 +15,8 @@ public:
 
 	const shared_ptr<CircleCollider>& GetBulletCollider() { return _bullet; }
 
+	bool IsCollision(shared_ptr<CircleCollider> other) { return _bullet->IsCollision(other); }
+
 private:
 	shared_ptr<Quad> _quad;
 	shared_ptr<CircleCollider> _bullet;

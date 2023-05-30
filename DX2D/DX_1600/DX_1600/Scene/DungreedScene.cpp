@@ -46,7 +46,18 @@ void DungreedScene::Update()
 
 	_ground->GetGroundCollider()->Block(_player->GetCircleCollider());
 
+<<<<<<< Updated upstream
 
+=======
+	for (auto bullet : _player->GetBullet())
+	{
+		if (bullet->IsCollision(_monster->GetMonsterCollider()))
+		{
+			_monster->GetAttacked();
+			bullet->_isActive = false;
+		}
+	}
+>>>>>>> Stashed changes
 }
 
 void DungreedScene::Render()
@@ -62,5 +73,9 @@ void DungreedScene::Render()
 void DungreedScene::PostRender()
 {
 	ImGui::Text("mouseX : %d, mouseY : %d", (int)MOUSE_POS.x, (int)MOUSE_POS.y);
+<<<<<<< Updated upstream
 	ImGui::Text("MonsterHP : %d", (int)_monster->GetHp());
+=======
+	ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
+>>>>>>> Stashed changes
 }
