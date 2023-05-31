@@ -67,6 +67,24 @@ bool CircleCollider::OBB_Collision(shared_ptr<CircleCollider> other)
 	return AABB_Collision(other);
 }
 
+bool CircleCollider::AABB_Collision(shared_ptr<RectCollider> other)
+{
+	return other->IsCollision(shared_from_this());
+}
+
+bool CircleCollider::AABB_Collision(shared_ptr<CircleCollider> other)
+{
+	Vector2 center1 = _transform->GetWorldPosition();
+	Vector2 center2 = other->_transform->GetWorldPosition();
+
+	float distance = (center1 - center2).Length();
+
+	float radius1 = GetWorldRadius();
+	float radius2 = other->GetWorldRadius();
+
+	return distance < GetWorldRadius() + other->GetWorldRadius();
+}
+
 bool CircleCollider::Block(shared_ptr<CircleCollider> movable)
 {
 	if(!IsCollision(movable))
@@ -91,51 +109,33 @@ bool CircleCollider::Block(shared_ptr<RectCollider> movable)
 	Vector2 moveableCenter = movable->GetTransform()->GetWorldPosition();
 	Vector2 blockCenter = GetTransform()->GetWorldPosition();
 
-	Vector2 virtuaHalfSize = Vector2(this->GetWorldRadius(), this->GetWorldRadius());
-	Vector2 sum = movable->GetWorldSize() * 0.5f + virtuaHalfSize;
+	Vector2 virtualHalfSize = Vector2(this->GetWorldRadius(), this->GetWorldRadius());
+	Vector2 sum = movable->GetWorldSize() * 0.5f + virtualHalfSize;
 	Vector2 dir = moveableCenter - blockCenter;
 	Vector2 overlap = Vector2(sum.x - abs(dir.x), sum.y - abs(dir.y));
 
 	Vector2 fixedPos = movable->GetTransform()->GetPos();
 
-	if (overlap.x < overlap.y)
+	dir.Normallize();
+	if (overlap.x > overlap.y)
 	{
-		float scalar = overlap.x;
-		if (dir.x < 0)
-			scalar *= -1;
+		if (dir.y < 0.0f)
+			dir.y *= -1.0f;
+		else if (dir.y > 0.0f)
+			dir.y = 1.0f;
 
-		fixedPos.x += scalar;
-
-		// moveable->GetTransform()->AddVector2(Vector2(scalar, 0.0f));
+		fixedPos.y += dir.y * overlap.y;
 	}
 	else
 	{
-		float scalar = overlap.y;
-		if (dir.y < 0)
-			scalar *= -1;
-		fixedPos.y += scalar;
+		if (dir.x < 0.0f)
+			dir.x *= -1.0f;
+		else if (dir.x > 0.0f)
+			dir.x = 1.0f;
 
-		// moveable->GetTransform()->AddVector2(Vector2(0.0f, scalar));
+		fixedPos.x += dir.x * overlap.x;
 	}
-	movable->SetPosition(fixedPos);
+	movable->GetTransform()->SetPosition(fixedPos);
 
 	return true;
-}
-
-bool CircleCollider::AABB_Collision(shared_ptr<RectCollider> other)
-{
-	return other->IsCollision(shared_from_this());
-}
-
-bool CircleCollider::AABB_Collision(shared_ptr<CircleCollider> other)
-{
-	Vector2 center1 = _transform->GetWorldPosition();
-	Vector2 center2 = other->_transform->GetWorldPosition();
-
-	float distance = (center1 - center2).Length();
-
-	float radius1 = GetWorldRadius();
-	float radius2 = other->GetWorldRadius();
-
-	return distance < GetWorldRadius() + other->GetWorldRadius();
 }

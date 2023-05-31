@@ -7,7 +7,7 @@ Dun_Monster::Dun_Monster()
 	_monster = make_shared<CircleCollider>(_quad->GetImageSize().x);
 
 	_quad->GetTransform()->SetParent(_monster->GetTransform());
-	_monster->SetScale(0.5f);
+	_monster->GetTransform()->SetScale(Vector2(0.5f, 0.5f));
 }
 
 Dun_Monster::~Dun_Monster()

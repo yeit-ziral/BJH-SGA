@@ -56,7 +56,6 @@ void Quad::Render()
 void Quad::CreateVertices()
 {
     Vertex_Texture temp;
-    Vector2 _halfSize;
     _halfSize.x = (_srv->GetImageSize().x) * 0.5f;
     _halfSize.y = (_srv->GetImageSize().y) * 0.5;
 

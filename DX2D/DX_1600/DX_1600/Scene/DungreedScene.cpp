@@ -32,21 +32,13 @@ void DungreedScene::Collider_Update()
 void DungreedScene::Update()
 {
 	_player->Update();
+	_monster->Update();
 	_player->SetFalling(!_floor->Block(_player->GetCircleCollider()));
 
 	if (_monster->_isAlive == true)
 	{
 		if (_player->IsCollision_Bullets(_monster->GetCircleCollider()))
 			_monster->GetAttacked(5);
-	}
-
-	for (auto bullet : _player->GetBullet())
-	{
-		if (bullet->IsCollision(_monster->GetCircleCollider()))
-		{
-			_monster->GetAttacked(1);
-			bullet->_isActive = false;
-		}
 	}
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "Dun_Player.h"
-class Dun_Player;
 
 class Dun_Player_Advanced : public Dun_Player
 {
@@ -8,7 +7,7 @@ public:
 	Dun_Player_Advanced();
 	virtual ~Dun_Player_Advanced();
 
-	virtual void Collider_Update();
+	void Collider_Update();
 	virtual void Update() override;
 	virtual void Render() override;
 
