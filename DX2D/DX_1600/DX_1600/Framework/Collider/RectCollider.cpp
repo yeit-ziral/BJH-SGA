@@ -180,8 +180,13 @@ bool RectCollider::OBB_Collision(shared_ptr<CircleCollider> other)
     Vector2 nea2 = infoA.direction[1];
     Vector2 ea2 = infoA.direction[1] * infoA.length[1];
 
+    float d = sqrt(pow(infoA.length[0], 2) + pow(infoA.length[1], 2)) + other->GetWorldRadius();
+
+    if (aToB.Length() > d)
+        return false;
+
     // nea1 축으로 투영
-    float length = abs(nea1.Dot(aToB));
+    float length = abs(aToB.Dot(nea1));
     float lengthA = ea1.Length();
     float lengthB = other->GetWorldRadius();
 
@@ -189,9 +194,8 @@ bool RectCollider::OBB_Collision(shared_ptr<CircleCollider> other)
         return false;
 
     // nea2축으로 투영
-    length = abs(nea2.Dot(aToB));
+    length = abs(aToB.Dot(nea2));
     lengthA = ea2.Length();
-    lengthB = other->GetWorldRadius();
 
     if (length > lengthA + lengthB)
         return false;

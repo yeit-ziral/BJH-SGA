@@ -14,12 +14,12 @@ PixelShader::~PixelShader()
 void PixelShader::CreateBlob(wstring file)
 {
     DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
-    D3DCompileFromFile(file.c_str(), nullptr, nullptr, "PS", "ps_5_0", flags, 0, pixelBlob.GetAddressOf(), nullptr);
+    D3DCompileFromFile(file.c_str(), nullptr, nullptr, "PS", "ps_5_0", flags, 0, _blob.GetAddressOf(), nullptr);
 }
 
 void PixelShader::CreatePixelShader()
 {
-    DEVICE->CreatePixelShader(pixelBlob->GetBufferPointer(), pixelBlob->GetBufferSize(), nullptr, pixelShader.GetAddressOf());
+    DEVICE->CreatePixelShader(_blob->GetBufferPointer(), _blob->GetBufferSize(), nullptr, pixelShader.GetAddressOf());
 }
 
 void PixelShader::Set()
