@@ -10,6 +10,9 @@ public:
 	virtual void PostRender() override;
 
 	void CreateAction();
+	void CreateActionBack();
+	void CreateActionRight();
+	void CreateActionLeft();
 
 	void EndEvent() { _isEnd = true; }
 
