@@ -19,10 +19,10 @@ void PixelShader::CreateBlob(wstring file)
 
 void PixelShader::CreatePixelShader()
 {
-    DEVICE->CreatePixelShader(_blob->GetBufferPointer(), _blob->GetBufferSize(), nullptr, pixelShader.GetAddressOf());
+    DEVICE->CreatePixelShader(_blob->GetBufferPointer(), _blob->GetBufferSize(), nullptr, _pixelShader.GetAddressOf());
 }
 
 void PixelShader::Set()
 {
-    DC->PSSetShader(pixelShader.Get(), nullptr, 0);
+    DC->PSSetShader(_pixelShader.Get(), nullptr, 0);
 }

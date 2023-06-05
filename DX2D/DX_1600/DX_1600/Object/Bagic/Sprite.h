@@ -8,9 +8,11 @@ public:
 	void Update();
 	virtual void Render() override;
 
+	void SetCurFrame(Vector2 frame);
+	void SetCurFrame(Action::Clip clip);
+
 private:
 	shared_ptr<FrameBuffer> _frameBuffer;
-	shared_ptr<Transform> _transform;
 
 	Vector2 _maxFrame;
 	Vector2 _curFrame;

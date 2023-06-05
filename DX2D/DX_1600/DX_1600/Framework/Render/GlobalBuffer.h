@@ -52,8 +52,8 @@ class FrameBuffer : public ConstantBuffer
 public:
 	struct Data
 	{
-		XMFLOAT4 maxFrame = { 0.0f,0.0f,0.0f,0.0f };
-		XMFLOAT4 curFrame = { 0.0f,0.0f,0.0f,0.0f };
+		XMFLOAT2 maxFrame = {0.0f, 0.0f};
+		XMFLOAT2 curFrame = {0.0f, 0.0f};
 	};
 
 	FrameBuffer()
@@ -63,16 +63,13 @@ public:
 	}
 	virtual ~FrameBuffer() {}
 
-	void SetMaxFrame(Vector2 value) 
+	void SetMaxFrame(Vector2 value)
 	{
-		_data.maxFrame.x = value.x;
-		_data.maxFrame.y = value.y;
+		_data.maxFrame = value;
 	}
-
 	void SetCurFrame(Vector2 value)
 	{
-		_data.maxFrame.x = value.x;
-		_data.maxFrame.y = value.y;
+		_data.curFrame = value;
 	}
 
 	Data _data;

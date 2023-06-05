@@ -4,19 +4,19 @@ class ShaderManager
 public:
 	static void Create()
 	{
-		if (_instance == nullptr)
+		if(_instance == nullptr)
 			_instance = new ShaderManager();
 	}
 
 	static void Delete()
 	{
-		if (_instance != nullptr)
+		if(_instance != nullptr)
 			delete _instance;
 	}
 
 	static ShaderManager* GetInstance()
 	{
-		if (_instance != nullptr)
+		if(_instance != nullptr)
 			return _instance;
 
 		return nullptr;

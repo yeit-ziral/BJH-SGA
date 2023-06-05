@@ -13,7 +13,7 @@ ShaderManager::~ShaderManager()
 
 shared_ptr<VertexShader> ShaderManager::AddVS(wstring path)
 {
-	if (_shaderMap.count(path) != 0)
+	if(_shaderMap.count(path) != 0)
 		return dynamic_pointer_cast<VertexShader>(_shaderMap[path]);
 
 	shared_ptr<VertexShader> vs = make_shared<VertexShader>(path);

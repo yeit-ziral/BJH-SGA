@@ -1,3 +1,4 @@
+
 Texture2D map: register(t0);
 SamplerState samp : register(s0);
 
@@ -16,11 +17,12 @@ struct PixelInput
 
 float4 PS(PixelInput input) : SV_TARGET
 {
-	// curFrame (1,0) , (10, 8)
-	// input.uv.x = 0 ~ 1
+	// curFrame (1,0) , (10,8)
+	// input.uv.x .. 0 ~ 1
 	input.uv.x = (input.uv.x + curFrame.x) / maxFrame.x;
 	input.uv.y = (input.uv.y + curFrame.y) / maxFrame.y;
-	float4 color = map.Sample(samp,input.uv);
+
+	float4 color = map.Sample(samp, input.uv);
 
 	return color;
 }

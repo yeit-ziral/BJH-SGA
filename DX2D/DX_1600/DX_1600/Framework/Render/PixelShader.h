@@ -11,7 +11,6 @@ public:
 	virtual void Set() override;
 
 private:
-	ComPtr<ID3DBlob>			_blob;
-	ComPtr<ID3D11PixelShader>	pixelShader;
+	ComPtr<ID3D11PixelShader>	_pixelShader;
 };
 

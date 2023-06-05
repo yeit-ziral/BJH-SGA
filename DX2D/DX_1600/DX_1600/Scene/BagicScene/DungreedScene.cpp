@@ -1,10 +1,10 @@
 #include "framework.h"
 #include "DungreedScene.h"
 
-#include "../Object/Dungreed/Dun_Player.h"
-#include "../Object/Dungreed/Dun_Bullet.h"
-#include "../Object/Dungreed/Dun_Monster.h"
-#include "../Object/Dungreed/Dun_Player_Advanced.h"
+#include "../../Object/Dungreed/Dun_Player.h"
+#include "../../Object/Dungreed/Dun_Bullet.h"
+#include "../../Object/Dungreed/Dun_Monster.h"
+#include "../../Object/Dungreed/Dun_Player_Advanced.h"
 
 DungreedScene::DungreedScene()
 {
