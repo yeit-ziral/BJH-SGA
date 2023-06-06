@@ -9,18 +9,7 @@ public:
 	virtual void Render() override;
 	virtual void PostRender() override;
 
-	void CreateAction();
-	void CreateActionBack();
-	void CreateActionRight();
-	void CreateActionLeft();
-
-	void EndEvent() { _isEnd = true; }
-
 private:
-	bool _isEnd = false;
-
-	shared_ptr<Sprite> _sprite;
-	shared_ptr<Action> _action;
-	shared_ptr<Transform> _transform;
+	shared_ptr<class Link> _link;
 };
 

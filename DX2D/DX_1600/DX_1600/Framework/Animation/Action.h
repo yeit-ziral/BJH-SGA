@@ -38,7 +38,7 @@ public:
 	Action::Type GetRepeatType() { return _repeatType; }
 	bool IsPlay() { return _isPlay; }
 
-	void SetEndEvent(CallBack endEvent) { _endEvent = endEvent; }
+	void SetEndEvent(CallBack endEvent) {_endEvent = endEvent; }
 
 private:
 	string _name;
