@@ -24,4 +24,6 @@ void ActionScene::Render()
 void ActionScene::PostRender()
 {
 	_link->PostRender();
+	ImGui::Text("MonsterHP : % d", (int)_link->GetHp());
+	ImGui::Text("MonsterHP : % d", (int)_link->GetAtk());
 }

@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Animation\Action.h" />
+    <ClInclude Include="Object\Zelda\Item.h" />
     <ClInclude Include="Object\Zelda\Link.h" />
     <ClInclude Include="Scene\BagicScene\ActionScene.h" />
     <ClInclude Include="Object\Dungreed\Dun_Player_Advanced.h" />
@@ -199,6 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Animation\Action.cpp" />
+    <ClCompile Include="Object\Zelda\Item.cpp" />
     <ClCompile Include="Object\Zelda\Link.cpp" />
     <ClCompile Include="Scene\BagicScene\ActionScene.cpp" />
     <ClCompile Include="Object\Dungreed\Dun_Player_Advanced.cpp" />
@@ -255,6 +257,7 @@
     <Image Include="DX_1600.ico" />
     <Image Include="Resource\earth.png" />
     <Image Include="Resource\Goomba.png" />
+    <Image Include="Resource\Item_11x5.jpg" />
     <Image Include="Resource\moon.png" />
     <Image Include="Resource\sun.png" />
     <Image Include="Resource\Zelda.png" />

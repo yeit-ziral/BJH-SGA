@@ -13,7 +13,7 @@ Program::Program()
 {
 	srand(unsigned int(time(nullptr)));
 
-	_curScene = make_shared<MazeScene>();
+	_curScene = make_shared<CannonScene>();
 
 	HDC hdc = GetDC(hWnd);
 	_backBuffer = CreateCompatibleDC(hdc);
