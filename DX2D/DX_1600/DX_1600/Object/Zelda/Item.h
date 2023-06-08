@@ -12,8 +12,6 @@ public:
 	int GetActive() { return _isActive; }
 	int SetActive(int value) { return _isActive = value; }
 
-	void SetPos(Vector2 pos) { _collider->SetPosition(pos); }
-
 	shared_ptr<CircleCollider> GetCollider() { return _collider; }
 
 private:

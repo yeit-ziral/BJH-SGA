@@ -24,4 +24,5 @@ void CupHeadScene::Render()
 
 void CupHeadScene::PostRender()
 {
+	_player->PostRender();
 }

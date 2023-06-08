@@ -7,7 +7,6 @@
 ActionScene::ActionScene()
 {
 	_link = make_shared<Link>();
-	srand((unsigned int)time(nullptr));
 
 	for (int i = 0; i < 5; i++)
 	{

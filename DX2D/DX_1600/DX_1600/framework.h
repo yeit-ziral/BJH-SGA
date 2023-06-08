@@ -11,6 +11,7 @@
 // C 런타임 헤더 파일입니다.
 #include <stdlib.h>
 #include <malloc.h>
+#include <time.h>
 #include <memory.h>
 #include <tchar.h>
 #include <vector>
@@ -20,7 +21,6 @@
 #include <memory>
 #include <functional>
 #include <wrl/client.h>
-#include <time.h>
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -79,7 +79,7 @@ using namespace Microsoft::WRL;
 #include "Framework/TextureMapping/BlendState.h"
 #include "Framework/TextureMapping/StateManager.h"
 
-// Action
+// Animation
 #include "Framework/Animation/Action.h"
 
 // Object

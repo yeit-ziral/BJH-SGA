@@ -9,12 +9,10 @@ Item::Item(Vector2 pos)
 
 	_sprite = make_shared<Sprite>(L"Resource/Iten_11x5.png", Vector2(11, 5), size);
 
-	_collider = make_shared<CircleCollider>(size.x / 2);
+	_collider = make_shared<CircleCollider>((size.x + size.y) / 2);
 	_transform = make_shared<Transform>();
 
 	_transform->SetParent(_collider->GetTransform());
-	int RandomH = (int)rand % WIN_HEIGHT;
-	int RandomW = (int)rand % WIN_WIDTH;
 	_collider->SetPosition(pos);
 }
 

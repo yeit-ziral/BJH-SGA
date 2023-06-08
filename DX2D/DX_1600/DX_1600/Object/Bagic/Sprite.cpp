@@ -16,7 +16,7 @@ Sprite::Sprite(wstring path, Vector2 maxFrame, Vector2 size)
 : _maxFrame(nullptr)
 , Quad(path, size)
 {
-	// 칸대로 잘 나눠지도록
+	// 칸대로 잘 나뉘어져있는 스프라이트가 생성될 경우
 	_maxFrame = make_shared<Vector2>(maxFrame);
 
 	_vs = ADD_VS(L"Shader/SpriteVS.hlsl");
@@ -43,7 +43,7 @@ void Sprite::Render()
 
 void Sprite::SetCurFrame(Vector2 frame)
 {
-	if (_maxFrame)
+	if (_maxFrame == nullptr)
 		return;
 
 	Vector2 size;

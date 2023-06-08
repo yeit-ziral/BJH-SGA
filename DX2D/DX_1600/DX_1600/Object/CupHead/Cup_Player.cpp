@@ -11,7 +11,7 @@ Cup_Player::Cup_Player()
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_col->GetTransform());
-	_transform->SetPosition(Vector2(0, 9.765));
+	_transform->SetPosition(Vector2(0, 9.876));
 }
 
 Cup_Player::~Cup_Player()
