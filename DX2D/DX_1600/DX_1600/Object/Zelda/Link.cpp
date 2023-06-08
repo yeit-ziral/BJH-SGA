@@ -13,6 +13,7 @@ Link::Link()
 	size.y /= 8;
 	_sprite = make_shared<Sprite>(L"Resource/Link.png", Vector2(10, 8), size);
 	_transform = make_shared<Transform>();
+	_collider = make_shared<RectCollider>(size);
 
 	_transform->SetPosition(CENTER);
 
@@ -37,6 +38,11 @@ void Link::Update()
 	_sprite->Update();
 	_transform->Update();
 	(*_curAction)->Update();
+}
+
+void Link::Collider_Update()
+{
+	_collider->Update();
 }
 
 void Link::Render()

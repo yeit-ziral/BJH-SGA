@@ -22,6 +22,7 @@ public:
 	~Link();
 
 	void Update();
+	void Collider_Update();
 	void Render();
 	void PostRender();
 
@@ -40,10 +41,13 @@ public:
 	int GetAtk() { return _atk; }
 	int SetAtk(int value) { _atk += value; }
 
+	shared_ptr<RectCollider> GetCollider() { return _collider; }
+
 private:
 	bool _isEnd = false;
 
 	shared_ptr<Sprite> _sprite;
+	shared_ptr<RectCollider> _collider;
 	vector<shared_ptr<Action>> _actions;
 	shared_ptr<Transform> _transform;
 
