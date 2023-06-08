@@ -3,11 +3,11 @@
 
 Item::Item(Vector2 pos)
 {
-	Vector2 size = ADD_SRV(L"Resource/Iten_11x5.png")->GetImageSize();
+	Vector2 size = ADD_SRV(L"Resource/Item_11x5.png")->GetImageSize();
 	size.x /= 11;
 	size.y /= 5;
 
-	_sprite = make_shared<Sprite>(L"Resource/Iten_11x5.png", Vector2(11, 5), size);
+	_sprite = make_shared<Sprite>(L"Resource/Item_11x5.png", Vector2(11, 5), size);
 
 	_collider = make_shared<CircleCollider>((size.x + size.y) / 2);
 	_transform = make_shared<Transform>();

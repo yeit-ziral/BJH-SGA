@@ -264,7 +264,7 @@
     <Image Include="Resource\earth.png" />
     <Image Include="Resource\Goomba.png" />
     <Image Include="Resource\CupHead\Idle.png" />
-    <Image Include="Resource\Item_11x5.jpg" />
+    <Image Include="Resource\Item_11x5.png" />
     <Image Include="Resource\moon.png" />
     <Image Include="Resource\sun.png" />
     <Image Include="Resource\Zelda.png" />

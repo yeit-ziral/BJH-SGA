@@ -1,6 +1,7 @@
 #pragma once
 class SRV
 {
+	friend class SRVManager;
 public:
 	SRV(wstring file);
 	~SRV();
@@ -14,4 +15,3 @@ private:
 
 	Vector2 _size;
 };
-
