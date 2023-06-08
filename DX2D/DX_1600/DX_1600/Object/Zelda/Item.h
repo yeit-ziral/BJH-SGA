@@ -2,15 +2,15 @@
 class Item
 {
 public:
-	Item(Vector2 curframe);
+	Item(Vector2 pos);
 	~Item();
 
 	void Collider_Update();
 	void Update();
 	void Render();
 
-	int GetHp() { return _hp; }
-	int SetHp(int value) { _hp += value; }
+	int GetActive() { return _isActive; }
+	int SetActive(int value) { return _isActive = value; }
 
 	void SetPos(Vector2 pos) { _collider->SetPosition(pos); }
 
@@ -21,6 +21,6 @@ private:
 	shared_ptr<Transform> _transform;
 	shared_ptr<CircleCollider> _collider;
 
-	int _hp;
+	bool _isActive;
 };
 

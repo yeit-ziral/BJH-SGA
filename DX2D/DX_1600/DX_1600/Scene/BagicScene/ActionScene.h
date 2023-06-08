@@ -14,6 +14,6 @@ public:
 
 private:
 	shared_ptr<class Link> _link;
-	shared_ptr<class Item> _potion;
+	vector<shared_ptr<class Item>> _potions;
 };
 

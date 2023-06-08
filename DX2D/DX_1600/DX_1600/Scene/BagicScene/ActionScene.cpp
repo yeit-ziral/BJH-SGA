@@ -1,14 +1,22 @@
 #include "framework.h"
 #include "ActionScene.h"
+
 #include "../../Object/Zelda/Link.h"
 #include "../../Object/Zelda/Item.h"
 
 ActionScene::ActionScene()
 {
 	_link = make_shared<Link>();
-	_potion = make_shared<Item>(Vector2(4, 0));
+	srand((unsigned int)time(nullptr));
 
-	_potion->SetPos(Vector2(100, 100));
+	for (int i = 0; i < 5; i++)
+	{
+		int w = rand() % WIN_WIDTH + 1;
+		int h = rand() % WIN_HEIGHT + 1;
+
+		shared_ptr<Item> item = make_shared<Item>(Vector2(w, h));
+		_potions.push_back(item);
+	}
 }
 
 ActionScene::~ActionScene()
@@ -18,19 +26,29 @@ ActionScene::~ActionScene()
 void ActionScene::Update()
 {
 	_link->Update();
-	_potion->Update();
+	for (auto& item : _potions)
+	{
+		item->Update();
+	}
+	GetItem();
 }
 
 void ActionScene::Collider_Update()
 {
 	_link->Collider_Update();
-	_potion->Collider_Update();
+	for (auto& item : _potions)
+	{
+		item->Collider_Update();
+	}
 }
 
 void ActionScene::Render()
 {
 	_link->Render();
-	_potion->Render();
+	for (auto& item : _potions)
+	{
+		item->Render();
+	}
 }
 
 void ActionScene::PostRender()
@@ -42,8 +60,15 @@ void ActionScene::PostRender()
 
 void ActionScene::GetItem()
 {
-	if (_link->GetCollider()->IsCollision(_potion->GetCollider()))
+	for (auto& item : _potions)
 	{
-		_potion->SetHp(20);
+		if (!item->GetActive())
+			return;
+
+		if (_link->GetCollider()->IsCollision(item->GetCollider()))
+		{
+			item->SetActive(false);
+			_link->SetHp(10);
+		}
 	}
 }

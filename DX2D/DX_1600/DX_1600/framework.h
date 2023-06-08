@@ -20,6 +20,7 @@
 #include <memory>
 #include <functional>
 #include <wrl/client.h>
+#include <time.h>
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -53,6 +54,7 @@ using namespace Microsoft::WRL;
 // Utility
 #include "Framework/Utility/InputManager.h"
 #include "Framework/Utility/Timer.h"
+#include "Framework/Utility/tinyxml2.h"
 
 //Render
 #include "Framework/Render/ConstantBuffer.h"

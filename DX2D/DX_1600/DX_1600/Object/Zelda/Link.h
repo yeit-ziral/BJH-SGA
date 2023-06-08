@@ -36,7 +36,7 @@ public:
 	void EndEvent() { _isEnd = true; }
 
 	int GetHp() { return _hp; }
-	int SetHp(int value) { _hp += value; }
+	int SetHp(int value) {return _hp += value; }
 
 	int GetAtk() { return _atk; }
 	int SetAtk(int value) { _atk += value; }
