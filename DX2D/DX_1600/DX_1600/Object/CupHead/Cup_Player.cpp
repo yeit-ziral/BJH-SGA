@@ -7,7 +7,10 @@ Cup_Player::Cup_Player()
 {
 	_col = make_shared<CircleCollider>(50);
 
-	CreateAction(L"Resource/CupHead/Idle.png", "Resource/Idle.xml", "IDLE", Vector2(250, 250));
+	//CreateAction(L"Resource/CupHead/Idle.png", "Resource/Idle.xml", "IDLE", Vector2(250, 250));
+
+	CreateIdleAction();
+	CreateRunAction();
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_col->GetTransform());
@@ -20,22 +23,13 @@ Cup_Player::~Cup_Player()
 
 void Cup_Player::Update()
 {
-	SelectState();
 	Input();
-	Jump();
+	SelectState();
 	_col->Update();
 
-	_actions[IDLE]->Update();
-	_sprites[IDLE]->Update();
-	if (_state == State::IDLE)
-	{
-		_sprite->Update();
-	}
-
-	if (_state == State::RUN_R)
-	{
-		_spriteRun->Update();
-	}
+	_actions[_state]->Update();
+	_sprites[_state]->Update();
+	
 	_transform->Update();
 
 	
@@ -44,13 +38,9 @@ void Cup_Player::Update()
 void Cup_Player::Render()
 {
 	_transform->SetBuffer(0);
+	
+	_sprites[_state]->SetCurFrame(_actions[_state]->GetCurClip());
 	_sprites[_state]->Render();
-
-	if (_state == State::RUN_R)
-	{
-		_spriteRun->SetCurFrame(_actions[_state]->GetCurClip());
-		_spriteRun->Render();
-	}
 
 	_col->Render();
 }
@@ -98,6 +88,43 @@ void Cup_Player::CreateAction(wstring srvpath, string xmlpath, string actionName
 	_sprites.push_back(sprite);
 }
 
+void Cup_Player::CreateIdleAction()
+{
+	wstring srvPath = L"Resource/CupHead/Idle.png";
+	shared_ptr<SRV> srv = ADD_SRV(srvPath);
+
+	shared_ptr<tinyxml2::XMLDocument> document = make_shared<tinyxml2::XMLDocument>();
+	string path = "Resource/CupHead/Idle.xml";
+	document->LoadFile(path.c_str());
+
+	XMLElement* texturAtlas = document->FirstChildElement();
+	XMLElement* row = texturAtlas->FirstChildElement();
+
+	vector<Action::Clip> clips;
+
+	while (true)
+	{
+		if (row == nullptr)
+			break;
+
+		int x = row->FindAttribute("x")->IntValue();
+		int y = row->FindAttribute("y")->IntValue();
+		int w = row->FindAttribute("w")->IntValue();
+		int h = row->FindAttribute("h")->IntValue();
+
+		Action::Clip clip = Action::Clip(x, y, w, h, srv);
+		clips.push_back(clip);
+
+		row = row->NextSiblingElement();
+	}
+
+	shared_ptr<Action> action = make_shared<Action>(clips, "CUP_IDLE");
+	action->Play();
+	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvPath, Vector2(250, 250));
+	_actions.push_back(action);
+	_sprites.push_back(sprite);
+}
+
 void Cup_Player::CreateRunAction()
 {
 	wstring srvPath = L"Resource/CupHead/Run.png";
@@ -130,8 +157,9 @@ void Cup_Player::CreateRunAction()
 
 	shared_ptr<Action> action = make_shared<Action>(clips, "CUP_RUN");
 	action->Play();
-	_spriteRun = make_shared<Sprite>(srvPath, Vector2(120, 120));
+	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvPath, Vector2(120, 120));
 	_actions.push_back(action);
+	_sprites.push_back(sprite);
 }
 
 void Cup_Player::SelectState()
@@ -140,31 +168,23 @@ void Cup_Player::SelectState()
 	{
 		_state = State::IDLE;
 	}
-	if (KEY_DOWN('A'))
-	{
-		//_sprite->SetLeft();
-	}
 
 	if (KEY_UP('D'))
 	{
 		_state = State::IDLE;
-	}
-	if (KEY_DOWN('D'))
-	{
-		//_sprite->SetRight();
 	}
 
 
 	if (KEY_PRESS('A'))
 	{
 		_state = State::RUN_R;
-		//_spriteRun->SetLeft();
+		SetLeft();
 	}
 
 	if (KEY_PRESS('D'))
 	{
 		_state = State::RUN_R;
-		//_spriteRun->SetRight();
+		SetRight();
 	}
 }
 
@@ -181,6 +201,8 @@ void Cup_Player::Input()
 		Vector2 movePos = Vector2(_speed, 0.0f) * DELTA_TIME;
 		Move(movePos);
 	}
+
+	Jump();
 }
 
 void Cup_Player::Jump()
@@ -203,7 +225,8 @@ void Cup_Player::Jump()
 
 void Cup_Player::AnimationControl()
 {
-	if(abs(_jumpPower) > 800.0f)
+	if (abs(_jumpPower) > 800.0f)
+		return;
 }
 
 void Cup_Player::SetLeft()

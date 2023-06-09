@@ -6,7 +6,7 @@ cbuffer ActionBuffer : register(b0)
 	float2	 startPos;
 	float2	 size;
 	float2	imageSize;
-	int		isRight = 0;
+	int		isRight;
 	int		padding;
 }
 

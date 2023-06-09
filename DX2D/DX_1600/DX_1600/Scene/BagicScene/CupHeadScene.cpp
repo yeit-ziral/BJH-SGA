@@ -31,7 +31,7 @@ void CupHeadScene::Update()
 	_transform->Update();
 	_col->Update();
 
-	_col->Block(_player->GetCollider())
+	_col->Block(_player->GetCollider());
 }
 
 void CupHeadScene::Render()

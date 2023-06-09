@@ -18,6 +18,7 @@ public:
 	void PostRender();
 
 	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size);
+	void CreateIdleAction();
 	void CreateRunAction();
 	void SelectState();
 
