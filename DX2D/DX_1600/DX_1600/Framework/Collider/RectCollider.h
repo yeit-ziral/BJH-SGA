@@ -39,8 +39,8 @@ public:
 
 
 	// Matrix 상속 걸려있는 구조에서 X
-	bool Block(shared_ptr<RectCollider> movable);
-	bool Block(shared_ptr<class CircleCollider> movable);
+	virtual bool Block(shared_ptr<RectCollider> movable)override;
+	virtual bool Block(shared_ptr<class CircleCollider> movable)override;
 
 private:
 	virtual bool AABB_Collision(shared_ptr<RectCollider> other) override final;

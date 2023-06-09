@@ -8,6 +8,12 @@ cbuffer FrameBuffer : register(b0)
 	float2 curFrame;
 }
 
+//cbuffer IsRightBuffer : register(b1)
+//{
+//	int isRigth;
+//	int padding[3];
+//}
+
 struct PixelInput
 {
 	float4 pos : SV_POSITION;

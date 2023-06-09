@@ -4,10 +4,9 @@ class Cup_Player
 public:
 	enum State
 	{
-		IDLE_R,
-		IDLE_L,
+		IDLE,
+		JUMP,
 		RUN_R,
-		RUN_L,
 		NONE
 	};
 
@@ -18,24 +17,38 @@ public:
 	void Render();
 	void PostRender();
 
-	void CreateAction();
+	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size);
+	void CreateRunAction();
+	void SelectState();
 
-	void CreateActionRight();
-	void CreateActionLeft();
-
-	void SelectDir();
+	void Move(Vector2 movePos) { _col->GetTransform()->AddVector2(movePos); }
+	void Input();
+	void Jump();
+	void AnimationControl();
 
 	void SetPosition(Vector2 pos) { _col->SetPosition(pos); }
 
+	void SetGrounded() { _jumpPower = 0.0f; }
+
+	shared_ptr<Collider> GetCollider() { return _col; }
+
 private:
+	void SetLeft();
+	void SetRight();
+
 	shared_ptr<CircleCollider> _col;
 
 	vector<shared_ptr<Action>> _actions;
-	shared_ptr<Action>* _curAction;
 
-	shared_ptr<Sprite> _sprite;
+	vector<shared_ptr<Sprite>> _sprites;
 	shared_ptr<Transform> _transform;
 
+	State _state = State::IDLE;
+
+	float _speed = 200.0f;
+
 	Vector2 _fixedPos;
+
+	float _jumpPower = 0.0f;
 };
 
