@@ -31,7 +31,8 @@ void CupHeadScene::Update()
 	_transform->Update();
 	_col->Update();
 
-	_col->Block(_player->GetCollider());
+	if (_col->Block(_player->GetCollider()))
+		_player->GetIsJump(false);
 }
 
 void CupHeadScene::Render()

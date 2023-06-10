@@ -5,8 +5,8 @@ public:
 	enum State
 	{
 		IDLE,
-		JUMP,
 		RUN_R,
+		JUMP,
 		NONE
 	};
 
@@ -33,6 +33,8 @@ public:
 
 	shared_ptr<Collider> GetCollider() { return _col; }
 
+	bool GetIsJump(bool value) { return _isJump = value; }
+
 private:
 	void SetLeft();
 	void SetRight();
@@ -51,5 +53,7 @@ private:
 	Vector2 _fixedPos;
 
 	float _jumpPower = 0.0f;
+
+	bool _isJump = false;
 };
 

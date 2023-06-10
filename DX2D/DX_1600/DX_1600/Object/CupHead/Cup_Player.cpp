@@ -164,27 +164,30 @@ void Cup_Player::CreateRunAction()
 
 void Cup_Player::SelectState()
 {
-	if (KEY_UP('A'))
+	if (!_isJump)
 	{
-		_state = State::IDLE;
-	}
+		if (KEY_UP('A'))
+		{
+			_state = State::IDLE;
+		}
 
-	if (KEY_UP('D'))
-	{
-		_state = State::IDLE;
-	}
+		if (KEY_UP('D'))
+		{
+			_state = State::IDLE;
+		}
 
 
-	if (KEY_PRESS('A'))
-	{
-		_state = State::RUN_R;
-		SetLeft();
-	}
+		if (KEY_PRESS('A'))
+		{
+			_state = State::RUN_R;
+			SetLeft();
+		}
 
-	if (KEY_PRESS('D'))
-	{
-		_state = State::RUN_R;
-		SetRight();
+		if (KEY_PRESS('D'))
+		{
+			_state = State::RUN_R;
+			SetRight();
+		}
 	}
 }
 
@@ -219,7 +222,11 @@ void Cup_Player::Jump()
 
 	if (KEY_DOWN(VK_SPACE))
 	{
+		if (_isJump)
+			return;
+
 		_jumpPower = 500.0f;
+		_isJump = true;
 	}
 }
 
