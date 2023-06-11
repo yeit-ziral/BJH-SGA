@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "CupHeadScene.h"
 #include "../../Object/CupHead/Cup_Player.h"
+#include "../../Object/CupHead/Cup_Monster.h"
 
 CupHeadScene::CupHeadScene()
 {
@@ -18,6 +19,9 @@ CupHeadScene::CupHeadScene()
 	Vector2 pos = CENTER;
 	pos.y -= 300.0f;
 	_col->GetTransform()->SetPosition(pos);
+
+	_monster = make_shared<Cup_Monster>();
+	_monster->SetPosition(Vector2(WIN_WIDTH - 100.0f, WIN_HEIGHT - 100.0f));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -32,7 +36,16 @@ void CupHeadScene::Update()
 	_col->Update();
 
 	if (_col->Block(_player->GetCollider()))
-		_player->GetIsJump(false);
+		_player->SetIsJump(false);
+
+	_monster->Collider_Update();
+	_monster->Update();
+
+	if (_monster->_isAlive == true)
+	{
+		if (_player->IsCollision_Bullets(_monster->GetCircleCollider()))
+			_monster->GetAttacked(5);
+	}
 }
 
 void CupHeadScene::Render()
@@ -42,9 +55,14 @@ void CupHeadScene::Render()
 	_col->Render();
 
 	_player->Render();
+
+	if (_monster->_isAlive == true)
+		_monster->Render();
 }
 
 void CupHeadScene::PostRender()
 {
 	_player->PostRender();
+
+	ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
 }

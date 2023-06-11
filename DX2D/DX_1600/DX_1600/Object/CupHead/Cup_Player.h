@@ -20,6 +20,7 @@ public:
 	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size);
 	void CreateIdleAction();
 	void CreateRunAction();
+	void CreateJumpAction();
 	void SelectState();
 
 	void Move(Vector2 movePos) { _col->GetTransform()->AddVector2(movePos); }
@@ -33,7 +34,18 @@ public:
 
 	shared_ptr<Collider> GetCollider() { return _col; }
 
-	bool GetIsJump(bool value) { return _isJump = value; }
+	bool SetIsJump(bool value) { return _isJump = value; }
+	bool GetIsJump() { return _isJump; }
+
+	virtual const Vector2& GetPos() { return _transform->GetPos(); }
+
+	void SetBowAngle();
+
+	bool IsCollision_Bullets(shared_ptr<Collider> col);
+
+	void Fire();
+
+	const vector<shared_ptr<class Cup_Bullet>>& GetBullet() { return _bullets; }
 
 private:
 	void SetLeft();
@@ -55,5 +67,12 @@ private:
 	float _jumpPower = 0.0f;
 
 	bool _isJump = false;
+
+	shared_ptr<Transform> _bowSlot;
+
+	shared_ptr<Quad> _bow;
+	shared_ptr<Transform> _bowTrans;
+
+	vector<shared_ptr<class Cup_Bullet>> _bullets;
 };
 

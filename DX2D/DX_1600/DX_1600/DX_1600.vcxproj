@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Cup_Bullet.h" />
+    <ClInclude Include="Object\CupHead\Cup_Monster.h" />
     <ClInclude Include="Scene\BagicScene\CupHeadScene.h" />
     <ClInclude Include="Object\CupHead\Cup_Player.h" />
     <ClInclude Include="Framework\Animation\Action.h" />
@@ -202,6 +204,8 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Cup_Bullet.cpp" />
+    <ClCompile Include="Object\CupHead\Cup_Monster.cpp" />
     <ClCompile Include="Scene\BagicScene\CupHeadScene.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Player.cpp" />
     <ClCompile Include="Framework\Animation\Action.cpp" />

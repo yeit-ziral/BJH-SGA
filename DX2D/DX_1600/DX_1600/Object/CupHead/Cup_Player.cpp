@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "Cup_Player.h"
 
+#include "Cup_Bullet.h"
+
 using namespace tinyxml2;
 
 Cup_Player::Cup_Player()
@@ -11,6 +13,7 @@ Cup_Player::Cup_Player()
 
 	CreateIdleAction();
 	CreateRunAction();
+	CreateJumpAction();
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_col->GetTransform());
@@ -32,7 +35,8 @@ void Cup_Player::Update()
 	
 	_transform->Update();
 
-	
+	//for (auto bullet : _bullets)
+	//	bullet->Collider_Update();
 }
 
 void Cup_Player::Render()
@@ -162,6 +166,43 @@ void Cup_Player::CreateRunAction()
 	_sprites.push_back(sprite);
 }
 
+void Cup_Player::CreateJumpAction()
+{
+	wstring srvPath = L"Resource/CupHead/Jump.png";
+	shared_ptr<SRV> srv = ADD_SRV(srvPath);
+
+	shared_ptr<tinyxml2::XMLDocument> document = make_shared<tinyxml2::XMLDocument>();
+	string path = "Resource/CupHead/Jump.xml";
+	document->LoadFile(path.c_str());
+
+	XMLElement* texturAtlas = document->FirstChildElement();
+	XMLElement* row = texturAtlas->FirstChildElement();
+
+	vector<Action::Clip> clips;
+
+	while (true)
+	{
+		if (row == nullptr)
+			break;
+
+		int x = row->FindAttribute("x")->IntValue();
+		int y = row->FindAttribute("y")->IntValue();
+		int w = row->FindAttribute("w")->IntValue();
+		int h = row->FindAttribute("h")->IntValue();
+
+		Action::Clip clip = Action::Clip(x, y, w, h, srv);
+		clips.push_back(clip);
+
+		row = row->NextSiblingElement();
+	}
+
+	shared_ptr<Action> action = make_shared<Action>(clips, "CUP_RUN");
+	action->Play();
+	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvPath, Vector2(120, 120));
+	_actions.push_back(action);
+	_sprites.push_back(sprite);
+}
+
 void Cup_Player::SelectState()
 {
 	if (!_isJump)
@@ -188,6 +229,21 @@ void Cup_Player::SelectState()
 			_state = State::RUN_R;
 			SetRight();
 		}
+	}
+	if (_isJump)
+	{
+		if (KEY_PRESS('A'))
+		{
+			_state = State::JUMP;
+			SetLeft();
+		}
+
+		if (KEY_PRESS('D'))
+		{
+			_state = State::JUMP;
+			SetRight();
+		}
+
 	}
 }
 
@@ -234,6 +290,43 @@ void Cup_Player::AnimationControl()
 {
 	if (abs(_jumpPower) > 800.0f)
 		return;
+}
+
+void Cup_Player::SetBowAngle()
+{
+	Vector2 playerToMouse = MOUSE_POS - GetPos();
+	float angle = playerToMouse.Angle();
+	_bowSlot->SetAngle(angle);
+}
+
+bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
+{
+	//for (auto bullet : _bullets)
+	//{
+	//	if (bullet->_isActive == false)
+	//		continue;
+
+	//	if (col->IsCollision(bullet->GetBulletCollider()))
+	//	{
+	//		bullet->_isActive = false;
+	//		return true;
+	//	}
+	//}
+
+	return false;
+}
+
+void Cup_Player::Fire()
+{
+	//Vector2 dir = MOUSE_POS - GetPos();
+
+	//auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
+	//	[](const shared_ptr<Cup_Bullet> obj)-> bool { return !obj->_isActive; });
+
+	//if (bulletIter == _bullets.end())
+	//	return;
+
+	//(*bulletIter)->Shoot(dir, _bowTrans->GetWorldPosition());
 }
 
 void Cup_Player::SetLeft()
