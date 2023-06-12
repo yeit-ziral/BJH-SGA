@@ -36,7 +36,7 @@ void CupHeadScene::Update()
 	_col->Update();
 
 	if (_col->Block(_player->GetCollider()))
-		_player->SetIsJump(false);
+		_player->SetGrounded();
 
 	_monster->Collider_Update();
 	_monster->Update();

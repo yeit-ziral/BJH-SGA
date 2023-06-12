@@ -7,13 +7,14 @@ Cup_Bullet::Cup_Bullet()
 {
 	_bullet = make_shared<CircleCollider>(5.0f);
 
-	CreateAction(L"Resource/CupHead/Bullet_Intro.png", "Resource/CupHead/Bullet_Intro.xml", "IntroBullet", Vector2(100.0f, 100.0f));
-	_actions[0]->SetType(Action::Type::END);
-	CreateAction(L"Resource/CupHead/Bullet_Loop.png", "Resource/CupHead/Bullet_Loop.xml", "LoopBullet", Vector2(100.0f, 100.0f));
+	CreateAction(L"Resource/CupHead/Bullet_Intro.png", "Resource/CupHead/Bullet_Intro.xml", "IntroBullet", Vector2(100.0f, 100.0f), Action::END);
+	CreateAction(L"Resource/CupHead/Bullet_Loop.png", "Resource/CupHead/Bullet_Loop.xml", "LoopBullet", Vector2(100.0f, 100.0f), Action::LOOP);
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_bullet->GetTransform());
-	_actions[0]->SetEndEvent(std::bind(&Cup_Bullet::EndEvent, this));
+	_transform->SetPosition(Vector2(-50.0f, 0.0f));
+
+	_actions[INTRO]->SetEndEvent(std::bind(&Cup_Bullet::EndEvent, this));
 }
 
 Cup_Bullet::~Cup_Bullet()
@@ -24,12 +25,6 @@ void Cup_Bullet::Update()
 {
 	if (!_isActive)
 		return;
-
-	if (_dir.x > 0)
-		SetRight();
-
-	if (_dir.x < 0)
-		SetLeft();
 
 	_bullet->GetTransform()->AddVector2(_dir * _speed * DELTA_TIME);
 	
@@ -43,9 +38,7 @@ void Cup_Bullet::Update()
 	}
 
 	_actions[_state]->Update();
-
 	_sprites[_state]->Update();
-
 	_transform->Update();
 }
 
@@ -60,7 +53,7 @@ void Cup_Bullet::Render()
 	_bullet->Render();
 }
 
-void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size)
+void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, Action::Type type, CallBack event)
 {
 	shared_ptr<SRV> srv = ADD_SRV(srvPath);
 
@@ -92,6 +85,7 @@ void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionNam
 
 	shared_ptr<Action> action = make_shared<Action>(clips, actionName);
 	action->Play();
+	action->SetEndEvent(event);
 	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvPath, size);
 	_actions.push_back(action);
 	_sprites.push_back(sprite);
@@ -100,12 +94,27 @@ void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionNam
 void Cup_Bullet::Shoot(Vector2 dir, Vector2 startPos)
 {
 	_isActive = true;
+	_state = INTRO;
+	_actions[_state]->Play();
 
 	_bullet->GetTransform()->SetPosition(startPos);
 
-	_dir = dir.NormalVector2();
-	float angle = _dir.Angle();
-	_bullet->GetTransform()->SetAngle(angle);
+	if (dir.x > 0.0f)
+	{
+		_dir = RIGHT_VECTOR;
+		SetRight();
+	}
+	else
+	{
+		_dir = LEFT_VECTOR;
+		SetLeft();
+	}
+}
+
+void Cup_Bullet::EndEvent()
+{
+	_state = LOOP;
+	_actions[LOOP]->Play();
 }
 
 void Cup_Bullet::SetLeft()

@@ -5,10 +5,9 @@ public:
 	enum State
 	{
 		IDLE,
-		RUN_R,
 		JUMP,
-		ATTACK,
-		NONE
+		RUN,
+		ATTACK
 	};
 
 	Cup_Player();
@@ -18,31 +17,24 @@ public:
 	void Render();
 	void PostRender();
 
-	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type);
-	void CreateIdleAction();
-	void CreateRunAction();
-	void CreateJumpAction();
-	void SelectState();
+	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type, CallBack event = nullptr);
 
-	void Move(Vector2 movePos) { _col->GetTransform()->AddVector2(movePos); }
 	void Input();
 	void Jump();
-	void AnimationControl();
+	void Move(Vector2 movePos) { _col->GetTransform()->AddVector2(movePos); }
+	void Attack();
 
 	void SetPosition(Vector2 pos) { _col->SetPosition(pos); }
 
-	void SetGrounded() { _jumpPower = 0.0f; }
+	void SetAction(State state);
+	void SetGrounded() { _isJump = false; }
 
 	shared_ptr<Collider> GetCollider() { return _col; }
-
-	bool SetIsJump(bool value) { return _isJump = value; }
-	bool GetIsJump() { return _isJump; }
 
 	virtual const Vector2& GetPos() { return _transform->GetPos(); }
 
 	bool IsCollision_Bullets(shared_ptr<Collider> col);
 
-	void Fire();
 
 	const vector<shared_ptr<class Cup_Bullet>>& GetBullet() { return _bullets; }
 
@@ -57,17 +49,17 @@ private:
 	vector<shared_ptr<Sprite>> _sprites;
 	shared_ptr<Transform> _transform;
 
-	State _state = State::IDLE;
+	State _curState = State::IDLE;
+	State _oldState = State::IDLE;
 
 	float _speed = 200.0f;
+	float _jumpPower = 0.0f;
 
 	Vector2 _fixedPos;
 
-	float _jumpPower = 0.0f;
-
 	bool _isJump = false;
-
-	shared_ptr<Transform> _bowTrans;
+	bool _isAttack = false;
+	bool _isRight = false;
 
 	vector<shared_ptr<class Cup_Bullet>> _bullets;
 };

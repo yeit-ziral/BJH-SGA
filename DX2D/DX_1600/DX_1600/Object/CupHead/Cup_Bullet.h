@@ -2,7 +2,7 @@
 class Cup_Bullet
 {
 public:
-	enum Bullet_State
+	enum State
 	{
 		INTRO,
 		LOOP,
@@ -15,11 +15,10 @@ public:
 	void Update();
 	void Render();
 
-	void CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size);
-
-	void EndEvent() { _isEnd = true; }
+	void CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, Action::Type type, CallBack event = nullptr);
 
 	void Shoot(Vector2 dir, Vector2 startPos);
+	void EndEvent();
 
 	bool _isActive = false;
 
@@ -28,7 +27,7 @@ public:
 	bool IsCollision(shared_ptr<CircleCollider> other) { return _bullet->IsCollision(other); }
 
 private:
-	Bullet_State _state = Bullet_State::INTRO;
+	State _state = State::INTRO;
 
 	bool _isEnd = false;
 
