@@ -9,7 +9,10 @@ Cup_Player::Cup_Player()
 {
 	_col = make_shared<CircleCollider>(50);
 
-	//CreateAction(L"Resource/CupHead/Idle.png", "Resource/Idle.xml", "IDLE", Vector2(250, 250));
+	CreateAction(L"Resource/CupHead/Idle.png", "Resource/Idle.xml", "IDLE", Vector2(250, 250), Action::LOOP);
+	CreateAction(L"Resource/CupHead/Run.png", "Resource/Run.xml", "RUN_R", Vector2(250, 250), Action::LOOP);
+	CreateAction(L"Resource/CupHead/Jump.png", "Resource/Jump.xml", "JUMP", Vector2(250, 250), Action::LOOP);
+	CreateAction(L"Resource/CupHead/Attack.png", "Resource/Attack.xml", "ATTACK", Vector2(250, 250), Action::END);
 
 	CreateIdleAction();
 	CreateRunAction();
@@ -51,11 +54,10 @@ void Cup_Player::Render()
 
 void Cup_Player::PostRender()
 {
-	//ImGui::SliderFloat2("FixedPos", (float*)&_fixedPos,0,100);
-	//_transform->SetPosition(_fixedPos);
+	ImGui::SliderInt("State", (int*)_state, 0, 5);
 }
 
-void Cup_Player::CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size)
+void Cup_Player::CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type)
 {
 	wstring srvPath = srvpath;
 	shared_ptr<SRV> srv = ADD_SRV(srvPath);
@@ -288,8 +290,7 @@ void Cup_Player::Jump()
 
 void Cup_Player::AnimationControl()
 {
-	if (abs(_jumpPower) > 800.0f)
-		return;
+
 }
 
 void Cup_Player::SetBowAngle()
@@ -318,7 +319,7 @@ bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 
 void Cup_Player::Fire()
 {
-	Vector2 dir = MOUSE_POS - GetPos();
+	Vector2 dir = MOUSE_POS - _col->GetPos();
 
 	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
 		[](const shared_ptr<Cup_Bullet> obj)-> bool { return !obj->_isActive; });
@@ -326,7 +327,7 @@ void Cup_Player::Fire()
 	if (bulletIter == _bullets.end())
 		return;
 
-	(*bulletIter)->Shoot(dir, _bowTrans->GetWorldPosition());
+	(*bulletIter)->Shoot(Vector2(dir.x, 0.0f), _bowTrans->GetWorldPosition());
 }
 
 void Cup_Player::SetLeft()

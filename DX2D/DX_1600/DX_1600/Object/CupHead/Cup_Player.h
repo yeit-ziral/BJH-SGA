@@ -7,6 +7,7 @@ public:
 		IDLE,
 		RUN_R,
 		JUMP,
+		ATTACK,
 		NONE
 	};
 
@@ -17,7 +18,7 @@ public:
 	void Render();
 	void PostRender();
 
-	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size);
+	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type);
 	void CreateIdleAction();
 	void CreateRunAction();
 	void CreateJumpAction();
@@ -38,8 +39,6 @@ public:
 	bool GetIsJump() { return _isJump; }
 
 	virtual const Vector2& GetPos() { return _transform->GetPos(); }
-
-	void SetBowAngle();
 
 	bool IsCollision_Bullets(shared_ptr<Collider> col);
 
@@ -68,9 +67,6 @@ private:
 
 	bool _isJump = false;
 
-	shared_ptr<Transform> _bowSlot;
-
-	shared_ptr<Quad> _bow;
 	shared_ptr<Transform> _bowTrans;
 
 	vector<shared_ptr<class Cup_Bullet>> _bullets;
