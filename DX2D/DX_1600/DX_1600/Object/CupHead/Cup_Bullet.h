@@ -22,6 +22,10 @@ private:
 
 	shared_ptr<CircleCollider> _bullet;
 
+	vector<shared_ptr<Action>> _actions;
+
+	vector<shared_ptr<Sprite>> _sprites;
+
 	Vector2 _dir = Vector2();
 	float _speed = 150.0f;
 };

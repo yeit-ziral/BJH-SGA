@@ -4,7 +4,7 @@
 Cup_Bullet::Cup_Bullet()
 {
 	_bullet = make_shared<CircleCollider>(5.0f);
-	_quad = make_shared<Quad>(L"Resource/Bullet.png");
+	_quad = make_shared<Quad>(L"Resource/CupHead/Bullet_Intro.png");
 	_transform = make_shared<Transform>();
 
 	_transform->SetParent(_bullet->GetTransform());

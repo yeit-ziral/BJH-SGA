@@ -25,6 +25,10 @@ private:
 
 	shared_ptr<CircleCollider> _monster;
 
+	vector<shared_ptr<Action>> _actions;
+
+	vector<shared_ptr<Sprite>> _sprites;
+
 	int _hp = 30;
 };
 
