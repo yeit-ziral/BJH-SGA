@@ -354,6 +354,21 @@
     <Image Include="Resource\CupHead\Bullet_Loop.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\CupHead\AimStraightCharge.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\Attack.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\BossEnd.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\BossLoop.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\BossStart.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -370,5 +385,10 @@
     <Xml Include="Resource\CupHead\Bullet_Intro.xml" />
     <Xml Include="Resource\CupHead\Clown_Page_Last_Idle.xml" />
     <Xml Include="Resource\CupHead\Bullet_Loop.xml" />
+    <Xml Include="Resource\CupHead\AimStraightCharge.xml" />
+    <Xml Include="Resource\CupHead\Attack.xml" />
+    <Xml Include="Resource\CupHead\BossEnd.xml" />
+    <Xml Include="Resource\CupHead\BossLoop.xml" />
+    <Xml Include="Resource\CupHead\BossStart.xml" />
   </ItemGroup>
 </Project>
