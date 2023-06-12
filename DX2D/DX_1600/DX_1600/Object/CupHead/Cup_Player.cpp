@@ -35,8 +35,8 @@ void Cup_Player::Update()
 	
 	_transform->Update();
 
-	//for (auto bullet : _bullets)
-	//	bullet->Collider_Update();
+	for (auto bullet : _bullets)
+		bullet->Update();
 }
 
 void Cup_Player::Render()
@@ -301,32 +301,32 @@ void Cup_Player::SetBowAngle()
 
 bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 {
-	//for (auto bullet : _bullets)
-	//{
-	//	if (bullet->_isActive == false)
-	//		continue;
+	for (auto bullet : _bullets)
+	{
+		if (bullet->_isActive == false)
+			continue;
 
-	//	if (col->IsCollision(bullet->GetBulletCollider()))
-	//	{
-	//		bullet->_isActive = false;
-	//		return true;
-	//	}
-	//}
+		if (col->IsCollision(bullet->GetBulletCollider()))
+		{
+			bullet->_isActive = false;
+			return true;
+		}
+	}
 
 	return false;
 }
 
 void Cup_Player::Fire()
 {
-	//Vector2 dir = MOUSE_POS - GetPos();
+	Vector2 dir = MOUSE_POS - GetPos();
 
-	//auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
-	//	[](const shared_ptr<Cup_Bullet> obj)-> bool { return !obj->_isActive; });
+	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
+		[](const shared_ptr<Cup_Bullet> obj)-> bool { return !obj->_isActive; });
 
-	//if (bulletIter == _bullets.end())
-	//	return;
+	if (bulletIter == _bullets.end())
+		return;
 
-	//(*bulletIter)->Shoot(dir, _bowTrans->GetWorldPosition());
+	(*bulletIter)->Shoot(dir, _bowTrans->GetWorldPosition());
 }
 
 void Cup_Player::SetLeft()
