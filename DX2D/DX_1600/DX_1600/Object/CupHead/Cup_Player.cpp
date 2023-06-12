@@ -19,9 +19,11 @@ Cup_Player::Cup_Player()
 
 	SetAction(IDLE);
 
-	// 총알개수 생성이 안되면 여기 손보기
-	for (auto bullet : _bullets)
-		bullet = make_shared<Cup_Bullet>();
+	for (int i = 0; i < 30; i++)
+	{
+		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();
+		_bullets.push_back(bullet);
+	}
 }
 
 Cup_Player::~Cup_Player()

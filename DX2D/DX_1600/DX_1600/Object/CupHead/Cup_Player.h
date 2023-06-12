@@ -52,7 +52,7 @@ private:
 	State _curState = State::IDLE;
 	State _oldState = State::IDLE;
 
-	float _speed = 200.0f;
+	float _speed = 1000.0f;
 	float _jumpPower = 0.0f;
 
 	Vector2 _fixedPos;
