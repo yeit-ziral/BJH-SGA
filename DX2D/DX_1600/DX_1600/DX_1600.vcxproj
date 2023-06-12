@@ -265,7 +265,10 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX_1600.ico" />
+    <Image Include="Resource\CupHead\Bullet_Intro.png" />
+    <Image Include="Resource\CupHead\Bullet_Loop.png" />
     <Image Include="Resource\CupHead\clown_bg_track.png" />
+    <Image Include="Resource\CupHead\Clown_Page_Last_Idle.png" />
     <Image Include="Resource\earth.png" />
     <Image Include="Resource\Goomba.png" />
     <Image Include="Resource\CupHead\Idle.png" />
@@ -398,6 +401,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Resource\CupHead\Bullet_Intro.xml" />
+    <Xml Include="Resource\CupHead\Bullet_Loop.xml" />
+    <Xml Include="Resource\CupHead\Clown_Page_Last_Idle.xml" />
     <Xml Include="Resource\CupHead\Idle.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

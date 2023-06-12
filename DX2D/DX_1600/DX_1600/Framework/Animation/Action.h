@@ -34,6 +34,8 @@ public:
 	void Stop();
 	void Reset();
 
+	void SetType(Type _type) { _repeatType = _type; }
+
 	const Action::Clip& GetCurClip() { return _clips[_curClipIndex]; }
 	Action::Type GetRepeatType() { return _repeatType; }
 	bool IsPlay() { return _isPlay; }

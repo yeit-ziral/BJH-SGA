@@ -345,6 +345,15 @@
     <Image Include="Resource\CupHead\clown_bg_track.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\CupHead\Bullet_Intro.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\Clown_Page_Last_Idle.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\Bullet_Loop.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -358,5 +367,8 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\CupHead\Idle.xml" />
+    <Xml Include="Resource\CupHead\Bullet_Intro.xml" />
+    <Xml Include="Resource\CupHead\Clown_Page_Last_Idle.xml" />
+    <Xml Include="Resource\CupHead\Bullet_Loop.xml" />
   </ItemGroup>
 </Project>

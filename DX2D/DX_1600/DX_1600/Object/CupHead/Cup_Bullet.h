@@ -1,12 +1,23 @@
 #pragma once
 class Cup_Bullet
 {
+public:
+	enum Bullet_State
+	{
+		INTRO,
+		LOOP,
+		NONE
+	};
+
 	Cup_Bullet();
 	~Cup_Bullet();
 
-	void Collider_Update();
 	void Update();
 	void Render();
+
+	void CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size);
+
+	void EndEvent() { _isEnd = true; }
 
 	void Shoot(Vector2 dir, Vector2 startPos);
 
@@ -17,7 +28,10 @@ class Cup_Bullet
 	bool IsCollision(shared_ptr<CircleCollider> other) { return _bullet->IsCollision(other); }
 
 private:
-	shared_ptr<Quad> _quad;
+	Bullet_State _state = Bullet_State::INTRO;
+
+	bool _isEnd = false;
+
 	shared_ptr<Transform> _transform;
 
 	shared_ptr<CircleCollider> _bullet;
@@ -28,5 +42,8 @@ private:
 
 	Vector2 _dir = Vector2();
 	float _speed = 150.0f;
+
+	void SetLeft();
+	void SetRight();
 };
 
