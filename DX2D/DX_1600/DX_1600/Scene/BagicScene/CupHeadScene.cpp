@@ -21,7 +21,7 @@ CupHeadScene::CupHeadScene()
 	_col->GetTransform()->SetPosition(pos);
 
 	_monster = make_shared<Cup_Monster>();
-	_monster->SetPosition(Vector2(WIN_WIDTH - 100.0f, WIN_HEIGHT - 100.0f));
+	_monster->SetPosition(CENTER + Vector2(300, -25));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -64,4 +64,9 @@ void CupHeadScene::PostRender()
 	_player->PostRender();
 
 	ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
+
+	ImGui::SliderInt("Selected", &_AFBuffer->_data.selected, 0, 10);
+	ImGui::SliderInt("value1", &_AFBuffer->_data.value1, 1, 300);
+	ImGui::SliderInt("value2", &_AFBuffer->_data.value2, 0, 300);
+	ImGui::SliderInt("value3", &_AFBuffer->_data.value3, 0, 300);
 }

@@ -7,8 +7,8 @@ Cup_Bullet::Cup_Bullet()
 {
 	_bullet = make_shared<CircleCollider>(5.0f);
 
-	CreateAction(L"Resource/CupHead/Bullet_Intro.png", "Resource/CupHead/Bullet_Intro.xml", "IntroBullet", Vector2(100.0f, 100.0f), Action::END);
-	CreateAction(L"Resource/CupHead/Bullet_Loop.png", "Resource/CupHead/Bullet_Loop.xml", "LoopBullet", Vector2(100.0f, 100.0f), Action::LOOP);
+	CreateAction(L"Resource/CupHead/Bullet_Intro.png", "Resource/CupHead/Bullet_Intro.xml", "IntroBullet", Vector2(50.0f, 150.0f), Action::END, std::bind(&Cup_Bullet::EndEvent, this));
+	CreateAction(L"Resource/CupHead/Bullet_Loop.png", "Resource/CupHead/Bullet_Loop.xml", "LoopBullet", Vector2(150.0f, 200.0f), Action::LOOP);
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_bullet->GetTransform());
@@ -27,20 +27,28 @@ void Cup_Bullet::Update()
 	if (!_isActive)
 		return;
 
-	_bullet->GetTransform()->AddVector2(_dir * _speed * DELTA_TIME);
-	
-	_bullet->Update();
+	if (_dir.x > 0)
+		SetRight();
+	if (_dir.x < 0)
+		SetLeft();
 
-	if (_bullet->GetTransform()->GetWorldPosition().y > WIN_HEIGHT || _bullet->GetTransform()->GetWorldPosition().y < 0
-		|| _bullet->GetTransform()->GetWorldPosition().x > WIN_WIDTH || _bullet->GetTransform()->GetWorldPosition().x < 0)
-	{
-		_isActive = false;
-		_isEnd = false;
-	}
+	_bullet->GetTransform()->AddVector2(_dir * _speed * DELTA_TIME);
+	_bullet->Update();
 
 	_actions[_state]->Update();
 	_sprites[_state]->Update();
 	_transform->Update();
+
+	if (_bullet->GetPos().x < 0 || _bullet->GetPos().x > WIN_WIDTH)
+	{
+		_isActive = false;
+	}
+
+	if (!_isActive)
+	{
+		_state = State::INTRO;
+		_actions[_state]->Play();
+	}
 }
 
 void Cup_Bullet::Render()
@@ -101,16 +109,9 @@ void Cup_Bullet::Shoot(Vector2 dir, Vector2 startPos)
 
 	_bullet->GetTransform()->SetPosition(startPos);
 
-	if (dir.x > 0.0f)
-	{
-		_dir = RIGHT_VECTOR;
-		SetRight();
-	}
-	else
-	{
-		_dir = LEFT_VECTOR;
-		SetLeft();
-	}
+	_dir = dir.NormalVector2();
+	float angle = _dir.Angle();
+	_bullet->GetTransform()->SetAngle(angle);
 }
 
 void Cup_Bullet::EndEvent()

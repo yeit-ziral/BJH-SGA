@@ -6,8 +6,8 @@ Cup_Monster::Cup_Monster()
 {
 	_monster = make_shared<CircleCollider>(150);
 
-	CreateAction(L"Resource/CupHead/BossStart.png", "Resource/CupHead/BossStart.xml", "START", Vector2(400, 400), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
-	CreateAction(L"Resource/CupHead/BossLoop.png", "Resource/CupHead/BossLoop.xml", "LOOP", Vector2(400, 400), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
+	CreateAction(L"Resource/CupHead/BossStart.png", "Resource/CupHead/BossStart.xml", "START", Vector2(100, 100), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
+	CreateAction(L"Resource/CupHead/BossLoop.png", "Resource/CupHead/BossLoop.xml", "LOOP", Vector2(200, 200), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
 	CreateAction(L"Resource/CupHead/BossEnd.png", "Resource/CupHead/BossEnd.xml", "END", Vector2(400, 400), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
 
 	_transform = make_shared<Transform>();
@@ -22,25 +22,6 @@ void Cup_Monster::Update()
 {
 	if (!_isAlive)
 		return;
-
-	if (_state == State::START)
-	{
-		_isEnd = false;
-		_actions[_state]->Play();
-		_state = State::LOOP;
-	}
-	if (_state == State::LOOP)
-	{
-		_isEnd = false;
-		_actions[_state]->Play();
-		_state = State::END;
-	}
-	if (_state == State::END)
-	{
-		_isEnd = false;
-		_actions[_state]->Play();
-		_state = State::START;
-	}
 
 	_monster->Update();
 	_actions[_state]->Update();
@@ -105,6 +86,29 @@ void Cup_Monster::CreateAction(wstring srvpath, string xmlpath, string actionNam
 
 void Cup_Monster::EndEvent()
 {
+	if (_state == State::START)
+	{
+		_state = State::LOOP;
+		_actions[_state]->Play();
+		_actions[START]->Reset();
+		return;
+	}
+
+	if (_state == State::LOOP)
+	{
+		_state = State::END;
+		_actions[_state]->Play();
+		_actions[LOOP]->Reset();
+		return;
+	}
+
+	if (_state == State::END)
+	{
+		_state = State::START;
+		_actions[_state]->Play();
+		_actions[END]->Reset();
+		return;
+	}
 }
 
 void Cup_Monster::GetAttacked(int amount)
@@ -122,8 +126,12 @@ void Cup_Monster::GetAttacked(int amount)
 
 void Cup_Monster::SetLeft()
 {
+	for (auto sprite : _sprites)
+		sprite->SetLeft();
 }
 
 void Cup_Monster::SetRight()
 {
+	for (auto sprite : _sprites)
+		sprite->SetRight();
 }

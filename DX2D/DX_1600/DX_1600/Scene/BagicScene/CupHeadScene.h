@@ -17,5 +17,7 @@ private:
 	shared_ptr<Transform> _transform;
 
 	shared_ptr<class Cup_Monster> _monster;
+
+	shared_ptr<ActionFilterBuffer> _AFBuffer;
 };
 

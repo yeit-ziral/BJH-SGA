@@ -5,8 +5,7 @@ public:
 	enum State
 	{
 		INTRO,
-		LOOP,
-		NONE
+		LOOP
 	};
 
 	Cup_Bullet();
@@ -40,7 +39,7 @@ private:
 	vector<shared_ptr<Sprite>> _sprites;
 
 	Vector2 _dir = Vector2();
-	float _speed = 150.0f;
+	float _speed = 450.0f;
 
 	void SetLeft();
 	void SetRight();

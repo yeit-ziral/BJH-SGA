@@ -1,15 +1,19 @@
 Texture2D map: register(t0);
 SamplerState samp : register(s0);
 
-cbuffer FilterBuffer : register(b0)
+cbuffer ActionBuffer : register(b0)
 {
-	int selected;
-	int value1;
-	int value2;
-	int value3;
-
-	float2 imageSize;
+	float2	 startPos;
+	float2	 size;
+	float2	imageSize;
 	float2 radialCenter;
+
+	int		isRight;
+	int		padding;
+	int		selected;
+	int		value1;
+	int		value2;
+	int		value3;
 }
 
 struct PixelInput
@@ -18,6 +22,7 @@ struct PixelInput
 	float4 color: COLOR;
 	float2 uv : UV;
 };
+
 
 float4 Mosaic(float2 uv)
 {
@@ -35,7 +40,7 @@ float4 Blur(float2 uv)
 {
 	float4 result = 0;
 
-	if(value2 == 0)
+	if (value2 == 0)
 		return map.Sample(samp, uv);
 
 	for (int i = 0; i < value2; i++)
@@ -71,7 +76,7 @@ float4 OctaBlur(float2 uv)
 		result += map.Sample(samp, float2(uv.x, uv.y + divY));
 		result += map.Sample(samp, float2(uv.x, uv.y - divY));
 
-		result += map.Sample(samp, float2(uv.x + divX, uv.y +divY));
+		result += map.Sample(samp, float2(uv.x + divX, uv.y + divY));
 		result += map.Sample(samp, float2(uv.x - divX, uv.y + divY));
 		result += map.Sample(samp, float2(uv.x + divX, uv.y - divY));
 		result += map.Sample(samp, float2(uv.x - divX, uv.y - divY));
@@ -154,23 +159,17 @@ float4 OutLine(float2 uv)
 	return result;
 }
 
+
 float4 PS(PixelInput input) : SV_TARGET
 {
-	[branch]
-	if (selected == 0)
-		return map.Sample(samp, input.uv);
-	else if (selected == 1)
-		return Mosaic(input.uv);
-	else if (selected == 2)
-		return Blur(input.uv);
-	else if (selected == 3)
-		return OctaBlur(input.uv);
-	else if (selected == 4)
-		return GaussianBlur(input.uv);
-	else if (selected == 5)
-		return RadialBlur(input.uv);
-	else if (selected == 6)
-		return OutLine(input.uv);
+	if (isRight == 0)
+		input.uv.x = 1 - input.uv.x;
+	// curFrame (1,0) , (10,8)
+	// input.uv.x .. 0 ~ 1
+	input.uv.x = (startPos.x / imageSize.x) + (size.x / imageSize.x) * input.uv.x;
+	input.uv.y = (startPos.y / imageSize.y) + (size.y / imageSize.y) * input.uv.y;
+	
+	float4 color = map.Sample(samp, input.uv);
 
-	return map.Sample(samp, input.uv);
+	return color;
 }

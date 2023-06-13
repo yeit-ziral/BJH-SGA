@@ -35,9 +35,6 @@ public:
 
 	bool IsCollision_Bullets(shared_ptr<Collider> col);
 
-
-	const vector<shared_ptr<class Cup_Bullet>>& GetBullet() { return _bullets; }
-
 private:
 	void SetLeft();
 	void SetRight();

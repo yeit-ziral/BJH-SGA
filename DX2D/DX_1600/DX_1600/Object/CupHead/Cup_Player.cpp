@@ -11,7 +11,7 @@ Cup_Player::Cup_Player()
 	CreateAction(L"Resource/CupHead/Idle.png", "Resource/CupHead/Idle.xml", "IDLE", Vector2(250, 250), Action::LOOP);
 	CreateAction(L"Resource/CupHead/Jump.png", "Resource/CupHead/Jump.xml", "JUMP", Vector2(100, 100), Action::LOOP);
 	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "RUN", Vector2(100, 130), Action::LOOP);
-	CreateAction(L"Resource/CupHead/Attack.png", "Resource/CupHead/Attack.xml", "ATTACK", Vector2(100, 130), Action::END, std::bind(&Cup_Player::Attack, this));
+	CreateAction(L"Resource/CupHead/Attack.png", "Resource/CupHead/Attack.xml", "ATTACK", Vector2(250, 250), Action::END, std::bind(&Cup_Player::Attack, this));
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_col->GetTransform());
@@ -106,6 +106,11 @@ void Cup_Player::Input()
 	{
 		_isAttack = true;
 		SetAction(ATTACK);
+
+		if (MOUSE_POS.x > _col->GetTransform()->GetWorldPosition().x)
+			SetRight();
+		if (MOUSE_POS.x < _col->GetTransform()->GetWorldPosition().x)
+			SetLeft();
 	}
 
 	if (KEY_PRESS('A'))
