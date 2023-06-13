@@ -85,6 +85,7 @@ public:
 		Vector2 imageSize;
 		int		isRight = 0;
 		int		padding;
+
 	};
 
 	ActionBuffer()
@@ -93,6 +94,30 @@ public:
 
 	}
 	virtual ~ActionBuffer() {}
+
+	Data _data;
+};
+
+class FilterBuffer : public ConstantBuffer
+{
+public:
+	struct Data
+	{
+		int selected = 0;
+		int value1 = 1;
+		int value2 = 0;
+		int value3 = 0;
+
+		Vector2 imageSize;
+		Vector2 radialCenter;
+	};
+
+	FilterBuffer()
+		: ConstantBuffer(&_data, sizeof(_data))
+	{
+
+	}
+	virtual ~FilterBuffer() {}
 
 	Data _data;
 };

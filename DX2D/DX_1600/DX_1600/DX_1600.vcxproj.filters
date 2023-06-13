@@ -379,6 +379,7 @@
     <FxCompile Include="Shader\SpriteVS.hlsl" />
     <FxCompile Include="Shader\SpritePs.hlsl" />
     <FxCompile Include="Shader\ActionPS.hlsl" />
+    <FxCompile Include="Shader\FilterPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\CupHead\Idle.xml" />

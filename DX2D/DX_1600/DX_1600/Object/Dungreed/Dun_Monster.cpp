@@ -5,7 +5,7 @@ Dun_Monster::Dun_Monster()
 {
 	_quad = make_shared<Quad>(L"Resource/Goomba.png");
 	_transform = make_shared<Transform>();
-	_monster = make_shared<CircleCollider>(_quad->GetImageSize().x);
+	_monster = make_shared<CircleCollider>(_quad->GetQuadHalfSize().x);
 
 	_transform->SetParent(_monster->GetTransform());
 	_monster->GetTransform()->SetScale(Vector2(0.5f, 0.5f));

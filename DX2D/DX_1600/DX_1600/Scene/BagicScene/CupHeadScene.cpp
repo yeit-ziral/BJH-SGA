@@ -10,7 +10,7 @@ CupHeadScene::CupHeadScene()
 
 	_track = make_shared<Quad>(L"Resource/CupHead/clown_bg_track.png");
 	_transform = make_shared<Transform>();
-	Vector2 trackSize = _track->GetImageSize();
+	Vector2 trackSize = _track->GetQuadHalfSize();
 	_col = make_shared<RectCollider>(trackSize * 2.0f);
 
 	_transform->SetParent(_col->GetTransform());
@@ -38,7 +38,6 @@ void CupHeadScene::Update()
 	if (_col->Block(_player->GetCollider()))
 		_player->SetGrounded();
 
-	_monster->Collider_Update();
 	_monster->Update();
 
 	if (_monster->_isAlive == true)
