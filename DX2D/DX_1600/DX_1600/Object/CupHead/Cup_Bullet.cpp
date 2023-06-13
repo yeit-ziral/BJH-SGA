@@ -12,6 +12,7 @@ Cup_Bullet::Cup_Bullet()
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_bullet->GetTransform());
+	_transform->SetAngle(-PI * 0.5f);
 	_transform->SetPosition(Vector2(-50.0f, 0.0f));
 
 	_actions[INTRO]->SetEndEvent(std::bind(&Cup_Bullet::EndEvent, this));
@@ -96,6 +97,7 @@ void Cup_Bullet::Shoot(Vector2 dir, Vector2 startPos)
 	_isActive = true;
 	_state = INTRO;
 	_actions[_state]->Play();
+	_actions[LOOP]->Reset();
 
 	_bullet->GetTransform()->SetPosition(startPos);
 

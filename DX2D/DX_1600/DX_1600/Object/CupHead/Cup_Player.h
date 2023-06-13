@@ -59,7 +59,6 @@ private:
 
 	bool _isJump = false;
 	bool _isAttack = false;
-	bool _isRight = false;
 
 	vector<shared_ptr<class Cup_Bullet>> _bullets;
 };

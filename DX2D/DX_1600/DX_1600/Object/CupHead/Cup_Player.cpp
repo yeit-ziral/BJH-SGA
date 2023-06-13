@@ -48,7 +48,6 @@ void Cup_Player::Update()
 void Cup_Player::Render()
 {
 	_transform->SetBuffer(0);
-	
 	_sprites[_curState]->SetCurFrame(_actions[_curState]->GetCurClip());
 	_sprites[_curState]->Render();
 
@@ -92,7 +91,7 @@ void Cup_Player::CreateAction(wstring srvpath, string xmlpath, string actionName
 		row = row->NextSiblingElement();
 	}
 
-	shared_ptr<Action> action = make_shared<Action>(clips, "CUP_IDLE");
+	shared_ptr<Action> action = make_shared<Action>(clips, actionName, type);
 	action->Play();
 	action->SetEndEvent(event);
 	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvpath, size);
@@ -103,7 +102,7 @@ void Cup_Player::CreateAction(wstring srvpath, string xmlpath, string actionName
 
 void Cup_Player::Input()
 {
-	if (KEY_DOWN('F') && _isAttack == false && _isJump == false)
+	if (KEY_DOWN(VK_LBUTTON) && _isAttack == false && _isJump == false)
 	{
 		_isAttack = true;
 		SetAction(ATTACK);
@@ -113,14 +112,12 @@ void Cup_Player::Input()
 	{
 		Move(LEFT_VECTOR);
 		SetLeft();
-		_isRight = false;
 	}
 
 	if (KEY_PRESS('D'))
 	{
 		Move(RIGHT_VECTOR);
 		SetRight();
-		_isRight = true;
 	}
 
 	if (KEY_DOWN(VK_SPACE) && _isJump == false)
@@ -158,6 +155,8 @@ void Cup_Player::Jump()
 
 void Cup_Player::Attack()
 {
+	Vector2 dir = MOUSE_POS - _col->GetPos();
+
 	_isAttack = false;
 	SetAction(IDLE);
 
@@ -167,11 +166,7 @@ void Cup_Player::Attack()
 	if (bulletIter == _bullets.end())
 		return;
 
-	if(_isRight)
-	(*bulletIter)->Shoot(RIGHT_VECTOR, _col->GetTransform()->GetWorldPosition());
-
-	if (!_isRight)
-		(*bulletIter)->Shoot(RIGHT_VECTOR, _col->GetTransform()->GetWorldPosition());
+	(*bulletIter)->Shoot(Vector2(dir.x, 0.0f), _col->GetTransform()->GetWorldPosition());
 }
 
 bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
