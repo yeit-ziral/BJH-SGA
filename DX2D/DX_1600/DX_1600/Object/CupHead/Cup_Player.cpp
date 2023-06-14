@@ -13,6 +13,11 @@ Cup_Player::Cup_Player()
 	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "RUN", Vector2(100, 130), Action::LOOP);
 	CreateAction(L"Resource/CupHead/Attack.png", "Resource/CupHead/Attack.xml", "ATTACK", Vector2(250, 250), Action::END, std::bind(&Cup_Player::Attack, this));
 
+	_sprites[0]->SetPS(ADD_PS(L"Shader/ActionFilterPS.hlsl"));
+	_intBuffer = make_shared<IntBuffer>();
+	_intBuffer->_data.aInt = 0;
+	_intBuffer->_data.bInt = 300;
+
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_col->GetTransform());
 	_transform->SetPosition(Vector2(0,9.876));
@@ -38,6 +43,7 @@ void Cup_Player::Update()
 	_col->Update();
 
 	_actions[_curState]->Update();
+	_intBuffer->Update();
 	_sprites[_curState]->Update();
 	_transform->Update();
 
@@ -49,6 +55,7 @@ void Cup_Player::Render()
 {
 	_transform->SetBuffer(0);
 	_sprites[_curState]->SetCurFrame(_actions[_curState]->GetCurClip());
+	_intBuffer->SetPSBuffer(1);
 	_sprites[_curState]->Render();
 
 	_col->Render();
@@ -60,6 +67,8 @@ void Cup_Player::Render()
 void Cup_Player::PostRender()
 {
 	ImGui::SliderInt("State", (int*)&_curState, 0, 3);
+	ImGui::SliderInt("isMosaic", &_intBuffer->_data.aInt, 0, 1);
+	ImGui::SliderInt("Mosaic Magnitude", &_intBuffer->_data.bInt, 0, 300);
 }
 
 void Cup_Player::CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type, CallBack event)

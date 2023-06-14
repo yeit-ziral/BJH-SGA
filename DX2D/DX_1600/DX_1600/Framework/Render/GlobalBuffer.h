@@ -131,8 +131,8 @@ public:
 		int value1 = 1;
 		int value2 = 0;
 		int value3 = 0;
-		int		isRight = 0;
-		int		padding;
+		int	isRight = 0;
+		int	mosaicValue = 500;
 
 		Vector2 startPos;
 		Vector2 size;
@@ -146,6 +146,27 @@ public:
 
 	}
 	virtual ~ActionFilterBuffer() {}
+
+	Data _data;
+};
+
+class IntBuffer : public ConstantBuffer
+{
+public:
+	struct Data
+	{
+		int aInt = 0;
+		int bInt = 0;
+		int cInt = 0;
+		int dInt = 0;
+	};
+
+	IntBuffer()
+		: ConstantBuffer(&_data, sizeof(_data))
+	{
+
+	}
+	virtual ~IntBuffer() {}
 
 	Data _data;
 };

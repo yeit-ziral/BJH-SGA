@@ -270,6 +270,7 @@
     <Image Include="Resource\CupHead\Bullet_Intro.png" />
     <Image Include="Resource\CupHead\Bullet_Loop.png" />
     <Image Include="Resource\CupHead\clown_bg_track.png" />
+    <Image Include="Resource\CupHead\BossDie.png" />
     <Image Include="Resource\CupHead\Clown_Page_Last_Idle.png" />
     <Image Include="Resource\CupHead\BossEnd.png" />
     <Image Include="Resource\CupHead\BossLoop.png" />
@@ -438,6 +439,7 @@
     <Xml Include="Resource\CupHead\Attack.xml" />
     <Xml Include="Resource\CupHead\Bullet_Intro.xml" />
     <Xml Include="Resource\CupHead\Bullet_Loop.xml" />
+    <Xml Include="Resource\CupHead\BossDie.xml" />
     <Xml Include="Resource\CupHead\Clown_Page_Last_Idle.xml" />
     <Xml Include="Resource\CupHead\BossEnd.xml" />
     <Xml Include="Resource\CupHead\BossLoop.xml" />

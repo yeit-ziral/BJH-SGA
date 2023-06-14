@@ -42,6 +42,8 @@ public:
 
 	void SetEndEvent(CallBack endEvent) {_endEvent = endEvent; }
 
+	void SetAlmostEndEvent(CallBack event) { _almonstEnd = event; }
+
 private:
 	string _name;
 	vector<Clip> _clips;
@@ -56,5 +58,6 @@ private:
 
 	bool _isReverse = false;
 
+	CallBack _almonstEnd = nullptr;
 	CallBack _endEvent = nullptr;
 };

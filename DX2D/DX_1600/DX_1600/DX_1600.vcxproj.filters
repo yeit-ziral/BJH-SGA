@@ -369,6 +369,9 @@
     <Image Include="Resource\CupHead\BossStart.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\CupHead\BossDie.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -392,5 +395,6 @@
     <Xml Include="Resource\CupHead\BossEnd.xml" />
     <Xml Include="Resource\CupHead\BossLoop.xml" />
     <Xml Include="Resource\CupHead\BossStart.xml" />
+    <Xml Include="Resource\CupHead\BossDie.xml" />
   </ItemGroup>
 </Project>

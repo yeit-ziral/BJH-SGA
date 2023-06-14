@@ -6,7 +6,8 @@ public:
 	{
 		START,
 		LOOP,
-		END
+		END,
+		DEAD
 	};
 
 	Cup_Monster();
@@ -16,7 +17,11 @@ public:
 	void Render();
 	void PostRender();
 
+	void Input();
+
 	void SetPosition(Vector2 pos) { _monster->SetPosition(pos); }
+
+	void SetAction(State state);
 	
 	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type, CallBack event = nullptr);
 
@@ -37,7 +42,10 @@ private:
 
 	bool _isEnd = false;
 
-	State _state = State::START;
+	State _curState = State::START;
+	State _oldState = State::START;
+
+	shared_ptr<IntBuffer> _intBuffer;
 
 	shared_ptr<CircleCollider> _monster;
 
@@ -47,6 +55,6 @@ private:
 
 	vector<shared_ptr<Sprite>> _sprites;
 
-	int _hp = 30;
+	int _hp = 5;
 };
 
