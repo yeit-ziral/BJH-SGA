@@ -8,18 +8,22 @@ Cup_Monster::Cup_Monster()
 
 	CreateAction(L"Resource/CupHead/BossStart.png", "Resource/CupHead/BossStart.xml", "START", Vector2(100, 100), Action::Type::END);
 	CreateAction(L"Resource/CupHead/BossLoop.png", "Resource/CupHead/BossLoop.xml", "LOOP", Vector2(200, 200), Action::Type::LOOP);
-	CreateAction(L"Resource/CupHead/BossEnd.png", "Resource/CupHead/BossEnd.xml", "END", Vector2(400, 400), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
-	CreateAction(L"Resource/CupHead/BossDie.png", "Resource/CupHead/BossDie.xml", "DEAD", Vector2(400, 400), Action::Type::END);
+	CreateAction(L"Resource/CupHead/BossDie.png", "Resource/CupHead/BossDie.xml", "DEAD", Vector2(400, 400), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
 
 	// Action Event ¼³Á¤
 	{
-		_actions[State::START]->SetAlmostEndEvent([this]()->void { _curState = State::LOOP; });
+		_actions[State::START]->SetAlmostEndEvent([this]()->void { _state = State::LOOP; });
+		_actions[2]->SetEndEvent(std::bind(&Cup_Monster::EndEvent, this));
 	}
 
 	_intBuffer = make_shared<IntBuffer>();
+	_intBuffer->_data.aInt = 1;
+	_intBuffer->_data.bInt = 300;
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_monster->GetTransform());
+
+	_sprites[END]->SetPS(ADD_PS(L"Shader/ActionFilterPS.hlsl"));
 }
 
 Cup_Monster::~Cup_Monster()
@@ -31,12 +35,13 @@ void Cup_Monster::Update()
 	if (!_isAlive)
 		return;
 
-	Input();
+	if (_state == State::END && _intBuffer->_data.bInt > 1)
+		_intBuffer->_data.bInt -= 5;
 
 	_monster->Update();
-	_actions[_curState]->Update();
 	_intBuffer->Update();
-	_sprites[_curState]->Update();
+	_actions[_state]->Update();
+	_sprites[_state]->Update();
 	_transform->Update();
 }
 
@@ -47,40 +52,16 @@ void Cup_Monster::Render()
 
 	_transform->SetBuffer(0);
 
-	_sprites[_curState]->SetCurFrame(_actions[_curState]->GetCurClip());
 	_intBuffer->SetPSBuffer(1);
-	_sprites[_curState]->Render();
+	_sprites[_state]->SetCurFrame(_actions[_state]->GetCurClip());
+	_sprites[_state]->Render();
 
 	_monster->Render();
 }
 
 void Cup_Monster::PostRender()
 {
-	ImGui::SliderInt("BossState", (int*)&_curState, 0, 3);
-}
-
-void Cup_Monster::Input()
-{
-	if (_hp > 0)
-	{
-		SetAction(LOOP);
-	}
-	if (_hp <= 0)
-	{ 
-		SetAction(END);
-	}
-}
-
-void Cup_Monster::SetAction(State state)
-{
-	_curState = state;
-
-	if (_curState == _oldState)
-		return;
-
-	_actions[_curState]->Play();
-	_actions[_oldState]->Reset();
-	_oldState = _curState;
+	ImGui::SliderInt("BossState", (int*)&_state, 0, 3);
 }
 
 void Cup_Monster::CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type, CallBack event)
@@ -127,36 +108,6 @@ void Cup_Monster::CreateAction(wstring srvpath, string xmlpath, string actionNam
 	_sprites.push_back(sprite);
 }
 
-void Cup_Monster::EndEvent()
-{
-	if (_curState == State::START)
-	{
-		_curState = State::LOOP;
-		_actions[_curState]->Play();
-		_actions[START]->Reset();
-		return;
-	}
-
-	if (_curState == State::LOOP)
-	{
-		if (_hp <= 0)
-		{
-			_curState = State::END;
-		}
-		_actions[_curState]->Play();
-		_actions[LOOP]->Reset();
-		return;
-	}
-
-	if (_curState == State::END)
-	{
-		_curState = State::DEAD;
-		_actions[_curState]->Play();
-		_actions[END]->Reset();
-		return;
-	}
-}
-
 void Cup_Monster::GetAttacked(int amount)
 {
 	if (!_isAlive)
@@ -167,7 +118,7 @@ void Cup_Monster::GetAttacked(int amount)
 	{
 		_hp = 0;
 		
-		_isAlive = false;
+		DieEvent();
 	}
 }
 
