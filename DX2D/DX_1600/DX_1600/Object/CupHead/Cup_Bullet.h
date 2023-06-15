@@ -25,6 +25,8 @@ public:
 
 	bool IsCollision(shared_ptr<CircleCollider> other) { return _bullet->IsCollision(other); }
 
+	Vector2 GetPosition() { return _transform->GetWorldPosition(); }
+
 private:
 	State _state = State::INTRO;
 

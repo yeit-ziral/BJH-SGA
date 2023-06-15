@@ -35,6 +35,8 @@ public:
 
 	bool IsCollision_Bullets(shared_ptr<Collider> col);
 
+	//Vector2 GetBulletPos() { return _bullets[2]->GetPosition(); };
+
 private:
 	void SetLeft();
 	void SetRight();
@@ -59,5 +61,9 @@ private:
 	bool _isAttack = false;
 
 	vector<shared_ptr<class Cup_Bullet>> _bullets;
+
+	Vector2 _bulletPos;
+
+	shared_ptr<Effect> _effect;
 };
 

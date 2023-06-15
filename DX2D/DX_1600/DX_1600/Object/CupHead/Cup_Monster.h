@@ -51,6 +51,6 @@ private:
 
 	vector<shared_ptr<Sprite>> _sprites;
 
-	int _hp = 5;
+	int _hp = 30;
 };
 

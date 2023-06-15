@@ -22,6 +22,8 @@ CupHeadScene::CupHeadScene()
 
 	_monster = make_shared<Cup_Monster>();
 	_monster->SetPosition(CENTER + Vector2(300, -25));
+
+	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -43,7 +45,10 @@ void CupHeadScene::Update()
 	if (_monster->_isAlive == true)
 	{
 		if (_player->IsCollision_Bullets(_monster->GetCircleCollider()))
+		{
 			_monster->GetAttacked(5);
+
+		}
 	}
 }
 

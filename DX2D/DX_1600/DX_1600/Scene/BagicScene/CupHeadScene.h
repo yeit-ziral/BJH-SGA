@@ -19,5 +19,7 @@ private:
 	shared_ptr<class Cup_Monster> _monster;
 
 	shared_ptr<ActionFilterBuffer> _AFBuffer;
+
+	shared_ptr<Effect> _effect;
 };
 

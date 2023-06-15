@@ -151,6 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Bagic\EffectManager.h" />
+    <ClInclude Include="Object\Bagic\Effect.h" />
+    <ClInclude Include="Scene\BagicScene\EffectScene.h" />
     <ClInclude Include="Object\CupHead\Cup_Bullet.h" />
     <ClInclude Include="Object\CupHead\Cup_Monster.h" />
     <ClInclude Include="Scene\BagicScene\CupHeadScene.h" />
@@ -204,6 +207,9 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Bagic\EffectManager.cpp" />
+    <ClCompile Include="Object\Bagic\Effect.cpp" />
+    <ClCompile Include="Scene\BagicScene\EffectScene.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Bullet.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Monster.cpp" />
     <ClCompile Include="Scene\BagicScene\CupHeadScene.cpp" />
@@ -276,6 +282,7 @@
     <Image Include="Resource\CupHead\BossLoop.png" />
     <Image Include="Resource\CupHead\BossStart.png" />
     <Image Include="Resource\earth.png" />
+    <Image Include="Resource\explosion.png" />
     <Image Include="Resource\Goomba.png" />
     <Image Include="Resource\CupHead\Idle.png" />
     <Image Include="Resource\Item_11x5.png" />

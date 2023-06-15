@@ -8,7 +8,7 @@ Cup_Monster::Cup_Monster()
 
 	CreateAction(L"Resource/CupHead/BossStart.png", "Resource/CupHead/BossStart.xml", "START", Vector2(100, 100), Action::Type::END);
 	CreateAction(L"Resource/CupHead/BossLoop.png", "Resource/CupHead/BossLoop.xml", "LOOP", Vector2(200, 200), Action::Type::LOOP);
-	CreateAction(L"Resource/CupHead/BossDie.png", "Resource/CupHead/BossDie.xml", "DEAD", Vector2(400, 400), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
+	CreateAction(L"Resource/CupHead/BossDie.png", "Resource/CupHead/BossDie.xml", "DEAD", Vector2(300, 300), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
 
 	// Action Event ¼³Á¤
 	{
@@ -39,8 +39,11 @@ void Cup_Monster::Update()
 		_intBuffer->_data.bInt -= 5;
 
 	_monster->Update();
-	_intBuffer->Update();
+
 	_actions[_state]->Update();
+	_intBuffer->Update();
+
+	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
 	_sprites[_state]->Update();
 	_transform->Update();
 }
@@ -53,7 +56,7 @@ void Cup_Monster::Render()
 	_transform->SetBuffer(0);
 
 	_intBuffer->SetPSBuffer(1);
-	_sprites[_state]->SetCurFrame(_actions[_state]->GetCurClip());
+
 	_sprites[_state]->Render();
 
 	_monster->Render();
@@ -102,7 +105,7 @@ void Cup_Monster::CreateAction(wstring srvpath, string xmlpath, string actionNam
 	action->Update();
 	sprite->Update();
 
-	sprite->SetCurFrame(action->GetCurClip());
+	sprite->SetCurClip(action->GetCurClip());
 
 	_actions.push_back(action);
 	_sprites.push_back(sprite);

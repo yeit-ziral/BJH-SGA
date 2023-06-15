@@ -48,7 +48,7 @@ void Link::Collider_Update()
 void Link::Render()
 {
 	_transform->SetBuffer(0);
-	_sprite->SetCurFrame((*_curAction)->GetCurClip());
+	_sprite->SetCurClip((*_curAction)->GetCurClip());
 	_sprite->Render();
 }
 

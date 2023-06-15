@@ -29,6 +29,8 @@ Cup_Player::Cup_Player()
 		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();
 		_bullets.push_back(bullet);
 	}
+
+	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
 
 Cup_Player::~Cup_Player()
@@ -54,7 +56,7 @@ void Cup_Player::Update()
 void Cup_Player::Render()
 {
 	_transform->SetBuffer(0);
-	_sprites[_curState]->SetCurFrame(_actions[_curState]->GetCurClip());
+	_sprites[_curState]->SetCurClip(_actions[_curState]->GetCurClip());
 	_intBuffer->SetPSBuffer(1);
 	_sprites[_curState]->Render();
 
@@ -193,6 +195,7 @@ bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 		if (col->IsCollision(bullet->GetBulletCollider()))
 		{
 			bullet->_isActive = false;
+			EFFECT_PLAY("Hit", bullet->GetPosition());
 			return true;
 		}
 	}
