@@ -6,6 +6,8 @@ using namespace tinyxml2;
 
 Cup_Player::Cup_Player()
 {
+	SOUND->Add("Cup_Attack", "Resource/Sound/attack.wav");
+
 	_col = make_shared<CircleCollider>(50);
 
 	CreateAction(L"Resource/CupHead/Idle.png", "Resource/CupHead/Idle.xml", "IDLE", Vector2(250, 250), Action::LOOP);
@@ -20,7 +22,7 @@ Cup_Player::Cup_Player()
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_col->GetTransform());
-	_transform->SetPosition(Vector2(0,9.876));
+	_transform->SetPosition(Vector2(0.0f,9.876f));
 
 	SetAction(IDLE);
 
@@ -115,6 +117,7 @@ void Cup_Player::Input()
 {
 	if (KEY_DOWN(VK_LBUTTON) && _isAttack == false && _isJump == false)
 	{
+		SOUND->Play("Cup_Attack", 0.3f);
 		_isAttack = true;
 		SetAction(ATTACK);
 
@@ -129,10 +132,18 @@ void Cup_Player::Input()
 		Move(LEFT_VECTOR);
 		SetLeft();
 	}
+	if (KEY_UP('A'))
+	{
+		SetLeft();
+	}
 
 	if (KEY_PRESS('D'))
 	{
 		Move(RIGHT_VECTOR);
+		SetRight();
+	}
+	if (KEY_UP('D'))
+	{
 		SetRight();
 	}
 

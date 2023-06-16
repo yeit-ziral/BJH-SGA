@@ -83,7 +83,7 @@ public:
 		Vector2 startPos;
 		Vector2 size;
 		Vector2 imageSize;
-		int		isRight = 0;
+		int		isRight;
 		int		padding;
 
 	};
@@ -127,13 +127,6 @@ class ActionFilterBuffer : public ConstantBuffer
 public:
 	struct Data
 	{
-		int selected = 0;
-		int value1 = 1;
-		int value2 = 0;
-		int value3 = 0;
-		int	isRight = 0;
-		int	mosaicValue = 500;
-
 		Vector2 startPos;
 		Vector2 size;
 		Vector2 imageSize;

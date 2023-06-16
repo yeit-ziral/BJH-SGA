@@ -37,6 +37,7 @@ void Program::Update()
 {
 	InputManager::GetInstance()->Update();
 	Timer::GetInstance()->Update();
+	Sound::GetInstance()->Update();
 
 	_curScene->Update();
 	EffectManager::GetInstance()->Update();

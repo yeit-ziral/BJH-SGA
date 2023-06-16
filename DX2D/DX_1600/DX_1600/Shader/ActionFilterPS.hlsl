@@ -50,11 +50,11 @@ float4 PS(PixelInput input) : SV_TARGET
 
 	float4 color = 0;
 	
+	input.uv.x = (startPos.x / imageSize.x) + (size.x / imageSize.x) * input.uv.x;
+	input.uv.y = (startPos.y / imageSize.y) + (size.y / imageSize.y) * input.uv.y;
+	
 	if (value1 == 0)
 	{
-		input.uv.x = (startPos.x / imageSize.x) + (size.x / imageSize.x) * input.uv.x;
-		input.uv.y = (startPos.y / imageSize.y) + (size.y / imageSize.y) * input.uv.y;
-	
 		return map.Sample(samp, input.uv);
 	}
 

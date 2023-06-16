@@ -32,7 +32,7 @@ void Action::Update()
 
 			if (_curClipIndex >= _clips.size() - 2)
 			{
-				if(_almostEnd != nullptr)
+				if (_almostEnd != nullptr)
 					_almostEnd();
 			}
 
@@ -87,7 +87,7 @@ void Action::Stop()
 	_isPlay = false;
 	_curClipIndex = 0;
 
-	if(_endEvent != nullptr)
+	if (_endEvent != nullptr)
 		_endEvent();
 }
 

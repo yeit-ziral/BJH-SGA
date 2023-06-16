@@ -21,7 +21,7 @@ public:
 
 	void Input();
 	void Jump();
-	void Move(Vector2 movePos) { _col->GetTransform()->AddVector2(movePos); }
+	void Move(Vector2 dir) { dir.Normallize(); _col->GetTransform()->AddVector2(dir * DELTA_TIME * _speed); }
 	void Attack();
 
 	void SetPosition(Vector2 pos) { _col->SetPosition(pos); }

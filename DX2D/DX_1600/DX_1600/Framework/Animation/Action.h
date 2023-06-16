@@ -42,7 +42,7 @@ public:
 
 	void SetEndEvent(CallBack endEvent) {_endEvent = endEvent; }
 
-	void SetAlmostEndEvent(CallBack event) { _almonstEnd = event; }
+	void SetAlmostEndEvent(CallBack event) { _almostEnd = event; }
 
 private:
 	string _name;
@@ -58,6 +58,6 @@ private:
 
 	bool _isReverse = false;
 
-	CallBack _almonstEnd = nullptr;
+	CallBack _almostEnd = nullptr;
 	CallBack _endEvent = nullptr;
 };
