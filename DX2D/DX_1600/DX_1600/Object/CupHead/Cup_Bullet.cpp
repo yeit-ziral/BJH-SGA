@@ -7,8 +7,8 @@ Cup_Bullet::Cup_Bullet()
 {
 	_bullet = make_shared<CircleCollider>(5.0f);
 
-	CreateAction(L"Resource/CupHead/Bullet_Intro.png", "Resource/CupHead/Bullet_Intro.xml", "IntroBullet", Vector2(50.0f, 150.0f), Action::END, std::bind(&Cup_Bullet::EndEvent, this));
-	CreateAction(L"Resource/CupHead/Bullet_Loop.png", "Resource/CupHead/Bullet_Loop.xml", "LoopBullet", Vector2(150.0f, 200.0f), Action::LOOP);
+	CreateAction(L"Resource/CupHead/Bullet_Intro.png", "Resource/CupHead/Bullet_Intro.xml", "IntroBullet", Vector2(50.0f, 150.0f), false);
+	CreateAction(L"Resource/CupHead/Bullet_Loop.png", "Resource/CupHead/Bullet_Loop.xml", "LoopBullet", Vector2(150.0f, 200.0f), true);
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_bullet->GetTransform());
@@ -62,7 +62,7 @@ void Cup_Bullet::Render()
 	_bullet->Render();
 }
 
-void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, Action::Type type, CallBack event)
+void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, bool isLoop)
 {
 	shared_ptr<SRV> srv = ADD_SRV(srvPath);
 
@@ -92,9 +92,16 @@ void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionNam
 		row = row->NextSiblingElement();
 	}
 
-	shared_ptr<Action> action = make_shared<Action>(clips, actionName);
+	shared_ptr<Action> action;
+	if (isLoop)
+	{
+		action = make_shared<Action>(clips, actionName);
+	}
+	else
+	{
+		action = make_shared<Action>(clips, actionName, Action::Type::END, 0.1f);
+	}
 	action->Play();
-	action->SetEndEvent(event);
 	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvPath, size);
 	_actions.push_back(action);
 	_sprites.push_back(sprite);

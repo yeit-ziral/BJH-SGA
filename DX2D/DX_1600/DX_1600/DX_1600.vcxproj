@@ -291,6 +291,7 @@
     <Image Include="Resource\CupHead\BossEnd.png" />
     <Image Include="Resource\CupHead\BossLoop.png" />
     <Image Include="Resource\CupHead\BossStart.png" />
+    <Image Include="Resource\CupHead\Player_Hit.png" />
     <Image Include="Resource\earth.png" />
     <Image Include="Resource\explosion.png" />
     <Image Include="Resource\Goomba.png" />
@@ -462,6 +463,7 @@
     <Xml Include="Resource\CupHead\BossLoop.xml" />
     <Xml Include="Resource\CupHead\BossStart.xml" />
     <Xml Include="Resource\CupHead\Idle.xml" />
+    <Xml Include="Resource\CupHead\Player_Hit.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\FMOD\inc\fmod.cs" />

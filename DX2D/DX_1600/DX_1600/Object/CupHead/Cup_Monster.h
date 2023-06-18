@@ -1,4 +1,6 @@
 #pragma once
+class Cup_Bullet;
+
 class Cup_Monster
 {
 public:
@@ -16,6 +18,8 @@ public:
 	void Render();
 	void PostRender();
 
+	void Attack(Vector2 targetPos);
+
 	void SetPosition(Vector2 pos) { _monster->SetPosition(pos); }
 	
 	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type, CallBack event = nullptr);
@@ -29,9 +33,9 @@ public:
 	void GetAttacked(int amount);
 
 	bool _isAlive = true;
+	shared_ptr<Collider> GetCollider() { return _monster; }
 
-	shared_ptr<CircleCollider> GetCircleCollider() { return _monster; }
-
+	bool IsCollsion_Bullets(shared_ptr<Collider> col);
 
 private:
 	void SetLeft();
@@ -52,5 +56,10 @@ private:
 	vector<shared_ptr<Sprite>> _sprites;
 
 	int _hp = 30;
+
+	vector<shared_ptr<Cup_Bullet>> _bullets;
+	float _speed = 200.0f;
+	float _time = 0.0f;
+	float _atkSpeed = 0.5f;
 };
 

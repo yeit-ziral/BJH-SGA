@@ -14,10 +14,12 @@ public:
 	void Update();
 	void Render();
 
-	void CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, Action::Type type, CallBack event = nullptr);
+	void CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, bool isLoop);
 
 	void Shoot(Vector2 dir, Vector2 startPos);
 	void EndEvent();
+
+	void SetAngle(float value) { _bullet->GetTransform()->SetAngle(value); }
 
 	bool _isActive = false;
 

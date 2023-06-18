@@ -423,6 +423,9 @@
     <Image Include="Resource\explosion.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\CupHead\Player_Hit.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -447,6 +450,7 @@
     <Xml Include="Resource\CupHead\BossLoop.xml" />
     <Xml Include="Resource\CupHead\BossStart.xml" />
     <Xml Include="Resource\CupHead\BossDie.xml" />
+    <Xml Include="Resource\CupHead\Player_Hit.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\FMOD\inc\fmod_errors.cs" />

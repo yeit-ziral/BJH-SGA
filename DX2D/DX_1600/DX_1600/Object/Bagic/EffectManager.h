@@ -9,7 +9,7 @@ public:
 	static void Create()
 	{
 		if (_instance == nullptr)
-			_instance = new EffectManager;
+			_instance = new EffectManager();
 	}
 
 	static void Delete()

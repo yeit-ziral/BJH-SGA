@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Cup_Monster.h"
+#include "Cup_Bullet.h"
 using namespace tinyxml2;
 
 Cup_Monster::Cup_Monster()
@@ -24,6 +25,14 @@ Cup_Monster::Cup_Monster()
 	_transform->SetParent(_monster->GetTransform());
 
 	_sprites[END]->SetPS(ADD_PS(L"Shader/ActionFilterPS.hlsl"));
+
+	for (int i = 0; i < 30; i++)
+	{
+		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();
+		_bullets.push_back(bullet);
+	}
+
+	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
 
 Cup_Monster::~Cup_Monster()
@@ -65,6 +74,30 @@ void Cup_Monster::Render()
 void Cup_Monster::PostRender()
 {
 	ImGui::SliderInt("BossState", (int*)&_state, 0, 3);
+}
+
+void Cup_Monster::Attack(Vector2 targetPos)
+{
+	_time += DELTA_TIME;
+	if (_time > _atkSpeed)
+	{
+		_time = 0.0f;
+	}
+	else
+		return;
+
+	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
+		[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->_isActive; });
+
+	if (bulletIter == _bullets.end())
+		return;
+
+	//_atkCool = true;
+	Vector2 startPos = _monster->GetPos();
+	Vector2 dir = targetPos - startPos;
+	dir.Normallize();
+	(*bulletIter)->SetAngle(dir.Angle());
+	(*bulletIter)->Shoot(dir, startPos);
 }
 
 void Cup_Monster::CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type, CallBack event)
@@ -123,6 +156,24 @@ void Cup_Monster::GetAttacked(int amount)
 		
 		DieEvent();
 	}
+}
+
+bool Cup_Monster::IsCollsion_Bullets(shared_ptr<Collider> col)
+{
+	for (auto bullet : _bullets)
+	{
+		if (bullet->_isActive == false)
+			continue;
+
+		if (col->IsCollision(bullet->GetBulletCollider()))
+		{
+			bullet->_isActive = false;
+			EFFECT_PLAY("Hit", bullet->GetPosition());
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void Cup_Monster::SetLeft()

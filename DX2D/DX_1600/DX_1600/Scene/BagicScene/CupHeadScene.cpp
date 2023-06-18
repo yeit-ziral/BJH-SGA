@@ -19,6 +19,7 @@ CupHeadScene::CupHeadScene()
 	Vector2 pos = CENTER;
 	pos.y -= 300.0f;
 	_col->GetTransform()->SetPosition(pos);
+	_transform->Update();
 
 	_monster = make_shared<Cup_Monster>();
 	_monster->SetPosition(CENTER + Vector2(300, -25));
@@ -34,22 +35,14 @@ void CupHeadScene::Update()
 {
 	_player->Update();
 
-	_transform->Update();
 	_col->Update();
 
 	if (_col->Block(_player->GetCollider()))
 		_player->SetGrounded();
 
 	_monster->Update();
-
-	if (_monster->_isAlive == true)
-	{
-		if (_player->IsCollision_Bullets(_monster->GetCircleCollider()))
-		{
-			_monster->GetAttacked(5);
-
-		}
-	}
+	_monster->Attack(_player->GetCollider()->GetTransform()->GetWorldPosition());
+	CheckAttack();
 }
 
 void CupHeadScene::Render()
@@ -75,4 +68,20 @@ void CupHeadScene::PostRender()
 	//ImGui::SliderInt("value1", &_AFBuffer->_data.value1, 1, 300);
 	//ImGui::SliderInt("value2", &_AFBuffer->_data.value2, 0, 300);
 	//ImGui::SliderInt("value3", &_AFBuffer->_data.value3, 0, 300);
+}
+
+void CupHeadScene::CheckAttack()
+{
+	if (!_monster->_isAlive || !_player->_isAlive)
+		return;
+
+	if (_player->IsCollision_Bullets(_monster->GetCollider()))
+	{
+		_monster->GetAttacked(5);
+	}
+
+	if (_monster->IsCollsion_Bullets(_player->GetCollider()))
+	{
+		_player->Attacked(5);
+	}
 }

@@ -7,7 +7,8 @@ public:
 		IDLE,
 		JUMP,
 		RUN,
-		ATTACK
+		ATTACK,
+		HIT
 	};
 
 	Cup_Player();
@@ -37,6 +38,12 @@ public:
 
 	//Vector2 GetBulletPos() { return _bullets[2]->GetPosition(); };
 
+	bool _isAlive = true;
+
+	int GetHp() { return _hp; }
+	void Attacked(int value) { _hp -= value; }
+	void Hit();
+
 private:
 	void SetLeft();
 	void SetRight();
@@ -65,5 +72,9 @@ private:
 	Vector2 _bulletPos;
 
 	shared_ptr<Effect> _effect;
+
+	int _hp;
+
+	bool _isHit = false;
 };
 

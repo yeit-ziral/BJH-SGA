@@ -83,7 +83,7 @@ public:
 		Vector2 startPos;
 		Vector2 size;
 		Vector2 imageSize;
-		int		isRight;
+		int		isRight = 0;
 		int		padding;
 
 	};

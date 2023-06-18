@@ -30,8 +30,8 @@ struct PixelInput
 
 float4 Mosaic(float2 uv)
 {
-	uv.x = (startPos.x / imageSize.x) + (size.x / imageSize.x) * uv.x;
-	uv.y = (startPos.y / imageSize.y) + (size.y / imageSize.y) * uv.y;
+	//uv.x = (startPos.x / imageSize.x) + (size.x / imageSize.x) * uv.x;
+	//uv.y = (startPos.y / imageSize.y) + (size.y / imageSize.y) * uv.y;
 
 	float x = floor(uv.x * value2); // floor : 평탄화 ... 소수가 들어오면 소수점 뒤를 날린다.
 	float y = floor(uv.y * value2);

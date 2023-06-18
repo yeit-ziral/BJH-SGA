@@ -9,6 +9,8 @@ public:
 	virtual void Render() override;
 	virtual void PostRender() override;
 
+	void CheckAttack();
+
 private:
 	shared_ptr<class Cup_Player> _player;
 

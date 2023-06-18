@@ -14,6 +14,7 @@ Cup_Player::Cup_Player()
 	CreateAction(L"Resource/CupHead/Jump.png", "Resource/CupHead/Jump.xml", "JUMP", Vector2(100, 100), Action::LOOP);
 	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "RUN", Vector2(100, 130), Action::LOOP);
 	CreateAction(L"Resource/CupHead/Attack.png", "Resource/CupHead/Attack.xml", "ATTACK", Vector2(250, 250), Action::END, std::bind(&Cup_Player::Attack, this));
+	CreateAction(L"Resource/CupHead/Player_Hit.png", "Resource/CupHead/Player_Hit.xml", "Hit", Vector2(250, 250), Action::LOOP);
 
 	_sprites[0]->SetPS(ADD_PS(L"Shader/ActionFilterPS.hlsl"));
 	_intBuffer = make_shared<IntBuffer>();
@@ -33,6 +34,8 @@ Cup_Player::Cup_Player()
 	}
 
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
+
+	_hp = 10;
 }
 
 Cup_Player::~Cup_Player()
@@ -43,6 +46,7 @@ void Cup_Player::Update()
 {
 	Input();
 	Jump();
+	Hit();
 
 	_col->Update();
 
@@ -70,7 +74,7 @@ void Cup_Player::Render()
 
 void Cup_Player::PostRender()
 {
-	ImGui::SliderInt("State", (int*)&_curState, 0, 3);
+	ImGui::SliderInt("State", (int*)&_curState, 0, 4);
 	ImGui::SliderInt("isMosaic", &_intBuffer->_data.aInt, 0, 1);
 	ImGui::SliderInt("Mosaic Magnitude", &_intBuffer->_data.bInt, 0, 300);
 }
@@ -224,6 +228,14 @@ void Cup_Player::SetAction(State state)
 	_actions[_curState]->Play();
 	_actions[_oldState]->Reset();
 	_oldState = _curState;
+}
+
+void Cup_Player::Hit()
+{
+	if (_isHit == true)
+		SetAction(HIT);
+	else if (_curState == HIT && _isHit == false)
+		SetAction(IDLE);
 }
 
 void Cup_Player::SetLeft()
