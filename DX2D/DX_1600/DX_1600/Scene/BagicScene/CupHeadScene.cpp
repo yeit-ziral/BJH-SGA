@@ -63,6 +63,7 @@ void CupHeadScene::PostRender()
 	_monster->PostRender();
 
 	ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
+	ImGui::Text("PlayerHP : % d", (int)_player->GetHp());
 
 	//ImGui::SliderInt("Selected", &_AFBuffer->_data.selected, 0, 10);
 	//ImGui::SliderInt("value1", &_AFBuffer->_data.value1, 1, 300);
@@ -83,5 +84,6 @@ void CupHeadScene::CheckAttack()
 	if (_monster->IsCollsion_Bullets(_player->GetCollider()))
 	{
 		_player->Attacked(5);
+		_player->Hit();
 	}
 }

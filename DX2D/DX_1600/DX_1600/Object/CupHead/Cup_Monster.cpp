@@ -55,6 +55,9 @@ void Cup_Monster::Update()
 	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
 	_sprites[_state]->Update();
 	_transform->Update();
+
+	for (auto& bullet : _bullets)
+		bullet->Update();
 }
 
 void Cup_Monster::Render()
@@ -69,6 +72,9 @@ void Cup_Monster::Render()
 	_sprites[_state]->Render();
 
 	_monster->Render();
+
+	for (auto& bullet : _bullets)
+		bullet->Render();
 }
 
 void Cup_Monster::PostRender()
