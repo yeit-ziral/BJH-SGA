@@ -43,6 +43,9 @@ public:
 	int GetHp() { return _hp; }
 	void Attacked(int value) { _hp -= value; }
 	void Hit();
+	void SetHit(bool value) { _isHit = value; }
+
+	shared_ptr<Transform> GetTransform() { return _col->GetTransform(); }
 
 private:
 	void SetLeft();

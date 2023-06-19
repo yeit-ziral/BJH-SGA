@@ -16,6 +16,9 @@ Cup_Bullet::Cup_Bullet()
 	_transform->SetPosition(Vector2(-50.0f, 0.0f));
 
 	_actions[INTRO]->SetEndEvent(std::bind(&Cup_Bullet::EndEvent, this));
+
+	_bullet->Update();
+	_transform->Update();
 }
 
 Cup_Bullet::~Cup_Bullet()
@@ -33,6 +36,7 @@ void Cup_Bullet::Update()
 		SetLeft();
 
 	_bullet->GetTransform()->AddVector2(_dir * _speed * DELTA_TIME);
+
 	_bullet->Update();
 
 	_actions[_state]->Update();

@@ -44,6 +44,9 @@ Cup_Player::~Cup_Player()
 
 void Cup_Player::Update()
 {
+	if (!_isAlive)
+		return;
+
 	Input();
 	Jump();
 	Hit();
@@ -61,6 +64,9 @@ void Cup_Player::Update()
 
 void Cup_Player::Render()
 {
+	if (!_isAlive)
+		return;
+
 	_transform->SetBuffer(0);
 	_sprites[_curState]->SetCurClip(_actions[_curState]->GetCurClip());
 	_intBuffer->SetPSBuffer(1);
@@ -233,7 +239,10 @@ void Cup_Player::SetAction(State state)
 void Cup_Player::Hit()
 {
 	if (_isHit == true)
+	{
 		SetAction(HIT);
+		_isHit = false;
+	}
 	else if (_curState == HIT && _isHit == false)
 		SetAction(IDLE);
 }

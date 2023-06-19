@@ -6,7 +6,7 @@
 CupHeadScene::CupHeadScene()
 {
 	_player = make_shared<Cup_Player>();
-	_player->SetPosition(CENTER);
+	_player->SetPosition(Vector2(0,0));
 
 	_track = make_shared<Quad>(L"Resource/CupHead/clown_bg_track.png");
 	_transform = make_shared<Transform>();
@@ -18,13 +18,15 @@ CupHeadScene::CupHeadScene()
 
 	Vector2 pos = CENTER;
 	pos.y -= 300.0f;
-	_col->GetTransform()->SetPosition(pos);
+	_col->GetTransform()->SetPosition(Vector2(0.0f, CENTER.y * -1));
 	_transform->Update();
 
 	_monster = make_shared<Cup_Monster>();
-	_monster->SetPosition(CENTER + Vector2(300, -25));
+	_monster->SetPosition(Vector2(0, 0));
 
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
+
+	CAMERA->SetTarget(_player->GetTransform());
 }
 
 CupHeadScene::~CupHeadScene()
@@ -83,7 +85,7 @@ void CupHeadScene::CheckAttack()
 
 	if (_monster->IsCollsion_Bullets(_player->GetCollider()))
 	{
-		_player->Attacked(5);
-		_player->Hit();
+		_player->Attacked(1);
+		_player->SetHit(true);
 	}
 }
