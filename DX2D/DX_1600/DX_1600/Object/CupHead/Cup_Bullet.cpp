@@ -43,9 +43,14 @@ void Cup_Bullet::Update()
 	_sprites[_state]->Update();
 	_transform->Update();
 
-	if (_bullet->GetPos().x < 0 || _bullet->GetPos().x > WIN_WIDTH)
+	float time;
+	float lastTime = 0.0f;
+	time = DELTA_TIME - lastTime;
+
+	if (time >= 3.0f)
 	{
 		_isActive = false;
+		lastTime = DELTA_TIME;
 	}
 
 	if (!_isActive)
