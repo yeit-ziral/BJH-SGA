@@ -225,9 +225,14 @@ bool RectCollider::AABB_Collision(shared_ptr<CircleCollider> other)
     Vector2 rightTop = Vector2(info.right, info.top);
     Vector2 rightBottom = Vector2(info.right, info.bottom);
 
-    if (other->IsCollision(leftTop) || other->IsCollision(leftBottom) ||
-        other->IsCollision(rightTop) || other->IsCollision(rightBottom))
+    if (other->IsCollision(leftTop) || other->IsCollision(rightTop))
         return true;
+
+    if (other->IsCollision(leftBottom) || other->IsCollision(rightBottom))
+    {
+        _sideCollision = true;
+        return true;
+    }
 
     if (info.right > other->GetTransform()->GetWorldPosition().x && info.left < other->GetTransform()->GetWorldPosition().x)
     {

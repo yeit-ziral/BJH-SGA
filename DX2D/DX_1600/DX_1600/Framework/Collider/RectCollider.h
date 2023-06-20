@@ -42,6 +42,8 @@ public:
 	virtual bool Block(shared_ptr<RectCollider> movable)override;
 	virtual bool Block(shared_ptr<class CircleCollider> movable)override;
 
+	bool _sideCollision = false;
+
 private:
 	virtual bool AABB_Collision(shared_ptr<RectCollider> other) override final;
 	virtual bool AABB_Collision(shared_ptr<CircleCollider> other) override final;

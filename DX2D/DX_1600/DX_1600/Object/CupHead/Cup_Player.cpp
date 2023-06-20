@@ -159,6 +159,7 @@ void Cup_Player::Input()
 
 	if (KEY_DOWN(VK_SPACE) && _isJump == false)
 	{
+		CAMERA->ShakeStart(8.0f, 5.0f);
 		_jumpPower = 500.0f;
 		_isJump = true;
 	}
