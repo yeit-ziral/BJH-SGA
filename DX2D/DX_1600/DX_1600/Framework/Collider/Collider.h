@@ -40,6 +40,8 @@ public:
 
 	vector<Vertex> GetVertices() { return _vertices; }
 
+	bool _sideCollision = false;
+
 protected:
 	virtual bool AABB_Collision(shared_ptr<class CircleCollider> other) abstract;
 	virtual bool AABB_Collision(shared_ptr<class RectCollider> other) abstract;

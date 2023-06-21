@@ -306,6 +306,8 @@ bool RectCollider::Block(shared_ptr<CircleCollider> movable)
         else if (dir.y > 0.0f)
             dir.y = 1.0f;
 
+        _sideCollision = false;
+
         fixedPos.y += dir.y * overlap.y;
     }
     else
@@ -314,6 +316,8 @@ bool RectCollider::Block(shared_ptr<CircleCollider> movable)
             dir.x = -1.0f;
         else if (dir.x > 0.0f)
             dir.x = 1.0f;
+
+        _sideCollision = true;
 
         fixedPos.x += dir.x * overlap.x;
     }
