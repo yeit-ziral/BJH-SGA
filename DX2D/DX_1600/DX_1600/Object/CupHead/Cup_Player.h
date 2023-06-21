@@ -41,6 +41,7 @@ public:
 	bool _isAlive = true;
 
 	int GetHp() { return _hp; }
+	void SetHP(int value) { _hp = value; }
 	void Attacked(int value) { _hp -= value; }
 	void Hit();
 	void SetHit(bool value) { _isHit = value; }

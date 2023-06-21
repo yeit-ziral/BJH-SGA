@@ -25,6 +25,8 @@ CupHeadScene::CupHeadScene()
 	CAMERA->SetLeftBottom(Vector2((trackSize.x * -0.5f), -1000.0f));
 	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
+
+	Load();
 }
 
 CupHeadScene::~CupHeadScene()
@@ -87,6 +89,16 @@ void CupHeadScene::PostRender()
 		CAMERA->SetTarget(nullptr);
 	}
 
+	if (ImGui::Button("Save", ImVec2(50, 50)))
+	{
+		Save();
+	}
+
+	if (ImGui::Button("Load", ImVec2(50, 50)))
+	{
+		Load();
+	}
+
 	//ImGui::SliderInt("Selected", &_AFBuffer->_data.selected, 0, 10);
 	//ImGui::SliderInt("value1", &_AFBuffer->_data.value1, 1, 300);
 	//ImGui::SliderInt("value2", &_AFBuffer->_data.value2, 0, 300);
@@ -106,6 +118,46 @@ void CupHeadScene::CheckAttack()
 	if (_monster->IsCollsion_Bullets(_player->GetCollider()))
 	{
 		_player->Attacked(1);
-		_player->SetHit(true);
+		//_player->SetHit(true);
 	}
+}
+
+void CupHeadScene::Save()
+{
+	BinaryWriter writer = BinaryWriter(L"Save/test.test");
+	writer.Int(1);
+
+	Vector2 playerPos = _player->GetCollider()->GetTransform()->GetWorldPosition();
+
+	writer.String("PlayerPos");
+	writer.Byte(&playerPos, sizeof(Vector2));
+
+	int playerHP = _player->GetHp();
+
+	writer.String("PlayerHP");
+	writer.Byte(&playerHP, sizeof(int));
+}
+
+void CupHeadScene::Load()
+{
+	BinaryReader reader = BinaryReader(L"Save/test.test");
+	int temp = reader.Int();
+
+	string str = reader.String();
+	assert(str == "PlayerPos");
+
+	Vector2 playerPos;
+	Vector2* ptr = &playerPos;
+	reader.Byte((void**)&ptr, sizeof(Vector2));
+
+	_player->SetPosition(playerPos);
+
+	string strhp = reader.String();
+	assert(strhp == "PlayerHP");
+
+	int playerHP;
+	int* php = &playerHP;
+	reader.Byte((void**)&php, sizeof(int));
+
+	_player->SetHP(playerHP);
 }

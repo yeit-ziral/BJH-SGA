@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Utility\BinaryReader.h" />
+    <ClInclude Include="Framework\Utility\BinaryWriter.h" />
     <ClInclude Include="Object\CupHead\Cup_Track.h" />
     <ClInclude Include="Framework\Camera\Camera.h" />
     <ClInclude Include="Library\FMOD\inc\fmod.h" />
@@ -219,6 +221,8 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Utility\BinaryReader.cpp" />
+    <ClCompile Include="Framework\Utility\BinaryWriter.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Track.cpp" />
     <ClCompile Include="Framework\Camera\Camera.cpp" />
     <ClCompile Include="Framework\Math\MyMath.cpp" />
