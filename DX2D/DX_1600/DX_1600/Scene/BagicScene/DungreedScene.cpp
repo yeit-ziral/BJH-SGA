@@ -22,13 +22,6 @@ DungreedScene::~DungreedScene()
 {
 }
 
-void DungreedScene::Collider_Update()
-{
-	_player->Collider_Update();
-	_monster->Collider_Update();
-	_floor->Update();
-}
-
 void DungreedScene::Update()
 {
 	_player->Update();
@@ -40,6 +33,10 @@ void DungreedScene::Update()
 		if (_player->IsCollision_Bullets(_monster->GetCircleCollider()))
 			_monster->GetAttacked(5);
 	}
+
+	_player->Collider_Update();
+	_monster->Collider_Update();
+	_floor->Update();
 }
 
 void DungreedScene::Render()

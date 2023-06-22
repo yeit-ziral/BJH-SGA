@@ -30,10 +30,7 @@ void ActionScene::Update()
 		item->Update();
 	}
 	GetItem();
-}
 
-void ActionScene::Collider_Update()
-{
 	_link->Collider_Update();
 	for (auto& item : _potions)
 	{

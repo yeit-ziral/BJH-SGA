@@ -6,7 +6,6 @@ public:
 	virtual ~ActionScene();
 
 	virtual void Update() override;
-	void Collider_Update();
 	virtual void Render() override;
 	virtual void PostRender() override;
 

@@ -14,8 +14,6 @@ Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<CupHeadScene>();
-
 	Timer::GetInstance()->SetLockFPS(60.0);
 }
 
@@ -30,9 +28,9 @@ void Program::Update()
 	Sound::GetInstance()->Update();
 	CAMERA->Update();
 
-	_curScene->Update();
+	SCENE->Update();
+
 	EffectManager::GetInstance()->Update();
-	_curScene->Collider_Update();
 }
 
 void Program::Render()
@@ -48,15 +46,14 @@ void Program::Render()
 
 	ALPHA->SetState();
 
-	_curScene->Render();
+	CAMERA->PostRender();
+	SCENE->Render();
 	EffectManager::GetInstance()->Render();
 
 	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	ImGui::Text("MousePos : { %.0f , %.0f}", MOUSE_POS.x, MOUSE_POS.y);
 
-	CAMERA->PostRender();
-
-	_curScene->PostRender();
+	SCENE->PostRender();
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

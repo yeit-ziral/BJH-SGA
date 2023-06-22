@@ -63,22 +63,31 @@ void Camera::SetPosition(const Vector2& pos)
 	_view->SetPosition(pos * -1);
 }
 
+Vector2 Camera::GetWorldMousePos()
+{
+	XMMATRIX inverseM = DirectX::XMMatrixInverse(nullptr, _view->GetMatrix());
+
+	Vector2 mousePos = MOUSE_POS;
+
+	return mousePos.TransformCoord(inverseM) - CENTER;
+}
+
 void Camera::FollowMode()
 {
 	Vector2 targetPos = _target.lock()->GetWorldPosition() - _offset;
 
-	if (targetPos.x < _leftBottom.x + WIN_WIDTH * 0.5f)
-		targetPos.x = _leftBottom.x + WIN_WIDTH * 0.5f;
+	if (targetPos.x < _leftBottom.x)
+		targetPos.x = _leftBottom.x;
 	if (targetPos.x > _rightTop.x - WIN_WIDTH)
-		targetPos.x = _rightTop.x - WIN_WIDTH * 0.5f;
+		targetPos.x = _rightTop.x - WIN_WIDTH;
 
-	if (targetPos.y < _leftBottom.y + WIN_HEIGHT * 0.5f)
-		targetPos.y = _leftBottom.y + WIN_HEIGHT * 0.5f;
+	if (targetPos.y < _leftBottom.y)
+		targetPos.y = _leftBottom.y;
 
 	if (targetPos.y > _rightTop.y - WIN_HEIGHT)
-		targetPos.y = _rightTop.y - WIN_HEIGHT * 0.5f;
+		targetPos.y = _rightTop.y - WIN_HEIGHT;
 
-	Vector2 lerp = LERP(_view->GetWorldPosition(), -targetPos, DELTA_TIME * 5.0f);
+	Vector2 lerp = LERP(_view->GetPos(), -targetPos, DELTA_TIME * 5.0f);
 	_view->SetPosition(lerp);
 }
 

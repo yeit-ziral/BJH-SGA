@@ -33,6 +33,17 @@ CupHeadScene::~CupHeadScene()
 {
 }
 
+void CupHeadScene::Init()
+{
+	Load();
+}
+
+void CupHeadScene::End()
+{
+	Save();
+	// CupHead ÃÑ¾ËÈ¸¼ö
+}
+
 void CupHeadScene::Update()
 {
 	_track->Update();
