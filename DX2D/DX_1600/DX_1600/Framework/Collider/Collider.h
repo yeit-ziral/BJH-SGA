@@ -42,12 +42,16 @@ public:
 
 	bool _sideCollision = false;
 
+	static bool _isDebug;
+
 protected:
 	virtual bool AABB_Collision(shared_ptr<class CircleCollider> other) abstract;
 	virtual bool AABB_Collision(shared_ptr<class RectCollider> other) abstract;
 
 	virtual bool OBB_Collision(shared_ptr<class CircleCollider> other) abstract;
 	virtual bool OBB_Collision(shared_ptr<class RectCollider> other) abstract;
+
+	ColType _type;
 
 	vector<Vertex> _vertices;
 	shared_ptr<VertexBuffer> _vertexBuffer;
@@ -58,7 +62,5 @@ protected:
 	shared_ptr<ColorBuffer> _colorBuffer;
 
 	shared_ptr<Transform> _transform;
-
-	ColType _type;
 };
 

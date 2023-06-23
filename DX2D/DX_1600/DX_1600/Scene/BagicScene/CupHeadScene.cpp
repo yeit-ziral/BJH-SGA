@@ -26,7 +26,14 @@ CupHeadScene::CupHeadScene()
 	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
 
+	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
+	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
+	_button->SetPosition(Vector2(0,0));
+	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
+
 	Load();
+
+	_player->SetHP(_player->GetMaxHp());
 }
 
 CupHeadScene::~CupHeadScene()
@@ -50,6 +57,8 @@ void CupHeadScene::Update()
 	_track2->Update();
 
 	_player->Update();
+
+	_button->Updata();
 
 	if (_track->GetColider()->Block(_player->GetCollider()))
 	{
@@ -110,10 +119,7 @@ void CupHeadScene::PostRender()
 		Load();
 	}
 
-	//ImGui::SliderInt("Selected", &_AFBuffer->_data.selected, 0, 10);
-	//ImGui::SliderInt("value1", &_AFBuffer->_data.value1, 1, 300);
-	//ImGui::SliderInt("value2", &_AFBuffer->_data.value2, 0, 300);
-	//ImGui::SliderInt("value3", &_AFBuffer->_data.value3, 0, 300);
+	_button->PostRender();
 }
 
 void CupHeadScene::CheckAttack()

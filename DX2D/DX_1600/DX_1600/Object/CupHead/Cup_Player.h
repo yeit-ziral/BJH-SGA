@@ -42,6 +42,8 @@ public:
 
 	int GetHp() { return _hp; }
 	void SetHP(int value) { _hp = value; }
+	int GetMaxHp() { return _maxHp; }
+
 	void Attacked(int value) { _hp -= value; }
 	void Hit();
 	void SetHit(bool value) { _isHit = value; }
@@ -78,6 +80,7 @@ private:
 	shared_ptr<Effect> _effect;
 
 	int _hp;
+	int _maxHp = 10;
 
 	bool _isHit = false;
 };
