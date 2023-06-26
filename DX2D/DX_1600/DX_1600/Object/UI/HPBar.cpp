@@ -5,7 +5,7 @@ HPBar::HPBar(wstring path, Vector2 size)
 {
 	_transform = make_shared<Transform>();
 	_quad = make_shared<Quad>(path, size);
-	_quad->SetPS(ADD_PS(L"Shader/HPBarPS.hlsl"));
+	_quad->SetPS(ADD_PS(L"Shader/HpBarPS.hlsl"));
 
 	_intBuffer = make_shared<IntBuffer>();
 }

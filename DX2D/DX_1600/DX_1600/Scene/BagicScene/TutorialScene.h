@@ -15,7 +15,7 @@ private:
 
 	shared_ptr<FilterBuffer> _filterBuffer;
 	shared_ptr<HPBar> _hpBar;
-	int _maxHP = 100;
-	int _curHP = 100;
-};
 
+	int _maxHp = 100;
+	int _curHp = 100;
+};

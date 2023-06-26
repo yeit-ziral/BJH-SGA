@@ -43,15 +43,8 @@ void Cup_Bullet::Update()
 	_sprites[_state]->Update();
 	_transform->Update();
 
-	float time;
-	float lastTime = 0.0f;
-	time = DELTA_TIME - lastTime;
 
-	if (time >= 3.0f)
-	{
-		_isActive = false;
-		lastTime = DELTA_TIME;
-	}
+	timerID = SetTimer(hWnd, 1, 1000, TimerCallback);
 
 	if (!_isActive)
 	{
@@ -134,6 +127,17 @@ void Cup_Bullet::EndEvent()
 {
 	_state = LOOP;
 	_actions[LOOP]->Play();
+}
+
+// 타이머 콜백 함수
+void Cup_Bullet::TimerCallback(HWND hWnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime)
+{
+	_hp--; // HP 값을 1씩 감소시킴
+	if (_hp <= 0)
+	{
+		// HP가 0 이하인 경우 타이머 중지
+		KillTimer(hWnd, timerID);
+	}
 }
 
 void Cup_Bullet::SetLeft()

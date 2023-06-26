@@ -29,6 +29,12 @@ public:
 
 	Vector2 GetPosition() { return _transform->GetWorldPosition(); }
 
+	void Count() { _hp -= 1; }
+
+	void Alive() { if (_hp >= 0) _isActive = false; }
+
+	void CALLBACK TimerCallback(HWND hWnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime);
+
 private:
 	State _state = State::INTRO;
 
@@ -47,5 +53,9 @@ private:
 
 	void SetLeft();
 	void SetRight();
+
+	int _hp = 3;
+
+	UINT_PTR timerID;
 };
 
