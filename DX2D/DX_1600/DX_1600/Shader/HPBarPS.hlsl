@@ -11,7 +11,6 @@ cbuffer HPBarBuffer : register(b0)
 struct PixelInput
 {
 	float4 pos : SV_POSITION;
-
 	float2 uv : UV;
 };
 

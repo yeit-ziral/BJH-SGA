@@ -30,6 +30,15 @@ void Cup_Bullet::Update()
 	if (!_isActive)
 		return;
 
+	// Update the timer
+	_timer += DELTA_TIME;
+
+	if (_timer >= _inactiveTime)
+	{
+		_isActive = false;
+		_timer = 0.0f;
+	}
+
 	if (_dir.x > 0)
 		SetRight();
 	if (_dir.x < 0)
@@ -43,14 +52,12 @@ void Cup_Bullet::Update()
 	_sprites[_state]->Update();
 	_transform->Update();
 
-
-	timerID = SetTimer(hWnd, 1, 1000, TimerCallback);
-
 	if (!_isActive)
 	{
 		_state = State::INTRO;
 		_actions[_state]->Play();
 	}
+
 }
 
 void Cup_Bullet::Render()
@@ -127,17 +134,6 @@ void Cup_Bullet::EndEvent()
 {
 	_state = LOOP;
 	_actions[LOOP]->Play();
-}
-
-// 타이머 콜백 함수
-void Cup_Bullet::TimerCallback(HWND hWnd, UINT uMsg, UINT_PTR idEvent, DWORD dwTime)
-{
-	_hp--; // HP 값을 1씩 감소시킴
-	if (_hp <= 0)
-	{
-		// HP가 0 이하인 경우 타이머 중지
-		KillTimer(hWnd, timerID);
-	}
 }
 
 void Cup_Bullet::SetLeft()
