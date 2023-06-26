@@ -31,6 +31,7 @@
 
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib,"dxguid.lib")
 
 // Imgui
 #include "../ImGUi/imgui.h"
@@ -102,6 +103,7 @@ using namespace Microsoft::WRL;
 
 // UI
 #include "Object/UI/Button.h"
+#include "Object/UI/HPBar.h"
 
 // Scene
 #include "Scene/Scene.h"

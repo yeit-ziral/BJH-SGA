@@ -14,5 +14,8 @@ private:
 	shared_ptr<Transform> _transform1;
 
 	shared_ptr<FilterBuffer> _filterBuffer;
+	shared_ptr<HPBar> _hpBar;
+	int _maxHp = 100;
+	int _curHp = 100;
 };
 
