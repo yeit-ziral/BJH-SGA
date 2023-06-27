@@ -5,13 +5,13 @@ using namespace tinyxml2;
 
 Cup_Ani::Cup_Ani()
 {
-	CreateAction(L"Resource/CupHead/Idle.png", "Resource/CupHead/Idle.xml", "CUP_IDLE", Vector2(250, 250));
-	CreateAction(L"Resource/CupHead/Jump.png", "Resource/CupHead/Jump.xml", "CUP_JUMP", Vector2(120, 120));
-	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "CUP_RUN", Vector2(120, 140));
-	CreateAction(L"Resource/CupHead/AimStraightShot.png", "Resource/CupHead/AimStraightShot.xml", "CUP_SHOT", Vector2(250, 250));
-	CreateAction(L"Resource/CupHead/RunShot.png", "Resource/CupHead/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));
-	CreateAction(L"Resource/CupHead/Player_Hit.png", "Resource/CupHead/Player_Hit.xml", "CUP_HIT", Vector2(250, 250), false);
-	CreateAction(L"Resource/CupHead/Player_Ghost.png", "Resource/CupHead/Player_Ghost.xml", "CUP_GHOST", Vector2(250, 250), false);
+	CreateAction(L"Resource/CupHead/player/Idle.png", "Resource/CupHead/player/Idle.xml", "CUP_IDLE", Vector2(250, 250));
+	CreateAction(L"Resource/CupHead/player/Jump.png", "Resource/CupHead/player/Jump.xml", "CUP_JUMP", Vector2(120, 120));
+	CreateAction(L"Resource/CupHead/player/Run.png", "Resource/CupHead/player/Run.xml", "CUP_RUN", Vector2(120, 140));
+	CreateAction(L"Resource/CupHead/player/AimStraightShot.png", "Resource/CupHead/player/AimStraightShot.xml", "CUP_SHOT", Vector2(250, 250));
+	CreateAction(L"Resource/CupHead/player/RunShot.png", "Resource/CupHead/player/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));
+	CreateAction(L"Resource/CupHead/player/Player_Hit.png", "Resource/CupHead/player/Player_Hit.xml", "CUP_HIT", Vector2(250, 250), false);
+	CreateAction(L"Resource/CupHead/player/Player_Ghost.png", "Resource/CupHead/player/Player_Ghost.xml", "CUP_GHOST", Vector2(250, 250), false);
 	_transform = make_shared<Transform>();
 	_transform->SetPosition(Vector2(0.0f, 9.76f));
 

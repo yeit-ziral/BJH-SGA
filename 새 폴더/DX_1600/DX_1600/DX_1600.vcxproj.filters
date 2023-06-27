@@ -351,7 +351,7 @@
     <Image Include="DX_1600.ico">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Resource\Item_11x5.png">
+    <Image Include="Resource\CupHead\weapon\Item_11x5.png">
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Resource\CupHead\player\Idle.png">
@@ -433,6 +433,9 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Resource\CupHead\boss\Clown_Move_Break_2.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\weapon\rifle.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

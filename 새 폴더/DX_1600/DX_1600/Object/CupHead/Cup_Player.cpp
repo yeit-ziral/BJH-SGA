@@ -67,7 +67,7 @@ void Cup_Player::Input()
 		_collider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
 	}
 
-	if (!IsAlive())
+	if (!_isAlive)
 		return;
 
 	if (_animation->GetState() == Cup_Ani::State::HIT)
@@ -107,7 +107,7 @@ void Cup_Player::Fire()
 	{
 		SOUND->Play("Cup_Attack", 0.3f);
 		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
-			[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->_isActive(); });
+			[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->_isActive; });
 
 		if (bulletIter == _bullets.end())
 			return;
@@ -175,7 +175,7 @@ bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 
 void Cup_Player::SetGrounded()
 {
-	if (!IsAlive())
+	if (!_isAlive)
 		return;
 
 	if (!_animation->GetISGround() && _jumpPower < 0)

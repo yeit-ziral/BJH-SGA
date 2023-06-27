@@ -301,7 +301,8 @@
     <Image Include="Resource\CupHead\player\Player_Hit.png" />
     <Image Include="Resource\explosion.png" />
     <Image Include="Resource\CupHead\player\Idle.png" />
-    <Image Include="Resource\Item_11x5.png" />
+    <Image Include="Resource\CupHead\weapon\Item_11x5.png" />
+    <Image Include="Resource\CupHead\weapon\rifle.png" />
     <Image Include="Resource\UI\Button.png" />
     <Image Include="small.ico" />
   </ItemGroup>

@@ -33,6 +33,8 @@ public:
 
 	bool _isAlive = true;
 
+	bool IsAlive();
+
 	shared_ptr<Transform> GetTransform() { return _collider->GetTransform(); }
 
 private:
@@ -44,11 +46,10 @@ private:
 
 	vector<shared_ptr<Cup_Bullet>> _bullets;
 
-	float _speed = 200.0f;
+	float _speed = 1000.0f;
 	float _time = 0.0f;
 	float _atkSpeed = 0.5f;
 	bool _atkCool = false;
 
 	float _jumpPower = 0.0f;
 };
-
