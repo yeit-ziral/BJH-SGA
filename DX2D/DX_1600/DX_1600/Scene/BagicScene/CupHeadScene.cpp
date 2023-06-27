@@ -58,7 +58,7 @@ void CupHeadScene::Update()
 
 	_player->Update();
 
-	_button->Updata();
+	_button->Update();
 
 	if (_track->GetColider()->Block(_player->GetCollider()))
 	{

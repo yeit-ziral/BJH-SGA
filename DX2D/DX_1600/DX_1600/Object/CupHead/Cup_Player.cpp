@@ -10,11 +10,11 @@ Cup_Player::Cup_Player()
 
 	_col = make_shared<CircleCollider>(50);
 
-	CreateAction(L"Resource/CupHead/Idle.png", "Resource/CupHead/Idle.xml", "IDLE", Vector2(250, 250), Action::LOOP);
-	CreateAction(L"Resource/CupHead/Jump.png", "Resource/CupHead/Jump.xml", "JUMP", Vector2(100, 100), Action::LOOP);
-	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "RUN", Vector2(100, 130), Action::LOOP);
-	CreateAction(L"Resource/CupHead/Attack.png", "Resource/CupHead/Attack.xml", "ATTACK", Vector2(250, 250), Action::END, std::bind(&Cup_Player::Attack, this));
-	CreateAction(L"Resource/CupHead/Player_Hit.png", "Resource/CupHead/Player_Hit.xml", "Hit", Vector2(250, 250), Action::LOOP);
+	CreateAction(L"Resource/CupHead/player/Idle.png", "Resource/CupHead/player/Idle.xml", "IDLE", Vector2(250, 250), Action::LOOP);
+	CreateAction(L"Resource/CupHead/player/Jump.png", "Resource/CupHead/player/Jump.xml", "JUMP", Vector2(100, 100), Action::LOOP);
+	CreateAction(L"Resource/CupHead/player/Run.png", "Resource/CupHead/player/Run.xml", "RUN", Vector2(100, 130), Action::LOOP);
+	CreateAction(L"Resource/CupHead/player/Attack.png", "Resource/CupHead/player/Attack.xml", "ATTACK", Vector2(250, 250), Action::END, std::bind(&Cup_Player::Attack, this));
+	CreateAction(L"Resource/CupHead/player/Player_Hit.png", "Resource/CupHead/player/Player_Hit.xml", "Hit", Vector2(250, 250), Action::LOOP);
 
 	_sprites[0]->SetPS(ADD_PS(L"Shader/ActionFilterPS.hlsl"));
 	_intBuffer = make_shared<IntBuffer>();
