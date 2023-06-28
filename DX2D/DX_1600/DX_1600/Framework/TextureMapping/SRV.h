@@ -3,6 +3,7 @@ class SRV
 {
 	friend class SRVManager;
 public:
+	SRV(ComPtr<ID3D11ShaderResourceView> srv);
 	SRV(wstring file);
 	~SRV();
 
@@ -11,7 +12,7 @@ public:
 	Vector2 GetImageSize() { return _size; }
 
 private:
-	ComPtr<ID3D11ShaderResourceView> _shaderResourceView;
+	ComPtr<ID3D11ShaderResourceView> _srv;
 
 	Vector2 _size;
 };

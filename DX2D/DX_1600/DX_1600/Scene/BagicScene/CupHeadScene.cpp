@@ -6,6 +6,7 @@
 
 CupHeadScene::CupHeadScene()
 {
+#pragma region CupHead
 	_player = make_shared<Cup_Player>();
 	_player->SetPosition(Vector2(0,0));
 
@@ -34,6 +35,19 @@ CupHeadScene::CupHeadScene()
 	Load();
 
 	_player->SetHP(_player->GetMaxHp());
+#pragma endregion
+
+#pragma region RTV
+	_rtv = make_shared<RenderTarget>();
+	_rtvQuad = make_shared<Quad>(Vector2(WIN_WIDTH, WIN_HEIGHT));
+	shared_ptr<SRV> stvSRV = make_shared<SRV>(_rtv->GetSRV());
+	_rtvQuad->SetSRV(stvSRV);
+	_rtvQuad->SetPS(ADD_PS(L"Shader/FilterPS.hlsl"));
+
+	_rtvTransform = make_shared<Transform>();
+
+	_filter = make_shared<FilterBuffer>();
+
 }
 
 CupHeadScene::~CupHeadScene()
@@ -78,10 +92,20 @@ void CupHeadScene::Update()
 	_monster->Update();
 	_monster->Attack(_player->GetCollider()->GetTransform()->GetWorldPosition());
 	CheckAttack();
+
+	_rtvTransform->Update();
 }
 
 void CupHeadScene::Render()
 {
+	_rtvTransform->SetBuffer(0);
+	_filter->SetPSBuffer(0);
+	_rtvQuad->Render();
+}
+
+void CupHeadScene::PreRender()
+{
+	_rtv->Set();
 	_track->Render();
 	_track2->Render();
 

@@ -43,7 +43,8 @@ public:
 	bool Press(UINT key) { return _stateMap[key] == PRESS; }
 
 	void SetMousePos(const Vector2& pos) { _mousePos = pos; }
-	const Vector2& GetMousePos() { return _mousePos - CENTER; }
+	const Vector2& GetMousePos() { return _mousePos; }
+	Vector2 GetScreenMousePos() { return  _mousePos - CENTER; } // 프로젝션에 따라 달라질 수 있음
 
 private:
 	static InputManager* _instance;
