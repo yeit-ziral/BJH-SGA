@@ -3,6 +3,7 @@
 #include "../../Object/CupHead/Cup_Player.h"
 #include "../../Object/CupHead/Cup_Monster.h"
 #include "../../Object/CupHead/Cup_Track.h"
+#include "../../Object/CupHead/Cup_Block.h"
 
 CupHeadScene::CupHeadScene()
 {
@@ -15,6 +16,8 @@ CupHeadScene::CupHeadScene()
 	_track2 = make_shared<Cup_Track>();
 	Vector2 track2WorldPos = _track2->GetColider()->GetTransform()->GetWorldPosition();
 	_track2->SetPosition(track2WorldPos + Vector2(trackSize.x, 150.0f));
+
+	_block = make_shared<Cup_Block>(track2WorldPos + Vector2(100, 300));
 
 	_monster = make_shared<Cup_Monster>();
 	_monster->SetPosition(Vector2(0, 0));
@@ -55,10 +58,26 @@ void CupHeadScene::Update()
 {
 	_track->Update();
 	_track2->Update();
+	_block->Update();
 
 	_player->Update();
 
 	_button->Update();
+
+	if (_track->GetColider()->Block(_player->GetCollider()))
+	{
+		if (_track->GetColider()->_sideCollision)
+			return;
+
+		_player->SetGrounded();
+	}
+	if (_track2->GetColider()->Block(_player->GetCollider()))
+	{
+		if (_track2->GetColider()->_sideCollision)
+			return;
+
+		_player->SetGrounded();
+	}
 
 	if (KEY_PRESS(VK_DOWN))
 	{
@@ -66,19 +85,15 @@ void CupHeadScene::Update()
 	}
 	else
 	{
-		if (_track->GetColider()->Block(_player->GetCollider()))
+		if (_block->GetCollider()->Block(_player->GetCollider()));
+		_player->SetGrounded();
+		if (_block->GetCollider()->_bottomCollision)
 		{
-			if (_track->GetColider()->_sideCollision)
-				return;
 
-			_player->SetGrounded();
 		}
-		if (_track2->GetColider()->Block(_player->GetCollider()))
+		else
 		{
-			if (_track2->GetColider()->_sideCollision)
-				return;
 
-			_player->SetGrounded();
 		}
 	}
 
@@ -91,6 +106,7 @@ void CupHeadScene::Render()
 {
 	_track->Render();
 	_track2->Render();
+	_block->Render();
 
 	_player->Render();
 

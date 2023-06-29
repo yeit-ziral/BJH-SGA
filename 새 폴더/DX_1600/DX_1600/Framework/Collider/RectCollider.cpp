@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "RectCollider.h"
 
+#include "CircleCollider.h"
+
 RectCollider::RectCollider(Vector2 size)
 : _size(size)
 , Collider(ColType::RECT)
@@ -302,9 +304,15 @@ bool RectCollider::Block(shared_ptr<CircleCollider> movable)
     if (overlap.x > overlap.y)
     {
         if (dir.y < 0.0f)
+        {
             dir.y = -1.0f;
+            _bottomCollision = true;
+        }
         else if (dir.y > 0.0f)
+        {
             dir.y = 1.0f;
+            _bottomCollision = false;
+        }
 
         _sideCollision = false;
         fixedPos.y += dir.y * overlap.y;
@@ -317,6 +325,7 @@ bool RectCollider::Block(shared_ptr<CircleCollider> movable)
             dir.x = 1.0f;
 
         _sideCollision = true;
+        _bottomCollision = false;
 
         fixedPos.x += dir.x * overlap.x;
     }

@@ -39,7 +39,6 @@ public:
 
 	bool IsActive() { return _isActive; }
 
-
 private:
 	bool _isActive = true;
 
@@ -56,6 +55,7 @@ private:
 	Vector2 _fixedPos;
 
 	bool _isRight = true;
+
 	bool _isGround = false;
 };
 

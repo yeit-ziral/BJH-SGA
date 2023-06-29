@@ -21,6 +21,7 @@ private:
 
 	shared_ptr<class Cup_Track> _track;
 	shared_ptr<class Cup_Track> _track2;
+	shared_ptr<class Cup_Block> _block;
 
 	shared_ptr<class Cup_Monster> _monster;
 

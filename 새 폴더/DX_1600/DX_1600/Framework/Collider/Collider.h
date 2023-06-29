@@ -28,7 +28,6 @@ public:
 	virtual bool Block(shared_ptr<class CircleCollider> other) abstract;
 	virtual bool Block(shared_ptr<class RectCollider> other) abstract;
 
-
 	void SetRed() { _colorBuffer->SetColor(RED); _colorBuffer->Update(); }
 	void SetGreen() { _colorBuffer->SetColor(GREEN); _colorBuffer->Update(); }
 
@@ -41,6 +40,8 @@ public:
 	vector<Vertex> GetVertices() { return _vertices; }
 
 	bool _sideCollision = false;
+
+	bool _bottomCollision = false;
 
 	static bool _isDebug;
 
