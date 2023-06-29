@@ -60,19 +60,26 @@ void CupHeadScene::Update()
 
 	_button->Update();
 
-	if (_track->GetColider()->Block(_player->GetCollider()))
+	if (KEY_PRESS(VK_DOWN))
 	{
-		if (_track->GetColider()->_sideCollision)
-			return;
 
-		_player->SetGrounded();
 	}
-	if (_track2->GetColider()->Block(_player->GetCollider()))
+	else
 	{
-		if (_track2->GetColider()->_sideCollision)
-			return;
+		if (_track->GetColider()->Block(_player->GetCollider()))
+		{
+			if (_track->GetColider()->_sideCollision)
+				return;
 
-		_player->SetGrounded();
+			_player->SetGrounded();
+		}
+		if (_track2->GetColider()->Block(_player->GetCollider()))
+		{
+			if (_track2->GetColider()->_sideCollision)
+				return;
+
+			_player->SetGrounded();
+		}
 	}
 
 	_monster->Update();

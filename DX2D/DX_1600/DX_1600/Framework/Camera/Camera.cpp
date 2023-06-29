@@ -81,6 +81,7 @@ void Camera::FollowMode()
 
 	if (targetPos.x < _leftBottom.x)
 		targetPos.x = _leftBottom.x;
+
 	if (targetPos.x > _rightTop.x - WIN_WIDTH)
 		targetPos.x = _rightTop.x - WIN_WIDTH;
 

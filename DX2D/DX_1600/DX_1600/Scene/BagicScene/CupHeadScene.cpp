@@ -40,14 +40,16 @@ CupHeadScene::CupHeadScene()
 #pragma region RTV
 	_rtv = make_shared<RenderTarget>();
 	_rtvQuad = make_shared<Quad>(Vector2(WIN_WIDTH, WIN_HEIGHT));
-	shared_ptr<SRV> stvSRV = make_shared<SRV>(_rtv->GetSRV());
-	_rtvQuad->SetSRV(stvSRV);
+	_rtvQuad->SetSRV(_rtv->GetSRV());
 	_rtvQuad->SetPS(ADD_PS(L"Shader/FilterPS.hlsl"));
 
 	_rtvTransform = make_shared<Transform>();
+	_rtvTransform->SetPosition(Vector2(1000,-10));
+	_rtvTransform->SetScale(Vector2(1.1f, 1.0f));
 
 	_filter = make_shared<FilterBuffer>();
-
+	//_filter->_data.selected = 1;
+#pragma endregion
 }
 
 CupHeadScene::~CupHeadScene()
@@ -94,6 +96,7 @@ void CupHeadScene::Update()
 	CheckAttack();
 
 	_rtvTransform->Update();
+	_filter->Update();
 }
 
 void CupHeadScene::Render()
@@ -123,12 +126,12 @@ void CupHeadScene::PostRender()
 	ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
 	ImGui::Text("PlayerHP : % d", (int)_player->GetHp());
 	
-	if (ImGui::Button("TargetON", ImVec2(50, 50)))
+	if (ImGui::Button("TargetON", ImVec2(70, 50)))
 	{
 		CAMERA->SetTarget(_player->GetTransform());
 	}
 
-	if (ImGui::Button("TargetOFF", ImVec2(50, 50)))
+	if (ImGui::Button("TargetOFF", ImVec2(70, 50)))
 	{
 		CAMERA->SetTarget(nullptr);
 	}
@@ -142,6 +145,8 @@ void CupHeadScene::PostRender()
 	{
 		Load();
 	}
+
+	//ImGui::SliderInt("Mosaic", &_filter->_data.value1, 1, 300);
 
 	_button->PostRender();
 }

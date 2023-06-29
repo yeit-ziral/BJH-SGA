@@ -49,6 +49,9 @@ public:
 	void SetRightTop(Vector2 value) { _rightTop = value; }
 	void SetOffSet(Vector2 value) { _offset = value; }
 
+	Vector2 GetLeftBottom() { return _leftBottom; }
+	Vector2 GetRightTop() { return _rightTop; }
+
 	Vector2 GetWorldMousePos();
 
 private:

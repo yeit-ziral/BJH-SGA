@@ -22,6 +22,8 @@
 #include <functional>
 #include <wrl/client.h>
 #include <windows.h>
+#include <cmath>
+#include <math.h>
 
 #include <d3d11.h>
 #include <d3dcompiler.h>

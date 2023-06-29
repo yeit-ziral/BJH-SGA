@@ -1,4 +1,6 @@
 #pragma once
+#include "../TextureMapping/SRV.h"
+
 class RenderTarget
 {
 public:
@@ -9,7 +11,7 @@ public:
 
 	//ComPtr<ID3D11ShaderResourceView> GetSRV() { return _shaderResourceView; }
 
-	shared_ptr<class SRV> GetSRV() { return _srv; }
+	shared_ptr<class SRV> GetSRV() { return _rtvSRV; }
 
 private:
 	void CreateRTVTexture();
@@ -21,8 +23,8 @@ private:
 
 	ComPtr<ID3D11Texture2D> _rtvTexture;
 	ComPtr<ID3D11RenderTargetView> _rtv;
-	ComPtr<ID3D11ShaderResourceView> _shaderResourceView;
+	ComPtr<ID3D11ShaderResourceView> _srv;
 
-	shared_ptr<class SRV> _srv;
+	shared_ptr<class SRV> _rtvSRV;
 };
 
