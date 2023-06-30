@@ -8,8 +8,6 @@ Cup_Ani::Cup_Ani()
 	CreateAction(L"Resource/CupHead/player/Idle.png", "Resource/CupHead/player/Idle.xml", "CUP_IDLE", Vector2(250, 250));
 	CreateAction(L"Resource/CupHead/player/Jump.png", "Resource/CupHead/player/Jump.xml", "CUP_JUMP", Vector2(120, 120));
 	CreateAction(L"Resource/CupHead/player/Run.png", "Resource/CupHead/player/Run.xml", "CUP_RUN", Vector2(120, 140));
-	CreateAction(L"Resource/CupHead/player/AimStraightShot.png", "Resource/CupHead/player/AimStraightShot.xml", "CUP_SHOT", Vector2(250, 250));
-	CreateAction(L"Resource/CupHead/player/RunShot.png", "Resource/CupHead/player/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));
 	CreateAction(L"Resource/CupHead/player/Player_Hit.png", "Resource/CupHead/player/Player_Hit.xml", "CUP_HIT", Vector2(250, 250), false);
 	CreateAction(L"Resource/CupHead/player/Player_Ghost.png", "Resource/CupHead/player/Player_Ghost.xml", "CUP_GHOST", Vector2(250, 250), false);
 	_transform = make_shared<Transform>();
@@ -140,19 +138,19 @@ void Cup_Ani::StateControl()
 		SetRight();
 	}
 
-	if (KEY_UP('X'))
-	{
-		SetState(IDLE);
-	}
-	if (KEY_PRESS('X'))
-	{
-		SetState(SHOT);
-	}
-
-	if (KEY_PRESS('X') && (KEY_PRESS(VK_RIGHT) || KEY_PRESS(VK_LEFT)))
-	{
-		_curState = State::RUN_SHOT;
-	}
+	//if (KEY_UP('X'))
+	//{
+	//	SetState(IDLE);
+	//}
+	//if (KEY_PRESS('X'))
+	//{
+	//	SetState(SHOT);
+	//}
+	//
+	//if (KEY_PRESS('X') && (KEY_PRESS(VK_RIGHT) || KEY_PRESS(VK_LEFT)))
+	//{
+	//	_curState = State::RUN_SHOT;
+	//}
 }
 
 void Cup_Ani::SetState(State state)

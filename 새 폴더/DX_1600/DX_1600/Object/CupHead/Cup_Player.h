@@ -1,6 +1,7 @@
 #pragma once
 class Cup_Ani;
 class Cup_Bullet;
+class Normalgun;
 
 class Cup_Player
 {
@@ -14,7 +15,7 @@ public:
 
 	void Move(Vector2 movePos) { _collider->GetTransform()->AddVector2(movePos); }
 	void Input();
-	void Fire();
+	void Fire(); // ÃÑ¿¡ ³Ñ±æ °Í
 	void Jump();
 
 	void Damaged(int damgae);
@@ -26,7 +27,7 @@ public:
 
 	void SetGrounded();
 
-	void SetPosition(Vector2 pos) { _collider->SetPosition(pos); }
+	void SetPosition(Vector2 pos) { _collider->SetPosition(pos); } 
 	shared_ptr<Collider> GetCollider() { return _collider; }
 
 	//void SetActive(bool value) { _isActive = value; }
@@ -37,6 +38,8 @@ public:
 
 	shared_ptr<Transform> GetTransform() { return _collider->GetTransform(); }
 
+	virtual const Vector2& GetPos() { return GetTransform()->GetPos(); }
+
 private:
 	int _hp = 10;
 	int _maxHp = 10;
@@ -44,12 +47,13 @@ private:
 	shared_ptr<Cup_Ani> _animation;
 	shared_ptr<Collider> _collider;
 
-	vector<shared_ptr<Cup_Bullet>> _bullets;
+	// ÃÑ class ¹Þ±â
+	shared_ptr<class Gun> _gun;
+
+	 // ÃÑ¿¡ ³Ñ±æ °Í
 
 	float _speed = 1000.0f;
 	float _time = 0.0f;
-	float _atkSpeed = 0.5f;
-	bool _atkCool = false;
 
 	float _jumpPower = 0.0f;
 };

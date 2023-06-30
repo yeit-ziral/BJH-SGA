@@ -151,6 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Gun\ChargeGun.h" />
+    <ClInclude Include="Object\CupHead\Gun\Gun.h" />
+    <ClInclude Include="Object\CupHead\Gun\Machinegun.h" />
     <ClInclude Include="Object\CupHead\Cup_Ani.h" />
     <ClInclude Include="Object\CupHead\Cup_Block.h" />
     <ClInclude Include="Object\CupHead\Cup_Player.h" />
@@ -205,6 +208,7 @@
     <ClInclude Include="Framework\TextureMapping\SRVManager.h" />
     <ClInclude Include="Object\Bagic\Sprite.h" />
     <ClInclude Include="Framework\Utility\Sound.h" />
+    <ClInclude Include="Object\CupHead\Gun\NormalGun.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
     <ClInclude Include="Framework\Utility\Timer.h" />
@@ -213,6 +217,9 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Gun\ChargeGun.cpp" />
+    <ClCompile Include="Object\CupHead\Gun\Gun.cpp" />
+    <ClCompile Include="Object\CupHead\Gun\Machinegun.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Ani.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Block.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Player.cpp" />
@@ -269,6 +276,7 @@
     <ClCompile Include="Framework\TextureMapping\SRVManager.cpp" />
     <ClCompile Include="Object\Bagic\Sprite.cpp" />
     <ClCompile Include="Framework\Utility\Sound.cpp" />
+    <ClCompile Include="Object\CupHead\Gun\NormalGun.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc" />

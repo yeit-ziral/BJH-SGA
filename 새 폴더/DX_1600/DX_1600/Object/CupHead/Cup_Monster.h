@@ -60,7 +60,7 @@ private:
 	vector<shared_ptr<Cup_Bullet>> _bullets;
 	float _speed = 200.0f;
 	float _time = 0.0f;
-	float _atkSpeed = 3.0f;
+	float _atkSpeed = 1.0f;
 
 
 };

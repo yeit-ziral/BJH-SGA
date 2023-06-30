@@ -113,4 +113,7 @@ using namespace Microsoft::WRL;
 // Program
 #include "Program/Program.h"
 
+// Gun
+#include "Object/CupHead/Gun/Gun.h"
+
 extern HWND hWnd;

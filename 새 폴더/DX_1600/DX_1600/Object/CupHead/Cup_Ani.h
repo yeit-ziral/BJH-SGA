@@ -7,8 +7,6 @@ public:
 		IDLE,
 		JUMP,
 		RUN,
-		SHOT,
-		RUN_SHOT,
 		HIT,
 		GHOST,
 		END,

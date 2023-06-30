@@ -12,12 +12,6 @@ Cup_Player::Cup_Player()
 	_collider = make_shared<CircleCollider>(50.0f);
 	_animation = make_shared<Cup_Ani>();
 
-	for (int i = 0; i < 30; i++)
-	{
-		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();
-		_bullets.push_back(bullet);
-	}
-
 	_animation->SetParent(_collider->GetTransform());
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/hit_4x2.png", Vector2(4, 2), Vector2(100, 100), 0.1f);
 }
@@ -33,8 +27,7 @@ void Cup_Player::Update()
 	Input();
 	_collider->Update();
 	_animation->Update();
-	for(auto& bullet : _bullets)
-		bullet->Update();
+
 	if (!_animation->IsActive())
 		_isAlive = false;
 }
@@ -44,8 +37,7 @@ void Cup_Player::Render()
 	if (!_isAlive)
 		return;
 	_animation->Render();
-	for(auto& bullet : _bullets)
-		bullet->Render();
+
 	_collider->Render();
 }
 
@@ -57,7 +49,7 @@ void Cup_Player::PostRender()
 
 void Cup_Player::Input()
 {
-	// 중력적용
+	// 중력적용 -> 보스 총알에도 구현해야 됨
 	{
 		_jumpPower -= 15.0f;
 
@@ -90,49 +82,21 @@ void Cup_Player::Input()
 	Jump();
 }
 
-void Cup_Player::Fire()
+void Cup_Player::Fire() // 총으로 넘길 것
 {
-	if (_atkCool)
-	{
-		_time += DELTA_TIME;
-		if (_time > _atkSpeed)
-		{
-			_time = 0.0f;
-			_atkCool = false;
-		}
-		return;
-	}
-
-	if (KEY_PRESS('X'))
+	if (KEY_PRESS(VK_LBUTTON))
 	{
 		SOUND->Play("Cup_Attack", 0.3f);
-		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
-			[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->_isActive; });
+		// 마우스 좌키 누를 때 총의 Fire() 불러오기
 
-		if (bulletIter == _bullets.end())
-			return;
-
-		_atkCool = true;
-		Vector2 startPos = _collider->GetPos();
-		if (_animation->GetIsRight())
-		{
-			startPos += Vector2(50, 0);
-			(*bulletIter)->SetRight();
-			(*bulletIter)->Shoot(Vector2(1, 0), startPos);
-		}
-		else
-		{
-			startPos += Vector2(-50, 0);
-			(*bulletIter)->SetLeft();
-			(*bulletIter)->Shoot(Vector2(-1, 0), startPos);
-		}
+			// 마우스 방향으로 총알 쏘기
+		Vector2 dir = MOUSE_POS - GetPos();
 	}
-
 }
 
 void Cup_Player::Jump()
 {
-	if (KEY_DOWN('Z') && _animation->GetISGround())
+	if (KEY_DOWN(VK_SPACE) && _animation->GetISGround())
 	{
 		//CAMERA->ShakeStart(50.0f, 30.0f);
 		_jumpPower = 600.0f;
@@ -156,20 +120,7 @@ void Cup_Player::Damaged(int damgae)
 
 bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 {
-	for (auto bullet : _bullets)
-	{
-		if (bullet->_isActive == false)
-			continue;
-
-		if (col->IsCollision(bullet->GetBulletCollider()))
-		{
-			bullet->_isActive = false;
-			EFFECT_PLAY("Hit", bullet->GetPosition());
-			return true;
-		}
-	}
-
-	return false;
+	_gun->IsCollision_Bullets(col);
 }
 
 
