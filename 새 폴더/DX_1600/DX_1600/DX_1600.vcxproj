@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Monster\Monster.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargeGun.h" />
     <ClInclude Include="Object\CupHead\Gun\Gun.h" />
     <ClInclude Include="Object\CupHead\Gun\Machinegun.h" />
@@ -178,7 +179,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\BagicScene\EffectScene.h" />
     <ClInclude Include="Object\CupHead\Cup_Bullet.h" />
-    <ClInclude Include="Object\CupHead\Cup_Monster.h" />
+    <ClInclude Include="Object\CupHead\Monster\Cup_Monster.h" />
     <ClInclude Include="Scene\BagicScene\CupHeadScene.h" />
     <ClInclude Include="Framework\Animation\Action.h" />
     <ClInclude Include="Framework\Utility\tinyxml2.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Monster\Monster.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargeGun.cpp" />
     <ClCompile Include="Object\CupHead\Gun\Gun.cpp" />
     <ClCompile Include="Object\CupHead\Gun\Machinegun.cpp" />
@@ -236,7 +238,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\BagicScene\EffectScene.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Bullet.cpp" />
-    <ClCompile Include="Object\CupHead\Cup_Monster.cpp" />
+    <ClCompile Include="Object\CupHead\Monster\Cup_Monster.cpp" />
     <ClCompile Include="Scene\BagicScene\CupHeadScene.cpp" />
     <ClCompile Include="Framework\Animation\Action.cpp" />
     <ClCompile Include="Framework\Utility\tinyxml2.cpp" />

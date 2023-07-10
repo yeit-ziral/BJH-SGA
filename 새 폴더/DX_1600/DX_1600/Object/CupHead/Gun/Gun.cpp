@@ -5,6 +5,8 @@
 
 Gun::Gun()
 {
+	_collider = make_shared<CircleCollider>(30.0f);
+
 	for (int i = 0; i < 30; i++)
 	{
 		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();

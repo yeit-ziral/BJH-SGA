@@ -37,7 +37,7 @@ public:
 
 	bool IsCollsion_Bullets(shared_ptr<Collider> col);
 
-private:
+protected:
 	void SetLeft();
 	void SetRight();
 
@@ -61,7 +61,5 @@ private:
 	float _speed = 200.0f;
 	float _time = 0.0f;
 	float _atkSpeed = 1.0f;
-
-
 };
 

@@ -15,7 +15,7 @@ public:
 
 	void Move(Vector2 movePos) { _collider->GetTransform()->AddVector2(movePos); }
 	void Input();
-	void Fire(); // ÃÑ¿¡ ³Ñ±æ °Í
+	//void Fire(); // ÃÑ¿¡ ³Ñ±æ °Í
 	void Jump();
 
 	void Damaged(int damgae);
@@ -23,7 +23,7 @@ public:
 	void SetHP(int value) { _hp = value; }
 	const int& GetMaxHp() { return _maxHp; }
 
-	bool IsCollision_Bullets(shared_ptr<Collider> col);
+	//bool IsCollision_Bullets(shared_ptr<Collider> col);
 
 	void SetGrounded();
 
@@ -48,7 +48,7 @@ private:
 	shared_ptr<Collider> _collider;
 
 	// ÃÑ class ¹Þ±â
-	shared_ptr<class Gun> _gun;
+	//shared_ptr<class Gun> _gun;
 
 	 // ÃÑ¿¡ ³Ñ±æ °Í
 

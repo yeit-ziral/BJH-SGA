@@ -2,6 +2,7 @@
 #include "Cup_Player.h"
 #include "Cup_Ani.h"
 #include "Cup_Bullet.h"
+#include "Gun/Gun.h"
 
 using namespace tinyxml2;
 
@@ -77,22 +78,24 @@ void Cup_Player::Input()
 		Move(movePos);
 	}
 
-	Fire();
+	//Fire();
 
 	Jump();
 }
 
-void Cup_Player::Fire() // 총으로 넘길 것
-{
-	if (KEY_PRESS(VK_LBUTTON))
-	{
-		SOUND->Play("Cup_Attack", 0.3f);
-		// 마우스 좌키 누를 때 총의 Fire() 불러오기
-
-			// 마우스 방향으로 총알 쏘기
-		Vector2 dir = MOUSE_POS - GetPos();
-	}
-}
+//void Cup_Player::Fire() // 총으로 넘길 것
+//{
+//	if (KEY_PRESS(VK_LBUTTON))
+//	{
+//		SOUND->Play("Cup_Attack", 0.3f);
+//		// 마우스 좌키 누를 때 총의 Fire() 불러오기
+//
+//			// 마우스 방향으로 총알 쏘기
+//		Vector2 dir = MOUSE_POS - GetPos();
+//		_gun->Fire();
+//
+//	}
+//}
 
 void Cup_Player::Jump()
 {
@@ -118,10 +121,10 @@ void Cup_Player::Damaged(int damgae)
 	}
 }
 
-bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
-{
-	_gun->IsCollision_Bullets(col);
-}
+//bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
+//{
+//	_gun->IsCollision_Bullets(col);
+//}
 
 
 void Cup_Player::SetGrounded()

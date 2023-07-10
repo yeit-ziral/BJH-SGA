@@ -8,7 +8,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	virtual void Fire()override;
+	//virtual void Fire()override;
 
 private:
 

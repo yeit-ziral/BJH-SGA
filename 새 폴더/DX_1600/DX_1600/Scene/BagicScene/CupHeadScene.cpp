@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "CupHeadScene.h"
 #include "../../Object/CupHead/Cup_Player.h"
-#include "../../Object/CupHead/Cup_Monster.h"
+#include "../../Object/CupHead/Monster/Cup_Monster.h"
 #include "../../Object/CupHead/Cup_Track.h"
 #include "../../Object/CupHead/Cup_Block.h"
 
@@ -150,10 +150,10 @@ void CupHeadScene::CheckAttack()
 	if (!_monster->_isAlive || !_player->_isAlive)
 		return;
 
-	if (_player->IsCollision_Bullets(_monster->GetCollider()))
-	{
-		_monster->GetAttacked(5);
-	}
+	//if (_player->IsCollision_Bullets(_monster->GetCollider()))
+	//{
+	//	_monster->GetAttacked(5);
+	//}
 
 	if (_monster->IsCollsion_Bullets(_player->GetCollider()))
 	{
