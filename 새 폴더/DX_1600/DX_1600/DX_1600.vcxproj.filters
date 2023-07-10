@@ -207,7 +207,7 @@
     <ClInclude Include="Object\CupHead\Gun\NormalGun.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\CupHead\Monster\Monster.h">
+    <ClInclude Include="Object\CupHead\Monster\Cup_Boss.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -365,7 +365,7 @@
     <ClCompile Include="Object\CupHead\Gun\NormalGun.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\CupHead\Monster\Monster.cpp">
+    <ClCompile Include="Object\CupHead\Monster\Cup_Boss.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -379,9 +379,6 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="DX_1600.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Resource\CupHead\weapon\Item_11x5.png">
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Resource\CupHead\player\Idle.png">
@@ -466,6 +463,15 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Resource\CupHead\weapon\rifle.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\weapon\Kar98.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\weapon\SummonedNiddle00.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\weapon\SunLord.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

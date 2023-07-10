@@ -24,6 +24,9 @@ Cup_Monster::Cup_Monster()
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_monster->GetTransform());
 
+	_bow = make_shared<Quad>(L"Resource/CupHead/weapon/Bow.png");
+	_bowTrans = make_shared<Transform>();
+
 	_sprites[END]->SetPS(ADD_PS(L"Shader/ActionFilterPS.hlsl"));
 
 	for (int i = 0; i < 30; i++)
@@ -180,6 +183,10 @@ bool Cup_Monster::IsCollsion_Bullets(shared_ptr<Collider> col)
 	}
 
 	return false;
+}
+
+void Cup_Monster::Roaming()
+{
 }
 
 void Cup_Monster::SetLeft()

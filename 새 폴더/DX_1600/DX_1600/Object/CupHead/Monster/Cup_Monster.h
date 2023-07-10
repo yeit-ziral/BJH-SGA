@@ -37,7 +37,11 @@ public:
 
 	bool IsCollsion_Bullets(shared_ptr<Collider> col);
 
-protected:
+	shared_ptr<Transform> GetTransform() { return _monster->GetTransform(); }
+
+	void Roaming();
+
+private:
 	void SetLeft();
 	void SetRight();
 
@@ -61,5 +65,10 @@ protected:
 	float _speed = 200.0f;
 	float _time = 0.0f;
 	float _atkSpeed = 1.0f;
+
+	shared_ptr<Transform> _bowSlot;
+
+	shared_ptr<Quad> _bow;
+	shared_ptr<Transform> _bowTrans;
 };
 

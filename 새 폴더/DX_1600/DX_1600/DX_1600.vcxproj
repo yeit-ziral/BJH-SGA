@@ -151,7 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Object\CupHead\Monster\Monster.h" />
+    <ClInclude Include="Object\CupHead\Monster\Cup_Boss.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargeGun.h" />
     <ClInclude Include="Object\CupHead\Gun\Gun.h" />
     <ClInclude Include="Object\CupHead\Gun\Machinegun.h" />
@@ -218,7 +218,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Object\CupHead\Monster\Monster.cpp" />
+    <ClCompile Include="Object\CupHead\Monster\Cup_Boss.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargeGun.cpp" />
     <ClCompile Include="Object\CupHead\Gun\Gun.cpp" />
     <ClCompile Include="Object\CupHead\Gun\Machinegun.cpp" />
@@ -309,9 +309,11 @@
     <Image Include="Resource\CupHead\boss\BossLoop.png" />
     <Image Include="Resource\CupHead\boss\BossStart.png" />
     <Image Include="Resource\CupHead\player\Player_Hit.png" />
+    <Image Include="Resource\CupHead\weapon\Kar98.png" />
+    <Image Include="Resource\CupHead\weapon\SummonedNiddle00.png" />
+    <Image Include="Resource\CupHead\weapon\SunLord.png" />
     <Image Include="Resource\explosion.png" />
     <Image Include="Resource\CupHead\player\Idle.png" />
-    <Image Include="Resource\CupHead\weapon\Item_11x5.png" />
     <Image Include="Resource\CupHead\weapon\rifle.png" />
     <Image Include="Resource\UI\Button.png" />
     <Image Include="small.ico" />
