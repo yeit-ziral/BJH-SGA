@@ -26,5 +26,7 @@ protected:
 	float _atkSpeed = 0.5f;
 	bool _atkCool = false;
 
+	bool _selected = false;
+	
 };
 

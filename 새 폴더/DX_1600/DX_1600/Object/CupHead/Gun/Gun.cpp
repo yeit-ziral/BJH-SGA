@@ -20,12 +20,20 @@ Gun::~Gun()
 
 void Gun::Update()
 {
+	if (_selected == false)
+		return;
+
 	for (auto& bullet : _bullets)
 		bullet->Update();
 }
 
 void Gun::Render()
 {
+	if (_selected == false)
+		return;
+
+	_gunTrans->SetBuffer(0);
+
 	for (auto& bullet : _bullets)
 		bullet->Render();
 }

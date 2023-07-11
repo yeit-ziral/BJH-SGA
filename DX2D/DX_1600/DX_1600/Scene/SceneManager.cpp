@@ -5,6 +5,7 @@
 #include "BagicScene/SolarSystem.h"
 #include "BagicScene/TutorialScene.h"
 #include "BagicScene/MapToolScene.h"
+#include "BagicScene/DungreedScene.h"
 
 SceneManager* SceneManager::_instance = nullptr;
 SceneManager::SceneManager()
@@ -13,7 +14,7 @@ SceneManager::SceneManager()
 	_scenes.push_back(make_shared<SolarSystem>());
 	_scenes.push_back(make_shared<CupHeadScene>());*/
 
-	_scenes.push_back(make_shared<CupHeadScene>());
+	_scenes.push_back(make_shared<DungreedScene>());
 }
 
 SceneManager::~SceneManager()

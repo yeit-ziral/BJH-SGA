@@ -6,6 +6,12 @@ class Normalgun;
 class Cup_Player
 {
 public:
+	enum Gun
+	{
+		NORMAL,
+		MACHINE,
+		CHARGE
+	};
 	Cup_Player();
 	~Cup_Player();
 
@@ -15,7 +21,7 @@ public:
 
 	void Move(Vector2 movePos) { _collider->GetTransform()->AddVector2(movePos); }
 	void Input();
-	//void Fire(); // ÃÑ¿¡ ³Ñ±æ °Í
+	void Fire();
 	void Jump();
 
 	void Damaged(int damgae);
@@ -40,15 +46,20 @@ public:
 
 	virtual const Vector2& GetPos() { return GetTransform()->GetPos(); }
 
+	void SetBowAngle();
+
 private:
 	int _hp = 10;
 	int _maxHp = 10;
+
+	Gun _nowGun = Gun::NORMAL;
 
 	shared_ptr<Cup_Ani> _animation;
 	shared_ptr<Collider> _collider;
 
 	// ÃÑ class ¹Þ±â
 	//shared_ptr<class Gun> _gun;
+	shared_ptr<class NormalGun> _normalGun;
 
 	 // ÃÑ¿¡ ³Ñ±æ °Í
 
@@ -56,4 +67,6 @@ private:
 	float _time = 0.0f;
 
 	float _jumpPower = 0.0f;
+
+	shared_ptr<Transform> _bowSlot;
 };

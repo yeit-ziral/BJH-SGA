@@ -97,10 +97,11 @@ void CupHeadScene::Update()
 		}
 	}
 
-	_monster->Update();
+	Vector2 playerpos = _player->GetTransform()->GetWorldPosition();
+
+	_monster->Update(playerpos);
 
 	// 보스가 일정 거리 안에서만 공격
-	Vector2 playerpos = _player->GetTransform()->GetWorldPosition();
 	Vector2 bosspos = _monster->GetTransform()->GetWorldPosition();
 	int distance = playerpos.Distance(bosspos);
 	if (distance < 500.0f) // 이 거리는 일반몹에 적합

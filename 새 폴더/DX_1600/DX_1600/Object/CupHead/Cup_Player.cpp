@@ -3,6 +3,7 @@
 #include "Cup_Ani.h"
 #include "Cup_Bullet.h"
 #include "Gun/Gun.h"
+#include "Gun/NormalGun.h"
 
 using namespace tinyxml2;
 
@@ -15,6 +16,13 @@ Cup_Player::Cup_Player()
 
 	_animation->SetParent(_collider->GetTransform());
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/hit_4x2.png", Vector2(4, 2), Vector2(100, 100), 0.1f);
+
+	_normalGun = make_shared<NormalGun>();
+
+	_bowSlot = make_shared<Transform>();
+
+	_normalGun->GetTransform()->SetParent(_bowSlot);
+	_normalGun->GetTransform()->SetPosition({ 50,0 });
 }
 
 Cup_Player::~Cup_Player()
@@ -25,6 +33,16 @@ void Cup_Player::Update()
 {
 	if (!_isAlive)
 		return;
+
+	if (_nowGun == NORMAL)
+		_normalGun->Selected(true);
+	else if(_nowGun != NORMAL)
+		_normalGun->Selected(false);
+
+	SetBowAngle();
+	_bowSlot->SetPosition(_collider->GetTransform()->GetWorldPosition());
+	_bowSlot->Update();
+
 	Input();
 	_collider->Update();
 	_animation->Update();
@@ -40,6 +58,8 @@ void Cup_Player::Render()
 	_animation->Render();
 
 	_collider->Render();
+
+	_normalGun->Render();
 }
 
 void Cup_Player::PostRender()
@@ -78,24 +98,15 @@ void Cup_Player::Input()
 		Move(movePos);
 	}
 
-	//Fire();
+	Fire();
 
 	Jump();
 }
 
-//void Cup_Player::Fire() // 총으로 넘길 것
-//{
-//	if (KEY_PRESS(VK_LBUTTON))
-//	{
-//		SOUND->Play("Cup_Attack", 0.3f);
-//		// 마우스 좌키 누를 때 총의 Fire() 불러오기
-//
-//			// 마우스 방향으로 총알 쏘기
-//		Vector2 dir = MOUSE_POS - GetPos();
-//		_gun->Fire();
-//
-//	}
-//}
+void Cup_Player::Fire() // 총으로 넘길 것 _selected = true인 총만 발사되도록
+{
+
+}
 
 void Cup_Player::Jump()
 {
@@ -147,4 +158,11 @@ bool Cup_Player::IsAlive()
 		return false;
 	else
 		return true;
+}
+
+void Cup_Player::SetBowAngle()
+{
+	Vector2 playerToMouse = MOUSE_POS - GetPos();
+	float angle = playerToMouse.Angle();
+	_bowSlot->SetAngle(angle);
 }

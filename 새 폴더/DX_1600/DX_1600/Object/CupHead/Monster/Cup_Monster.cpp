@@ -24,8 +24,14 @@ Cup_Monster::Cup_Monster()
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_monster->GetTransform());
 
+	_bowSlot = make_shared<Transform>();
+
 	_bow = make_shared<Quad>(L"Resource/CupHead/weapon/Bow.png");
 	_bowTrans = make_shared<Transform>();
+
+	_bowTrans->SetParent(_bowSlot);
+	_bowTrans->SetPosition({ 50,0 });
+	_bowTrans->SetAngle(-PI * 0.75f);
 
 	_sprites[END]->SetPS(ADD_PS(L"Shader/ActionFilterPS.hlsl"));
 
@@ -42,7 +48,7 @@ Cup_Monster::~Cup_Monster()
 {
 }
 
-void Cup_Monster::Update()
+void Cup_Monster::Update(Vector2 targetPos)
 {
 	if (!_isAlive)
 		return;
@@ -58,6 +64,11 @@ void Cup_Monster::Update()
 	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
 	_sprites[_state]->Update();
 	_transform->Update();
+
+	SetBowAngle(targetPos);
+	_bowSlot->SetPosition(_transform->GetPos());
+	_bowSlot->Update();
+	_bowTrans->Update();
 
 	for (auto& bullet : _bullets)
 		bullet->Update();
@@ -75,6 +86,9 @@ void Cup_Monster::Render()
 	_sprites[_state]->Render();
 
 	_monster->Render();
+
+	_bowTrans->SetBuffer(0);
+	_bow->Render();
 
 	for (auto& bullet : _bullets)
 		bullet->Render();
@@ -102,7 +116,7 @@ void Cup_Monster::Attack(Vector2 targetPos)
 		return;
 
 	//_atkCool = true;
-	Vector2 startPos = _monster->GetPos();
+	Vector2 startPos = _bowTrans->GetWorldPosition();
 	Vector2 dir = targetPos - startPos;
 	dir.Normallize();
 	(*bulletIter)->SetAngle(dir.Angle());
@@ -187,6 +201,13 @@ bool Cup_Monster::IsCollsion_Bullets(shared_ptr<Collider> col)
 
 void Cup_Monster::Roaming()
 {
+}
+
+void Cup_Monster::SetBowAngle(Vector2 targetPos)
+{
+	Vector2 monsterToPlayer = targetPos -_transform->GetWorldPosition();
+	float angle = monsterToPlayer.Angle();
+	_bowSlot->SetAngle(angle);
 }
 
 void Cup_Monster::SetLeft()

@@ -14,7 +14,7 @@ public:
 	Cup_Monster();
 	~Cup_Monster();
 
-	void Update();
+	void Update(Vector2 targetPos);
 	void Render();
 	void PostRender();
 
@@ -40,6 +40,8 @@ public:
 	shared_ptr<Transform> GetTransform() { return _monster->GetTransform(); }
 
 	void Roaming();
+
+	void SetBowAngle(Vector2 targetPos);
 
 private:
 	void SetLeft();
