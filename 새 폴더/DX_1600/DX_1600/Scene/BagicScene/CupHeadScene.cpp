@@ -126,6 +126,8 @@ void CupHeadScene::PostRender()
 	_player->PostRender();
 	_monster->PostRender();
 
+	ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
+	ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
 	ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
 	ImGui::Text("PlayerHP : % d", (int)_player->GetHp());
 	

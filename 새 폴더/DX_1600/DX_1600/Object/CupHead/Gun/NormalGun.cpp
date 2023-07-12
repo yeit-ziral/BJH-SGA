@@ -5,6 +5,8 @@
 NormalGun::NormalGun()
 {
 	_gun = make_shared<Quad>(L"Resource/CupHead/weapon/Kar98.png");
+	_gunTrans = make_shared<Transform>();
+	_gunTrans->SetScale({ 5,5 });
 }
 
 NormalGun::~NormalGun()
@@ -13,6 +15,8 @@ NormalGun::~NormalGun()
 
 void NormalGun::Update()
 {
+	_gunTrans->Update();
+
 	if (KEY_PRESS(VK_LBUTTON))
 	{
 		SOUND->Play("Cup_Attack", 0.3f);
@@ -25,6 +29,7 @@ void NormalGun::Update()
 
 void NormalGun::Render()
 {
+	_gunTrans->SetBuffer(0);
 	_gun->Render();
 }
 

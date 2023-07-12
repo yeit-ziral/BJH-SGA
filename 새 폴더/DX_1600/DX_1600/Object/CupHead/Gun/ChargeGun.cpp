@@ -13,11 +13,38 @@ ChargeGun::~ChargeGun()
 
 void ChargeGun::Update()
 {
+
+	if (KEY_PRESS(VK_LBUTTON))
+	{
+		Charge();
+	}
+
+	if (KEY_UP(VK_LBUTTON))
+	{
+		SOUND->Play("Cup_Attack", 0.3f);
+
+		// 마우스 방향으로 총알 쏘기
+		Fire();
+
+	}
 }
 
 void ChargeGun::Render()
 {
 	_gun->Render();
+}
+
+void ChargeGun::Charge()
+{
+	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
+		[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->_isActive; });
+
+	if (bulletIter == _bullets.end())
+		return;
+
+	float beforeSize = (*bulletIter)->GetBulletCollider()->GetRadius();
+
+	(*bulletIter)->GetBulletCollider()->SetScale(beforeSize + 1);
 }
 
 void ChargeGun::Fire()

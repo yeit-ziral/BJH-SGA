@@ -10,9 +10,11 @@ public:
 
 	virtual void Fire()abstract;
 
-	shared_ptr<Transform> GetTransform() { return _collider->GetTransform(); }
+	shared_ptr<Transform> GetTransform() { return _gunTrans; }
 
 	bool IsCollision_Bullets(shared_ptr<Collider> col); // ÃÑ¿¡ ³Ñ±æ °Í
+
+	shared_ptr<Quad> GetGunQuad() { return _gun; }
 
 protected:
 	shared_ptr<Quad> _gun;

@@ -8,6 +8,8 @@ public:
 	virtual void Update();
 	virtual void Render();
 
+	void Charge();
+
 	virtual void Fire()override;
 
 	void Selected(bool Bool) { _selected = Bool; }

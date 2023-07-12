@@ -72,7 +72,7 @@ Vector2 Camera::GetWorldMousePos()
 
 	Vector2 mousePos = MOUSE_POS;
 
-	return mousePos.TransformCoord(inverseM);// - CENTER;
+	return mousePos.TransformCoord(inverseM);// -CENTER;
 }
 
 void Camera::FollowMode()

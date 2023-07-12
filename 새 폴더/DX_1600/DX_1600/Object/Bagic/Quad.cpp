@@ -94,3 +94,13 @@ void Quad::CreateVertices()
     _indices.push_back(2);
     _indices.push_back(3);
 }
+
+void Quad::FlipVertically()
+{
+    for (auto& vertex : _vertices)
+    {
+        vertex.uv.y = 1.0f - vertex.uv.y;
+    }
+
+    std::reverse(_indices.begin(), _indices.end());
+}

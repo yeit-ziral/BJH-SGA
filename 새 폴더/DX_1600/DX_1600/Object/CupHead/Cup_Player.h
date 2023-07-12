@@ -44,9 +44,9 @@ public:
 
 	shared_ptr<Transform> GetTransform() { return _collider->GetTransform(); }
 
-	virtual const Vector2& GetPos() { return GetTransform()->GetPos(); }
+	virtual const Vector2& GetPos() { return GetTransform()->GetWorldPosition(); }
 
-	void SetBowAngle();
+	void SetGunAngle();
 
 private:
 	int _hp = 10;
@@ -68,5 +68,5 @@ private:
 
 	float _jumpPower = 0.0f;
 
-	shared_ptr<Transform> _bowSlot;
+	shared_ptr<Transform> _gunSlot;
 };

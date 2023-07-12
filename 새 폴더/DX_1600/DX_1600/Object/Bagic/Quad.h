@@ -17,6 +17,8 @@ public:
 	Vector2 GetQuadHalfSize() { return _halfSize; }
 	Vector2 GetImageSize() { return _srv.lock()->GetImageSize(); }
 
+	void FlipVertically();
+
 protected:
 	// Á¤Á¡(pos, color, uv) 6°³
 	Vector2 _halfSize;

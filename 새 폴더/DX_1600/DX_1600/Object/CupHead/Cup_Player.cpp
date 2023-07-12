@@ -19,9 +19,9 @@ Cup_Player::Cup_Player()
 
 	_normalGun = make_shared<NormalGun>();
 
-	_bowSlot = make_shared<Transform>();
+	_gunSlot = make_shared<Transform>();
 
-	_normalGun->GetTransform()->SetParent(_bowSlot);
+	_normalGun->GetTransform()->SetParent(_gunSlot);
 	_normalGun->GetTransform()->SetPosition({ 50,0 });
 }
 
@@ -35,13 +35,16 @@ void Cup_Player::Update()
 		return;
 
 	if (_nowGun == NORMAL)
+	{
 		_normalGun->Selected(true);
+		_normalGun->Update();
+	}
 	else if(_nowGun != NORMAL)
 		_normalGun->Selected(false);
 
-	SetBowAngle();
-	_bowSlot->SetPosition(_collider->GetTransform()->GetWorldPosition());
-	_bowSlot->Update();
+	SetGunAngle();
+	_gunSlot->SetPosition(_collider->GetTransform()->GetWorldPosition());
+	_gunSlot->Update();
 
 	Input();
 	_collider->Update();
@@ -160,9 +163,14 @@ bool Cup_Player::IsAlive()
 		return true;
 }
 
-void Cup_Player::SetBowAngle()
+void Cup_Player::SetGunAngle()
 {
-	Vector2 playerToMouse = MOUSE_POS - GetPos();
+	Vector2 playerToMouse = MOUSE_POS;
 	float angle = playerToMouse.Angle();
-	_bowSlot->SetAngle(angle);
+	_gunSlot->SetAngle(angle);
+
+	if (MOUSE_POS.x < 0)
+	{
+		_normalGun->GetTransform();
+	}
 }
