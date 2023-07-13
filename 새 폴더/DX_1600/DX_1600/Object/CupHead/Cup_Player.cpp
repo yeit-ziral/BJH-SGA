@@ -171,6 +171,12 @@ void Cup_Player::SetGunAngle()
 
 	if (MOUSE_POS.x < 0)
 	{
-		_normalGun->GetTransform();
+		/*_normalGun->GetTransform()->SetAngle(PI);
+		_normalGun->GetTransform()->SetPosition({ -50,0 });*/
+	}
+	else
+	{
+		_normalGun->GetTransform()->SetAngle(0);
+		_normalGun->GetTransform()->SetPosition({ 50,0 });
 	}
 }
