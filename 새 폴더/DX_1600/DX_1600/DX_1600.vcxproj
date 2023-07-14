@@ -309,8 +309,8 @@
     <Image Include="Resource\CupHead\boss\BossLoop.png" />
     <Image Include="Resource\CupHead\boss\BossStart.png" />
     <Image Include="Resource\CupHead\player\Player_Hit.png" />
+    <Image Include="Resource\CupHead\weapon\ChargeBullet.png" />
     <Image Include="Resource\CupHead\weapon\Kar98.png" />
-    <Image Include="Resource\CupHead\weapon\SummonedNiddle00.png" />
     <Image Include="Resource\CupHead\weapon\SunLord.png" />
     <Image Include="Resource\explosion.png" />
     <Image Include="Resource\CupHead\player\Idle.png" />
@@ -521,6 +521,10 @@
     <Xml Include="Resource\CupHead\boss\BossStart.xml" />
     <Xml Include="Resource\CupHead\player\Idle.xml" />
     <Xml Include="Resource\CupHead\player\Player_Hit.xml" />
+    <Xml Include="Resource\CupHead\weapon\ChargeBullet.xml" />
+    <Xml Include="Resource\CupHead\weapon\Kar98.xml" />
+    <Xml Include="Resource\CupHead\weapon\rifle.xml" />
+    <Xml Include="Resource\CupHead\weapon\SunLord.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\FMOD\inc\fmod.cs" />

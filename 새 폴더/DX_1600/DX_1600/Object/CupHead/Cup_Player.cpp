@@ -101,14 +101,18 @@ void Cup_Player::Input()
 		Move(movePos);
 	}
 
-	Fire();
+	if (KEY_DOWN(VK_LBUTTON))
+	{
+		Fire();
+	}
+
 
 	Jump();
 }
 
 void Cup_Player::Fire() // 총으로 넘길 것 _selected = true인 총만 발사되도록
 {
-
+	_normalGun->Fire();
 }
 
 void Cup_Player::Jump()
@@ -169,14 +173,14 @@ void Cup_Player::SetGunAngle()
 	float angle = playerToMouse.Angle();
 	_gunSlot->SetAngle(angle);
 
-	if (MOUSE_POS.x < 0)
+	/*if (MOUSE_POS.x < 0)
 	{
-		/*_normalGun->GetTransform()->SetAngle(PI);
-		_normalGun->GetTransform()->SetPosition({ -50,0 });*/
+		_normalGun->GetTransform()->SetAngle(PI);
+		_normalGun->GetTransform()->SetPosition({ -50,0 });
 	}
 	else
 	{
 		_normalGun->GetTransform()->SetAngle(0);
 		_normalGun->GetTransform()->SetPosition({ 50,0 });
-	}
+	}*/
 }

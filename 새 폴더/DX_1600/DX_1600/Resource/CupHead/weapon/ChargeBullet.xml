@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Free texture packer v0.6.7 http://free-tex-packer.com
+Format:
+n  => name
+x  => x pos
+y  => y pos
+w  => width
+h  => height
+pX => x pos of the pivot point
+pY => y pos of the pivot point
+oX => x-corner offset
+oY => y-corner offset
+oW => original width
+oH => original height
+r => 'y' if sprite is rotated-->
+<TextureAtlas imagePath="ChargeBullet.png" width="9" height="300" scale="1" format="RGBA8888">
+  <sprite n="SummonedNiddle00.png" x="0" y="0" w="9" h="25" pX="0.5" pY="0.5" oX="4" oY="2" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle01.png" x="0" y="25" w="9" h="25" pX="0.5" pY="0.5" oX="4" oY="3" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle02.png" x="0" y="50" w="9" h="25" pX="0.5" pY="0.5" oX="3" oY="3" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle03.png" x="0" y="75" w="9" h="25" pX="0.5" pY="0.5" oX="2" oY="2" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle04.png" x="0" y="100" w="9" h="25" pX="0.5" pY="0.5" oX="1" oY="0" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle05.png" x="0" y="125" w="9" h="25" pX="0.5" pY="0.5" oX="0" oY="1" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle06.png" x="0" y="150" w="9" h="25" pX="0.5" pY="0.5" oX="0" oY="2" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle07.png" x="0" y="175" w="9" h="25" pX="0.5" pY="0.5" oX="0" oY="3" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle08.png" x="0" y="200" w="9" h="25" pX="0.5" pY="0.5" oX="1" oY="3" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle09.png" x="0" y="225" w="9" h="25" pX="0.5" pY="0.5" oX="2" oY="2" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle10.png" x="0" y="250" w="9" h="25" pX="0.5" pY="0.5" oX="3" oY="0" oW="13" oH="28"/>
+  <sprite n="SummonedNiddle11.png" x="0" y="275" w="9" h="25" pX="0.5" pY="0.5" oX="4" oY="1" oW="13" oH="28"/>
+</TextureAtlas>

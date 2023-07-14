@@ -4,7 +4,7 @@
 
 Machinegun::Machinegun()
 {
-	_gun = make_shared<Quad>(L"Resource/CupHead/weapon/rifle.png");
+	//CreateAction(L"Resource/CupHead/weapon/rifle.png", "Resource/CupHead/weapon/rifle.xml", "Machinegun", Vector2(880,320), true);
 }
 
 Machinegun::~Machinegun()

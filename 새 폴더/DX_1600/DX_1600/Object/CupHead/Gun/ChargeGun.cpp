@@ -4,7 +4,7 @@
 
 ChargeGun::ChargeGun()
 {
-	_gun = make_shared<Quad>(L"Resource/CupHead/weapon/SunLord.png");
+	//CreateAction(L"Resource/CupHead/weapon/SunLord.png", "Resource/CupHead/weapon/SunLord.xml", "ChargeGun", Vector2(23,9), true);
 }
 
 ChargeGun::~ChargeGun()

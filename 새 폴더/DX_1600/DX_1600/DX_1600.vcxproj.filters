@@ -465,13 +465,13 @@
     <Image Include="Resource\CupHead\weapon\rifle.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\CupHead\weapon\SunLord.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
     <Image Include="Resource\CupHead\weapon\Kar98.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Resource\CupHead\weapon\SummonedNiddle00.png">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="Resource\CupHead\weapon\SunLord.png">
+    <Image Include="Resource\CupHead\weapon\ChargeBullet.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
@@ -514,6 +514,10 @@
     <Xml Include="Resource\CupHead\boss\Clown_Move_3.xml" />
     <Xml Include="Resource\CupHead\boss\Clown_Move_Break_1.xml" />
     <Xml Include="Resource\CupHead\boss\Clown_Move_Break_2.xml" />
+    <Xml Include="Resource\CupHead\weapon\Kar98.xml" />
+    <Xml Include="Resource\CupHead\weapon\ChargeBullet.xml" />
+    <Xml Include="Resource\CupHead\weapon\rifle.xml" />
+    <Xml Include="Resource\CupHead\weapon\SunLord.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\FMOD\inc\fmod_errors.cs" />
