@@ -101,10 +101,7 @@ void Cup_Player::Input()
 		Move(movePos);
 	}
 
-	if (KEY_DOWN(VK_LBUTTON))
-	{
-		Fire();
-	}
+	Fire();
 
 
 	Jump();

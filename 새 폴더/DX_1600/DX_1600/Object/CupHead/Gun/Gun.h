@@ -8,8 +8,6 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	virtual void Fire()abstract;
-
 	shared_ptr<Transform> GetTransform() { return _gunTrans; }
 
 	bool IsCollision_Bullets(shared_ptr<Collider> col); // ÃÑ¿¡ ³Ñ±æ °Í

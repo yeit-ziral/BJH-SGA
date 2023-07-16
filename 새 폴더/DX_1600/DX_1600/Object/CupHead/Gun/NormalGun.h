@@ -8,7 +8,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	virtual void Fire()override;
+	void Fire();
 
 	void Selected(bool Bool) { _selected = Bool; }
 

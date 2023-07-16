@@ -10,7 +10,7 @@ public:
 
 	void Charge();
 
-	virtual void Fire()override;
+	void Fire();
 
 	void Selected(bool Bool) { _selected = Bool; }
 

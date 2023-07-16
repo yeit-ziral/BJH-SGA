@@ -44,7 +44,7 @@ void NormalGun::Render()
 void NormalGun::Fire()
 {
 
-	if (KEY_PRESS(VK_LBUTTON))
+	if (KEY_UP(VK_LBUTTON))
 	{
 		SOUND->Play("Cup_Attack", 0.3f);
 
