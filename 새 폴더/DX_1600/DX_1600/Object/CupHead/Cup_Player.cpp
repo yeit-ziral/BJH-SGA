@@ -46,12 +46,14 @@ void Cup_Player::Update()
 	_gunSlot->SetPosition(_collider->GetTransform()->GetWorldPosition());
 	_gunSlot->Update();
 
+
 	Input();
 	_collider->Update();
 	_animation->Update();
 
 	if (!_animation->IsActive())
 		_isAlive = false;
+
 }
 
 void Cup_Player::Render()
@@ -103,22 +105,33 @@ void Cup_Player::Input()
 
 	Fire();
 
+	_normalGun->Update();
 
 	Jump();
 }
 
 void Cup_Player::Fire() // 총으로 넘길 것 _selected = true인 총만 발사되도록
 {
-	_normalGun->Fire();
+	if (_nowGun == Gun::NORMAL)
+	{
+		NormalFire();
+	}
 }
 
 void Cup_Player::Jump()
 {
 	if (KEY_DOWN(VK_SPACE) && _animation->GetISGround())
 	{
-		//CAMERA->ShakeStart(50.0f, 30.0f);
 		_jumpPower = 600.0f;
 		_animation->SetIsGround(false);
+	}
+}
+
+void Cup_Player::NormalFire()
+{
+	if (KEY_UP(VK_LBUTTON))
+	{
+		_normalGun->Fire();
 	}
 }
 
@@ -126,6 +139,8 @@ void Cup_Player::Damaged(int damgae)
 {
 	if (!_isAlive)
 		return;
+
+	//CAMERA->ShakeStart(50.0f, 30.0f);
 	_hp -= damgae;
 	_animation->DamagedEvent();
 

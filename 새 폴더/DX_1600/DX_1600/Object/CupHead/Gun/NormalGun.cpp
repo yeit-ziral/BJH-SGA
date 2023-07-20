@@ -31,7 +31,8 @@ void NormalGun::Update()
 	_action->Update();
 	_gun->Update();
 
-
+	for (auto bullet : _bullets)
+		bullet->Update();
 }
 
 void NormalGun::Render()
@@ -39,6 +40,9 @@ void NormalGun::Render()
 	_gunTrans->SetBuffer(0);
 	_gun->SetCurClip(_action->GetCurClip());
 	_gun->Render();
+
+	for (auto bullet : _bullets)
+		bullet->Render();
 }
 
 void NormalGun::Fire()
@@ -47,8 +51,6 @@ void NormalGun::Fire()
 	if (_selected == false)
 		return;
 
-	if (KEY_UP(VK_LBUTTON))
-	{
 		SOUND->Play("Cup_Attack", 0.3f);
 
 		if (_atkCool)
@@ -63,7 +65,7 @@ void NormalGun::Fire()
 		}
 
 		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
-			[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->_isActive; });
+			[](shared_ptr<Cup_Bullet>& obj)-> bool { return !obj->_isActive; }); // ¿©±â¼­ bulletÀÇ _isActive¸¦ true·Î ¹Ù²ãÁà¾ß ÇÏ´Âµ¥ ¾ÈµÊ
 
 		if (bulletIter == _bullets.end())
 			return;
@@ -73,5 +75,4 @@ void NormalGun::Fire()
 		(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _collider->GetTransform()->GetWorldPosition());
 
 		_atkCool = true;
-	}
 }

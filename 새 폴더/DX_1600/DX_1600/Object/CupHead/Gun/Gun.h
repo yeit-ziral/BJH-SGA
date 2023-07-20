@@ -29,7 +29,7 @@ protected:
 	shared_ptr<Sprite> _gun;
 
 	float _time = 0.0f;
-	float _atkSpeed = 0.5f;
+	float _atkSpeed = 2.0f;
 	bool _atkCool = false;
 
 	bool _selected = false;

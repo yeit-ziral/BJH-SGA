@@ -24,6 +24,8 @@ public:
 	void Fire();
 	void Jump();
 
+	void NormalFire();
+
 	void Damaged(int damgae);
 	const int& GetHp() const { return _hp; }
 	void SetHP(int value) { _hp = value; }
