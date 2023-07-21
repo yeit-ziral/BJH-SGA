@@ -250,12 +250,15 @@ void Cup_Player::Hit()
 
 void Cup_Player::SetLeft()
 {
-	for (auto sprite : _sprites)
-		sprite->SetLeft();
+	//for (auto sprite : _sprites)
+	//	sprite->SetLeft();
+
+	_transform->SetScale({ +1,+1 }); 
 }
 
 void Cup_Player::SetRight()
 {
-	for (auto sprite : _sprites)
-		sprite->SetRight();
+	//for (auto sprite : _sprites)
+	//	sprite->SetRight();
+	_transform->SetScale({ -1,+1 }); //-> 스케일을 음수로 줘서 뒤집히게 함(Backspace Culling을 해서 가능 함)
 }

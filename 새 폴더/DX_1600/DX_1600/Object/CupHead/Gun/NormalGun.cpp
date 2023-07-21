@@ -65,7 +65,7 @@ void NormalGun::Fire()
 		}
 
 		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
-			[](shared_ptr<Cup_Bullet>& obj)-> bool { return !obj->_isActive; }); // 여기서 bullet의 _isActive를 true로 바꿔줘야 하는데 안됨
+			[](shared_ptr<Cup_Bullet>& obj)-> bool { return !obj->_isActive; });
 
 		if (bulletIter == _bullets.end())
 			return;
@@ -75,4 +75,6 @@ void NormalGun::Fire()
 		(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _collider->GetTransform()->GetWorldPosition());
 
 		_atkCool = true;
+
+		// bullet 생성까지 잘 됨 문제가 뭔지 모르겠음
 }
