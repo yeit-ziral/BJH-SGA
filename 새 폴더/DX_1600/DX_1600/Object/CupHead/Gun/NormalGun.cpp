@@ -72,7 +72,7 @@ void NormalGun::Fire()
 
 		Vector2 dir = MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
 
-		(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _collider->GetTransform()->GetWorldPosition());
+		(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
 
 		_atkCool = true;
 

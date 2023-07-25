@@ -114,24 +114,24 @@ void Cup_Ani::StateControl()
 	if (!_isGround)
 		return;
 
-	if (KEY_UP(VK_LEFT))
+	if (KEY_UP('A'))
 	{
 		SetState(IDLE);
 		_isRight = false;
 	}
-	if (KEY_PRESS(VK_LEFT))
+	if (KEY_PRESS('A'))
 	{
 		SetState(RUN);
 		_isRight = false;
 		SetLeft();
 	}
 
-	if (KEY_UP(VK_RIGHT))
+	if (KEY_UP('D'))
 	{
 		SetState(IDLE);
 		_isRight = true;
 	}
-	if (KEY_PRESS(VK_RIGHT))
+	if (KEY_PRESS('D'))
 	{
 		SetState(RUN);
 		_isRight = true;

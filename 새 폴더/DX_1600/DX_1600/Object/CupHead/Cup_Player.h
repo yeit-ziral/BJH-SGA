@@ -1,7 +1,9 @@
 #pragma once
 class Cup_Ani;
 class Cup_Bullet;
-class Normalgun;
+class NormalGun;
+class MachineGun;
+class ChargeGun;
 
 class Cup_Player
 {
@@ -24,21 +26,27 @@ public:
 	void Fire();
 	void Jump();
 
+	void SetPosition(Vector2 pos) { _collider->SetPosition(pos); }
+
 	void NormalFire();
+	void MachineFire();
+	void ChargeFire();
 
-	void Damaged(int damgae);
-	const int& GetHp() const { return _hp; }
-	void SetHP(int value) { _hp = value; }
-	const int& GetMaxHp() { return _maxHp; }
+	void Damaged(int damage);
 
-	//bool IsCollision_Bullets(shared_ptr<Collider> col);
+	bool IsCollision_Bullets(shared_ptr<Collider> col);
 
 	void SetGrounded();
 
-	void SetPosition(Vector2 pos) { _collider->SetPosition(pos); } 
 	shared_ptr<Collider> GetCollider() { return _collider; }
 
-	//void SetActive(bool value) { _isActive = value; }
+	int GetHp() { return _hp; }
+	void SetHP(int value) { _hp = value; }
+	int GetMaxHp() { return _maxHp; }
+
+	void Attacked(int value) { _hp -= value; }
+	//void Hit();
+	//void SetHit(bool value) { _isHit = value; }
 
 	bool _isAlive = true;
 
@@ -62,8 +70,9 @@ private:
 	// ÃÑ class ¹Þ±â
 	//shared_ptr<class Gun> _gun;
 	shared_ptr<class NormalGun> _normalGun;
+	shared_ptr<class MachineGun> _machineGun;
+	shared_ptr<class ChargeGun> _chargeGun;
 
-	 // ÃÑ¿¡ ³Ñ±æ °Í
 
 	float _speed = 1000.0f;
 	float _time = 0.0f;

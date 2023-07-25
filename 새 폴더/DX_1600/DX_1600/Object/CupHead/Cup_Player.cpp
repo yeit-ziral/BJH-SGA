@@ -4,6 +4,8 @@
 #include "Cup_Bullet.h"
 #include "Gun/Gun.h"
 #include "Gun/NormalGun.h"
+#include "Gun/Machinegun.h"
+#include "Gun/ChargeGun.h"
 
 using namespace tinyxml2;
 
@@ -23,6 +25,7 @@ Cup_Player::Cup_Player()
 
 	_normalGun->GetTransform()->SetParent(_gunSlot);
 	_normalGun->GetTransform()->SetPosition({ 50,0 });
+
 }
 
 Cup_Player::~Cup_Player()
@@ -69,7 +72,11 @@ void Cup_Player::Render()
 
 void Cup_Player::PostRender()
 {
+	ImGui::Text("PlayerPositionX : % f", _collider->GetTransform()->GetPos().x);
+	ImGui::Text("PlayerPositionY : % f", _collider->GetTransform()->GetPos().y);
 
+	ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
+	ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
 }
 
 
@@ -91,16 +98,29 @@ void Cup_Player::Input()
 	if (_animation->GetState() == Cup_Ani::State::HIT)
 		return;
 
-	if (KEY_PRESS(VK_LEFT))
+	if (KEY_PRESS('A'))
 	{
 		Vector2 movePos = Vector2(-_speed, 0.0f) * DELTA_TIME;
 		Move(movePos);
 	}
 
-	if (KEY_PRESS(VK_RIGHT))
+	if (KEY_PRESS('D'))
 	{
 		Vector2 movePos = Vector2(_speed, 0.0f) * DELTA_TIME;
 		Move(movePos);
+	}
+
+	if (KEY_DOWN('1'))
+	{
+		_nowGun = Gun::NORMAL;
+	}
+	if (KEY_DOWN('2'))
+	{
+		_nowGun = Gun::MACHINE;
+	}
+	if (KEY_DOWN('3'))
+	{
+		_nowGun = Gun::CHARGE;
 	}
 
 	Fire();
@@ -115,6 +135,14 @@ void Cup_Player::Fire() // 총으로 넘길 것 _selected = true인 총만 발사되도록
 	if (_nowGun == Gun::NORMAL)
 	{
 		NormalFire();
+	}
+	if (_nowGun == Gun::MACHINE)
+	{
+		MachineFire();
+	}
+	if (_nowGun == Gun::CHARGE)
+	{
+		ChargeFire();
 	}
 }
 
@@ -135,13 +163,33 @@ void Cup_Player::NormalFire()
 	}
 }
 
-void Cup_Player::Damaged(int damgae)
+void Cup_Player::MachineFire()
+{
+	if (KEY_PRESS(VK_LBUTTON))
+	{
+		_machineGun->Fire();
+	}
+}
+
+void Cup_Player::ChargeFire()
+{
+	if (KEY_PRESS(VK_LBUTTON))
+	{
+
+	}
+	if (KEY_UP(VK_LBUTTON))
+	{
+
+	}
+}
+
+void Cup_Player::Damaged(int damage)
 {
 	if (!_isAlive)
 		return;
 
 	//CAMERA->ShakeStart(50.0f, 30.0f);
-	_hp -= damgae;
+	_hp -= damage;
 	_animation->DamagedEvent();
 
 	if (_hp < 1)
@@ -151,10 +199,10 @@ void Cup_Player::Damaged(int damgae)
 	}
 }
 
-//bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
-//{
-//	_gun->IsCollision_Bullets(col);
-//}
+bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
+{
+	return _normalGun->IsCollision_Bullets(col);
+}
 
 
 void Cup_Player::SetGrounded()

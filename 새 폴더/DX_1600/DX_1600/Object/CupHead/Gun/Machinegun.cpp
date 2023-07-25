@@ -4,7 +4,9 @@
 
 Machinegun::Machinegun()
 {
-	//CreateAction(L"Resource/CupHead/weapon/rifle.png", "Resource/CupHead/weapon/rifle.xml", "Machinegun", Vector2(880,320), true);
+	CreateAction(L"Resource/CupHead/weapon/rifle.png", "Resource/CupHead/weapon/rifle.xml", "Machinegun", Vector2(880,320), true);
+	_gunTrans = make_shared<Transform>();
+	_gunTrans->SetScale({ 5,5 });
 }
 
 Machinegun::~Machinegun()
@@ -13,6 +15,24 @@ Machinegun::~Machinegun()
 
 void Machinegun::Update()
 {
+	_gunTrans->Update();
+
+	if (MOUSE_POS.x < 0)
+	{
+		SetLeft();
+		_gunTrans->SetAngle(-PI);
+	}
+	if (MOUSE_POS.x > 0)
+	{
+		SetRight();
+		_gunTrans->SetAngle(0);
+	}
+
+	_action->Update();
+	_gun->Update();
+
+	for (auto bullet : _bullets)
+		bullet->Update();
 }
 
 void Machinegun::Render()
