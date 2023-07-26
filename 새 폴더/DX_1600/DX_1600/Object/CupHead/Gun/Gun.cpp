@@ -14,7 +14,6 @@ Gun::Gun()
 		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();
 		_bullets.push_back(bullet);
 	}
-
 }
 
 Gun::~Gun()

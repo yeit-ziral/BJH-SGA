@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Gun\ChargingBullet.h" />
     <ClInclude Include="Scene\BagicScene\BossRoom.h" />
     <ClInclude Include="Object\CupHead\Monster\Cup_Boss.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargeGun.h" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Gun\ChargingBullet.cpp" />
     <ClCompile Include="Scene\BagicScene\BossRoom.cpp" />
     <ClCompile Include="Object\CupHead\Monster\Cup_Boss.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargeGun.cpp" />

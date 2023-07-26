@@ -20,11 +20,17 @@ Cup_Player::Cup_Player()
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/hit_4x2.png", Vector2(4, 2), Vector2(100, 100), 0.1f);
 
 	_normalGun = make_shared<NormalGun>();
+	_machineGun = make_shared<Machinegun>();
+	_chargeGun = make_shared<ChargeGun>();
 
 	_gunSlot = make_shared<Transform>();
 
 	_normalGun->GetTransform()->SetParent(_gunSlot);
 	_normalGun->GetTransform()->SetPosition({ 50,0 });
+	_machineGun->GetTransform()->SetParent(_gunSlot);
+	_machineGun->GetTransform()->SetPosition({ 50,0 });
+	//_chargeGun->GetTransform()->SetParent(_gunSlot);
+	//_chargeGun->GetTransform()->SetPosition({ 50,0 });
 
 }
 
@@ -40,10 +46,26 @@ void Cup_Player::Update()
 	if (_nowGun == NORMAL)
 	{
 		_normalGun->Selected(true);
-		_normalGun->Update();
+		
+		_machineGun->Selected(false);
+		//_chargeGun->Selected(false);
 	}
-	else if(_nowGun != NORMAL)
+	if (_nowGun == MACHINE)
+	{
+		_machineGun->Selected(true);
+
 		_normalGun->Selected(false);
+		//_chargeGun->Selected(false);
+	}
+
+	if (_nowGun == CHARGE)
+	{
+		//_chargeGun->Selected(true);
+
+		_normalGun->Selected(false);
+		_machineGun->Selected(false);
+	}
+	
 
 	SetGunAngle();
 	_gunSlot->SetPosition(_collider->GetTransform()->GetWorldPosition());
@@ -68,6 +90,8 @@ void Cup_Player::Render()
 	_collider->Render();
 
 	_normalGun->Render();
+	_machineGun->Render();
+	//_chargeGun->Render();
 }
 
 void Cup_Player::PostRender()
@@ -126,6 +150,8 @@ void Cup_Player::Input()
 	Fire();
 
 	_normalGun->Update();
+	_machineGun->Update();
+	//_chargeGun->Update();
 
 	Jump();
 }
@@ -173,13 +199,9 @@ void Cup_Player::MachineFire()
 
 void Cup_Player::ChargeFire()
 {
-	if (KEY_PRESS(VK_LBUTTON))
+	if (KEY_DOWN(VK_LBUTTON))
 	{
-
-	}
-	if (KEY_UP(VK_LBUTTON))
-	{
-
+		//_chargeGun->Fire();
 	}
 }
 
@@ -201,7 +223,12 @@ void Cup_Player::Damaged(int damage)
 
 bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 {
-	return _normalGun->IsCollision_Bullets(col);
+	if (_nowGun == NORMAL)
+		return _normalGun->IsCollision_Bullets(col);
+	else if (_nowGun == MACHINE)
+		return _machineGun->IsCollision_Bullets(col);
+	//else if(_nowGun == CHARGE)
+	//	return _chargeGun->IsCollision_Bullets(col);
 }
 
 

@@ -7,6 +7,10 @@ NormalGun::NormalGun()
 	CreateAction(L"Resource/CupHead/weapon/Kar98.png", "Resource/CupHead/weapon/Kar98.xml", "NormalGun", Vector2(27, 8), true);
 	_gunTrans = make_shared<Transform>();
 	_gunTrans->SetScale({ 5,5 });
+
+	_atkSpeed = 0.05f;
+
+	_damage = 12;
 }
 
 NormalGun::~NormalGun()
@@ -15,6 +19,9 @@ NormalGun::~NormalGun()
 
 void NormalGun::Update()
 {
+	if (_selected == false)
+		return;
+
 	_gunTrans->Update();
 
 	if (MOUSE_POS.x < 0)
@@ -37,6 +44,9 @@ void NormalGun::Update()
 
 void NormalGun::Render()
 {
+	if (_selected == false)
+		return;
+
 	_gunTrans->SetBuffer(0);
 	_gun->SetCurClip(_action->GetCurClip());
 	_gun->Render();

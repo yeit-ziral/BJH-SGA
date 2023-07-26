@@ -1,31 +1,27 @@
 #include "framework.h"
-#include "Cup_Bullet.h"
-
+#include "ChargingBullet.h"
 using namespace tinyxml2;
 
-Cup_Bullet::Cup_Bullet()
+ChargingBullet::ChargingBullet()
 {
 	_bullet = make_shared<CircleCollider>(10.0f);
 
-	CreateAction(L"Resource/CupHead/Bullet_Intro.png", "Resource/CupHead/Bullet_Intro.xml", "IntroBullet", Vector2(25.0f, 75.0f), false);
-	CreateAction(L"Resource/CupHead/Bullet_Loop.png", "Resource/CupHead/Bullet_Loop.xml", "LoopBullet", Vector2(75.0f, 100.0f), true);
+	CreateAction(L"Resource/CupHead/weapon/ChargeBullet.png", "Resource/CupHead/weapon/ChargeBullet.xml", "ChargingBullet", Vector2(9.0f, 25.0f), true);
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_bullet->GetTransform());
 	_transform->SetAngle(-PI * 0.5f);
 	_transform->SetPosition(Vector2(-40.0f, 0.0f));
 
-	_actions[INTRO]->SetEndEvent(std::bind(&Cup_Bullet::EndEvent, this));
-
 	_bullet->Update();
 	_transform->Update();
 }
 
-Cup_Bullet::~Cup_Bullet()
+ChargingBullet::~ChargingBullet()
 {
 }
 
-void Cup_Bullet::Update()
+void ChargingBullet::Update()
 {
 	if (!_isActive)
 		return;
@@ -48,30 +44,23 @@ void Cup_Bullet::Update()
 
 	_bullet->Update();
 
-	_actions[_state]->Update();
-	_sprites[_state]->Update();
+	_action->Update();
+	_sprite->Update();
 	_transform->Update();
-
-	if (!_isActive)
-	{
-		_state = State::INTRO;
-		_actions[_state]->Play();
-	}
-
 }
 
-void Cup_Bullet::Render()
+void ChargingBullet::Render()
 {
 	if (!_isActive)
 		return;
 
 	_transform->SetBuffer(0);
-	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
-	_sprites[_state]->Render();
+	_sprite->SetCurClip(_action->GetCurClip());
+	_sprite->Render();
 	_bullet->Render();
 }
 
-void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, bool isLoop)
+void ChargingBullet::CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, bool isLoop)
 {
 	shared_ptr<SRV> srv = ADD_SRV(srvPath);
 
@@ -112,16 +101,14 @@ void Cup_Bullet::CreateAction(wstring srvPath, string xmmlPath, string actionNam
 	}
 	action->Play();
 	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvPath, size);
-	_actions.push_back(action);
-	_sprites.push_back(sprite);
+	_action = action;
+	_sprite = sprite;
 }
 
-void Cup_Bullet::Shoot(Vector2 dir, Vector2 startPos)
+void ChargingBullet::Shoot(Vector2 dir, Vector2 startPos)
 {
 	_isActive = true;
-	_state = INTRO;
-	_actions[_state]->Play();
-	_actions[LOOP]->Reset();
+	_action->Play();
 
 	_bullet->GetTransform()->SetPosition(startPos);
 
@@ -130,20 +117,16 @@ void Cup_Bullet::Shoot(Vector2 dir, Vector2 startPos)
 	_bullet->GetTransform()->SetAngle(angle);
 }
 
-void Cup_Bullet::EndEvent()
+void ChargingBullet::EndEvent()
 {
-	_state = LOOP;
-	_actions[LOOP]->Play();
 }
 
-void Cup_Bullet::SetLeft()
+void ChargingBullet::SetLeft()
 {
-	for (auto sprite : _sprites)
-		sprite->SetLeft();
+	_sprite->SetLeft();
 }
 
-void Cup_Bullet::SetRight()
+void ChargingBullet::SetRight()
 {
-	for (auto sprite : _sprites)
-		sprite->SetRight();
+	_sprite->SetRight();
 }

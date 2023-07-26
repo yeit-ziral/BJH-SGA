@@ -78,7 +78,7 @@ void CupHeadScene::Update()
 		_player->SetGrounded();
 	}
 
-	if (KEY_PRESS(VK_DOWN))
+	if (KEY_PRESS('S'))
 	{
 
 	}

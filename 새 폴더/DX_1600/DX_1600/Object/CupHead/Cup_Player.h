@@ -1,9 +1,7 @@
 #pragma once
 class Cup_Ani;
 class Cup_Bullet;
-class NormalGun;
-class MachineGun;
-class ChargeGun;
+
 
 class Cup_Player
 {
@@ -58,6 +56,8 @@ public:
 
 	void SetGunAngle();
 
+	Gun GetNowGun() { return _nowGun; }
+
 private:
 	int _hp = 10;
 	int _maxHp = 10;
@@ -70,7 +70,7 @@ private:
 	// ÃÑ class ¹Þ±â
 	//shared_ptr<class Gun> _gun;
 	shared_ptr<class NormalGun> _normalGun;
-	shared_ptr<class MachineGun> _machineGun;
+	shared_ptr<class Machinegun> _machineGun;
 	shared_ptr<class ChargeGun> _chargeGun;
 
 

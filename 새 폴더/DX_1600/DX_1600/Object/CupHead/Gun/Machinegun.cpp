@@ -4,9 +4,13 @@
 
 Machinegun::Machinegun()
 {
-	CreateAction(L"Resource/CupHead/weapon/rifle.png", "Resource/CupHead/weapon/rifle.xml", "Machinegun", Vector2(880,320), true);
+	CreateAction(L"Resource/CupHead/weapon/rifle.png", "Resource/CupHead/weapon/rifle.xml", "MachineGun", Vector2(22,8), true);
 	_gunTrans = make_shared<Transform>();
 	_gunTrans->SetScale({ 5,5 });
+
+	_atkSpeed = 0.1f;
+
+	_damage = 3;
 }
 
 Machinegun::~Machinegun()
@@ -15,6 +19,9 @@ Machinegun::~Machinegun()
 
 void Machinegun::Update()
 {
+	if (_selected == false)
+		return;
+
 	_gunTrans->Update();
 
 	if (MOUSE_POS.x < 0)
@@ -37,11 +44,24 @@ void Machinegun::Update()
 
 void Machinegun::Render()
 {
+	if (_selected == false)
+		return;
+
+	_gunTrans->SetBuffer(0);
+	_gun->SetCurClip(_action->GetCurClip());
 	_gun->Render();
+
+	for (auto bullet : _bullets)
+		bullet->Render();
 }
 
 void Machinegun::Fire()
 {
+	if (_selected == false)
+		return;
+
+	SOUND->Play("Cup_Attack", 0.3f);
+
 	if (_atkCool)
 	{
 		_time += DELTA_TIME;
@@ -61,7 +81,7 @@ void Machinegun::Fire()
 
 	Vector2 dir = MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
 
-	(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _collider->GetTransform()->GetWorldPosition());
+	(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
 
 	_atkCool = true;
 
