@@ -1,7 +1,6 @@
 #include "framework.h"
 #include "Cup_Player.h"
 #include "Cup_Ani.h"
-#include "Cup_Bullet.h"
 #include "Gun/Gun.h"
 #include "Gun/NormalGun.h"
 #include "Gun/Machinegun.h"
@@ -29,8 +28,8 @@ Cup_Player::Cup_Player()
 	_normalGun->GetTransform()->SetPosition({ 50,0 });
 	_machineGun->GetTransform()->SetParent(_gunSlot);
 	_machineGun->GetTransform()->SetPosition({ 50,0 });
-	//_chargeGun->GetTransform()->SetParent(_gunSlot);
-	//_chargeGun->GetTransform()->SetPosition({ 50,0 });
+	_chargeGun->GetTransform()->SetParent(_gunSlot);
+	_chargeGun->GetTransform()->SetPosition({ 50,0 });
 
 }
 
@@ -48,19 +47,19 @@ void Cup_Player::Update()
 		_normalGun->Selected(true);
 		
 		_machineGun->Selected(false);
-		//_chargeGun->Selected(false);
+		_chargeGun->Selected(false);
 	}
 	if (_nowGun == MACHINE)
 	{
 		_machineGun->Selected(true);
 
 		_normalGun->Selected(false);
-		//_chargeGun->Selected(false);
+		_chargeGun->Selected(false);
 	}
 
 	if (_nowGun == CHARGE)
 	{
-		//_chargeGun->Selected(true);
+		_chargeGun->Selected(true);
 
 		_normalGun->Selected(false);
 		_machineGun->Selected(false);
@@ -91,7 +90,7 @@ void Cup_Player::Render()
 
 	_normalGun->Render();
 	_machineGun->Render();
-	//_chargeGun->Render();
+	_chargeGun->Render();
 }
 
 void Cup_Player::PostRender()
@@ -151,7 +150,7 @@ void Cup_Player::Input()
 
 	_normalGun->Update();
 	_machineGun->Update();
-	//_chargeGun->Update();
+	_chargeGun->Update();
 
 	Jump();
 }
@@ -199,9 +198,13 @@ void Cup_Player::MachineFire()
 
 void Cup_Player::ChargeFire()
 {
-	if (KEY_DOWN(VK_LBUTTON))
+	if (KEY_PRESS(VK_LBUTTON))
 	{
-		//_chargeGun->Fire();
+		_chargeGun->Charge();
+	}
+	if (KEY_UP(VK_LBUTTON))
+	{
+		_chargeGun->Fire();
 	}
 }
 
@@ -227,8 +230,8 @@ bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 		return _normalGun->IsCollision_Bullets(col);
 	else if (_nowGun == MACHINE)
 		return _machineGun->IsCollision_Bullets(col);
-	//else if(_nowGun == CHARGE)
-	//	return _chargeGun->IsCollision_Bullets(col);
+	else if(_nowGun == CHARGE)
+		return _chargeGun->IsCollision_Bullets(col);
 }
 
 

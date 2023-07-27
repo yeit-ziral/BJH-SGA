@@ -8,6 +8,8 @@ public:
 	virtual void Update();
 	virtual void Render();
 
+	void Charge();
+
 	void Fire();
 
 	void Selected(bool Bool) { _selected = Bool; }
@@ -15,4 +17,6 @@ public:
 private:
 
 	vector<shared_ptr<class ChargingBullet>> _Cbullets;
+
+	int _chargingCount = 0;
 };

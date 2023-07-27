@@ -4,14 +4,14 @@ using namespace tinyxml2;
 
 ChargingBullet::ChargingBullet()
 {
-	_bullet = make_shared<CircleCollider>(10.0f);
+	_bullet = make_shared<CircleCollider>(8.0f);
 
-	CreateAction(L"Resource/CupHead/weapon/ChargeBullet.png", "Resource/CupHead/weapon/ChargeBullet.xml", "ChargingBullet", Vector2(9.0f, 25.0f), true);
+	CreateAction(L"Resource/CupHead/weapon/ChargeBullet.png", "Resource/CupHead/weapon/ChargeBullet.xml", "ChargingBullet", Vector2(9.0f, 20.0f), true);
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_bullet->GetTransform());
 	_transform->SetAngle(-PI * 0.5f);
-	_transform->SetPosition(Vector2(-40.0f, 0.0f));
+	_transform->SetPosition(Vector2(0.0f, 0.0f));
 
 	_bullet->Update();
 	_transform->Update();
@@ -105,9 +105,20 @@ void ChargingBullet::CreateAction(wstring srvPath, string xmmlPath, string actio
 	_sprite = sprite;
 }
 
+void ChargingBullet::Charging(Vector2 startPos)
+{
+	_isActive = true;
+	_action->Play();
+
+	_bullet->GetTransform()->SetPosition(startPos);
+
+	_bullet->SetScale({ 1.0 });
+}
+
 void ChargingBullet::Shoot(Vector2 dir, Vector2 startPos)
 {
 	_isActive = true;
+
 	_action->Play();
 
 	_bullet->GetTransform()->SetPosition(startPos);
@@ -115,10 +126,6 @@ void ChargingBullet::Shoot(Vector2 dir, Vector2 startPos)
 	_dir = dir.NormalVector2();
 	float angle = _dir.Angle();
 	_bullet->GetTransform()->SetAngle(angle);
-}
-
-void ChargingBullet::EndEvent()
-{
 }
 
 void ChargingBullet::SetLeft()

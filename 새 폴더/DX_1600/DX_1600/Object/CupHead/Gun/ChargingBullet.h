@@ -10,8 +10,9 @@ public:
 
 	void CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, bool isLoop);
 
+	void Charging(Vector2 startPos);
+
 	void Shoot(Vector2 dir, Vector2 startPos);
-	void EndEvent();
 
 	void SetAngle(float value) { _bullet->GetTransform()->SetAngle(value); }
 

@@ -14,6 +14,8 @@ ChargeGun::ChargeGun()
 		shared_ptr<ChargingBullet> bullet = make_shared<ChargingBullet>();
 		_Cbullets.push_back(bullet);
 	}
+
+	_damage = 0;
 }
 
 ChargeGun::~ChargeGun()
@@ -58,8 +60,21 @@ void ChargeGun::Render()
 		bullet->Render();
 }
 
-void ChargeGun::Fire()
+void ChargeGun::Charge()
 {
+	_chargingCount += 1;
+}
+
+void ChargeGun::Fire() // charging이랑 아닐때 분리하기
+{
+	if (_selected == false)
+		return;
+
+	if (_chargingCount < 10)
+		return;
+
+	SOUND->Play("Cup_Attack", 0.3f);
+
 	if (_atkCool)
 	{
 		_time += DELTA_TIME;
@@ -71,26 +86,15 @@ void ChargeGun::Fire()
 		return;
 	}
 
-	// bullet을 ChargingBullet으로 바꿔야 됨
-	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
+	auto bulletIter = std::find_if(_Cbullets.begin(), _Cbullets.end(),
 		[](const shared_ptr<ChargingBullet>& obj)-> bool {return !obj->_isActive; });
 
-	if (bulletIter == _bullets.end())
+	if (bulletIter == _Cbullets.end())
 		return;
 
 	Vector2 dir = MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
 
-	if (KEY_PRESS(VK_LBUTTON))
-	{
-		// 총알 크기와 데미지 증가
-		(*bulletIter)
-	}
-
-	if (KEY_UP(VK_LBUTTON))
-	{
-		// 발사 후 크기와 데미지 원래대로 복귀
-		(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _collider->GetTransform()->GetWorldPosition());
-	}
+	(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
 
 	_atkCool = true;
 
