@@ -4,9 +4,9 @@ using namespace tinyxml2;
 
 ChargingBullet::ChargingBullet()
 {
-	_bullet = make_shared<CircleCollider>(8.0f);
+	_bullet = make_shared<CircleCollider>(15.0f);
 
-	CreateAction(L"Resource/CupHead/weapon/ChargeBullet.png", "Resource/CupHead/weapon/ChargeBullet.xml", "ChargingBullet", Vector2(9.0f, 20.0f), true);
+	CreateAction(L"Resource/CupHead/weapon/ChargeBullet.png", "Resource/CupHead/weapon/ChargeBullet.xml", "ChargingBullet", Vector2(18.0f, 40.0f), true);
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_bullet->GetTransform());
@@ -103,16 +103,6 @@ void ChargingBullet::CreateAction(wstring srvPath, string xmmlPath, string actio
 	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvPath, size);
 	_action = action;
 	_sprite = sprite;
-}
-
-void ChargingBullet::Charging(Vector2 startPos)
-{
-	_isActive = true;
-	_action->Play();
-
-	_bullet->GetTransform()->SetPosition(startPos);
-
-	_bullet->SetScale({ 1.0 });
 }
 
 void ChargingBullet::Shoot(Vector2 dir, Vector2 startPos)

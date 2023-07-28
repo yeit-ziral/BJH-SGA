@@ -486,6 +486,9 @@
     <Image Include="Resource\CupHead\weapon\ChargeBullet.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\CupHead\weapon\ChargingEffect.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -530,6 +533,7 @@
     <Xml Include="Resource\CupHead\weapon\ChargeBullet.xml" />
     <Xml Include="Resource\CupHead\weapon\rifle.xml" />
     <Xml Include="Resource\CupHead\weapon\SunLord.xml" />
+    <Xml Include="Resource\CupHead\weapon\ChargingEffect.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\FMOD\inc\fmod_errors.cs" />

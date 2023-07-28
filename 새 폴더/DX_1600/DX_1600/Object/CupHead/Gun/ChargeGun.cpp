@@ -1,13 +1,14 @@
 #include "framework.h"
 #include "ChargeGun.h"
 #include "ChargingBullet.h"
+#include "ChargingEffect.h"
 
 ChargeGun::ChargeGun()
 {
 	CreateAction(L"Resource/CupHead/weapon/SunLord.png", "Resource/CupHead/weapon/SunLord.xml", "ChargeGun", Vector2(23,9), true);
 	_gunTrans = make_shared<Transform>();
 	_gunTrans->SetScale({ 5,5 });
-	_atkSpeed = 0.01f;
+	_atkSpeed = 0.001f;
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -16,6 +17,8 @@ ChargeGun::ChargeGun()
 	}
 
 	_damage = 0;
+
+	EffectManager::GetInstance()->AddEffect("Charging", L"Resource/CupHead/weapon/ChargingEffect.png", Vector2(13, 15), Vector2(13,15));
 }
 
 ChargeGun::~ChargeGun()
@@ -62,15 +65,15 @@ void ChargeGun::Render()
 
 void ChargeGun::Charge()
 {
-	_chargingCount += 1;
+	_chargingCount += DELTA_TIME;
 }
 
-void ChargeGun::Fire() // chargingÀÌ¶û ¾Æ´Ò¶§ ºÐ¸®ÇÏ±â
+void ChargeGun::Fire()
 {
 	if (_selected == false)
 		return;
 
-	if (_chargingCount < 10)
+	if (_chargingCount < 2)
 		return;
 
 	SOUND->Play("Cup_Attack", 0.3f);

@@ -18,5 +18,5 @@ private:
 
 	vector<shared_ptr<class ChargingBullet>> _Cbullets;
 
-	int _chargingCount = 0;
+	float _chargingCount = 0.0f;
 };
