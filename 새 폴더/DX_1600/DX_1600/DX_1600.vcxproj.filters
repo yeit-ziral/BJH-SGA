@@ -216,6 +216,9 @@
     <ClInclude Include="Object\CupHead\Gun\ChargingBullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\CupHead\Gun\ChargingEffect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -378,6 +381,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\CupHead\Gun\ChargingBullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CupHead\Gun\ChargingEffect.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -200,6 +200,8 @@ void Cup_Player::ChargeFire()
 {
 	if (KEY_PRESS(VK_LBUTTON))
 	{
+		EffectManager::GetInstance()->AddEffect("Charging", L"Resource/CupHead/weapon/ChargingEffect", Vector2(1, 24), Vector2(1500, 1500));
+
 		_chargeGun->Charge();
 	}
 	if (KEY_UP(VK_LBUTTON))

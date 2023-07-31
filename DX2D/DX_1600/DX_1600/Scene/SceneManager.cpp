@@ -10,9 +10,9 @@
 SceneManager* SceneManager::_instance = nullptr;
 SceneManager::SceneManager()
 {
-	/*_scenes.push_back(make_shared<TutorialScene>());
+	_scenes.push_back(make_shared<TutorialScene>());
 	_scenes.push_back(make_shared<SolarSystem>());
-	_scenes.push_back(make_shared<CupHeadScene>());*/
+	_scenes.push_back(make_shared<CupHeadScene>());
 
 	_scenes.push_back(make_shared<CupHeadScene>());
 }

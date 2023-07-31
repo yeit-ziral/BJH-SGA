@@ -16,9 +16,11 @@ ChargeGun::ChargeGun()
 		_Cbullets.push_back(bullet);
 	}
 
-	_damage = 0;
+	//_chargingEffect = make_shared<ChargingEffect>();
+	//_chargingEffect->SetParent(_gunTrans);
+	//_chargingEffect->SetPosition(Vector2(12, 0));
 
-	EffectManager::GetInstance()->AddEffect("Charging", L"Resource/CupHead/weapon/ChargingEffect.png", Vector2(13, 15), Vector2(13,15));
+	_damage = 0;
 }
 
 ChargeGun::~ChargeGun()
@@ -48,6 +50,8 @@ void ChargeGun::Update()
 
 	for (auto bullet : _Cbullets)
 		bullet->Update();
+
+	//_chargingEffect->Update();
 }
 
 void ChargeGun::Render()
@@ -61,6 +65,8 @@ void ChargeGun::Render()
 
 	for (auto bullet : _Cbullets)
 		bullet->Render();
+
+	//_chargingEffect->Render();
 }
 
 void ChargeGun::Charge()

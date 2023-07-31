@@ -94,6 +94,11 @@ public:
 
     Vector2 TransformCoord(XMMATRIX matrix);
 
+    void operator/=(const float& value)
+    {
+        *this /= value;
+    }
+
 public:
 };
 
