@@ -2,8 +2,8 @@
 #include "BossRoom.h"
 #include "../../Object/CupHead/Cup_Player.h"
 #include "../../Object/CupHead/Monster/Cup_Boss.h"
+#include "../../Object/CupHead/Cup_Wall.h"
 #include "../../Object/CupHead/Cup_Track.h"
-#include "../../Object/CupHead/Cup_Block.h"
 
 BossRoom::BossRoom()
 {
@@ -13,17 +13,16 @@ BossRoom::BossRoom()
 	_track = make_shared<Cup_Track>();
 	Vector2 trackSize = _track->GetTrackSize();
 
-	//_block = make_shared<Cup_Block>(track2WorldPos + Vector2(100, 300));
+	_wall = make_shared<Cup_Wall>();
 
-	_monster = make_shared<Cup_Boss>();
-	_monster->SetPosition(Vector2(0, 0));
+	_boss = make_shared<Cup_Boss>();
+	_boss->SetPosition(Vector2(0, 0));
 
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 
 	CAMERA->SetTarget(_player->GetTransform());
 	CAMERA->SetLeftBottom(Vector2((trackSize.x * -0.5f), -1000.0f));
-	//float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
-	//CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
+
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
 	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
 	_button->SetPosition(Vector2(0, 0));
@@ -32,6 +31,18 @@ BossRoom::BossRoom()
 	Load();
 
 	_player->SetHP(_player->GetMaxHp());
+
+#pragma region RTV
+	_rtv = make_shared<RenderTarget>();
+	_rtvQuad = make_shared<Quad>(Vector2(WIN_WIDTH, WIN_HEIGHT));
+	_rtvQuad->SetSRV(_rtv->GetSRV());
+	_rtvQuad->SetPS(ADD_PS(L"Shader/FilterPS.hlsl"));
+
+	_rtvTransform = make_shared<Transform>();
+	_filterbuffer = make_shared<FilterBuffer>();
+	_filterbuffer->_data.selected = 1;
+
+#pragma endregion
 }
 
 BossRoom::~BossRoom()
@@ -40,6 +51,7 @@ BossRoom::~BossRoom()
 
 void BossRoom::Init()
 {
+	Load();
 }
 
 void BossRoom::End()
@@ -48,6 +60,49 @@ void BossRoom::End()
 
 void BossRoom::Update()
 {
+	_player->Update();
+	_boss->Update();
+	_track->Update();
+	_wall->Update();
+	_button->Update();
+
+	_rtvTransform->Update();
+	_filterbuffer->Update();
+
+	if (_wall->GetUpWall()->Block(_boss->GetCollider()) && _player->_isAlive == true)
+	{
+		//_boss->Fire(_player->GetCollider()->GetPos());
+	}
+
+	if (_track->GetColider()->Block(_player->GetCollider()))
+	{
+		if (_track->GetColider()->_sideCollision)
+			return;
+
+		_player->SetGrounded();
+	}
+
+	if (_boss->GetCollider()->IsCollision(_wall->GetLeftWall()))
+	{
+		_boss->_isWallCrash = true;
+		_boss->GetCollider()->GetTransform()->AddVector2(Vector2(100, 0));
+	}
+
+	if (_boss->GetCollider()->IsCollision(_wall->GetRightWall()))
+	{
+		_boss->_isWallCrash = true;
+		_boss->GetCollider()->GetTransform()->AddVector2(Vector2(-100, 0));
+	}
+
+	if (_boss->_isAlive == true)
+	{
+		if (_player->isCollision_Bullets(_boss->GetCollider()))
+		{
+			_boss->Damage(1);
+		}
+	}
+
+
 }
 
 void BossRoom::Render()

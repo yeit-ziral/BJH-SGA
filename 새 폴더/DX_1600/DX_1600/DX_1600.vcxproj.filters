@@ -219,6 +219,12 @@
     <ClInclude Include="Object\CupHead\Gun\ChargingEffect.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\CupHead\Cup_Wall.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Render\RenderTarget.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -386,6 +392,12 @@
     <ClCompile Include="Object\CupHead\Gun\ChargingEffect.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\CupHead\Cup_Wall.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Render\RenderTarget.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc">
@@ -495,6 +507,12 @@
     <Image Include="Resource\CupHead\weapon\ChargingEffect.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\CupHead\boss\Clown_Ready_Dash.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\boss\Clown_Wall_Crash.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -540,6 +558,8 @@
     <Xml Include="Resource\CupHead\weapon\rifle.xml" />
     <Xml Include="Resource\CupHead\weapon\SunLord.xml" />
     <Xml Include="Resource\CupHead\weapon\ChargingEffect.xml" />
+    <Xml Include="Resource\CupHead\boss\Clown_Ready_Dash.xml" />
+    <Xml Include="Resource\CupHead\boss\Clown_Wall_Crash.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\FMOD\inc\fmod_errors.cs" />

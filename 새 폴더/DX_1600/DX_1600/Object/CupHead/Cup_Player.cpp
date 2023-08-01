@@ -100,6 +100,7 @@ void Cup_Player::PostRender()
 
 	ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
 	ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
+	_chargeGun->PostRender();
 }
 
 
@@ -146,11 +147,11 @@ void Cup_Player::Input()
 		_nowGun = Gun::CHARGE;
 	}
 
-	Fire();
-
 	_normalGun->Update();
 	_machineGun->Update();
 	_chargeGun->Update();
+
+	Fire();
 
 	Jump();
 }
@@ -200,13 +201,13 @@ void Cup_Player::ChargeFire()
 {
 	if (KEY_PRESS(VK_LBUTTON))
 	{
-		EffectManager::GetInstance()->AddEffect("Charging", L"Resource/CupHead/weapon/ChargingEffect", Vector2(1, 24), Vector2(1500, 1500));
-
+		
 		_chargeGun->Charge();
 	}
 	if (KEY_UP(VK_LBUTTON))
 	{
 		_chargeGun->Fire();
+		_chargeGun->SetChargingCount(0);
 	}
 }
 

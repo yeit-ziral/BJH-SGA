@@ -20,14 +20,19 @@ private:
 	shared_ptr<class Cup_Player> _player;
 
 	shared_ptr<class Cup_Track> _track;
-	shared_ptr<class Cup_Block> _block;
+	shared_ptr<class Cup_Wall> _wall;
 
-	shared_ptr<class Cup_Boss> _monster;
+	shared_ptr<class Cup_Boss> _boss;
 
 	shared_ptr<Button> _button;
 
 	shared_ptr<ActionFilterBuffer> _AFBuffer;
 
 	shared_ptr<Effect> _effect;
+
+	shared_ptr<Quad> _rtvQuad;
+	shared_ptr<RenderTarget> _rtv;
+	shared_ptr<FilterBuffer> _filterbuffer;
+	shared_ptr<Transform> _rtvTransform;
 };
 

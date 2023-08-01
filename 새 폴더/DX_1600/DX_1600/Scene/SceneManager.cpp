@@ -3,13 +3,16 @@
 
 #include "BagicScene/CupHeadScene.h"
 #include "BagicScene/MapToolScene.h"
+#include "BagicScene/BossRoom.h"
 
 SceneManager* SceneManager::_instance = nullptr;
 SceneManager::SceneManager()
-{
+{/*
 	_scenes.push_back(make_shared<CupHeadScene>());
 
-	_scenes.push_back(make_shared<MapToolScene>());
+	_scenes.push_back(make_shared<MapToolScene>());*/
+
+	_scenes.push_back(make_shared<BossRoom>());
 }
 
 SceneManager::~SceneManager()

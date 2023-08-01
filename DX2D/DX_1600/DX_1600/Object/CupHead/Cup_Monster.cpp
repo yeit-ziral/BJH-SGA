@@ -174,7 +174,7 @@ bool Cup_Monster::IsCollsion_Bullets(shared_ptr<Collider> col)
 		if (col->IsCollision(bullet->GetBulletCollider()))
 		{
 			bullet->_isActive = false;
-			EFFECT_PLAY("Hit", bullet->GetPosition());
+			EFFECT_PLAY("Hit", bullet->GetBulletCollider()->GetTransform()->GetPos());
 			return true;
 		}
 	}

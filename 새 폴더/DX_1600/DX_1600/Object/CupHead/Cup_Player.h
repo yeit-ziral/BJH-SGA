@@ -58,6 +58,8 @@ public:
 
 	Gun GetNowGun() { return _nowGun; }
 
+	shared_ptr<Transform> GetGunSlot() { return _gunSlot; }
+
 private:
 	int _hp = 10;
 	int _maxHp = 10;

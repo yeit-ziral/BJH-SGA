@@ -7,6 +7,7 @@ public:
 
 	virtual void Update();
 	virtual void Render();
+	void PostRender();
 
 	void Charge();
 
@@ -14,7 +15,7 @@ public:
 
 	void Selected(bool Bool) { _selected = Bool; }
 
-	void SetChargingCount(float a) { _chargingCount += a; }
+	void SetChargingCount(float a) { _chargingCount = a; }
 
 private:
 

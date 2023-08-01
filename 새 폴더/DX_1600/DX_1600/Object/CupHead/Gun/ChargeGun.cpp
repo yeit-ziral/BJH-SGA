@@ -69,6 +69,11 @@ void ChargeGun::Render()
 	//_chargingEffect->Render();
 }
 
+void ChargeGun::PostRender()
+{
+	ImGui::Text("ChargingCount = %f", _chargingCount);
+}
+
 void ChargeGun::Charge()
 {
 	_chargingCount += DELTA_TIME;
@@ -79,21 +84,10 @@ void ChargeGun::Fire()
 	if (_selected == false)
 		return;
 
-	if (_chargingCount < 2)
+	if (_chargingCount < 1)
 		return;
 
 	SOUND->Play("Cup_Attack", 0.3f);
-
-	if (_atkCool)
-	{
-		_time += DELTA_TIME;
-		if (_time > _atkSpeed)
-		{
-			_time = 0.0f;
-			_atkCool = false;
-		}
-		return;
-	}
 
 	auto bulletIter = std::find_if(_Cbullets.begin(), _Cbullets.end(),
 		[](const shared_ptr<ChargingBullet>& obj)-> bool {return !obj->_isActive; });
@@ -104,7 +98,4 @@ void ChargeGun::Fire()
 	Vector2 dir = MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
 
 	(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
-
-	_atkCool = true;
-
 }

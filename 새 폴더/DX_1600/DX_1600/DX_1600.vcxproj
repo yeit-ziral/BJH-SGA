@@ -42,8 +42,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -151,8 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Cup_Wall.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargingEffect.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargingBullet.h" />
+    <ClInclude Include="Framework\Render\RenderTarget.h" />
     <ClInclude Include="Scene\BagicScene\BossRoom.h" />
     <ClInclude Include="Object\CupHead\Monster\Cup_Boss.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargeGun.h" />
@@ -221,8 +223,10 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Cup_Wall.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargingEffect.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargingBullet.cpp" />
+    <ClCompile Include="Framework\Render\RenderTarget.cpp" />
     <ClCompile Include="Scene\BagicScene\BossRoom.cpp" />
     <ClCompile Include="Object\CupHead\Monster\Cup_Boss.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargeGun.cpp" />
@@ -291,6 +295,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX_1600.ico" />
+    <Image Include="Resource\CupHead\boss\Clown_Ready_Dash.png" />
+    <Image Include="Resource\CupHead\boss\Clown_Wall_Crash.png" />
     <Image Include="Resource\CupHead\player\AimStraightCharge.png" />
     <Image Include="Resource\CupHead\player\Attack.png" />
     <Image Include="Resource\CupHead\boss\Clown_Dash.png" />
@@ -504,6 +510,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Resource\CupHead\boss\Clown_Ready_Dash.xml" />
+    <Xml Include="Resource\CupHead\boss\Clown_Wall_Crash.xml" />
     <Xml Include="Resource\CupHead\player\AimStraightCharge.xml" />
     <Xml Include="Resource\CupHead\player\Attack.xml" />
     <Xml Include="Resource\CupHead\boss\Clown_Dash.xml" />
