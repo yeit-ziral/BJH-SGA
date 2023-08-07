@@ -63,6 +63,12 @@ public:
 
 	bool _isWallCrash = false;
 
+	int GetHp() { return _hp; }
+
+	void GetAttacked(int amount);
+
+	bool IsCollsion_Bullets(shared_ptr<Collider> col);
+
 private:
 	void SetLeft();
 	void SetRight();
@@ -88,5 +94,7 @@ private:
 	vector<shared_ptr<Sprite>> _sprites;
 
 	shared_ptr<Transform> _transform;
+
+	vector<shared_ptr<Cup_Bullet>> _bullets;
 };
 

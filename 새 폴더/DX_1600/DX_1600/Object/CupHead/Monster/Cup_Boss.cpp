@@ -13,16 +13,16 @@ Cup_Boss::Cup_Boss()
 	_intBuffer->_data.aInt = 3;
 	_intBuffer->_data.bInt = 300;
 
-	CreateAction(L"Resource/CupHead/Boss/Clown_Intro_1.png", "Resource/CupHead/Boss/Clown_Intro_1.xml", "START", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
-	CreateAction(L"Resource/CupHead/Boss/Clown_Intro_2.png", "Resource/CupHead/Boss/Clown_Intro_2.xml", "LOOP", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEventDash, this));
-	CreateAction(L"Resource/CupHead/Boss/Clown_Move_1.png", "Resource/CupHead/Boss/Clown_Move_1.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
-	CreateAction(L"Resource/CupHead/Boss/Clown_Move_2.png", "Resource/CupHead/Boss/Clown_Move_2.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
-	CreateAction(L"Resource/CupHead/Boss/Clown_Move_3.png", "Resource/CupHead/Boss/Clown_Move_3.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
-	CreateAction(L"Resource/CupHead/Boss/Clown_Ready_Dash.png", "Resource/CupHead/Boss/Clown_Ready_Dash.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
-	CreateAction(L"Resource/CupHead/Boss/Clown_Dash.png", "Resource/CupHead/Boss/Clown_Dash.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
-	CreateAction(L"Resource/CupHead/Boss/Clown_Dash_Loop.png", "Resource/CupHead/Boss/Clown_Dash_Loop.xml", "END", Vector2(600, 400), Action::Type::LOOP);
-	CreateAction(L"Resource/CupHead/Boss/Clown_Wall_Crash.png", "Resource/CupHead/Boss/Clown_Wall_Crash.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEventCrash, this));
-	CreateAction(L"Resource/CupHead/Boss/Clown_Die_Middle.png", "Resource/CupHead/Boss/Clown_Die_Middle.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::DieEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Intro_1.png", "Resource/CupHead/boss/Clown_Intro_1.xml", "START", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Intro_2.png", "Resource/CupHead/boss/Clown_Intro_2.xml", "LOOP", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEventDash, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Move_1.png", "Resource/CupHead/boss/Clown_Move_1.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Move_2.png", "Resource/CupHead/boss/Clown_Move_2.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Move_3.png", "Resource/CupHead/boss/Clown_Move_3.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Ready_Dash.png", "Resource/CupHead/boss/Clown_Ready_Dash.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Dash.png", "Resource/CupHead/boss/Clown_Dash.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Dash_Loop.png", "Resource/CupHead/boss/Clown_Dash_Loop.xml", "END", Vector2(600, 400), Action::Type::LOOP);
+	CreateAction(L"Resource/CupHead/boss/Clown_Wall_Crash.png", "Resource/CupHead/boss/Clown_Wall_Crash.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEventCrash, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Die_Middle.png", "Resource/CupHead/boss/Clown_Die_Middle.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::DieEvent, this));
 
 
 	SetRight();
@@ -52,6 +52,16 @@ void Cup_Boss::Update()
 	_transform->Update();
 
 	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
+
+	Dash();
+
+	if (_isWallCrash == true)
+	{
+		_state = Boss_State::DASHSTOP;
+		_actions[_state]->Play();
+		_actions[DASHLOOP]->Reset();
+		_isWallCrash = false;
+	}
 
 	// AtteckPattern에 따라 한번씩 공격
 
@@ -256,6 +266,38 @@ void Cup_Boss::EndEventCrash()
 		SetRight();
 	}
 	return;
+}
+
+void Cup_Boss::GetAttacked(int amount)
+{
+	if (!_isAlive)
+		return;
+	_hp -= amount;
+
+	if (_hp <= 0)
+	{
+		_hp = 0;
+
+		DieEvent();
+	}
+}
+
+bool Cup_Boss::IsCollsion_Bullets(shared_ptr<Collider> col)
+{
+	for (auto bullet : _bullets)
+	{
+		if (bullet->_isActive == false)
+			continue;
+
+		if (col->IsCollision(bullet->GetBulletCollider()))
+		{
+			bullet->_isActive = false;
+			EFFECT_PLAY("Hit", bullet->GetPosition());
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void Cup_Boss::SetLeft()

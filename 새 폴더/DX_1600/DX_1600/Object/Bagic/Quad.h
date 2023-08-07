@@ -11,7 +11,7 @@ public:
 
 	void SetPS(shared_ptr<PixelShader> ps) { _ps = ps; }
 	void SetVS(shared_ptr<VertexShader> vs) { _vs = vs; }
-	//void SetSRV(shared_ptr<SRV> srv) { _srv = srv; }
+	void SetSRV(shared_ptr<SRV> srv) { _srv = srv; }
 
 	void CreateVertices();
 

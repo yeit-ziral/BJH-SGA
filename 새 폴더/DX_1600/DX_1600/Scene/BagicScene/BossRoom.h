@@ -30,9 +30,7 @@ private:
 
 	shared_ptr<Effect> _effect;
 
-	shared_ptr<Quad> _rtvQuad;
-	shared_ptr<RenderTarget> _rtv;
-	shared_ptr<FilterBuffer> _filterbuffer;
-	shared_ptr<Transform> _rtvTransform;
+	bool _playerAttacked = false;
+
 };
 

@@ -21,7 +21,8 @@ BossRoom::BossRoom()
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 
 	CAMERA->SetTarget(_player->GetTransform());
-	CAMERA->SetLeftBottom(Vector2((trackSize.x * -0.5f), -1000.0f));
+	CAMERA->SetLeftBottom(Vector2((-trackSize.x * 0.125f), -100.0f));
+	CAMERA->SetRightTop(Vector2((trackSize.x), 1000.0f));
 
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
 	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
@@ -53,9 +54,6 @@ void BossRoom::Update()
 	_track->Update();
 	_wall->Update();
 	_button->Update();
-
-	_rtvTransform->Update();
-	_filterbuffer->Update();
 
 	if (_wall->GetUpWall()->Block(_boss->GetCollider()) && _player->_isAlive == true)
 	{
@@ -98,14 +96,63 @@ void BossRoom::Update()
 
 void BossRoom::Render()
 {
+	_track->Render();
+	_wall->Render();
+
+	_player->Render();
+
+	if (_boss->_isAlive == true)
+		_boss->Render();
 }
 
 void BossRoom::PostRender()
 {
+	_player->PostRender();
+	_boss->PostRender();
+
+	ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
+	ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
+	ImGui::Text("MonsterHP : % d", (int)_boss->GetHp());
+	ImGui::Text("PlayerHP : % d", (int)_player->GetHp());
+
+	if (ImGui::Button("TargetON", ImVec2(50, 50)))
+	{
+		CAMERA->SetTarget(_player->GetTransform());
+	}
+
+	if (ImGui::Button("TargetOFF", ImVec2(50, 50)))
+	{
+		CAMERA->SetTarget(nullptr);
+	}
+
+	if (ImGui::Button("Save", ImVec2(50, 50)))
+	{
+		Save();
+	}
+
+	if (ImGui::Button("Load", ImVec2(50, 50)))
+	{
+		Load();
+	}
+
+	_button->PostRender();
 }
 
 void BossRoom::CheckAttack()
 {
+	if (!_boss->_isAlive || !_player->_isAlive)
+		return;
+
+	if (_player->IsCollision_Bullets(_boss->GetCollider()))
+	{
+		_boss->GetAttacked(5);
+	}
+
+	if (_boss->IsCollsion_Bullets(_player->GetCollider()))
+	{
+		_player->Damaged(1);
+		//_player->SetHit(true);
+	}
 }
 
 void BossRoom::Save()

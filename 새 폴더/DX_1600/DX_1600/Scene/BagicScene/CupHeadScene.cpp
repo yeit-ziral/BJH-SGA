@@ -37,8 +37,6 @@ CupHeadScene::CupHeadScene()
 
 	_player->SetHP(_player->GetMaxHp());
 
-
-	EffectManager::GetInstance()->AddEffect("Charging", L"Resource/CupHead/weapon/ChargingEffect", Vector2(1, 24), Vector2(1000, 1000), 0.1f);
 }
 
 CupHeadScene::~CupHeadScene()
@@ -87,8 +85,8 @@ void CupHeadScene::Update()
 	}
 	else
 	{
-		if (_block->GetCollider()->Block(_player->GetCollider()));
-		_player->SetGrounded();
+		if (_block->GetCollider()->Block(_player->GetCollider()))
+			_player->SetGrounded();
 		if (_block->GetCollider()->_bottomCollision)
 		{
 
@@ -109,14 +107,6 @@ void CupHeadScene::Update()
 	if (distance < 500.0f) // 이 거리는 일반몹에 적합
 		_monster->Attack(_player->GetCollider()->GetTransform()->GetWorldPosition());
 	CheckAttack();
-
-	if (_player->GetNowGun() == _player->CHARGE)
-	{
-		if (KEY_PRESS(VK_LBUTTON))
-		{
-			EFFECT_PLAY("Charging", _player->GetGunSlot()->GetWorldPosition());
-		}
-	}
 }
 
 void CupHeadScene::Render()
