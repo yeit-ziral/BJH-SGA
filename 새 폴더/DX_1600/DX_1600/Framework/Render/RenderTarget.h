@@ -1,4 +1,6 @@
 #pragma once
+#include "../TextureMapping/SRV.h"
+
 class RenderTarget
 {
 public:

@@ -93,3 +93,8 @@ void Device::Present()
 {
     _swapChain->Present(0, 0);
 }
+
+void Device::SetMainRenderTarget()
+{
+    _deviceContext->OMSetRenderTargets(1, _renderTargetView.GetAddressOf(), nullptr);
+}

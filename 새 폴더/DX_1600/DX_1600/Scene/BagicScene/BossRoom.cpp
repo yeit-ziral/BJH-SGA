@@ -31,18 +31,6 @@ BossRoom::BossRoom()
 	Load();
 
 	_player->SetHP(_player->GetMaxHp());
-
-#pragma region RTV
-	_rtv = make_shared<RenderTarget>();
-	_rtvQuad = make_shared<Quad>(Vector2(WIN_WIDTH, WIN_HEIGHT));
-	_rtvQuad->SetSRV(_rtv->GetSRV());
-	_rtvQuad->SetPS(ADD_PS(L"Shader/FilterPS.hlsl"));
-
-	_rtvTransform = make_shared<Transform>();
-	_filterbuffer = make_shared<FilterBuffer>();
-	_filterbuffer->_data.selected = 1;
-
-#pragma endregion
 }
 
 BossRoom::~BossRoom()

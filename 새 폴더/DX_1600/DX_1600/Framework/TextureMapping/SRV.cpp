@@ -1,6 +1,11 @@
 #include "framework.h"
 #include "SRV.h"
 
+SRV::SRV(ComPtr<ID3D11ShaderResourceView> srv)
+    : _shaderResourceView(srv)
+{
+}
+
 SRV::SRV(wstring file)
 {
     ScratchImage image;

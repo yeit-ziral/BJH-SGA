@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "RenderTarget.h"
 
+#include "../TextureMapping/SRV.h"
+
 RenderTarget::RenderTarget(UINT width, UINT height)
 	: _width(width), _height(height)
 {

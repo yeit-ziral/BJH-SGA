@@ -3,6 +3,7 @@ class SRV
 {
 	friend class SRVManager;
 public:
+	SRV(ComPtr<ID3D11ShaderResourceView> srv);
 	SRV(wstring file);
 	~SRV();
 
