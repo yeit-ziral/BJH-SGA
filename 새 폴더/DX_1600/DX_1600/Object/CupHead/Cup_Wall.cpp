@@ -10,7 +10,7 @@ Cup_Wall::Cup_Wall()
 	_rightWall->SetPosition(Vector2(WIN_WIDTH / 2, 0));
 
 	_UpWall = make_shared<RectCollider>(Vector2(WIN_WIDTH, 10));
-	_UpWall->SetPosition(Vector2(0, WIN_HEIGHT / 2))
+	_UpWall->SetPosition(Vector2(0, WIN_HEIGHT / 2));
 }
 
 Cup_Wall::~Cup_Wall()

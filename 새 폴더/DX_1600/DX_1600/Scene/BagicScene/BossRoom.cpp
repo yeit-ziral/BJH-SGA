@@ -96,13 +96,16 @@ void BossRoom::Update()
 
 	if (_boss->_isAlive == true)
 	{
-		if (_player->isCollision_Bullets(_boss->GetCollider()))
+		if (_player->IsCollision_Bullets(_boss->GetCollider()))
 		{
-			_boss->Damage(1);
+			if (_player->GetNowGun() == Cup_Player::Gun::MACHINE)
+				_boss->Damage(1);
+			if (_player->GetNowGun() == Cup_Player::Gun::NORMAL)
+				_boss->Damage(5);
+			if (_player->GetNowGun() == Cup_Player::Gun::CHARGE)
+				_boss->Damage(15);
 		}
 	}
-
-
 }
 
 void BossRoom::Render()
