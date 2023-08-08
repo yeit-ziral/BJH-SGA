@@ -6,6 +6,18 @@
 
 #define MAX_LOADSTRING 100
 
+ID3D11Device*           device;         // 무언가를 만들 때 사용, CPU를 다루는 객체
+ID3D11DeviceContext*    deviceContext;  // 무언가를 그릴 때 사용, GPU를 다루는 객체
+
+IDXGISwapChain*             swapChain;          // 더블버퍼링을 구현하는 객체
+ID3D11RenderTargetView*     renderTargetView;   // view 들어가는 것들은 다 GPU에서 하는것들임, 백버퍼를 관리하는 객체
+
+void Initialize();
+void Render();
+void Release();
+
+HWND hWnd;
+
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
@@ -40,10 +52,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_PROJECT));
 
+    Initialize();
+
     MSG msg;
 
     //// 기본 메시지 루프입니다:
-    //while (GetMessage(&msg, nullptr, 0, 0)) // 창을 계속 띄우기 위해 GetMessage가 true를 반환하도록 쓸데없는 message가 강제적을 계속 생성됨
+    //while (GetMessage(&msg, nullptr, 0, 0)) // 창을 계속 띄우기 위해 GetMessage가 true를 반환하도록 쓸데없는 message가 강제적을 계속 생성됨 -> 메모리 낭비
     //{
     //    if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
     //    {
@@ -68,13 +82,50 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // TODO : Update, Render
+            Render();
         }
     };
+
+    Release();
 
     return (int) msg.wParam;
 }
 
 
+
+void Initialize()
+{
+    DXGI_SWAP_CHAIN_DESC swapChainDesc = {};
+
+    swapChainDesc.BufferCount = 1; // backBuffer가 몇개인가
+
+    swapChainDesc.BufferDesc.Width = WIN_WIDTH;
+    swapChainDesc.BufferDesc.Height = WIN_HEIGHT; // 크기
+    swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM; // RGBA를 실수로 넣겠다는 뜻
+    // RGBA 8비트 * 4개 = 32비트, UNORM = Unsigned Normal = 0 ~ 1
+
+    swapChainDesc.BufferDesc.RefreshRate.Numerator   = 60; //refreshRate = 갱신빈도(얼마나 화면을 갱신하냐), Numerator : 분자
+    swapChainDesc.BufferDesc.RefreshRate.Denominator = 1; // Denomiantor : 분모
+
+    swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT; // buffer 사용처가 rendertarget ouput이라는 뜻
+
+    swapChainDesc.OutputWindow = hWnd;
+
+    swapChainDesc.SampleDesc.Count   = 1; // sampling(표본화)와 관련있음, 확대,축소시 어떻게 그릴것인지 미리 계산
+    swapChainDesc.SampleDesc.Quality = 0;
+
+    swapChainDesc.Windowed = true; // 전체화면을 쓸것인지, 창 화면을 쓸것인지 정함
+
+    // Desc는 뭔가를 만든다는 뜻임
+}
+
+void Render()
+{
+}
+
+void Release()
+{
+}
 
 //
 //  함수: MyRegisterClass()
@@ -116,8 +167,21 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) // 인스턴스 초기화
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+   RECT rect = { 0, 0, WIN_WIDTH, WIN_HEIGHT };
+
+   AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+
+   hWnd = CreateWindowW
+   (
+       szWindowClass, 
+       szTitle, 
+       WS_OVERLAPPEDWINDOW,
+       CW_USEDEFAULT, 0, //창 시작점
+       rect.right - rect.left, rect.bottom - rect.top, // 창 크기
+       nullptr, nullptr, hInstance, nullptr
+   );
+
+   SetMenu(hWnd, nullptr);
 
    if (!hWnd)
    {

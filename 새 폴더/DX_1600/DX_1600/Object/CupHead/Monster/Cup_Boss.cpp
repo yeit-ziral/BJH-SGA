@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Cup_Boss.h"
+#include "../Cup_Bullet.h"
 using namespace tinyxml2;
 
 Cup_Boss::Cup_Boss()
