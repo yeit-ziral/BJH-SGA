@@ -39,9 +39,9 @@ public:
 
 	void Dash();
 
-	void Shoot();
+	void Howitzer();
 
-	void Shoot2();
+	void Shoot();
 
 	void AttackPattern();
 
@@ -96,5 +96,9 @@ private:
 	shared_ptr<Transform> _transform;
 
 	vector<shared_ptr<Cup_Bullet>> _bullets;
+
+	int shootCount = 0;
+
+	float _jumpPower = 0.0f;
 };
 

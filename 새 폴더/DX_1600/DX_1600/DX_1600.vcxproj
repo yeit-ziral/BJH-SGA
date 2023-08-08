@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Gun\HowitzerBullet.h" />
     <ClInclude Include="Object\CupHead\Cup_Wall.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargingEffect.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargingBullet.h" />
@@ -223,6 +224,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Gun\HowitzerBullet.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Wall.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargingEffect.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargingBullet.cpp" />
@@ -328,6 +330,7 @@
     <Image Include="Resource\explosion.png" />
     <Image Include="Resource\CupHead\player\Idle.png" />
     <Image Include="Resource\CupHead\weapon\rifle.png" />
+    <Image Include="Resource\howitzerBullet.png" />
     <Image Include="Resource\UI\Button.png" />
     <Image Include="small.ico" />
   </ItemGroup>

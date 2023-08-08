@@ -75,6 +75,16 @@ void Cup_Boss::Update()
 			_intBuffer->_data.bInt = 100;
 		_intBuffer->_data.bInt -= 1;
 	}
+
+	// 보스 중력적용
+	{
+		_jumpPower -= 15.0f;
+
+		if (_jumpPower < -600.0f)
+			_jumpPower = -600.0f;
+
+		_collider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
+	}
 }
 
 void Cup_Boss::Render()
@@ -141,6 +151,9 @@ void Cup_Boss::CreateAction(wstring srvPath, string xmmlPath, string actionName,
 
 void Cup_Boss::Dash()
 {
+	if (_attackState != Boss_Attack::DASH)
+		return;
+
 	if (_state == Boss_State::DASHSTART || _state == Boss_State::DASHLOOP)
 	{
 		if (_isLeft == true)
@@ -154,14 +167,29 @@ void Cup_Boss::Dash()
 			Move(movePos);
 		}
 	}
+
+	_attackState = Boss_Attack::SHOOT;
+}
+
+void Cup_Boss::Howitzer()
+{
+	//곡사포 발사 애니메이션과 곡사포 총알 발사
+	if (_attackState != Boss_Attack::SHOOT)
+		return;
+
+	if (shootCount == 3)
+	{
+		shootCount = 0;
+		_attackState = Boss_Attack::SHOOT2;
+	}
+	// 곡사포 3번 발사
+	
+	
 }
 
 void Cup_Boss::Shoot()
 {
-}
-
-void Cup_Boss::Shoot2()
-{
+	//총알 발사 애니메이션과 총알 발사
 }
 
 void Cup_Boss::AttackPattern()

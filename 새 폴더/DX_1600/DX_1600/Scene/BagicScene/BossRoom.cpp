@@ -67,6 +67,13 @@ void BossRoom::Update()
 
 		_player->SetGrounded();
 	}
+	if (_track->GetColider()->Block(_boss->GetCollider()))
+	{
+		if (_track->GetColider()->_sideCollision)
+			return;
+
+		_boss->SetGrounded();
+	}
 
 	if (_boss->GetCollider()->IsCollision(_wall->GetLeftWall()))
 	{
