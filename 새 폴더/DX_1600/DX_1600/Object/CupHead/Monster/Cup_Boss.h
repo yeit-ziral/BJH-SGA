@@ -69,6 +69,8 @@ public:
 
 	bool IsCollsion_Bullets(shared_ptr<Collider> col);
 
+	void Attack();
+
 private:
 	void SetLeft();
 	void SetRight();

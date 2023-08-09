@@ -54,7 +54,7 @@ void Cup_Boss::Update()
 
 	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
 
-	Dash();
+	Attack();
 
 	if (_isWallCrash == true)
 	{
@@ -78,7 +78,7 @@ void Cup_Boss::Update()
 
 	// 보스 중력적용
 	{
-		_jumpPower -= 15.0f;
+		_jumpPower -= 800.0f * DELTA_TIME;
 
 		if (_jumpPower < -600.0f)
 			_jumpPower = -600.0f;
@@ -324,6 +324,11 @@ bool Cup_Boss::IsCollsion_Bullets(shared_ptr<Collider> col)
 	}
 
 	return false;
+}
+
+void Cup_Boss::Attack()
+{
+	Dash();
 }
 
 void Cup_Boss::SetLeft()
