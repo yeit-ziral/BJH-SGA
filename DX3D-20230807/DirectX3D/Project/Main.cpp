@@ -115,16 +115,52 @@ void Initialize()
     swapChainDesc.SampleDesc.Quality = 0;
 
     swapChainDesc.Windowed = true; // 전체화면을 쓸것인지, 창 화면을 쓸것인지 정함
-
     // Desc는 뭔가를 만든다는 뜻임
+
+    D3D11CreateDeviceAndSwapChain
+    (
+        nullptr,
+        D3D_DRIVER_TYPE_HARDWARE,
+        0,
+        D3D11_CREATE_DEVICE_DEBUG, // 속성
+        nullptr,
+        0,
+        D3D11_SDK_VERSION,
+        &swapChainDesc,
+        &swapChain,
+        &device,
+        nullptr,
+        &deviceContext
+    );
+
+    ID3D11Texture2D* backBuffer;
+
+    swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&backBuffer);
+
+    device->CreateRenderTargetView(backBuffer, nullptr, &renderTargetView);
+
+    backBuffer->Release();
+
+    deviceContext->OMSetRenderTargets(1, &renderTargetView, nullptr); // 랜더링 파이프라인의 Output Merge 단계
 }
 
 void Render()
 {
+    float clearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };
+
+    deviceContext->ClearRenderTargetView(renderTargetView, clearColor);
+
+    //TODO : Render
+
+    swapChain->Present(0, 0);
 }
 
 void Release()
 {
+    device->Release();
+    deviceContext->Release();
+    swapChain->Release();
+    renderTargetView->Release();
 }
 
 //

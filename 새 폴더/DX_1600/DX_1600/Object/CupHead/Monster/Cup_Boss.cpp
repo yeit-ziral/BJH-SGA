@@ -151,9 +151,6 @@ void Cup_Boss::CreateAction(wstring srvPath, string xmmlPath, string actionName,
 
 void Cup_Boss::Dash()
 {
-	if (_attackState != Boss_Attack::DASH)
-		return;
-
 	if (_state == Boss_State::DASHSTART || _state == Boss_State::DASHLOOP)
 	{
 		if (_isLeft == true)
