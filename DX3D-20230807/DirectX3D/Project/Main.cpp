@@ -148,11 +148,11 @@ void Render()
 {
     float clearColor[4] = { 0.0f, 0.125f, 0.3f, 1.0f };
 
-    deviceContext->ClearRenderTargetView(renderTargetView, clearColor);
+    deviceContext->ClearRenderTargetView(renderTargetView, clearColor); // backBuffer를 clear 함
 
     //TODO : Render
 
-    swapChain->Present(0, 0);
+    swapChain->Present(0, 0); // backBuffer와 frontBuffer를 교체하는 함수
 }
 
 void Release()
