@@ -14,14 +14,18 @@ public:
 		DASHSTART,
 		DASHLOOP,
 		DASHSTOP,
+		HOWITZER1,
+		HOWITZER2,
+		SHOOT1,
+		SHOOT2,
 		DIE
 	};
 
 	enum Boss_Attack
 	{
 		DASH,
-		SHOOT,
-		SHOOT2
+		HOWITZER,
+		SHOOT
 	};
 
 	Cup_Boss();
@@ -37,13 +41,13 @@ public:
 
 	shared_ptr<RectCollider> GetCollider() { return _collider; }
 
+	void Attack();
+
 	void Dash();
 
 	void Howitzer();
 
 	void Shoot();
-
-	void AttackPattern();
 
 	void EndEventDash();
 
@@ -69,7 +73,6 @@ public:
 
 	bool IsCollsion_Bullets(shared_ptr<Collider> col);
 
-	void Attack();
 
 private:
 	void SetLeft();

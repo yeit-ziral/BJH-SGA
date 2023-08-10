@@ -23,6 +23,10 @@ Cup_Boss::Cup_Boss()
 	CreateAction(L"Resource/CupHead/boss/Clown_Dash.png", "Resource/CupHead/boss/Clown_Dash.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
 	CreateAction(L"Resource/CupHead/boss/Clown_Dash_Loop.png", "Resource/CupHead/boss/Clown_Dash_Loop.xml", "END", Vector2(600, 400), Action::Type::LOOP);
 	CreateAction(L"Resource/CupHead/boss/Clown_Wall_Crash.png", "Resource/CupHead/boss/Clown_Wall_Crash.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEventCrash, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Intro_1.png", "Resource/CupHead/boss/Clown_Intro_1.xml", "HOWITZER1", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Intro_2.png", "Resource/CupHead/boss/Clown_Intro_2.xml", "HOWITZER2", Vector2(600, 400), Action::Type::LOOP);
+	CreateAction(L"Resource/CupHead/boss/Clown_Intro_1.png", "Resource/CupHead/boss/Clown_Intro_1.xml", "SHOOT1", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/Clown_Intro_2.png", "Resource/CupHead/boss/Clown_Intro_2.xml", "SHOOT2", Vector2(600, 400), Action::Type::LOOP);
 	CreateAction(L"Resource/CupHead/boss/Clown_Die_Middle.png", "Resource/CupHead/boss/Clown_Die_Middle.xml", "END", Vector2(600, 400), Action::Type::END, std::bind(&Cup_Boss::DieEvent, this));
 
 
@@ -56,13 +60,13 @@ void Cup_Boss::Update()
 
 	Attack();
 
-	if (_isWallCrash == true)
-	{
-		_state = Boss_State::DASHSTOP;
-		_actions[_state]->Play();
-		_actions[DASHLOOP]->Reset();
-		_isWallCrash = false;
-	}
+	//if (_isWallCrash == true)
+	//{
+	//	_state = Boss_State::DASHSTOP;
+	//	_actions[_state]->Play();
+	//	_actions[DASHLOOP]->Reset();
+	//	_isWallCrash = false;
+	//}
 
 	// AtteckPattern에 따라 한번씩 공격
 
@@ -103,7 +107,7 @@ void Cup_Boss::Render()
 void Cup_Boss::PostRender()
 {
 	ImGui::Text("BossHP : %d", _hp);
-	ImGui::SliderInt("State", (int*)&_state, 0, 9);
+	ImGui::SliderInt("State", (int*)&_state, 0, 11);
 	//ImGui::SliderInt("Mosaic", &_intBuffer->_data.bInt, 0, 300);
 }
 
@@ -149,16 +153,44 @@ void Cup_Boss::CreateAction(wstring srvPath, string xmmlPath, string actionName,
 	_sprites.push_back(sprite);
 }
 
+
 void Cup_Boss::Attack()
 {
 	if (_attackState == Boss_Attack::DASH)
+	{
 		Dash();
+		if (_isWallCrash == true)
+		{
+			_state = Boss_State::DASHSTOP;
+			_actions[_state]->Play();
+			_actions[DASHLOOP]->Reset();
+			_isWallCrash = false;
+		}
+	}
+
+	if (_attackState == Boss_Attack::HOWITZER)
+	{
+		Howitzer();
+		// 발사가 다 끝나면 _state를 SHOOT1으로 바꿔줌
+		if (shootCount == 3)
+		{
+			shootCount = 0;
+			_attackState = Boss_Attack::SHOOT;
+		}
+	}
 
 	if (_attackState == Boss_Attack::SHOOT)
-		Howitzer();
-
-	if (_attackState == Boss_Attack::SHOOT2)
+	{
 		Shoot();
+		// 벽에 도달하면 _state를 READY1으로 바꿔줌
+		if (_isWallCrash == true)
+		{
+			_state = Boss_State::READY1;
+			_actions[_state]->Play();
+			_actions[SHOOT2]->Reset();
+			_isWallCrash = false;
+		}
+	}
 }
 
 void Cup_Boss::Dash()
@@ -177,37 +209,16 @@ void Cup_Boss::Dash()
 		}
 	}
 
-	_attackState = Boss_Attack::SHOOT;
+	
+
+	_attackState = Boss_Attack::HOWITZER;
 }
 
 void Cup_Boss::Howitzer()
 {
-	if (_isWallCrash == true)
-	{
-		_state = Boss_State::DASHSTOP;
-		_actions[_state]->Play();
-		//_actions[DASHLOOP]->Reset();
-		_isWallCrash = false;
-
-		// 뒤돌게 만들기
-		SetLeft();
-
-		_state = Boss_State::START;
-		_actions[_state]->Play();
-	}
-
-	//곡사포 발사 애니메이션과 곡사포 총알 발사
-
-
-
-	if (shootCount == 3)
-	{
-		shootCount = 0;
-	}
-		_attackState = Boss_Attack::SHOOT2;
-	// 곡사포 3번 발사
+	// 곡사포 발사
 	
-	
+	shootCount += 1;
 }
 
 void Cup_Boss::Shoot()
@@ -215,13 +226,6 @@ void Cup_Boss::Shoot()
 	//총알 발사 애니메이션과 총알 발사
 
 	_attackState = Boss_Attack::DASH;
-}
-
-void Cup_Boss::AttackPattern()
-{
-	Dash();
-
-
 }
 
 void Cup_Boss::EndEventDash()
@@ -293,6 +297,22 @@ void Cup_Boss::EndEvent()
 		_actions[DASHSTART]->Reset();
 		return;
 	}
+
+	if (_state == Boss_State::HOWITZER1)
+	{
+		_state = Boss_State::HOWITZER2;
+		_actions[_state]->Play();
+		_actions[HOWITZER1]->Reset();
+		return;
+	}
+
+	if (_state == Boss_State::SHOOT1)
+	{
+		_state = Boss_State::SHOOT2;
+		_actions[_state]->Play();
+		_actions[SHOOT1]->Reset();
+		return;
+	}
 }
 
 void Cup_Boss::DieEvent()
@@ -302,7 +322,7 @@ void Cup_Boss::DieEvent()
 
 void Cup_Boss::EndEventCrash()
 {
-	_state = Boss_State::LOOP;
+	_state = Boss_State::HOWITZER1;
 	_actions[_state]->Play();
 	_actions[DASHSTOP]->Reset();
 	if (_isLeft == true)
@@ -347,7 +367,6 @@ bool Cup_Boss::IsCollsion_Bullets(shared_ptr<Collider> col)
 
 	return false;
 }
-
 
 void Cup_Boss::SetLeft()
 {
