@@ -6,11 +6,39 @@
 
 #define MAX_LOADSTRING 100
 
+
+struct Vertex
+{
+    Vertex(float x, float y, float z)
+    {
+        pos = XMFLOAT3(x, y, z);
+    }
+
+    XMFLOAT3 pos;
+};
+
 ID3D11Device*           device;         // 무언가를 만들 때 사용, CPU를 다루는 객체
 ID3D11DeviceContext*    deviceContext;  // 무언가를 그릴 때 사용, GPU를 다루는 객체
 
 IDXGISwapChain*             swapChain;          // 더블버퍼링을 구현하는 객체
 ID3D11RenderTargetView*     renderTargetView;   // view 들어가는 것들은 다 GPU에서 하는것들임, 백버퍼를 관리하는 객체
+
+
+UINT stride = 0;
+UINT offset = 0;
+
+
+/////////////////////////////////////////////////////////////////
+
+
+ID3D11VertexShader* vertexShader;
+ID3D11PixelShader* pixelShader;
+
+ID3D11InputLayout* inputLayout;
+
+ID3D11Buffer* vertexBuffer; // constBuffer, IndexBuffer등이 추가로 있음
+
+
 
 void Initialize();
 void Render();
@@ -142,6 +170,117 @@ void Initialize()
     backBuffer->Release();
 
     deviceContext->OMSetRenderTargets(1, &renderTargetView, nullptr); // 랜더링 파이프라인의 Output Merge 단계
+
+    /////////////////////////////////////////////////////////
+
+    D3D11_VIEWPORT viewPort;
+    viewPort.TopLeftX   = 0.0f;
+    viewPort.TopLeftY   = 0.0f;
+    viewPort.Width      = WIN_WIDTH;
+    viewPort.Height     = WIN_HEIGHT;
+    viewPort.MinDepth   = 0.0f;
+    viewPort.MaxDepth   = 1.0f;
+
+    deviceContext->RSSetViewports(1, &viewPort); // RS니까 Rasterizer State에서 실행, 설정단계라서 OM보다 뒤에 와도 상관 없음
+
+
+    //VertexShader
+    DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
+
+    ID3DBlob* vertexBlob;
+    D3DCompileFromFile
+    (
+        L"_Shader/VertexTutorial.hlsl",
+        nullptr,
+        nullptr,
+        "main",
+        "vs_5_0",
+        flags,
+        0,
+        &vertexBlob, // 파일 정보를 받아와서 저장하는 객체
+        nullptr
+    );
+
+    device->CreateVertexShader
+    (
+        vertexBlob->GetBufferPointer(), 
+        vertexBlob->GetBufferSize(), 
+        nullptr, 
+        &vertexShader
+    );
+
+    D3D11_INPUT_ELEMENT_DESC layoutDesc[1] = {};
+    layoutDesc[0].SemanticName          = "POSITION";
+    layoutDesc[0].SemanticIndex         = 0;
+    layoutDesc[0].Format                = DXGI_FORMAT_R32G32B32_FLOAT; // float이 4byte여서 숫자가 32임(4 x 8 bit)
+    layoutDesc[0].InputSlot             = 0;
+    layoutDesc[0].AlignedByteOffset     = 0; // 앞에 데이터가 얼마나 공간을 차지하고 있는지
+    layoutDesc[0].InputSlotClass        = D3D11_INPUT_PER_VERTEX_DATA;
+    layoutDesc[0].InstanceDataStepRate  = 0;
+
+    
+
+    device->CreateInputLayout
+    (
+        layoutDesc, // 배열이라서 &을 안붙여도 이미 주소값임
+        ARRAYSIZE(layoutDesc), //갯수를 반환하는 메크로//배열의 크기
+        vertexBlob->GetBufferPointer(),
+        vertexBlob->GetBufferSize(),
+        &inputLayout
+    );
+
+    vertexBlob->Release();
+
+
+    // PixelShader
+
+    ID3DBlob* pixelBlob;
+    D3DCompileFromFile
+    (
+        L"_Shader/PixelTutorial.hlsl",
+        nullptr,
+        nullptr,
+        "main",
+        "ps_5_0",
+        flags,
+        0,
+        &pixelBlob, // 파일 정보를 받아와서 저장하는 객체
+        nullptr
+    );
+
+    device->CreatePixelShader
+    (
+        pixelBlob->GetBufferPointer(),
+        pixelBlob->GetBufferSize(),
+        nullptr,
+        &pixelShader
+    );
+
+    pixelBlob->Release();
+
+    //////////////////////////////////////
+
+    //Vertex
+    Vertex vertex(0.0f, 0.0f, 0.0f);
+
+
+    //VertexBuffer
+
+    // vertexBuffer에 담아서 넘김
+    D3D11_BUFFER_DESC bufferDesc = {};
+
+    bufferDesc.ByteWidth            = sizeof(Vertex) * 1;
+    bufferDesc.Usage                = D3D11_USAGE_DEFAULT; // DEFAULT는 CPU에서 정보 수정 불가능
+    bufferDesc.BindFlags            = D3D11_BIND_VERTEX_BUFFER;
+    bufferDesc.CPUAccessFlags       = 0;
+    bufferDesc.MiscFlags            = 0;
+    bufferDesc.StructureByteStride  = 0;
+
+    D3D11_SUBRESOURCE_DATA data;
+
+    data.pSysMem = &vertex;
+
+    device->CreateBuffer(&bufferDesc, &data, &vertexBuffer);
 }
 
 void Render()
@@ -151,6 +290,22 @@ void Render()
     deviceContext->ClearRenderTargetView(renderTargetView, clearColor); // backBuffer를 clear 함
 
     //TODO : Render
+
+    stride = sizeof(Vertex);
+    offset = 0;
+
+    deviceContext->IASetInputLayout(inputLayout);
+    deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
+    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST); // 
+
+    deviceContext->VSSetShader(vertexShader, nullptr, 0);
+    deviceContext->PSSetShader(pixelShader, nullptr, 0);
+    // 여기까지는 세팅하는거라서 순서 상관 없음
+
+    deviceContext->Draw(1, 0); // Draw부터 렌더링 시작
+
+    /////////////////////////////////////////
+
 
     swapChain->Present(0, 0); // backBuffer와 frontBuffer를 교체하는 함수
 }
