@@ -149,6 +149,18 @@ void Cup_Boss::CreateAction(wstring srvPath, string xmmlPath, string actionName,
 	_sprites.push_back(sprite);
 }
 
+void Cup_Boss::Attack()
+{
+	if (_attackState == Boss_Attack::DASH)
+		Dash();
+
+	if (_attackState == Boss_Attack::SHOOT)
+		Howitzer();
+
+	if (_attackState == Boss_Attack::SHOOT2)
+		Shoot();
+}
+
 void Cup_Boss::Dash()
 {
 	if (_state == Boss_State::DASHSTART || _state == Boss_State::DASHLOOP)
@@ -170,15 +182,29 @@ void Cup_Boss::Dash()
 
 void Cup_Boss::Howitzer()
 {
+	if (_isWallCrash == true)
+	{
+		_state = Boss_State::DASHSTOP;
+		_actions[_state]->Play();
+		//_actions[DASHLOOP]->Reset();
+		_isWallCrash = false;
+
+		// 뒤돌게 만들기
+		SetLeft();
+
+		_state = Boss_State::START;
+		_actions[_state]->Play();
+	}
+
 	//곡사포 발사 애니메이션과 곡사포 총알 발사
-	if (_attackState != Boss_Attack::SHOOT)
-		return;
+
+
 
 	if (shootCount == 3)
 	{
 		shootCount = 0;
-		_attackState = Boss_Attack::SHOOT2;
 	}
+		_attackState = Boss_Attack::SHOOT2;
 	// 곡사포 3번 발사
 	
 	
@@ -187,19 +213,15 @@ void Cup_Boss::Howitzer()
 void Cup_Boss::Shoot()
 {
 	//총알 발사 애니메이션과 총알 발사
+
+	_attackState = Boss_Attack::DASH;
 }
 
 void Cup_Boss::AttackPattern()
 {
 	Dash();
 
-	if (_isWallCrash == true)
-	{
-		_state = Boss_State::DASHSTOP;
-		_actions[_state]->Play();
-		_actions[DASHLOOP]->Reset();
-		_isWallCrash = false;
-	}
+
 }
 
 void Cup_Boss::EndEventDash()
@@ -326,10 +348,6 @@ bool Cup_Boss::IsCollsion_Bullets(shared_ptr<Collider> col)
 	return false;
 }
 
-void Cup_Boss::Attack()
-{
-	Dash();
-}
 
 void Cup_Boss::SetLeft()
 {
