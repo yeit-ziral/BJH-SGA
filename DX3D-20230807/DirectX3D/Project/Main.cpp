@@ -17,6 +17,30 @@ struct Vertex
     XMFLOAT3 pos;
 };
 
+struct VertexColor
+{
+    VertexColor(XMFLOAT3 pos, XMFLOAT4 color)
+        :pos(pos), color(color)
+    {
+
+    }
+
+    XMFLOAT3 pos;
+    XMFLOAT4 color;
+};
+
+struct WVP
+{
+    XMMATRIX world;
+    XMMATRIX view;
+    XMMATRIX projection;
+};
+
+WVP wvp;
+
+vector<VertexColor> vertices;
+vector<UINT> indices;
+
 ID3D11Device*           device;         // 무언가를 만들 때 사용, CPU를 다루는 객체
 ID3D11DeviceContext*    deviceContext;  // 무언가를 그릴 때 사용, GPU를 다루는 객체
 
@@ -37,6 +61,8 @@ ID3D11PixelShader* pixelShader;
 ID3D11InputLayout* inputLayout;
 
 ID3D11Buffer* vertexBuffer; // constBuffer, IndexBuffer등이 추가로 있음
+ID3D11Buffer* indexBuffer;
+ID3D11Buffer* constBuffer;
 
 
 
@@ -209,15 +235,22 @@ void Initialize()
         &vertexShader
     );
 
-    D3D11_INPUT_ELEMENT_DESC layoutDesc[1] = {};
+    D3D11_INPUT_ELEMENT_DESC layoutDesc[2] = {};
     layoutDesc[0].SemanticName          = "POSITION";
     layoutDesc[0].SemanticIndex         = 0;
-    layoutDesc[0].Format                = DXGI_FORMAT_R32G32B32_FLOAT; // float이 4byte여서 숫자가 32임(4 x 8 bit)
+    layoutDesc[0].Format                = DXGI_FORMAT_R32G32B32_FLOAT; // float이 4byte여서 숫자가 32임(4 x 8 bit) , 총 12byte
     layoutDesc[0].InputSlot             = 0;
     layoutDesc[0].AlignedByteOffset     = 0; // 앞에 데이터가 얼마나 공간을 차지하고 있는지
     layoutDesc[0].InputSlotClass        = D3D11_INPUT_PER_VERTEX_DATA;
     layoutDesc[0].InstanceDataStepRate  = 0;
 
+    layoutDesc[1].SemanticName          = "COLOR";
+    layoutDesc[1].SemanticIndex         = 0;
+    layoutDesc[1].Format                = DXGI_FORMAT_R32G32B32A32_FLOAT; // color는 Float4라서 A32 붙음
+    layoutDesc[1].InputSlot             = 0;
+    layoutDesc[1].AlignedByteOffset     = 12;
+    layoutDesc[1].InputSlotClass        = D3D11_INPUT_PER_VERTEX_DATA;
+    layoutDesc[1].InstanceDataStepRate  = 0;
     
 
     device->CreateInputLayout
@@ -261,26 +294,111 @@ void Initialize()
     //////////////////////////////////////
 
     //Vertex
-    Vertex vertex(0.0f, 0.0f, 0.0f);
+    //Vertex vertex(0.0f, 0.0f, 0.0f);
+    vertices =
+    {
+        VertexColor({-1.0f, +1.0f, -1.0f}, {1.0f, 0.0f,0.0f,1.0f}),
+        VertexColor({+1.0f, +1.0f, -1.0f}, {0.0f, 1.0f,0.0f,1.0f}),
+        VertexColor({-1.0f, -1.0f, -1.0f}, {0.0f, 0.0f,1.0f,1.0f}),
+        VertexColor({+1.0f, -1.0f, -1.0f}, {1.0f, 1.0f,1.0f,1.0f}),
 
+        VertexColor({-1.0f, +1.0f, +1.0f}, {1.0f, 0.0f,0.0f,1.0f}),
+        VertexColor({+1.0f, +1.0f, +1.0f}, {0.0f, 1.0f,0.0f,1.0f}),
+        VertexColor({-1.0f, -1.0f, +1.0f}, {0.0f, 0.0f,1.0f,1.0f}),
+        VertexColor({+1.0f, -1.0f, +1.0f}, {1.0f, 1.0f,1.0f,1.0f})
+    };
+     // 선형 보간법으로 각 정점에서 거리에 비례하여 색을 섞어서 보여줌
 
     //VertexBuffer
+    {
+        // vertexBuffer에 담아서 넘김
+        D3D11_BUFFER_DESC bufferDesc = {};
 
-    // vertexBuffer에 담아서 넘김
-    D3D11_BUFFER_DESC bufferDesc = {};
+        bufferDesc.ByteWidth = sizeof(VertexColor) * vertices.size();
+        bufferDesc.Usage = D3D11_USAGE_DEFAULT; // DEFAULT는 CPU에서 정보 수정 불가능
+        bufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+        bufferDesc.CPUAccessFlags = 0;
+        bufferDesc.MiscFlags = 0;
+        bufferDesc.StructureByteStride = 0;
 
-    bufferDesc.ByteWidth            = sizeof(Vertex) * 1;
-    bufferDesc.Usage                = D3D11_USAGE_DEFAULT; // DEFAULT는 CPU에서 정보 수정 불가능
-    bufferDesc.BindFlags            = D3D11_BIND_VERTEX_BUFFER;
-    bufferDesc.CPUAccessFlags       = 0;
-    bufferDesc.MiscFlags            = 0;
-    bufferDesc.StructureByteStride  = 0;
+        D3D11_SUBRESOURCE_DATA data;
 
-    D3D11_SUBRESOURCE_DATA data;
+        data.pSysMem = vertices.data(); // vertices[0]으로 넘길 수 있지만 이 경우 vertices[0]이 비어있으면 오류가 생김
 
-    data.pSysMem = &vertex;
+        device->CreateBuffer(&bufferDesc, &data, &vertexBuffer);
+    }
 
-    device->CreateBuffer(&bufferDesc, &data, &vertexBuffer);
+
+    //IndexBuffer
+    indices =
+    {
+        //Front
+        0,1,2,
+        2,1,3,
+        
+        //Right
+        1, 5, 3,
+        3, 5, 7,
+
+        //Top
+        0, 4, 1,
+        1, 4, 5,
+
+        //Left
+        4, 0, 6,
+        6, 0, 2,
+
+        //Back
+        5, 4, 7,
+        7, 4, 6,
+
+        //Bottom
+        2, 3, 6,
+        6, 3, 7
+    };
+
+    {
+        D3D11_BUFFER_DESC bufferDesc = {};
+
+        bufferDesc.ByteWidth = sizeof(Vertex) * indices.size();
+        bufferDesc.Usage = D3D11_USAGE_DEFAULT; // DEFAULT는 CPU에서 정보 수정 불가능
+        bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+        bufferDesc.CPUAccessFlags = 0;
+        bufferDesc.MiscFlags = 0;
+        bufferDesc.StructureByteStride = 0;
+
+        D3D11_SUBRESOURCE_DATA data;
+
+        data.pSysMem = indices.data(); // vertices[0]으로 넘길 수 있지만 이 경우 vertices[0]이 비어있으면 오류가 생김
+
+        device->CreateBuffer(&bufferDesc, &data, &indexBuffer);
+    }
+
+
+    //WVP
+
+    wvp.world = XMMatrixIdentity();
+
+    XMVECTOR   eyePos = XMVectorSet(+3.0f, +3.0f, -3.0f, +1.0f);
+    XMVECTOR focusPos = XMVectorSet(+0.0f, +0.0f, +0.0f, +1.0f);
+    XMVECTOR upVector = XMVectorSet(+0.0f, +1.0f, +0.0f, +0.0f);
+
+    wvp.view = XMMatrixLookAtLH(eyePos, focusPos, upVector);
+
+    wvp.projection = XMMatrixPerspectiveFovLH(XM_PIDIV4, WIN_WIDTH / WIN_HEIGHT, 0.1f, 1000.0f); //Fov : Fild of view 시야각
+
+        {
+        D3D11_BUFFER_DESC bufferDesc = {};
+
+        bufferDesc.ByteWidth            = sizeof(WVP);
+        bufferDesc.Usage                = D3D11_USAGE_DEFAULT;
+        bufferDesc.BindFlags            = D3D11_BIND_CONSTANT_BUFFER;
+        bufferDesc.CPUAccessFlags       = 0;
+        bufferDesc.MiscFlags            = 0;
+        bufferDesc.StructureByteStride  = 0;
+
+        device->CreateBuffer(&bufferDesc, nullptr, &constBuffer);
+    }
 }
 
 void Render()
@@ -291,18 +409,40 @@ void Render()
 
     //TODO : Render
 
-    stride = sizeof(Vertex);
+    stride = sizeof(VertexColor);
     offset = 0;
 
     deviceContext->IASetInputLayout(inputLayout);
     deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
-    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST); // 
+
+    deviceContext->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     deviceContext->VSSetShader(vertexShader, nullptr, 0);
     deviceContext->PSSetShader(pixelShader, nullptr, 0);
     // 여기까지는 세팅하는거라서 순서 상관 없음
 
-    deviceContext->Draw(1, 0); // Draw부터 렌더링 시작
+    //deviceContext->Draw(vertices.size(), 0); // Draw부터 렌더링 시작
+    deviceContext->DrawIndexed(indices.size(), 0, 0); //index로 Draw부터 렌더링 시작
+
+
+    //WVP
+    WVP data;
+
+    data.world      = XMMatrixTranspose(wvp.world);
+    data.view       = XMMatrixTranspose(wvp.view);
+    data.projection = XMMatrixTranspose(wvp.projection);
+
+    deviceContext->UpdateSubresource(constBuffer, 0, nullptr, &data, 0, 0);
+    deviceContext->VSSetConstantBuffers(0, 1, &constBuffer);
+
+    static float angle = 0.0f;
+
+    angle += 0.1f;
+
+    wvp.world = XMMatrixRotationRollPitchYaw(angle, angle, 0.0f); // RollPitchYaw : Roll->바라보는 방향을 축으로 회전, Pitch->바라보는 방향에서 오른쪽을 축으로 회전, Yaw->바라보는 방향의 위아래 방향을 축으로 회전
+
 
     /////////////////////////////////////////
 
