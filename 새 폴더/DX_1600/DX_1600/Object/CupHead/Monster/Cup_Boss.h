@@ -101,9 +101,12 @@ private:
 	shared_ptr<Transform> _transform;
 
 	vector<shared_ptr<Cup_Bullet>> _bullets;
+	vector<shared_ptr<class HowitzerBullet>> _Hbullets;
 
 	int shootCount = 0;
 
 	float _jumpPower = 0.0f;
+
+	float waitTime = 0.0f;
 };
 

@@ -28,6 +28,8 @@ public:
 	float GetUpPower() { return _upPower; }
 	float GetFrontPower() { return _speed; }
 
+	void CalculateYspeed();
+
 private:
 	bool _isEnd = false;
 

@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "Cup_Boss.h"
 #include "../Cup_Bullet.h"
+#include "../Gun/HowitzerBullet.h"
+
 using namespace tinyxml2;
 
 Cup_Boss::Cup_Boss()
@@ -37,6 +39,16 @@ Cup_Boss::Cup_Boss()
 		_actions[Boss_State::START]->SetAlmostEndEvent(std::bind(&Cup_Boss::EndEvent, this));
 	}
 
+	for (int i = 0; i < 30; i++)
+	{
+		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();
+		_bullets.push_back(bullet);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		shared_ptr<HowitzerBullet> bullet = make_shared<HowitzerBullet>();
+		_Hbullets.push_back(bullet);
+	}
 }
 
 Cup_Boss::~Cup_Boss()
@@ -107,7 +119,7 @@ void Cup_Boss::Render()
 void Cup_Boss::PostRender()
 {
 	ImGui::Text("BossHP : %d", _hp);
-	ImGui::SliderInt("State", (int*)&_state, 0, 11);
+	ImGui::SliderInt("State", (int*)&_state, 0, 13);
 	//ImGui::SliderInt("Mosaic", &_intBuffer->_data.bInt, 0, 300);
 }
 
@@ -161,31 +173,40 @@ void Cup_Boss::Attack()
 		Dash();
 		if (_isWallCrash == true)
 		{
+			if (_isLeft == true)
+			{
+				SetLeft();
+			}
+			else
+			{
+				SetRight();
+			}
 			_state = Boss_State::DASHSTOP;
 			_actions[_state]->Play();
 			_actions[DASHLOOP]->Reset();
 			_isWallCrash = false;
+			_attackState = Boss_Attack::HOWITZER;
 		}
 	}
 
-	if (_attackState == Boss_Attack::HOWITZER)
+	if (_attackState == Boss_Attack::HOWITZER && _state == Boss_State::HOWITZER2)
 	{
 		Howitzer();
 		// 발사가 다 끝나면 _state를 SHOOT1으로 바꿔줌
-		if (shootCount == 3)
-		{
-			shootCount = 0;
-			_attackState = Boss_Attack::SHOOT;
-		}
+
+		_state = Boss_State::SHOOT1;
+		_actions[_state]->Play();
+		_actions[HOWITZER2]->Reset();
 	}
 
-	if (_attackState == Boss_Attack::SHOOT)
+	if (_attackState == Boss_Attack::SHOOT && _state == Boss_State::SHOOT1)
 	{
 		Shoot();
 		// 벽에 도달하면 _state를 READY1으로 바꿔줌
 		if (_isWallCrash == true)
 		{
 			_state = Boss_State::READY1;
+			_attackState = Boss_Attack::DASH;
 			_actions[_state]->Play();
 			_actions[SHOOT2]->Reset();
 			_isWallCrash = false;
@@ -208,24 +229,45 @@ void Cup_Boss::Dash()
 			Move(movePos);
 		}
 	}
-
-	
-
-	_attackState = Boss_Attack::HOWITZER;
 }
 
 void Cup_Boss::Howitzer()
 {
-	// 곡사포 발사
+	// 곡사포 발사 3번, 3초 기다림
+	auto bulletIter = std::find_if(_Hbullets.begin(), _Hbullets.end(),
+		[](shared_ptr<Cup_Bullet>& obj)-> bool { return !obj->_isActive; });
+
+	if (bulletIter == _Hbullets.end())
+		return;
+
+	(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
+
+
+	if (shootCount == 3 && waitTime > 2.0f)
+	{
+		_attackState = Boss_Attack::SHOOT;
+		shootCount = 0;
+		waitTime = 0.0f;
+
+	}
 	
-	shootCount += 1;
 }
 
 void Cup_Boss::Shoot()
 {
 	//총알 발사 애니메이션과 총알 발사
 
-	_attackState = Boss_Attack::DASH;
+	if (_isLeft == true)
+	{
+		Vector2 movePos = Vector2(-50.0f, 0.0f);
+		Move(movePos);
+	}
+	else
+	{
+		Vector2 movePos = Vector2(50.0f, 0.0f);
+		Move(movePos);
+	}
+
 }
 
 void Cup_Boss::EndEventDash()
@@ -322,17 +364,10 @@ void Cup_Boss::DieEvent()
 
 void Cup_Boss::EndEventCrash()
 {
+	
 	_state = Boss_State::HOWITZER1;
 	_actions[_state]->Play();
 	_actions[DASHSTOP]->Reset();
-	if (_isLeft == true)
-	{
-		SetLeft();
-	}
-	else
-	{
-		SetRight();
-	}
 	return;
 }
 
