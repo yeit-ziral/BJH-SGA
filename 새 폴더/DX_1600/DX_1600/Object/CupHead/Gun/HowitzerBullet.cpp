@@ -40,9 +40,15 @@ void HowitzerBullet::Shoot(Vector2 target, Vector2 startPos)
 	float time = ax / _speed;
 
 	// 시간동안 target의 y축 위치로 이동하도록 초기 y축 속도를 구한다
-	_upPower = (target.y / time) + (-800 * time);
+
+	CalculateYspeed(target.y, time);
 }
 
 void HowitzerBullet::EndEvent()
 {
+}
+
+void HowitzerBullet::CalculateYspeed(float targetY, float time)
+{
+	_upPower = (targetY / time) + (-800 * time);
 }

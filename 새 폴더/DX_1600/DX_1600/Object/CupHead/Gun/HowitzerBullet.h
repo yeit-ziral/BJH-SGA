@@ -28,7 +28,7 @@ public:
 	float GetUpPower() { return _upPower; }
 	float GetFrontPower() { return _speed; }
 
-	void CalculateYspeed();
+	void CalculateYspeed(float targetY, float time);
 
 private:
 	bool _isEnd = false;
