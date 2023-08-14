@@ -3,8 +3,11 @@
 
 using namespace tinyxml2;
 
-HowitzerBullet::HowitzerBullet()
+HowitzerBullet::HowitzerBullet(Vector2 target, Vector2 startPos)
 {
+
+
+	CalculateYspeed(target, startPos);
 }
 
 HowitzerBullet::~HowitzerBullet()
@@ -31,6 +34,29 @@ void HowitzerBullet::Render()
 
 void HowitzerBullet::Shoot(Vector2 target, Vector2 startPos)
 {
+	if (_atkCool)
+	{
+		_timer += DELTA_TIME;
+		if (_timer > _coolingtime)
+		{
+			_timer = 0.0f;
+			_atkCool = false;
+		}
+		return;
+	}
+
+
+
+	_atkCool = true;
+}
+
+void HowitzerBullet::EndEvent()
+{
+}
+
+void HowitzerBullet::CalculateYspeed(Vector2 target, Vector2 startPos)
+{
+
 	float ax = target.x - startPos.x;
 
 	// 랜덤하게 주어진 x 방향 속도로 ax를 나누어 도달 시간을 구함
@@ -41,14 +67,5 @@ void HowitzerBullet::Shoot(Vector2 target, Vector2 startPos)
 
 	// 시간동안 target의 y축 위치로 이동하도록 초기 y축 속도를 구한다
 
-	CalculateYspeed(target.y, time);
-}
-
-void HowitzerBullet::EndEvent()
-{
-}
-
-void HowitzerBullet::CalculateYspeed(float targetY, float time)
-{
-	_upPower = (targetY / time) + (-800 * time);
+	_upPower = (target.y / time) + (-800 * time);
 }

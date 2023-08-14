@@ -2,13 +2,16 @@
 class HowitzerBullet
 {
 public:
-	HowitzerBullet();
+	HowitzerBullet(Vector2 target, Vector2 startPos);
 	~HowitzerBullet();
 
 	void Update();
 	void Render();
 
 	void Shoot(Vector2 target, Vector2 startPos);
+
+	void CalculateYspeed(Vector2 target, Vector2 startPos);
+
 	void EndEvent();
 
 	void SetAngle(float value) { _bullet->GetTransform()->SetAngle(value); }
@@ -28,8 +31,6 @@ public:
 	float GetUpPower() { return _upPower; }
 	float GetFrontPower() { return _speed; }
 
-	void CalculateYspeed(float targetY, float time);
-
 private:
 	bool _isEnd = false;
 
@@ -44,9 +45,14 @@ private:
 	Vector2 _dir = Vector2();
 	float _speed = 0.0f;
 
-	float _timer = 0.0f;
 	const float _inactiveTime = 3.0f;
 
 	float _upPower = 0.0f;
+
+	float _timer = 0.0f;
+
+	float _coolingtime = 0.0f;
+
+	bool _atkCool = false;
 };
 

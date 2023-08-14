@@ -1,8 +1,4 @@
-﻿// header.h: 표준 시스템 포함 파일
-// 또는 프로젝트 특정 포함 파일이 들어 있는 포함 파일입니다.
-//
-
-#pragma once
+﻿#pragma once
 
 #include "__Others/targetver.h"
 #define WIN32_LEAN_AND_MEAN             // 거의 사용되지 않는 내용을 Windows 헤더에서 제외합니다.
@@ -27,3 +23,13 @@ using namespace DirectX;
 #define WIN_WIDTH 1280.0f
 #define WIN_HEIGHT 720.0f
 
+#include "Utility/Singleton.h"
+
+#include "System/Device.h"
+
+#include "Scene/Scene.h"
+#include "Scene/TutorialScene.h"
+
+#include "MainGame.h"
+
+extern HWND hWnd; // extern : 변수의 전방선언 같은 느낌
