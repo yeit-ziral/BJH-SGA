@@ -96,7 +96,7 @@ void Cup_Monster::Render()
 
 void Cup_Monster::PostRender()
 {
-	ImGui::SliderInt("BossState", (int*)&_state, 0, 3);
+	ImGui::SliderInt("MonsterState", (int*)&_state, 0, 3);
 }
 
 void Cup_Monster::Attack(Vector2 targetPos)

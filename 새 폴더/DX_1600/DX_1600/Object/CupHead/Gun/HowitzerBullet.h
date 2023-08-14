@@ -2,7 +2,7 @@
 class HowitzerBullet
 {
 public:
-	HowitzerBullet(Vector2 target, Vector2 startPos);
+	HowitzerBullet();
 	~HowitzerBullet();
 
 	void Update();
@@ -31,6 +31,8 @@ public:
 	float GetUpPower() { return _upPower; }
 	float GetFrontPower() { return _speed; }
 
+	void NormalizeDir() { Vector2 dir = { _speed, _upPower }; _dir = dir.NormalVector2(); }
+
 private:
 	bool _isEnd = false;
 
@@ -38,9 +40,7 @@ private:
 
 	shared_ptr<CircleCollider> _bullet;
 
-	vector<shared_ptr<Action>> _actions;
-
-	vector<shared_ptr<Sprite>> _sprites;
+	shared_ptr<Quad> _quad;
 
 	Vector2 _dir = Vector2();
 	float _speed = 0.0f;
@@ -51,8 +51,10 @@ private:
 
 	float _timer = 0.0f;
 
-	float _coolingtime = 0.0f;
+	float _coolingtime = 0.5f;
 
 	bool _atkCool = false;
+
+	float _speedFixingNum = 0.0f;
 };
 

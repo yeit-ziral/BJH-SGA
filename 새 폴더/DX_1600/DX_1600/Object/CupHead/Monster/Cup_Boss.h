@@ -31,7 +31,7 @@ public:
 	Cup_Boss();
 	~Cup_Boss();
 
-	void Update();
+	void Update(Vector2 target);
 	void Render();
 	void PostRender();
 
@@ -41,13 +41,13 @@ public:
 
 	shared_ptr<RectCollider> GetCollider() { return _collider; }
 
-	void Attack();
+	void Attack(Vector2 target);
 
 	void Dash();
 
-	void Howitzer();
+	void Howitzer(Vector2 target);
 
-	void Shoot();
+	void Shoot(Vector2 target);
 
 	void EndEventDash();
 

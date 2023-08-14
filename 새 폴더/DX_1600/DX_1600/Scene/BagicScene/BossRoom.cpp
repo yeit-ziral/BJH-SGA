@@ -50,7 +50,7 @@ void BossRoom::End()
 void BossRoom::Update()
 {
 	_player->Update();
-	_boss->Update();
+	_boss->Update(_player->GetTransform()->GetWorldPosition());
 	_track->Update();
 	_wall->Update();
 	_button->Update();

@@ -55,7 +55,7 @@ Cup_Boss::~Cup_Boss()
 {
 }
 
-void Cup_Boss::Update()
+void Cup_Boss::Update(Vector2 target)
 {
 	if (_isAlive == false)
 		return;
@@ -70,7 +70,7 @@ void Cup_Boss::Update()
 
 	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
 
-	Attack();
+	Attack(target);
 
 	//if (_isWallCrash == true)
 	//{
@@ -166,7 +166,7 @@ void Cup_Boss::CreateAction(wstring srvPath, string xmmlPath, string actionName,
 }
 
 
-void Cup_Boss::Attack()
+void Cup_Boss::Attack(Vector2 target)
 {
 	if (_attackState == Boss_Attack::DASH)
 	{
@@ -191,7 +191,7 @@ void Cup_Boss::Attack()
 
 	if (_attackState == Boss_Attack::HOWITZER && _state == Boss_State::HOWITZER2)
 	{
-		Howitzer();
+		Howitzer(target);
 		// 발사가 다 끝나면 _state를 SHOOT1으로 바꿔줌
 
 		_state = Boss_State::SHOOT1;
@@ -201,7 +201,7 @@ void Cup_Boss::Attack()
 
 	if (_attackState == Boss_Attack::SHOOT && _state == Boss_State::SHOOT1)
 	{
-		Shoot();
+		Shoot(target);
 		// 벽에 도달하면 _state를 READY1으로 바꿔줌
 		if (_isWallCrash == true)
 		{
@@ -231,16 +231,16 @@ void Cup_Boss::Dash()
 	}
 }
 
-void Cup_Boss::Howitzer()
+void Cup_Boss::Howitzer(Vector2 target)
 {
 	// 곡사포 발사 3번, 3초 기다림
 	auto bulletIter = std::find_if(_Hbullets.begin(), _Hbullets.end(),
-		[](shared_ptr<Cup_Bullet>& obj)-> bool { return !obj->_isActive; });
+		[](shared_ptr<HowitzerBullet>& obj)-> bool { return !obj->_isActive; });
 
 	if (bulletIter == _Hbullets.end())
 		return;
 
-	(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
+	(*bulletIter)->Shoot(target, _transform->GetWorldPosition());
 
 
 	if (shootCount == 3 && waitTime > 2.0f)
@@ -253,9 +253,19 @@ void Cup_Boss::Howitzer()
 	
 }
 
-void Cup_Boss::Shoot()
+void Cup_Boss::Shoot(Vector2 target)
 {
 	//총알 발사 애니메이션과 총알 발사
+	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
+		[](shared_ptr<Cup_Bullet>& obj)-> bool { return !obj->_isActive; });
+
+	if (bulletIter == _bullets.end())
+		return;
+
+	// 타겟의 위치를 받아 발사 방향 정함
+	Vector2 dir = target - _collider->GetTransform()->GetWorldPosition();
+
+	(*bulletIter)->Shoot(dir, _transform->GetWorldPosition());
 
 	if (_isLeft == true)
 	{
