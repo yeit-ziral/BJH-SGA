@@ -7,6 +7,7 @@ public:
 
 	void Update();
 	void Render();
+	void PostRender();
 
 	void Shoot(Vector2 target, Vector2 startPos);
 
@@ -50,10 +51,6 @@ private:
 	float _upPower = 0.0f;
 
 	float _timer = 0.0f;
-
-	float _coolingtime = 0.5f;
-
-	bool _atkCool = false;
 
 	float _speedFixingNum = 0.0f;
 };

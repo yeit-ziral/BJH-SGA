@@ -107,6 +107,7 @@ void Cup_Boss::Update(Vector2 target)
 
 	for (auto bullet : _bullets)
 		bullet->Update();
+
 }
 
 void Cup_Boss::Render()
@@ -133,6 +134,8 @@ void Cup_Boss::PostRender()
 	ImGui::Text("BossHP : %d", _hp);
 	ImGui::SliderInt("State", (int*)&_state, 0, 13);
 	//ImGui::SliderInt("Mosaic", &_intBuffer->_data.bInt, 0, 300);
+	for (auto bullet : _Hbullets)
+		bullet->PostRender();
 }
 
 void Cup_Boss::CreateAction(wstring srvPath, string xmmlPath, string actionName, Vector2 size, Action::Type type, CallBack event)
@@ -206,9 +209,17 @@ void Cup_Boss::Attack(Vector2 target)
 		Howitzer(target);
 		// 발사가 다 끝나면 _state를 SHOOT1으로 바꿔줌
 
-		_state = Boss_State::SHOOT1;
-		_actions[_state]->Play();
-		_actions[HOWITZER2]->Reset();
+		if (shootCount == 3 && waitTime > 2.0f)
+		{
+			_attackState = Boss_Attack::SHOOT;
+			shootCount = 0;
+			waitTime = 0.0f;
+
+			_state = Boss_State::SHOOT1;
+			_actions[_state]->Play();
+			_actions[HOWITZER2]->Reset();
+		}
+
 	}
 
 	if (_attackState == Boss_Attack::SHOOT && _state == Boss_State::SHOOT1)
@@ -224,6 +235,8 @@ void Cup_Boss::Attack(Vector2 target)
 			_isWallCrash = false;
 		}
 	}
+
+	waitTime += 1 * DELTA_TIME;
 }
 
 void Cup_Boss::Dash()
@@ -252,17 +265,23 @@ void Cup_Boss::Howitzer(Vector2 target)
 	if (bulletIter == _Hbullets.end())
 		return;
 
-	(*bulletIter)->Shoot(target, _transform->GetWorldPosition());
+	(*bulletIter)->Shoot(target, this->GetCollider()->GetTransform()->GetWorldPosition());
 
+	shootCount += 1;
 
-	if (shootCount == 3 && waitTime > 2.0f)
+	if (_atkCool)
 	{
-		_attackState = Boss_Attack::SHOOT;
-		shootCount = 0;
-		waitTime = 0.0f;
-
+		_timer += DELTA_TIME;
+		if (_timer > _coolingtime)
+		{
+			_timer = 0.0f;
+			_atkCool = false;
+		}
+		return;
 	}
 	
+
+	_atkCool = true;
 }
 
 void Cup_Boss::Shoot(Vector2 target)

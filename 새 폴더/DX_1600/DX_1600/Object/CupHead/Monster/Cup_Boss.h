@@ -108,5 +108,11 @@ private:
 	float _jumpPower = 0.0f;
 
 	float waitTime = 0.0f;
+
+	float _coolingtime = 1.5f;
+
+	bool _atkCool = false;
+
+	float _timer = 0.0f;
 };
 
