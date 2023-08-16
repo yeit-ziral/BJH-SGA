@@ -101,6 +101,12 @@ void Cup_Boss::Update(Vector2 target)
 
 		_collider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
 	}
+
+	for (auto bullet : _Hbullets)
+		bullet->Update();
+
+	for (auto bullet : _bullets)
+		bullet->Update();
 }
 
 void Cup_Boss::Render()
@@ -114,6 +120,12 @@ void Cup_Boss::Render()
 	_sprites[_state]->Render();
 
 	_collider->Render();
+
+	for (auto bullet : _Hbullets)
+		bullet->Render();
+
+	for (auto bullet : _bullets)
+		bullet->Render();
 }
 
 void Cup_Boss::PostRender()
