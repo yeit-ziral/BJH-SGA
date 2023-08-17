@@ -1,10 +1,18 @@
-cbuffer WVP : register(b0)
+cbuffer World : register(b0)
 {
     matrix world;
-    matrix view;
-    matrix projection;
+
 };
 
+cbuffer View : register(b1)
+{
+    matrix view;
+};
+
+cbuffer Proj : register(b2)
+{
+    matrix projection;
+};
 
 struct VertexInput
 {

@@ -36,9 +36,12 @@ void MainGame::Render()
 void MainGame::Initialize()
 {
 	Device::GetInstance(); // 안해줘도 생성시 만들어짐
+	Enviroment::GetInstance();
 }
 
 void MainGame::Release()
 {
 	Device::Delete();
+	Shader::Delete();
+	Enviroment::Delete();
 }

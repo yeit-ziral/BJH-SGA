@@ -22,14 +22,6 @@ struct VertexColor
     XMFLOAT4 color;
 };
 
-struct WVP
-{
-    XMMATRIX world;
-    XMMATRIX view;
-    XMMATRIX projection;
-};
-
-
 class TutorialScene : public Scene
 {
 public:
@@ -45,27 +37,26 @@ public:
 	virtual void PostRender() override;
 
 private:
-    WVP wvp;
+
+    VertexShader* vertexShader;
+    PixelShader* pixelShader;
+    
+    VertexBuffer* vertexBuffer;
+
+    IndexBuffer* indexBuffer;
+
+    MatrixBuffer* worldBuffer;
+    MatrixBuffer* viewBuffer;
+    MatrixBuffer* projBuffer;
+
+    ///////////////////////////////////////
 
     vector<VertexColor> vertices;
     vector<UINT> indices;
 
-   
-
-
-    UINT stride = 0;
-    UINT offset = 0;
-
-
-    /////////////////////////////////////////////////////////////////
-
-
     
 
 
-    ID3D11Buffer* vertexBuffer; // constBuffer, IndexBuffer등이 추가로 있음
-    ID3D11Buffer* indexBuffer;
-    ID3D11Buffer* constBuffer;
 
 
 };
