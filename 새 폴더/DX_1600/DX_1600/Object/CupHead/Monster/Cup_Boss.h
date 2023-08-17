@@ -109,7 +109,8 @@ private:
 
 	float waitTime = 0.0f;
 
-	float _coolingtime = 1.5f;
+	float _coolingtimeH = 1.5f;
+	float _coolingtime = 0.5f;
 
 	bool _atkCool = false;
 

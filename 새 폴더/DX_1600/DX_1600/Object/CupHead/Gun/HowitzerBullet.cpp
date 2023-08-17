@@ -36,9 +36,9 @@ void HowitzerBullet::Update()
 
 	NormalizeDir();
 
-	_transform->SetAngle(atan2f(_dir.y, _dir.x));
+	_transform->SetAngle(atan2f(_dir.y, _dir.x) + PI);
 
-	_bullet->GetTransform()->AddVector2((_dir * _speedFixingNum) * DELTA_TIME);
+	_bullet->GetTransform()->AddVector2(a * DELTA_TIME);
 
 	_bullet->Update();
 	_transform->Update();
@@ -78,13 +78,15 @@ void HowitzerBullet::CalculateYspeed(Vector2 target, Vector2 startPos)
 
 	// 랜덤하게 주어진 x 방향 속도로 ax를 나누어 도달 시간을 구함
 
-	_speed = (ax / 1.5f) + RandomNum(0, 5);
+	_speed = (ax / 1.5f);
 
 	float time = ax / _speed;
 
 	// 시간동안 target의 y축 위치로 이동하도록 초기 y축 속도를 구한다
 
-	_upPower = (ay / time) - (-800 * time);
+	_upPower = ((ay / time) - (-400 * time));
+
+	_speed += RandomNum(-100, 100);
 }
 
 void HowitzerBullet::EndEvent()

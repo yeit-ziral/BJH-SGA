@@ -97,6 +97,12 @@ void BossRoom::Update()
 				_boss->Damage(15);
 		}
 	}
+
+	if (_boss->IsCollsion_Bullets(_player->GetCollider()))
+	{
+		_player->Attacked(1);
+		//_player->SetHit(true);
+	}
 }
 
 void BossRoom::Render()

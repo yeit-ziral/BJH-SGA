@@ -49,6 +49,8 @@ Cup_Boss::Cup_Boss()
 		shared_ptr<HowitzerBullet> bullet = make_shared<HowitzerBullet>();
 		_Hbullets.push_back(bullet);
 	}
+
+	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
 
 Cup_Boss::~Cup_Boss()
@@ -258,6 +260,16 @@ void Cup_Boss::Dash()
 
 void Cup_Boss::Howitzer(Vector2 target)
 {
+	if (_atkCool)
+	{
+		_timer += DELTA_TIME;
+		if (_timer > _coolingtimeH)
+		{
+			_timer = 0.0f;
+			_atkCool = false;
+		}
+		return;
+	}
 	// 곡사포 발사 3번, 3초 기다림
 	auto bulletIter = std::find_if(_Hbullets.begin(), _Hbullets.end(),
 		[](shared_ptr<HowitzerBullet>& obj)-> bool { return !obj->_isActive; });
@@ -269,6 +281,22 @@ void Cup_Boss::Howitzer(Vector2 target)
 
 	shootCount += 1;
 
+	_atkCool = true;
+}
+
+void Cup_Boss::Shoot(Vector2 target)
+{
+	if (_isLeft == true)
+	{
+		Vector2 movePos = Vector2(-50.0f, 0.0f);
+		Move(movePos);
+	}
+	else
+	{
+		Vector2 movePos = Vector2(50.0f, 0.0f);
+		Move(movePos);
+	}
+
 	if (_atkCool)
 	{
 		_timer += DELTA_TIME;
@@ -279,13 +307,7 @@ void Cup_Boss::Howitzer(Vector2 target)
 		}
 		return;
 	}
-	
 
-	_atkCool = true;
-}
-
-void Cup_Boss::Shoot(Vector2 target)
-{
 	//총알 발사 애니메이션과 총알 발사
 	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
 		[](shared_ptr<Cup_Bullet>& obj)-> bool { return !obj->_isActive; });
@@ -298,17 +320,9 @@ void Cup_Boss::Shoot(Vector2 target)
 
 	(*bulletIter)->Shoot(dir, _transform->GetWorldPosition());
 
-	if (_isLeft == true)
-	{
-		Vector2 movePos = Vector2(-50.0f, 0.0f);
-		Move(movePos);
-	}
-	else
-	{
-		Vector2 movePos = Vector2(50.0f, 0.0f);
-		Move(movePos);
-	}
 
+
+	_atkCool = true;
 }
 
 void Cup_Boss::EndEventDash()
@@ -428,6 +442,19 @@ void Cup_Boss::GetAttacked(int amount)
 
 bool Cup_Boss::IsCollsion_Bullets(shared_ptr<Collider> col)
 {
+	for (auto bullet : _Hbullets)
+	{
+		if (bullet->_isActive == false)
+			continue;
+
+		if (col->IsCollision(bullet->GetBulletCollider()))
+		{
+			bullet->_isActive = false;
+			EFFECT_PLAY("Hit", bullet->GetBulletCollider()->GetTransform()->GetWorldPosition());
+			return true;
+		}
+	}
+
 	for (auto bullet : _bullets)
 	{
 		if (bullet->_isActive == false)
