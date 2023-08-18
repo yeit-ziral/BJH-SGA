@@ -72,6 +72,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // TODO : Update, Render
+            mainGame->Update();
+
             mainGame->Render();
         }
     };

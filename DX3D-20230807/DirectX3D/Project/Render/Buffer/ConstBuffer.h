@@ -15,4 +15,6 @@ private:
 	UINT  dataSize;
 
 	ID3D11Buffer* constBuffer;
+
+	D3D11_MAPPED_SUBRESOURCE subResource;
 };

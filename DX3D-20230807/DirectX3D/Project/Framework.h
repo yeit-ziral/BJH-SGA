@@ -30,16 +30,20 @@ using namespace DirectX;
 #include "Utility/Singleton.h"
 
 #include "System/Device.h"
-#include "System/Enviroment.h"
 
 #include "Render/Shader/Shader.h"
 #include "Render/Shader/VertexShader.h"
 #include "Render/Shader/PixelShader.h"
 
+#include "Render/Buffer/VertexLayout.h"
 #include "Render/Buffer/VertexBuffer.h"
 #include "Render/Buffer/IndexBuffer.h"
 #include "Render/Buffer/ConstBuffer.h"
 #include "GlobalBuffer.h"
+
+#include "System/Enviroment.h"
+
+#include "Object/Basic/Cube.h"
 
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"
