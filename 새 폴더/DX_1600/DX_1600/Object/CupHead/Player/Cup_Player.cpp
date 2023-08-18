@@ -1,10 +1,10 @@
 #include "framework.h"
 #include "Cup_Player.h"
 #include "Cup_Ani.h"
-#include "Gun/Gun.h"
-#include "Gun/NormalGun.h"
-#include "Gun/Machinegun.h"
-#include "Gun/ChargeGun.h"
+#include "../Gun/Gun.h"
+#include "../Gun/NormalGun.h"
+#include "../Gun/Machinegun.h"
+#include "../Gun/ChargeGun.h"
 
 using namespace tinyxml2;
 

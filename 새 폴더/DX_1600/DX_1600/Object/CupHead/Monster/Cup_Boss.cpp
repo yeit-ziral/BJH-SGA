@@ -224,12 +224,20 @@ void Cup_Boss::Attack(Vector2 target)
 
 	}
 
-	if (_attackState == Boss_Attack::SHOOT && _state == Boss_State::SHOOT1)
+	if (_attackState == Boss_Attack::SHOOT && _state == Boss_State::SHOOT2)
 	{
 		Shoot(target);
 		// 벽에 도달하면 _state를 READY1으로 바꿔줌
 		if (_isWallCrash == true)
 		{
+			if (_isLeft == true)
+			{
+				SetLeft();
+			}
+			else
+			{
+				SetRight();
+			}
 			_state = Boss_State::READY1;
 			_attackState = Boss_Attack::DASH;
 			_actions[_state]->Play();
@@ -319,8 +327,6 @@ void Cup_Boss::Shoot(Vector2 target)
 	Vector2 dir = target - _collider->GetTransform()->GetWorldPosition();
 
 	(*bulletIter)->Shoot(dir, _transform->GetWorldPosition());
-
-
 
 	_atkCool = true;
 }

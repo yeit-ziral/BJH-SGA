@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "BossRoom.h"
-#include "../../Object/CupHead/Cup_Player.h"
+#include "../../Object/CupHead/Player/Cup_Player.h"
 #include "../../Object/CupHead/Monster/Cup_Boss.h"
 #include "../../Object/CupHead/Cup_Wall.h"
 #include "../../Object/CupHead/Cup_Track.h"
@@ -11,7 +11,7 @@ BossRoom::BossRoom()
 	_player->SetPosition(Vector2(0, 0));
 
 	_track = make_shared<Cup_Track>();
-	Vector2 trackSize = _track->GetTrackSize();
+
 
 	_wall = make_shared<Cup_Wall>();
 
@@ -20,9 +20,7 @@ BossRoom::BossRoom()
 
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 
-	CAMERA->SetTarget(_player->GetTransform());
-	CAMERA->SetLeftBottom(Vector2((-trackSize.x * 0.125f), -100.0f));
-	CAMERA->SetRightTop(Vector2((trackSize.x), 1000.0f));
+
 
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
 	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
@@ -40,6 +38,12 @@ BossRoom::~BossRoom()
 
 void BossRoom::Init()
 {
+	Vector2 trackSize = _track->GetTrackSize();
+
+	CAMERA->SetTarget(_player->GetTransform());
+	CAMERA->SetLeftBottom(Vector2((-trackSize.x * 0.125f), -100.0f));
+	CAMERA->SetRightTop(Vector2((trackSize.x), 1000.0f));
+
 	Load();
 }
 

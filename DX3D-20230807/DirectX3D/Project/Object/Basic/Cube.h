@@ -9,9 +9,11 @@ public:
     void Render();
 
 private:
+    // Shader -> Material
     VertexShader* vertexShader;
     PixelShader* pixelShader;
 
+    // Vertex, Index -> Mesh
     VertexBuffer* vertexBuffer;
 
     IndexBuffer* indexBuffer;

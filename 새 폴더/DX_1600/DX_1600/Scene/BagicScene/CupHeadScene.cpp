@@ -1,16 +1,26 @@
 #include "framework.h"
 #include "CupHeadScene.h"
-#include "../../Object/CupHead/Cup_Player.h"
+#include "../../Object/CupHead/Player/Cup_Player.h"
 #include "../../Object/CupHead/Monster/Cup_Monster.h"
 #include "../../Object/CupHead/Cup_Track.h"
 #include "../../Object/CupHead/Cup_Block.h"
 
 CupHeadScene::CupHeadScene()
 {
+
+}
+
+CupHeadScene::~CupHeadScene()
+{
+}
+
+void CupHeadScene::Init()
+{
 	_player = make_shared<Cup_Player>();
-	_player->SetPosition(Vector2(0,0));
+	_player->SetPosition(Vector2(0, 0));
 
 	_track = make_shared<Cup_Track>();
+
 	Vector2 trackSize = _track->GetTrackSize();
 
 	_track2 = make_shared<Cup_Track>();
@@ -28,23 +38,15 @@ CupHeadScene::CupHeadScene()
 	CAMERA->SetLeftBottom(Vector2((trackSize.x * -0.5f), -1000.0f));
 	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
+
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
 	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
-	_button->SetPosition(Vector2(0,0));
-	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
 
-	Load();
+	_button->SetPosition(Vector2(0, 0));
+	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
 
 	_player->SetHP(_player->GetMaxHp());
 
-}
-
-CupHeadScene::~CupHeadScene()
-{
-}
-
-void CupHeadScene::Init()
-{
 	Load();
 }
 

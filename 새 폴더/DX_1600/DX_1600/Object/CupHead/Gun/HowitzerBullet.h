@@ -53,5 +53,9 @@ private:
 	float _timer = 0.0f;
 
 	float _speedFixingNum = 0.0f;
+
+	float _activeTimer = 0.0f;
+
+	float _extictTime = 5.0f;
 };
 

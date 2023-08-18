@@ -25,6 +25,15 @@ void HowitzerBullet::Update()
 	if (!_isActive)
 		return;
 
+	// Update the timer
+	_activeTimer += DELTA_TIME;
+
+	if (_activeTimer >= _extictTime)
+	{
+		_isActive = false;
+		_activeTimer = 0.0f;
+	}
+
 	_upPower -= 800.0f * DELTA_TIME; // √ ¥Á -800 pixel/sec
 
 	if (_upPower < -600.0f)

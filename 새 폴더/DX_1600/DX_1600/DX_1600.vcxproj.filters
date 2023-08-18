@@ -189,10 +189,10 @@
     <ClInclude Include="Object\CupHead\Cup_Block.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\CupHead\Cup_Ani.h">
+    <ClInclude Include="Object\CupHead\Player\Cup_Ani.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\CupHead\Cup_Player.h">
+    <ClInclude Include="Object\CupHead\Player\Cup_Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object\CupHead\Gun\Machinegun.h">
@@ -365,10 +365,10 @@
     <ClCompile Include="Object\CupHead\Cup_Block.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\CupHead\Cup_Ani.cpp">
+    <ClCompile Include="Object\CupHead\Player\Cup_Ani.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\CupHead\Cup_Player.cpp">
+    <ClCompile Include="Object\CupHead\Player\Cup_Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\CupHead\Gun\Machinegun.cpp">
