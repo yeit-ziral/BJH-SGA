@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "Cup_Monster.h"
-#include "../Cup_Bullet.h"
+#include "../Gun/Bullets/Cup_Bullet.h"
 using namespace tinyxml2;
 
 Cup_Monster::Cup_Monster()

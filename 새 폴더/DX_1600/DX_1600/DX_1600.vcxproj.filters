@@ -120,7 +120,7 @@
     <ClInclude Include="Object\CupHead\Monster\Cup_Monster.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\CupHead\Cup_Bullet.h">
+    <ClInclude Include="Object\CupHead\Gun\Bullets\Cup_Bullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scene\BagicScene\EffectScene.h">
@@ -213,7 +213,7 @@
     <ClInclude Include="Scene\BagicScene\BossRoom.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\CupHead\Gun\ChargingBullet.h">
+    <ClInclude Include="Object\CupHead\Gun\Bullets\ChargingBullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object\CupHead\Gun\ChargingEffect.h">
@@ -225,7 +225,10 @@
     <ClInclude Include="Framework\Render\RenderTarget.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\CupHead\Gun\HowitzerBullet.h">
+    <ClInclude Include="Object\CupHead\Gun\Bullets\HowitzerBullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\BagicScene\Inventory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -320,7 +323,7 @@
     <ClCompile Include="Object\CupHead\Monster\Cup_Monster.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\CupHead\Cup_Bullet.cpp">
+    <ClCompile Include="Object\CupHead\Gun\Bullets\Cup_Bullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\BagicScene\EffectScene.cpp">
@@ -389,7 +392,7 @@
     <ClCompile Include="Scene\BagicScene\BossRoom.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\CupHead\Gun\ChargingBullet.cpp">
+    <ClCompile Include="Object\CupHead\Gun\Bullets\ChargingBullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\CupHead\Gun\ChargingEffect.cpp">
@@ -401,7 +404,10 @@
     <ClCompile Include="Framework\Render\RenderTarget.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\CupHead\Gun\HowitzerBullet.cpp">
+    <ClCompile Include="Object\CupHead\Gun\Bullets\HowitzerBullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\BagicScene\Inventory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

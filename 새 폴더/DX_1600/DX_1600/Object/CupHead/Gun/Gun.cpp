@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "Gun.h"
 
-#include "../Cup_Bullet.h"
+#include "Bullets/Cup_Bullet.h"
 
 using namespace tinyxml2;
 

@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "ChargeGun.h"
-#include "ChargingBullet.h"
+#include "Bullets/ChargingBullet.h"
 #include "ChargingEffect.h"
 
 ChargeGun::ChargeGun()
