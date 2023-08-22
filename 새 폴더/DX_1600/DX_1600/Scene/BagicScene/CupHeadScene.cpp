@@ -4,10 +4,10 @@
 #include "../../Object/CupHead/Monster/Cup_Monster.h"
 #include "../../Object/CupHead/Cup_Track.h"
 #include "../../Object/CupHead/Cup_Block.h"
+#include "../../Object/CupHead/Potal.h"
 
 CupHeadScene::CupHeadScene()
 {
-
 }
 
 CupHeadScene::~CupHeadScene()
@@ -46,6 +46,9 @@ void CupHeadScene::Init()
 	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
 
 	_player->SetHP(_player->GetMaxHp());
+
+
+	_potal = make_shared<Potal>();
 
 	Load();
 }

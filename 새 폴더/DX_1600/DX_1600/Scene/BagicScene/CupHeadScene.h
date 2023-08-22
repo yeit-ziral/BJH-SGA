@@ -30,5 +30,7 @@ private:
 	shared_ptr<ActionFilterBuffer> _AFBuffer;
 
 	shared_ptr<Effect> _effect;
+
+	shared_ptr<class Potal> _potal;
 };
 

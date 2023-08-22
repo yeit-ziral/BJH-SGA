@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextureAtlas imagePath="Potal.png" width="2000" height="100" scale="1" format="RGBA8888">
+  <sprite n="Potal00.png" x="0"		y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal01.png" x="100"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal02.png" x="200"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal03.png" x="300"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal04.png" x="400"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal05.png" x="500"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal06.png" x="600"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal07.png" x="700"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal08.png" x="800"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal09.png" x="900"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal10.png" x="1000"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal11.png" x="1100"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal12.png" x="1200"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal13.png" x="1300"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal14.png" x="1400"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal15.png" x="1500"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal16.png" x="1600"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal17.png" x="1700"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal18.png" x="1800"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+  <sprite n="Potal19.png" x="1900"	y="0" w="100" h="100" pX="0.5" pY="0.5"/>
+</TextureAtlas>

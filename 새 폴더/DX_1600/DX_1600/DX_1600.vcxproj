@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Potal.h" />
+    <ClInclude Include="Scene\BagicScene\Lobby.h" />
     <ClInclude Include="Scene\BagicScene\Inventory.h" />
     <ClInclude Include="Object\CupHead\Gun\Bullets\HowitzerBullet.h" />
     <ClInclude Include="Object\CupHead\Cup_Wall.h" />
@@ -184,7 +186,6 @@
     <ClInclude Include="Object\Bagic\EffectManager.h" />
     <ClInclude Include="Object\Bagic\Effect.h" />
     <ClInclude Include="Scene\SceneManager.h" />
-    <ClInclude Include="Scene\BagicScene\EffectScene.h" />
     <ClInclude Include="Object\CupHead\Gun\Bullets\Cup_Bullet.h" />
     <ClInclude Include="Object\CupHead\Monster\Cup_Monster.h" />
     <ClInclude Include="Scene\BagicScene\CupHeadScene.h" />
@@ -225,6 +226,8 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Potal.cpp" />
+    <ClCompile Include="Scene\BagicScene\Lobby.cpp" />
     <ClCompile Include="Scene\BagicScene\Inventory.cpp" />
     <ClCompile Include="Object\CupHead\Gun\Bullets\HowitzerBullet.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Wall.cpp" />
@@ -250,7 +253,6 @@
     <ClCompile Include="Object\Bagic\EffectManager.cpp" />
     <ClCompile Include="Object\Bagic\Effect.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
-    <ClCompile Include="Scene\BagicScene\EffectScene.cpp" />
     <ClCompile Include="Object\CupHead\Gun\Bullets\Cup_Bullet.cpp" />
     <ClCompile Include="Object\CupHead\Monster\Cup_Monster.cpp" />
     <ClCompile Include="Scene\BagicScene\CupHeadScene.cpp" />
@@ -299,9 +301,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX_1600.ico" />
+    <Image Include="Resource\Bullet.png" />
+    <Image Include="Resource\CupHead\boss\Boss_Opening_Scene.png" />
     <Image Include="Resource\CupHead\boss\Clown_Ready_Dash.png" />
     <Image Include="Resource\CupHead\boss\Clown_Wall_Crash.png" />
     <Image Include="Resource\CupHead\player\AimStraightCharge.png" />
+    <Image Include="Resource\CupHead\player\AimStraightShot.png" />
     <Image Include="Resource\CupHead\player\Attack.png" />
     <Image Include="Resource\CupHead\boss\Clown_Dash.png" />
     <Image Include="Resource\CupHead\boss\Clown_Dash_Loop.png" />
@@ -324,7 +329,12 @@
     <Image Include="Resource\CupHead\boss\BossEnd.png" />
     <Image Include="Resource\CupHead\boss\BossLoop.png" />
     <Image Include="Resource\CupHead\boss\BossStart.png" />
+    <Image Include="Resource\CupHead\player\Jump.png" />
+    <Image Include="Resource\CupHead\player\Player_Ghost.png" />
     <Image Include="Resource\CupHead\player\Player_Hit.png" />
+    <Image Include="Resource\CupHead\player\Run.png" />
+    <Image Include="Resource\CupHead\player\RunShot.png" />
+    <Image Include="Resource\CupHead\weapon\Bow.png" />
     <Image Include="Resource\CupHead\weapon\ChargeBullet.png" />
     <Image Include="Resource\CupHead\weapon\ChargingEffect.png" />
     <Image Include="Resource\CupHead\weapon\Kar98.png" />
@@ -333,6 +343,8 @@
     <Image Include="Resource\CupHead\player\Idle.png" />
     <Image Include="Resource\CupHead\weapon\rifle.png" />
     <Image Include="Resource\howitzerBullet.png" />
+    <Image Include="Resource\Player.png" />
+    <Image Include="Resource\Potal.png" />
     <Image Include="Resource\UI\Button.png" />
     <Image Include="small.ico" />
   </ItemGroup>
@@ -518,6 +530,7 @@
     <Xml Include="Resource\CupHead\boss\Clown_Ready_Dash.xml" />
     <Xml Include="Resource\CupHead\boss\Clown_Wall_Crash.xml" />
     <Xml Include="Resource\CupHead\player\AimStraightCharge.xml" />
+    <Xml Include="Resource\CupHead\player\AimStraightShot.xml" />
     <Xml Include="Resource\CupHead\player\Attack.xml" />
     <Xml Include="Resource\CupHead\boss\Clown_Dash.xml" />
     <Xml Include="Resource\CupHead\boss\Clown_Dash_Loop.xml" />
@@ -540,7 +553,12 @@
     <Xml Include="Resource\CupHead\boss\BossLoop.xml" />
     <Xml Include="Resource\CupHead\boss\BossStart.xml" />
     <Xml Include="Resource\CupHead\player\Idle.xml" />
+    <Xml Include="Resource\CupHead\player\Jump.xml" />
+    <Xml Include="Resource\CupHead\player\Player_Ghost.xml" />
     <Xml Include="Resource\CupHead\player\Player_Hit.xml" />
+    <Xml Include="Resource\CupHead\player\Run.xml" />
+    <Xml Include="Resource\CupHead\player\RunShot.xml" />
+    <Xml Include="Resource\Potal.xml" />
     <Xml Include="Resource\CupHead\weapon\ChargeBullet.xml" />
     <Xml Include="Resource\CupHead\weapon\ChargingEffect.xml" />
     <Xml Include="Resource\CupHead\weapon\Kar98.xml" />
@@ -548,9 +566,23 @@
     <Xml Include="Resource\CupHead\weapon\SunLord.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="fmod.dll" />
+    <None Include="imgui.ini" />
+    <None Include="Library\FMOD\fmod.dll" />
     <None Include="Library\FMOD\inc\fmod.cs" />
     <None Include="Library\FMOD\inc\fmod_dsp.cs" />
     <None Include="Library\FMOD\inc\fmod_errors.cs" />
+    <None Include="Save\map.map" />
+    <None Include="Save\test.test" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resource\Sound\attack.wav" />
+    <Media Include="Resource\Sound\BGM.mp3" />
+    <Media Include="Resource\Sound\drumloop.wav" />
+    <Media Include="Resource\Sound\jump.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Library\FMOD\fmod_vc.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

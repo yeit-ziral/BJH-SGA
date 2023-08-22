@@ -2,7 +2,6 @@
 #include "Program.h"
 
 #include "../Scene/BagicScene/CupHeadScene.h"
-#include "../Scene/BagicScene/EffectScene.h"
 #include "../Scene/BagicScene/MapToolScene.h"
 
 Program::Program() 

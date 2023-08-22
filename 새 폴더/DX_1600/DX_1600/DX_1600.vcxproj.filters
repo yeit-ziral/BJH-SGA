@@ -123,9 +123,6 @@
     <ClInclude Include="Object\CupHead\Gun\Bullets\Cup_Bullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\BagicScene\EffectScene.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Object\Bagic\Effect.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -231,6 +228,12 @@
     <ClInclude Include="Scene\BagicScene\Inventory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\BagicScene\Lobby.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CupHead\Potal.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -326,9 +329,6 @@
     <ClCompile Include="Object\CupHead\Gun\Bullets\Cup_Bullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\BagicScene\EffectScene.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Bagic\Effect.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -408,6 +408,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\BagicScene\Inventory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\BagicScene\Lobby.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CupHead\Potal.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -528,6 +534,36 @@
     <Image Include="Resource\howitzerBullet.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Bullet.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\Player.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\boss\Boss_Opening_Scene.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\player\AimStraightShot.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\player\Jump.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\player\Player_Ghost.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\player\Run.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\player\RunShot.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\CupHead\weapon\Bow.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\Potal.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -575,10 +611,36 @@
     <Xml Include="Resource\CupHead\weapon\ChargingEffect.xml" />
     <Xml Include="Resource\CupHead\boss\Clown_Ready_Dash.xml" />
     <Xml Include="Resource\CupHead\boss\Clown_Wall_Crash.xml" />
+    <Xml Include="Resource\CupHead\player\AimStraightShot.xml" />
+    <Xml Include="Resource\CupHead\player\Jump.xml" />
+    <Xml Include="Resource\CupHead\player\Player_Ghost.xml" />
+    <Xml Include="Resource\CupHead\player\Run.xml" />
+    <Xml Include="Resource\CupHead\player\RunShot.xml" />
+    <Xml Include="Resource\Potal.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\FMOD\inc\fmod_errors.cs" />
     <None Include="Library\FMOD\inc\fmod_dsp.cs" />
     <None Include="Library\FMOD\inc\fmod.cs" />
+    <None Include="fmod.dll" />
+    <None Include="imgui.ini" />
+    <None Include="Save\map.map" />
+    <None Include="Save\test.test" />
+    <None Include="Library\FMOD\fmod.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resource\Sound\attack.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="Resource\Sound\BGM.mp3" />
+    <Media Include="Resource\Sound\drumloop.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+    <Media Include="Resource\Sound\jump.wav">
+      <Filter>리소스 파일</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Library\FMOD\fmod_vc.lib" />
   </ItemGroup>
 </Project>

@@ -8,8 +8,8 @@
 SceneManager* SceneManager::_instance = nullptr;
 SceneManager::SceneManager()
 {
-	_scenes.push_back(make_shared<BossRoom>());
 	_scenes.push_back(make_shared<CupHeadScene>());
+	_scenes.push_back(make_shared<BossRoom>());
 
 	//_scenes.push_back(make_shared<MapToolScene>());
 
