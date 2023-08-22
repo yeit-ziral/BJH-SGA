@@ -3,11 +3,63 @@
 
 Cube::Cube()
 {
-    vertexShader = Shader::GetVS(L"Tutorial");
-    pixelShader = Shader::GetPS(L"Tutorial");
+    material = new Material(L"Tutorial");
 
+ 
+    CreateMesh();
+
+
+
+    //WVP
+
+    worldBuffer = new MatrixBuffer();
+}
+
+Cube::~Cube()
+{
+    delete mesh;
+    delete material;
+
+    delete worldBuffer;
+}
+
+void Cube::Update()
+{
+    //static float angle = 0.0f;
+
+    //angle += 0.0002f;
+
+    //XMMATRIX world = XMMatrixRotationRollPitchYaw(angle, angle, 0.0f); // RollPitchYaw : Roll->바라보는 방향을 축으로 회전, Pitch->바라보는 방향에서 오른쪽을 축으로 회전, Yaw->바라보는 방향의 위아래 방향을 축으로 회전
+
+    S = XMMatrixScaling(scale.x, scale.y, scale.z);
+    R = XMMatrixRotationRollPitchYaw(rotation.x, rotation.y, rotation.z); // Roll -> Pitch -> Yaw 순으로 돌아감(z축 회전은 가장 마지막에 적용해서 다른 축 회전에 영향을 안줌)
+    T = XMMatrixTranslation(translation.x, translation.y, translation.z);
+
+    world = S * R * T;
+
+    worldBuffer->SetData(world);
+}
+
+void Cube::Render()
+{
+    material->SetMaterial();
+        mesh->SetMesh();
+     //여기까지 세팅하는 단계
+
+    //deviceContext->Draw(vertices.size(), 0); // Draw부터 렌더링 시작
+    DC->DrawIndexed(indices.size(), 0, 0); //index로 Draw부터 렌더링 시작
+
+
+    // Draw
+    //WVP
+    worldBuffer->SetVSBuffer(0);
+
+}
+
+void Cube::CreateMesh()
+{
     //Vertex
-    //Vertex vertex(0.0f, 0.0f, 0.0f);
+ //Vertex vertex(0.0f, 0.0f, 0.0f);
     vertices =
     {
         VertexColor({-1.0f, +1.0f, -1.0f}, {1.0f, 0.0f,0.0f,1.0f}),
@@ -23,7 +75,7 @@ Cube::Cube()
     // 선형 보간법으로 각 정점에서 거리에 비례하여 색을 섞어서 보여줌
 
    //VertexBuffer
-    vertexBuffer = new VertexBuffer(vertices);
+
 
 
     //IndexBuffer
@@ -54,51 +106,24 @@ Cube::Cube()
         6, 3, 7
     };
 
-    indexBuffer = new IndexBuffer(indices);
-
-
-    //WVP
-
-    worldBuffer = new MatrixBuffer();
+    mesh = new Mesh(vertices, indices);
 }
 
-Cube::~Cube()
+void Cube::Debug()
 {
-    delete vertexBuffer;
-    delete indexBuffer;
+    if (ImGui::BeginMenu("Cube"))
+    {
+        ImGui::DragFloat3("Scale",          (float*)&scale,         0.01f,      0.01f,      100.0f);
+        //ImGui::DragFloat3("Rotation",       (float*)&rotation,      0.01f,      -XM_2PI,    XM_2PI);
 
-    delete worldBuffer;
-}
+        ImGui::SliderAngle("RotationX", &rotation.x);
+        ImGui::SliderAngle("RotationY", &rotation.y);
+        ImGui::SliderAngle("RotationZ", &rotation.z);
 
-void Cube::Update()
-{
-    static float angle = 0.0f;
-
-    angle += 0.0002f;
-
-    XMMATRIX world = XMMatrixRotationRollPitchYaw(angle, angle, 0.0f); // RollPitchYaw : Roll->바라보는 방향을 축으로 회전, Pitch->바라보는 방향에서 오른쪽을 축으로 회전, Yaw->바라보는 방향의 위아래 방향을 축으로 회전
-
-    worldBuffer->SetData(world);
-}
-
-void Cube::Render()
-{
-    vertexShader->SetShader();
-    pixelShader->SetShader();
+        ImGui::DragFloat3("Translation",    (float*)&translation,   0.01f,      -WIN_WIDTH, WIN_WIDTH);
 
 
-    vertexBuffer->IASetBuffer();
-    indexBuffer->IASetBuffer();
 
-
-    // 여기까지는 세팅하는거라서 순서 상관 없음
-
-    //deviceContext->Draw(vertices.size(), 0); // Draw부터 렌더링 시작
-    DC->DrawIndexed(indices.size(), 0, 0); //index로 Draw부터 렌더링 시작
-
-
-    // Draw
-    //WVP
-    worldBuffer->SetVSBuffer(0);
-
+        ImGui::EndMenu();
+    }
 }

@@ -15,11 +15,11 @@ TutorialScene::~TutorialScene()
 
 void TutorialScene::Update()
 {
-    cube->Update();
 }
 
 void TutorialScene::PreRender()
 {
+    cube->Debug();
 }
 
 void TutorialScene::Render()
@@ -30,4 +30,5 @@ void TutorialScene::Render()
 
 void TutorialScene::PostRender()
 {
+    cube->Update();
 }
