@@ -151,10 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Object\CupHead\Gun\HowitzerBullet.h" />
+    <ClInclude Include="Scene\BagicScene\Inventory.h" />
+    <ClInclude Include="Object\CupHead\Gun\Bullets\HowitzerBullet.h" />
     <ClInclude Include="Object\CupHead\Cup_Wall.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargingEffect.h" />
-    <ClInclude Include="Object\CupHead\Gun\ChargingBullet.h" />
+    <ClInclude Include="Object\CupHead\Gun\Bullets\ChargingBullet.h" />
     <ClInclude Include="Framework\Render\RenderTarget.h" />
     <ClInclude Include="Scene\BagicScene\BossRoom.h" />
     <ClInclude Include="Object\CupHead\Monster\Cup_Boss.h" />
@@ -184,7 +185,7 @@
     <ClInclude Include="Object\Bagic\Effect.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\BagicScene\EffectScene.h" />
-    <ClInclude Include="Object\CupHead\Cup_Bullet.h" />
+    <ClInclude Include="Object\CupHead\Gun\Bullets\Cup_Bullet.h" />
     <ClInclude Include="Object\CupHead\Monster\Cup_Monster.h" />
     <ClInclude Include="Scene\BagicScene\CupHeadScene.h" />
     <ClInclude Include="Framework\Animation\Action.h" />
@@ -224,10 +225,11 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Object\CupHead\Gun\HowitzerBullet.cpp" />
+    <ClCompile Include="Scene\BagicScene\Inventory.cpp" />
+    <ClCompile Include="Object\CupHead\Gun\Bullets\HowitzerBullet.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Wall.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargingEffect.cpp" />
-    <ClCompile Include="Object\CupHead\Gun\ChargingBullet.cpp" />
+    <ClCompile Include="Object\CupHead\Gun\Bullets\ChargingBullet.cpp" />
     <ClCompile Include="Framework\Render\RenderTarget.cpp" />
     <ClCompile Include="Scene\BagicScene\BossRoom.cpp" />
     <ClCompile Include="Object\CupHead\Monster\Cup_Boss.cpp" />
@@ -249,7 +251,7 @@
     <ClCompile Include="Object\Bagic\Effect.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\BagicScene\EffectScene.cpp" />
-    <ClCompile Include="Object\CupHead\Cup_Bullet.cpp" />
+    <ClCompile Include="Object\CupHead\Gun\Bullets\Cup_Bullet.cpp" />
     <ClCompile Include="Object\CupHead\Monster\Cup_Monster.cpp" />
     <ClCompile Include="Scene\BagicScene\CupHeadScene.cpp" />
     <ClCompile Include="Framework\Animation\Action.cpp" />

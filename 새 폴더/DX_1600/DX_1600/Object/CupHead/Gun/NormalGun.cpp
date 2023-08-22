@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "NormalGun.h"
-#include "../Cup_Bullet.h"
+#include "Bullets/Cup_Bullet.h"
 
 NormalGun::NormalGun()
 {

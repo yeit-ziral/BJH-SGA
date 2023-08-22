@@ -1,6 +1,6 @@
 #include "framework.h"
 #include "Machinegun.h"
-#include "../Cup_Bullet.h"
+#include "Bullets/Cup_Bullet.h"
 
 Machinegun::Machinegun()
 {
