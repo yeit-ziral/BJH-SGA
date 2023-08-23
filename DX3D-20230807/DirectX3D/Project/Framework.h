@@ -33,7 +33,14 @@ using namespace DirectX;
 #define DEVICE Device::GetInstance()->GetDevice()
 #define DC	   Device::GetInstance()->GetDC()
 
+typedef XMMATRIX Matrix; // typedef(typedefine)은 코드라서 ; 필요, define은 메크로라서 ; 없음
+typedef XMFLOAT4 Vector4;
+
 #include "Utility/Singleton.h"
+
+#include "Utility/Vector3.h"
+
+#include "Object/Transform.h"
 
 #include "System/Device.h"
 

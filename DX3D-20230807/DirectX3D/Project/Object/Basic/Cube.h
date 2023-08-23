@@ -1,14 +1,14 @@
 #pragma once
-class Cube
+class Cube : public Transform // 부모클래스여서 간접접근하지 않아도 됨
 {
 public:
-	Cube();
+	Cube(Vector4 color);
 	~Cube();
 
     void Update();
     void Render();
 
-    void CreateMesh();
+    void CreateMesh(Vector4 color);
 
     void Debug();
 
@@ -22,17 +22,8 @@ private:
     vector<VertexColor> vertices;
     vector<UINT> indices;
 
+    static int count;
 
-    // SRT
-
-    XMFLOAT3 scale       = {1.0f, 1.0f, 1.0f};
-    XMFLOAT3 rotation    = {0.0f, 0.0f, 0.0f};
-    XMFLOAT3 translation = {0.0f, 0.0f, 0.0f};
-
-    XMMATRIX S;
-    XMMATRIX R;
-    XMMATRIX T;
-
-    XMMATRIX world;
+    string label = "";
 };
 

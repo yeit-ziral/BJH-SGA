@@ -5,6 +5,10 @@ public:
 	Lobby();
 	~Lobby();
 
+	void Update();
+	void Render();
+
+
 private:
 	shared_ptr<class Cup_Player> _player;
 
