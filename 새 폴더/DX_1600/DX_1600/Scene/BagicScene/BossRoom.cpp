@@ -4,11 +4,12 @@
 #include "../../Object/CupHead/Monster/Cup_Boss.h"
 #include "../../Object/CupHead/Cup_Wall.h"
 #include "../../Object/CupHead/Cup_Track.h"
+#include "../../Object/CupHead/Potal.h"
 
 BossRoom::BossRoom()
 {
 	_player = make_shared<Cup_Player>();
-	_player->SetPosition(Vector2(0, 0));
+
 
 	_track = make_shared<Cup_Track>();
 
@@ -16,7 +17,7 @@ BossRoom::BossRoom()
 	_wall = make_shared<Cup_Wall>();
 
 	_boss = make_shared<Cup_Boss>();
-	_boss->SetPosition(Vector2(0, 0));
+
 
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 
@@ -27,9 +28,15 @@ BossRoom::BossRoom()
 	_button->SetPosition(Vector2(0, 0));
 	_button->SetEvent(std::bind(&BossRoom::Load, this));
 
+	Vector2 trackSize = _track->GetTrackSize();
+
+	_potal = make_shared<Potal>();
+	_potal->SetPosition(Vector2(100.0f, 0.0f));
+
 	Load();
 
 	_player->SetHP(_player->GetMaxHp());
+
 }
 
 BossRoom::~BossRoom()
@@ -38,6 +45,16 @@ BossRoom::~BossRoom()
 
 void BossRoom::Init()
 {
+	//if (_boss->_isAlive == false)
+	//{
+
+	//	_boss->SetPosition(Vector2(0, 0));
+	//	_boss->ResetHp();
+	//	_boss->_isAlive = true;
+	//}
+	// 
+	_player->SetPosition(Vector2(0, 0));
+
 	Vector2 trackSize = _track->GetTrackSize();
 
 	CAMERA->SetTarget(_player->GetTransform());
@@ -58,6 +75,10 @@ void BossRoom::Update()
 	_track->Update();
 	_wall->Update();
 	_button->Update();
+	_potal->Update();
+
+	if (_boss->_isAlive == false)
+		_potal->_isActive = true;
 
 	if (_wall->GetUpWall()->Block(_boss->GetCollider()) && _player->_isAlive == true)
 	{
@@ -107,12 +128,17 @@ void BossRoom::Update()
 		_player->Attacked(1);
 		//_player->SetHit(true);
 	}
+
+	if (_potal->IsCollision(_player->GetCollider()))
+		SceneManager::GetInstance()->NextScene();
 }
 
 void BossRoom::Render()
 {
 	_track->Render();
 	_wall->Render();
+
+	_potal->Render();
 
 	_player->Render();
 

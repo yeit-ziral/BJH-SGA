@@ -12,8 +12,6 @@ Potal::Potal()
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_collider->GetTransform());
 
-	_collider->Update();
-	_transform->Update();
 }
 
 Potal::~Potal()

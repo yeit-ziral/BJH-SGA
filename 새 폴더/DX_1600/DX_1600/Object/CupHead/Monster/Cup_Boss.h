@@ -68,6 +68,7 @@ public:
 	bool _isWallCrash = false;
 
 	int GetHp() { return _hp; }
+	void ResetHp() { _hp = _maxHp; }
 
 	void GetAttacked(int amount);
 
@@ -78,6 +79,7 @@ private:
 	void SetLeft();
 	void SetRight();
 	int _hp = 10;
+	int _maxHp = 10;
 
 
 	bool _isLeft = true;

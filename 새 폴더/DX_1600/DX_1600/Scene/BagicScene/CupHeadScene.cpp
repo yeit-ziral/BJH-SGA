@@ -8,6 +8,14 @@
 
 CupHeadScene::CupHeadScene()
 {
+	_track = make_shared<Cup_Track>();
+
+	_track2 = make_shared<Cup_Track>();
+
+	Vector2 trackSize = _track->GetTrackSize();
+	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
+	_potal = make_shared<Potal>();
+	_potal->SetPosition(Vector2(-100.0f, 0.0f));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -19,11 +27,8 @@ void CupHeadScene::Init()
 	_player = make_shared<Cup_Player>();
 	_player->SetPosition(Vector2(0, 0));
 
-	_track = make_shared<Cup_Track>();
-
 	Vector2 trackSize = _track->GetTrackSize();
 
-	_track2 = make_shared<Cup_Track>();
 	Vector2 track2WorldPos = _track2->GetColider()->GetTransform()->GetWorldPosition();
 	_track2->SetPosition(track2WorldPos + Vector2(trackSize.x, 150.0f));
 
@@ -31,6 +36,17 @@ void CupHeadScene::Init()
 
 	_monster = make_shared<Cup_Monster>();
 	_monster->SetPosition(Vector2(0, 0));
+
+
+	//if (_monster->_isAlive == false)
+	//{
+	//	_player->SetPosition(Vector2(0, 0));
+
+	//	_monster->SetPosition(Vector2(0, 0));
+	//	_monster->ResetHp();
+	//	_monster->_isAlive = true;
+	//}
+
 
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 
@@ -68,6 +84,11 @@ void CupHeadScene::Update()
 	_player->Update();
 
 	_button->Update();
+
+	_potal->Update();
+
+	if (_monster->_isAlive == false)
+		_potal->_isActive = true;
 
 	if (_track->GetColider()->Block(_player->GetCollider()))
 	{
@@ -112,6 +133,9 @@ void CupHeadScene::Update()
 	if (distance < 500.0f) // 이 거리는 일반몹에 적합
 		_monster->Attack(_player->GetCollider()->GetTransform()->GetWorldPosition());
 	CheckAttack();
+
+	if (_potal->IsCollision(_player->GetCollider()))
+		SceneManager::GetInstance()->NextScene();
 }
 
 void CupHeadScene::Render()
@@ -119,6 +143,8 @@ void CupHeadScene::Render()
 	_track->Render();
 	_track2->Render();
 	_block->Render();
+
+	_potal->Render();
 
 	_player->Render();
 

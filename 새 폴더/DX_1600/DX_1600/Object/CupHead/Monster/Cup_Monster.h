@@ -29,6 +29,8 @@ public:
 	void EndEvent() { _isAlive = false; }
 
 	const int& GetHp() { return _hp; }
+	void ResetHp() { _hp = _maxHp; }
+	const int GetMaxHp() { return _maxHp; }
 
 	void GetAttacked(int amount);
 
@@ -62,6 +64,7 @@ private:
 	vector<shared_ptr<Sprite>> _sprites;
 
 	int _hp = 30;
+	int _maxHp = 30;
 
 	vector<shared_ptr<Cup_Bullet>> _bullets;
 	float _speed = 200.0f;

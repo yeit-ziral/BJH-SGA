@@ -4,10 +4,12 @@
 #include "BagicScene/CupHeadScene.h"
 #include "BagicScene/MapToolScene.h"
 #include "BagicScene/BossRoom.h"
+#include "BagicScene/Lobby.h"
 
 SceneManager* SceneManager::_instance = nullptr;
 SceneManager::SceneManager()
 {
+	_scenes.push_back(make_shared<Lobby>());
 	_scenes.push_back(make_shared<CupHeadScene>());
 	_scenes.push_back(make_shared<BossRoom>());
 
@@ -34,25 +36,30 @@ void SceneManager::PostRender()
 {
 	_scenes[_curScene]->PostRender();
 
-	if (ImGui::Button("NextScene", { 130,30 }))
-		NextScene();
+	//if (ImGui::Button("NextScene", { 130,30 }))
+	//	NextScene();
 
-	if (ImGui::Button("PrevScene", { 130,30 }))
-		PrevScene();
+	//if (ImGui::Button("PrevScene", { 130,30 }))
+	//	PrevScene();
 
-	if (ImGui::Button("SetScene", { 130,30 }))
-		SetScene(_test);
+	//if (ImGui::Button("SetScene", { 130,30 }))
+	//	SetScene(_test);
 
-	ImGui::SliderInt("SetSceneNumber", (int*)&_test, 0, 2);
+	//ImGui::SliderInt("SetSceneNumber", (int*)&_test, 0, 2);
+	ImGui::SliderInt("NowState", (int*)&_curScene, 0, 2);
 }
 
 void SceneManager::NextScene()
 {
-	if (_curScene >= _scenes.size() - 1)
-		return;
 
 	_scenes[_curScene]->End();
 	++_curScene;
+
+	if (_curScene >= _scenes.size())
+		//return;
+		_curScene = _curScene % _scenes.size();
+
+
 	_scenes[_curScene]->Init();
 }
 

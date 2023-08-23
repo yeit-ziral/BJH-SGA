@@ -32,5 +32,7 @@ private:
 
 	bool _playerAttacked = false;
 
+	shared_ptr<class Potal> _potal;
+
 };
 
