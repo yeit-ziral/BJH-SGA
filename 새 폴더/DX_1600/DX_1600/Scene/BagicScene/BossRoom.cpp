@@ -45,14 +45,6 @@ BossRoom::~BossRoom()
 
 void BossRoom::Init()
 {
-	if (_boss->_isAlive == false)
-	{
-
-		_boss->SetPosition(Vector2(0, 0));
-		_boss->ResetHp();
-		_boss->_isAlive = true;
-	}
-	 
 	_player->SetPosition(Vector2(0, 0));
 
 	Vector2 trackSize = _track->GetTrackSize();
@@ -129,7 +121,7 @@ void BossRoom::Update()
 		//_player->SetHit(true);
 	}
 
-	if (_potal->IsCollision(_player->GetCollider()))
+	if (_potal->IsCollision(_player->GetCollider()) && _boss->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
 }
 

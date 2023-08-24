@@ -8,7 +8,7 @@ public:
 	virtual void Update();
 	virtual void Render();
 
-	void Fire();
+	void Fire(Vector2 dir);
 
 	void Selected(bool Bool) { _selected = Bool; }
 

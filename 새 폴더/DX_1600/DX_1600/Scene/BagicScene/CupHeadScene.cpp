@@ -11,6 +11,7 @@ CupHeadScene::CupHeadScene()
 	_player = make_shared<Cup_Player>();
 
 	_monster = make_shared<Cup_Monster>();
+	_monster->SetPosition(Vector2(0, 0));
 
 	_track = make_shared<Cup_Track>();
 
@@ -20,6 +21,11 @@ CupHeadScene::CupHeadScene()
 
 	Vector2 trackSize = _track->GetTrackSize();
 	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
+
+	Vector2 track2WorldPos = _track2->GetColider()->GetTransform()->GetWorldPosition();
+	_track2->SetPosition(track2WorldPos + Vector2(trackSize.x, 150.0f));
+
+	_block = make_shared<Cup_Block>(track2WorldPos + Vector2(100, 300));
 
 
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
@@ -40,17 +46,14 @@ CupHeadScene::~CupHeadScene()
 
 void CupHeadScene::Init()
 {
+	Vector2 trackSize = _track->GetTrackSize();
+
 	_player->SetPosition(Vector2(0, 0));
 
 	_player->SetHP(_player->GetMaxHp());
 
-	Vector2 trackSize = _track->GetTrackSize();
 
-	Vector2 track2WorldPos = _track2->GetColider()->GetTransform()->GetWorldPosition();
-	_track2->SetPosition(track2WorldPos + Vector2(trackSize.x, 150.0f));
 
-	_block = make_shared<Cup_Block>(track2WorldPos + Vector2(100, 300));
-	_monster->SetPosition(Vector2(0, 0));
 
 
 	//if (_monster->_isAlive == false)
@@ -69,7 +72,7 @@ void CupHeadScene::Init()
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
 
 
-	Load();
+	//Load();
 }
 
 void CupHeadScene::End()
@@ -115,7 +118,11 @@ void CupHeadScene::Update()
 	else
 	{
 		if (_block->GetCollider()->Block(_player->GetCollider()))
+		{
 			_player->SetGrounded();
+			if (_player->GetJumpPower() > 0.0f)
+				_player->SetJumpPower(0.0f);
+		}
 		if (_block->GetCollider()->_bottomCollision)
 		{
 
@@ -137,7 +144,7 @@ void CupHeadScene::Update()
 		_monster->Attack(_player->GetCollider()->GetTransform()->GetWorldPosition());
 	CheckAttack();
 
-	if (_potal->IsCollision(_player->GetCollider()))
+	if (_potal->IsCollision(_player->GetCollider()) && _monster->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
 }
 

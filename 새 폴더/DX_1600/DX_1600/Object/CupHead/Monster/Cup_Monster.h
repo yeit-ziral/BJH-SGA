@@ -26,7 +26,7 @@ public:
 
 	void StartEvent() { _state = State::START; }
 	void DieEvent() { _state = State::END; }
-	void EndEvent() { _isAlive = false; }
+	//void EndEvent() { _isAlive = false; }
 
 	const int& GetHp() { return _hp; }
 	void ResetHp() { _hp = _maxHp; }

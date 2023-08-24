@@ -11,7 +11,7 @@ public:
 
 	void Charge();
 
-	void Fire();
+	void Fire(Vector2 dir);
 
 	void Selected(bool Bool) { _selected = Bool; }
 

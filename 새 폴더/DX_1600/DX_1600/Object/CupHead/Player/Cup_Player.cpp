@@ -42,6 +42,8 @@ void Cup_Player::Update()
 	if (!_isAlive)
 		return;
 
+	_gunDir = W_MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
+
 	if (_nowGun == NORMAL)
 	{
 		_normalGun->Selected(true);
@@ -77,7 +79,6 @@ void Cup_Player::Update()
 
 	if (!_animation->IsActive())
 		_isAlive = false;
-
 }
 
 void Cup_Player::Render()
@@ -185,7 +186,7 @@ void Cup_Player::NormalFire()
 {
 	if (KEY_UP(VK_LBUTTON))
 	{
-		_normalGun->Fire();
+		_normalGun->Fire(_gunDir);
 	}
 }
 
@@ -193,7 +194,7 @@ void Cup_Player::MachineFire()
 {
 	if (KEY_PRESS(VK_LBUTTON))
 	{
-		_machineGun->Fire();
+		_machineGun->Fire(_gunDir);
 	}
 }
 
@@ -206,7 +207,7 @@ void Cup_Player::ChargeFire()
 	}
 	if (KEY_UP(VK_LBUTTON))
 	{
-		_chargeGun->Fire();
+		_chargeGun->Fire(_gunDir);
 		_chargeGun->SetChargingCount(0);
 	}
 }
@@ -262,7 +263,7 @@ bool Cup_Player::IsAlive()
 
 void Cup_Player::SetGunAngle()
 {
-	Vector2 playerToMouse = MOUSE_POS;
+	Vector2 playerToMouse = _gunDir;
 	float angle = playerToMouse.Angle();
 	_gunSlot->SetAngle(angle);
 

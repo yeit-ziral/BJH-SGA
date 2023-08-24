@@ -55,7 +55,7 @@ void Machinegun::Render()
 		bullet->Render();
 }
 
-void Machinegun::Fire()
+void Machinegun::Fire(Vector2 dir)
 {
 	if (_selected == false)
 		return;
@@ -79,7 +79,7 @@ void Machinegun::Fire()
 	if (bulletIter == _bullets.end())
 		return;
 
-	Vector2 dir = MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
+	//Vector2 dir = W_MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
 
 	(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
 

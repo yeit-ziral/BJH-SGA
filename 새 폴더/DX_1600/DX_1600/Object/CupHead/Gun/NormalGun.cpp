@@ -55,7 +55,7 @@ void NormalGun::Render()
 		bullet->Render();
 }
 
-void NormalGun::Fire()
+void NormalGun::Fire(Vector2 dir)
 {
 
 	if (_selected == false)
@@ -80,7 +80,7 @@ void NormalGun::Fire()
 		if (bulletIter == _bullets.end())
 			return;
 
-		Vector2 dir = MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
+		//Vector2 dir = W_MOUSE_POS -_collider->GetTransform()->GetWorldPosition();
 
 		(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
 

@@ -60,6 +60,9 @@ public:
 
 	shared_ptr<Transform> GetGunSlot() { return _gunSlot; }
 
+	float GetJumpPower() { return _jumpPower; }
+	void SetJumpPower(float value) { _jumpPower = value; }
+
 private:
 	int _hp = 10;
 	int _maxHp = 10;
@@ -82,4 +85,6 @@ private:
 	float _jumpPower = 0.0f;
 
 	shared_ptr<Transform> _gunSlot;
+
+	Vector2 _gunDir;
 };

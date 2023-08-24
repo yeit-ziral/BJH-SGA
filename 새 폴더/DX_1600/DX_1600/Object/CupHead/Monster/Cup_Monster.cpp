@@ -9,12 +9,12 @@ Cup_Monster::Cup_Monster()
 
 	CreateAction(L"Resource/CupHead/boss/BossStart.png", "Resource/CupHead/boss/BossStart.xml", "START", Vector2(100, 100), Action::Type::END);
 	CreateAction(L"Resource/CupHead/boss/BossLoop.png", "Resource/CupHead/boss/BossLoop.xml", "LOOP", Vector2(200, 200), Action::Type::LOOP);
-	CreateAction(L"Resource/CupHead/boss/BossDie.png", "Resource/CupHead/boss/BossDie.xml", "DEAD", Vector2(300, 300), Action::Type::END, std::bind(&Cup_Monster::EndEvent, this));
+	CreateAction(L"Resource/CupHead/boss/BossDie.png", "Resource/CupHead/boss/BossDie.xml", "DEAD", Vector2(300, 300), Action::Type::END, std::bind(&Cup_Monster::DieEvent, this));
 
 	// Action Event ¼³Á¤
 	{
 		_actions[State::START]->SetAlmostEndEvent([this]()->void { _state = State::LOOP; });
-		_actions[2]->SetEndEvent(std::bind(&Cup_Monster::EndEvent, this));
+		_actions[2]->SetEndEvent(std::bind(&Cup_Monster::DieEvent, this));
 	}
 
 	_intBuffer = make_shared<IntBuffer>();
@@ -52,6 +52,9 @@ void Cup_Monster::Update(Vector2 targetPos)
 {
 	if (!_isAlive)
 		return;
+
+	if (_hp <= 0)
+		_isAlive = false;
 
 	if (_state == State::END && _intBuffer->_data.bInt > 1)
 		_intBuffer->_data.bInt -= 5;
