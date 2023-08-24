@@ -45,14 +45,14 @@ BossRoom::~BossRoom()
 
 void BossRoom::Init()
 {
-	//if (_boss->_isAlive == false)
-	//{
+	if (_boss->_isAlive == false)
+	{
 
-	//	_boss->SetPosition(Vector2(0, 0));
-	//	_boss->ResetHp();
-	//	_boss->_isAlive = true;
-	//}
-	// 
+		_boss->SetPosition(Vector2(0, 0));
+		_boss->ResetHp();
+		_boss->_isAlive = true;
+	}
+	 
 	_player->SetPosition(Vector2(0, 0));
 
 	Vector2 trackSize = _track->GetTrackSize();

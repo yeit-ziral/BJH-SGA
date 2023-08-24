@@ -421,6 +421,7 @@ void Cup_Boss::EndEvent()
 void Cup_Boss::DieEvent()
 {
 	_isAlive = false;
+	_state = Boss_State::START;
 }
 
 void Cup_Boss::EndEventCrash()

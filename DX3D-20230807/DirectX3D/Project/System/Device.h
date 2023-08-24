@@ -22,4 +22,5 @@ private:
 
 	IDXGISwapChain* swapChain;          // 더블버퍼링을 구현하는 객체
 	ID3D11RenderTargetView* renderTargetView;   // view 들어가는 것들은 다 GPU에서 하는것들임, 백버퍼를 관리하는 객체
+	ID3D11DepthStencilView* depthStencilView;
 };

@@ -33,12 +33,19 @@ using namespace DirectX;
 #define DEVICE Device::GetInstance()->GetDevice()
 #define DC	   Device::GetInstance()->GetDC()
 
+#define KEY_UP(p)		Keyboard::GetInstance()->Up(p)
+#define KEY_DOWN(p)		Keyboard::GetInstance()->Down(p)
+#define KEY_PRESS(p)	Keyboard::GetInstance()->Press(p)
+
 typedef XMMATRIX Matrix; // typedef(typedefine)은 코드라서 ; 필요, define은 메크로라서 ; 없음
 typedef XMFLOAT4 Vector4;
 
 #include "Utility/Singleton.h"
 
 #include "Utility/Vector3.h"
+
+#include "Utility/Keyboard.h"
+#include "Utility/Time.h"
 
 #include "Object/Transform.h"
 

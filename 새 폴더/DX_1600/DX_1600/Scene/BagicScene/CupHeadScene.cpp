@@ -8,12 +8,28 @@
 
 CupHeadScene::CupHeadScene()
 {
+	_player = make_shared<Cup_Player>();
+
+	_monster = make_shared<Cup_Monster>();
+
 	_track = make_shared<Cup_Track>();
 
 	_track2 = make_shared<Cup_Track>();
 
+	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
+
 	Vector2 trackSize = _track->GetTrackSize();
 	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
+
+
+	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
+	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
+
+	_button->SetPosition(Vector2(0, 0));
+	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
+
+
+	_potal = make_shared<Potal>();
 	_potal = make_shared<Potal>();
 	_potal->SetPosition(Vector2(-100.0f, 0.0f));
 }
@@ -24,8 +40,9 @@ CupHeadScene::~CupHeadScene()
 
 void CupHeadScene::Init()
 {
-	_player = make_shared<Cup_Player>();
 	_player->SetPosition(Vector2(0, 0));
+
+	_player->SetHP(_player->GetMaxHp());
 
 	Vector2 trackSize = _track->GetTrackSize();
 
@@ -33,8 +50,6 @@ void CupHeadScene::Init()
 	_track2->SetPosition(track2WorldPos + Vector2(trackSize.x, 150.0f));
 
 	_block = make_shared<Cup_Block>(track2WorldPos + Vector2(100, 300));
-
-	_monster = make_shared<Cup_Monster>();
 	_monster->SetPosition(Vector2(0, 0));
 
 
@@ -48,23 +63,11 @@ void CupHeadScene::Init()
 	//}
 
 
-	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
-
 	CAMERA->SetTarget(_player->GetTransform());
 	CAMERA->SetLeftBottom(Vector2((trackSize.x * -0.5f), -1000.0f));
 	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
 
-	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
-	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
-
-	_button->SetPosition(Vector2(0, 0));
-	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
-
-	_player->SetHP(_player->GetMaxHp());
-
-
-	_potal = make_shared<Potal>();
 
 	Load();
 }

@@ -13,6 +13,13 @@ public:
 
 	void SetParent(Transform* parent) { this->parent = parent; }
 
+	Vector3	 Forward() { return forward; }
+	Vector3 Backward() { return forward * -1; }
+	Vector3    Right() { return right; }
+	Vector3		Left() { return right * -1; }
+	Vector3		  Up() { return up; }
+	Vector3		Down() { return up * -1; }
+
 public:
 	Vector3 scale = { 1.0f, 1.0f, 1.0f };
 	Vector3 rotation = { 0.0f, 0.0f, 0.0f };
@@ -25,4 +32,10 @@ protected:
 	Vector3 pivot = {};
 
 	Transform* parent = nullptr;
+
+	Vector3 globalScale;
+	Vector3 globalRotation;
+	Vector3 globalPosition;
+
+	Vector3 right, up, forward; // 각 객체의 상대적인 방위(내 앞, 뒤, 옆, 위, 아래)
 };

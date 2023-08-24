@@ -18,6 +18,9 @@ MainGame::~MainGame()
 void MainGame::Update()
 {
 	scene->Update();
+
+	Time::GetInstance()->Update();
+	Keyboard::GetInstance()->Update();
 }
 
 void MainGame::Render()
@@ -44,12 +47,17 @@ void MainGame::Render()
 
 void MainGame::Initialize()
 {
+		Device::GetInstance(); // 안해줘도 생성시 만들어짐
+	Enviroment::GetInstance();
+	  Keyboard::GetInstance();
+		  Time::GetInstance();
+
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	//ImGuiIO& io = ImGui::GetIO(); (void)io;
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 	// Setup Dear ImGui style
 	ImGui::StyleColorsDark();
@@ -59,8 +67,6 @@ void MainGame::Initialize()
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX11_Init(DEVICE, DC);
 
-	Device::GetInstance(); // 안해줘도 생성시 만들어짐
-	Enviroment::GetInstance();
 }
 
 void MainGame::Release()

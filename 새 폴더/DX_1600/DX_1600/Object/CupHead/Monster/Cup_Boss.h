@@ -74,6 +74,8 @@ public:
 
 	bool IsCollsion_Bullets(shared_ptr<Collider> col);
 
+	void SetBossState(Boss_State value) { _state = value; }
+
 
 private:
 	void SetLeft();

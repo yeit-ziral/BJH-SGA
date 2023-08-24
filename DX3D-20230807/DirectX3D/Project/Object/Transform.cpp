@@ -26,4 +26,20 @@ void Transform::UpdateWorld()
 
 	if (parent != nullptr)
 		world *= parent->world; // parent의 world가 문제 없는 이유는 parent도 Transform이고 this도 Transform인 동일 클래스여서 가능하다.
+
+	XMFLOAT4X4 fWorld;
+
+	XMStoreFloat4x4(&fWorld, world);
+
+	right	= Vector3(fWorld._11, fWorld._12, fWorld._13).GetNormalized();
+	up		= Vector3(fWorld._21, fWorld._22, fWorld._23).GetNormalized();
+	forward = Vector3(fWorld._31, fWorld._32, fWorld._33).GetNormalized();
+
+	XMVECTOR outS, outR, outT;
+
+	XMMatrixDecompose(&outS, &outR, &outT, world);
+
+	globalScale = outS;
+	globalRotation = outR; // 쓰기 어려워서 자주 쓰이지 않다
+	globalPosition = outT;
 }
