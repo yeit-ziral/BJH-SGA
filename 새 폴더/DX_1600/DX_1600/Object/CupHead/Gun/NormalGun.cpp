@@ -61,6 +61,9 @@ void NormalGun::Fire(Vector2 dir)
 	if (_selected == false)
 		return;
 
+	if (_hp <= 0)
+		return;
+
 		SOUND->Play("Cup_Attack", 0.3f);
 
 		if (_atkCool)
@@ -83,6 +86,11 @@ void NormalGun::Fire(Vector2 dir)
 		//Vector2 dir = W_MOUSE_POS -_collider->GetTransform()->GetWorldPosition();
 
 		(*bulletIter)->Shoot(Vector2(dir.x, dir.y), _gunTrans->GetWorldPosition());
+
+		_hp -= 10;
+
+		if (_hp <= 0)
+			_hp = 0;
 
 		_atkCool = true;
 

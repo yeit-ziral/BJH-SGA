@@ -278,3 +278,33 @@ void Cup_Player::SetGunAngle()
 		_normalGun->GetTransform()->SetPosition({ 50,0 });
 	}*/
 }
+
+int Cup_Player::GetGunHp()
+{
+	if (_nowGun == Gun::NORMAL)
+		return _normalGun->GetHp();
+	if (_nowGun == Gun::MACHINE)
+		return _machineGun->GetHp();
+	if (_nowGun == Gun::CHARGE)
+		return _chargeGun->GetHp();
+}
+
+int Cup_Player::GetGunMaxHp()
+{
+	if (_nowGun == Gun::NORMAL)
+		return _normalGun->GetMaxHp();
+	if (_nowGun == Gun::MACHINE)
+		return _machineGun->GetMaxHp();
+	if (_nowGun == Gun::CHARGE)
+		return _chargeGun->GetMaxHp();
+}
+
+void Cup_Player::FixGun(int value)
+{
+	if (_nowGun == Gun::NORMAL)
+		_normalGun->FixHp(value);
+	if (_nowGun == Gun::MACHINE)
+		_machineGun->FixHp(value);
+	if (_nowGun == Gun::CHARGE)
+		_chargeGun->FixHp(value);
+}

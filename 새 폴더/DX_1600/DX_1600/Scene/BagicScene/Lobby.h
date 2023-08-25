@@ -19,4 +19,8 @@ private:
 	shared_ptr<class Cup_Track> _track;
 
 	shared_ptr<class Potal> _potal;
+
+	shared_ptr<class HPBar> _hpBar;
+
+	shared_ptr<class HPBar> _gunHpBar;
 };

@@ -234,6 +234,12 @@
     <ClInclude Include="Object\CupHead\Potal.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\UI\inventory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CupHead\Items\HpPotion.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -416,6 +422,12 @@
     <ClCompile Include="Object\CupHead\Potal.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\UI\inventory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CupHead\Items\HpPotion.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc">
@@ -564,7 +576,10 @@
     <Image Include="Resource\Potal.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Resource\Inventory.png">
+    <Image Include="Resource\UI\Inventory.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\UI\Bar.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

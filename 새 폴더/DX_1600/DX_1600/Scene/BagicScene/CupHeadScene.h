@@ -32,5 +32,7 @@ private:
 	shared_ptr<Effect> _effect;
 
 	shared_ptr<class Potal> _potal;
+
+	shared_ptr<class HPBar> _hpBar;
 };
 

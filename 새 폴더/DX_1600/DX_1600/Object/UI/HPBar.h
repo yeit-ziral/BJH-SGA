@@ -21,6 +21,8 @@ public:
 		_intBuffer->_data.bInt = (int)value;
 	}
 
+	Vector2 GetXSizeHalf() { return _quad->GetQuadHalfSize(); }
+
 private:
 	shared_ptr<Quad> _quad;
 	shared_ptr<Transform> _transform;

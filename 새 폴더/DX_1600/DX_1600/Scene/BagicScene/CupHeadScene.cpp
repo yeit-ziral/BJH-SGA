@@ -31,13 +31,15 @@ CupHeadScene::CupHeadScene()
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
 	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
 
-	_button->SetPosition(Vector2(0, 0));
+	_button->SetPosition(Vector2(WIN_WIDTH * 0.5f - 70.0f, WIN_HEIGHT * 0.5f - 24.0f));
 	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
 
 
 	_potal = make_shared<Potal>();
 	_potal = make_shared<Potal>();
 	_potal->SetPosition(Vector2(-100.0f, 0.0f));
+
+	_hpBar = make_shared<HPBar>(L"Resource/UI/Button.png", Vector2(500, 50));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -52,7 +54,7 @@ void CupHeadScene::Init()
 
 	_player->SetHP(_player->GetMaxHp());
 
-
+	_player->SetJumpPower(0.0f);
 
 
 
@@ -92,6 +94,8 @@ void CupHeadScene::Update()
 	_button->Update();
 
 	_potal->Update();
+
+	_hpBar->Update();
 
 	if (_monster->_isAlive == false)
 		_potal->_isActive = true;
@@ -144,6 +148,12 @@ void CupHeadScene::Update()
 		_monster->Attack(_player->GetCollider()->GetTransform()->GetWorldPosition());
 	CheckAttack();
 
+	_hpBar->SetMaxHp(_player->GetMaxHp());
+	_hpBar->SetCurHp(_player->GetHp());
+	Vector2 a = _hpBar->GetXSizeHalf();
+
+	_hpBar->SetPosition(Vector2(a.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y));
+
 	if (_potal->IsCollision(_player->GetCollider()) && _monster->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
 }
@@ -193,6 +203,8 @@ void CupHeadScene::PostRender()
 	}
 
 	_button->PostRender();
+
+	_hpBar->PostRender();
 }
 
 void CupHeadScene::CheckAttack()

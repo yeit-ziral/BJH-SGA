@@ -17,6 +17,16 @@ public:
 	void SetRight();
 	void SetLeft();
 
+	int GetHp() { return _hp; }
+	int GetMaxHp() { return _maxHp; }
+
+	void FixHp(int value) 
+	{
+		_hp += value;
+		if (_hp >= _maxHp)
+			_hp = _maxHp;
+	}
+
 protected:
 	shared_ptr<Transform> _gunTrans;
 
@@ -35,5 +45,8 @@ protected:
 	bool _selected = false;
 
 	int _damage = 0;
+
+	int _hp = 100;
+	int _maxHp = 100;
 };
 
