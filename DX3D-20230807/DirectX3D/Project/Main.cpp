@@ -137,7 +137,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) // 인스턴스 초기화
        nullptr, nullptr, hInstance, nullptr
    );
 
-   SetMenu(hWnd, nullptr);
+   SetMenu(hWnd, nullptr); // 메뉴 만들지 않음, 어디서든 Alt는 메뉴키임
 
    if (!hWnd)
    {

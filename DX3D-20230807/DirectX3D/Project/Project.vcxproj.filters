@@ -90,6 +90,12 @@
     <ClInclude Include="Utility\Time.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\TextureScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Quad.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -149,6 +155,12 @@
     <ClCompile Include="Utility\Time.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\TextureScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Quad.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="__Others\Project.rc">
@@ -162,10 +174,85 @@
     <Image Include="__Others\Project.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Texture\Landscape\Space.dds" />
+    <Image Include="Texture\Landscape\Snow_ENV.dds" />
+    <Image Include="Texture\Landscape\Box.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Bricks.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Bricks_normal.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Dirt.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Dirt2.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Dirt3.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Fieldstone_DM.tga" />
+    <Image Include="Texture\Landscape\fieldstone_NM.tga" />
+    <Image Include="Texture\Landscape\fieldstone_SM.tga" />
+    <Image Include="Texture\Landscape\Floor.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Floor_normal.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\NightSky.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\SpaceSky.dds" />
+    <Image Include="Texture\Landscape\Stones.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Stones_normal.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Tree.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Wall.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Wall_normal.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Wall_specular.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\Landscape\Wave.dds" />
+    <Image Include="Texture\Landscape\WaveNormal.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\HeightMap\AlphaMap.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\HeightMap\ColorMap256.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\HeightMap\HeightMap.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\HeightMap\HeightMap256.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\HeightMap\Test.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Texture\HeightMap\TestQuadTree.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="_Shader\VertexTutorial.hlsl" />
     <FxCompile Include="_Shader\PixelTutorial.hlsl" />
+    <FxCompile Include="_Shader\VertexTexture.hlsl" />
+    <FxCompile Include="_Shader\PixelTexture.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

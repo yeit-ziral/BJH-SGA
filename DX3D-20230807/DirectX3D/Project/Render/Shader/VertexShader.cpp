@@ -44,28 +44,63 @@ void VertexShader::SetShader()
 
 void VertexShader::CreateInputLayout()
 {
-    D3D11_INPUT_ELEMENT_DESC layoutDesc[2] = {};
-    layoutDesc[0].SemanticName = "POSITION";
-    layoutDesc[0].SemanticIndex = 0;
-    layoutDesc[0].Format = DXGI_FORMAT_R32G32B32_FLOAT; // float이 4byte여서 숫자가 32임(4 x 8 bit) , 총 12byte
-    layoutDesc[0].InputSlot = 0;
-    layoutDesc[0].AlignedByteOffset = 0; // 앞에 데이터가 얼마나 공간을 차지하고 있는지
-    layoutDesc[0].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    layoutDesc[0].InstanceDataStepRate = 0;
+    D3DReflect(blob->GetBufferPointer(), blob->GetBufferSize(), IID_ID3D11ShaderReflection, (void**)&reflection); // shader 파일의 정보를 저장하는 blob을 뜯어와서 작성함
 
-    layoutDesc[1].SemanticName = "COLOR";
-    layoutDesc[1].SemanticIndex = 0;
-    layoutDesc[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT; // color는 Float4라서 A32 붙음
-    layoutDesc[1].InputSlot = 0;
-    layoutDesc[1].AlignedByteOffset = 12;
-    layoutDesc[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-    layoutDesc[1].InstanceDataStepRate = 0;
+    D3D11_SHADER_DESC shaderDesc;
+    reflection->GetDesc(&shaderDesc);
 
+    vector<D3D11_INPUT_ELEMENT_DESC> inputLayouts;
+
+    for (UINT i = 0; i < shaderDesc.InputParameters; i++)
+    {
+        D3D11_SIGNATURE_PARAMETER_DESC paramDesc;
+        reflection->GetInputParameterDesc(i, &paramDesc);
+
+        D3D11_INPUT_ELEMENT_DESC elementDesc;
+        elementDesc.SemanticName = paramDesc.SemanticName;
+        elementDesc.SemanticIndex = paramDesc.SemanticIndex;
+        elementDesc.InputSlot = 0;
+        elementDesc.AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+        elementDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+        elementDesc.InstanceDataStepRate = 0;
+
+        if (paramDesc.Mask == 1)
+        {
+            if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)  elementDesc.Format = DXGI_FORMAT_R32_UINT;
+            else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)  elementDesc.Format = DXGI_FORMAT_R32_SINT;
+            else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32_FLOAT;
+        }
+        else if (paramDesc.Mask <= 3)
+        {
+            if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)  elementDesc.Format = DXGI_FORMAT_R32G32_SINT;
+            else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)  elementDesc.Format = DXGI_FORMAT_R32G32_UINT;
+            else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
+        }
+        else if (paramDesc.Mask <= 7)
+        {
+            if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)  elementDesc.Format = DXGI_FORMAT_R32G32B32_UINT;
+            else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)  elementDesc.Format = DXGI_FORMAT_R32G32B32_SINT;
+            else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+        }
+        else if (paramDesc.Mask <= 15)
+        {
+            if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32)  elementDesc.Format = DXGI_FORMAT_R32G32B32A32_UINT;
+            else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32)  elementDesc.Format = DXGI_FORMAT_R32G32B32A32_SINT;
+            else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
+        }
+
+        string semantic = paramDesc.SemanticName;
+
+        if (semantic == "POSITION")
+            elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
+
+        inputLayouts.push_back(elementDesc);
+    }
 
     DEVICE->CreateInputLayout
     (
-        layoutDesc, // 배열이라서 &을 안붙여도 이미 주소값임
-        ARRAYSIZE(layoutDesc), //갯수를 반환하는 메크로//배열의 크기
+        inputLayouts.data(),
+        inputLayouts.size(),
         blob->GetBufferPointer(),
         blob->GetBufferSize(),
         &inputLayout
