@@ -6,7 +6,7 @@ TutorialScene::TutorialScene()
     cube = new Cube({1.0f, 0.0f, 0.0f, 1.0f});
     cube2 = new Cube({0.0f, 1.0f, 0.0f, 1.0f});
    
-    //cube2->translation.x = 3;
+    cube2->translation.x = 3;
 
     cube2->SetParent(cube);
 }

@@ -20,7 +20,7 @@ using namespace DirectX;
 // lib 형태로 만드는 이유는 기본적으로 외부종속성에 포함되어있지 않기 때문이다
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
-#pragma comment(lib, "dxguid.lib");
+#pragma comment(lib, "dxguid.lib")
 
 #include "ImGui/imgui.h"
 #include "ImGui/imgui_impl_dx11.h"

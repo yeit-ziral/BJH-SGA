@@ -7,10 +7,7 @@ Cube::Cube(Vector4 color)
 {
     material = new Material(L"Tutorial");
 
- 
     CreateMesh(color);
-
-
 
     //WVP
 
