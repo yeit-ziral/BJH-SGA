@@ -12,6 +12,8 @@ public:
 
     void Debug();
 
+    bool _pendulumMovement = false;
+
 private:
     Material* material;
 

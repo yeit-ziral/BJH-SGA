@@ -25,6 +25,8 @@ public:
 	Vector3 rotation = { 0.0f, 0.0f, 0.0f };
 	Vector3 translation = { 0.0f, 0.0f, 0.0f };
 
+	void SetPivot(Vector3 value) { pivot = value; }
+
 protected:
 	// SRT 따로 만들지 않음
 	Matrix world;
