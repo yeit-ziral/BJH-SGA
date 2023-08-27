@@ -582,6 +582,9 @@
     <Image Include="Resource\UI\Bar.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Box.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />

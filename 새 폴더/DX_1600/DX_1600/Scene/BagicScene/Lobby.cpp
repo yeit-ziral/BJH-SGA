@@ -20,6 +20,7 @@ Lobby::Lobby()
 	_hpBar = make_shared<HPBar>(L"Resource/UI/Button.png", Vector2(500, 50));
 	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
 
+	_player->SetPosition(Vector2(0, 0));
 }
 
 Lobby::~Lobby()
