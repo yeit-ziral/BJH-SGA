@@ -40,6 +40,7 @@ CupHeadScene::CupHeadScene()
 	_potal->SetPosition(Vector2(-100.0f, 0.0f));
 
 	_hpBar = make_shared<HPBar>(L"Resource/UI/Button.png", Vector2(500, 50));
+	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -96,6 +97,8 @@ void CupHeadScene::Update()
 	_potal->Update();
 
 	_hpBar->Update();
+	
+	_gunHpBar->Update();
 
 	if (_monster->_isAlive == false)
 		_potal->_isActive = true;
@@ -156,6 +159,12 @@ void CupHeadScene::Update()
 
 	if (_potal->IsCollision(_player->GetCollider()) && _monster->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
+
+	_gunHpBar->SetMaxHp(_player->GetGunMaxHp());
+	_gunHpBar->SetCurHp(_player->GetGunHp());
+	Vector2 b = _gunHpBar->GetXSizeHalf();
+
+	_gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
 }
 
 void CupHeadScene::Render()
@@ -170,6 +179,7 @@ void CupHeadScene::Render()
 
 	if (_monster->_isAlive == true)
 		_monster->Render();
+
 }
 
 void CupHeadScene::PostRender()
@@ -205,6 +215,7 @@ void CupHeadScene::PostRender()
 	_button->PostRender();
 
 	_hpBar->PostRender();
+	_gunHpBar->PostRender();
 }
 
 void CupHeadScene::CheckAttack()

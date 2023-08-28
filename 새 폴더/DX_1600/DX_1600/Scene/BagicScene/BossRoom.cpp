@@ -33,10 +33,12 @@ BossRoom::BossRoom()
 	_potal = make_shared<Potal>();
 	_potal->SetPosition(Vector2(100.0f, 0.0f));
 
-	Load();
-
 	_player->SetHP(_player->GetMaxHp());
 
+	_hpBar = make_shared<HPBar>(L"Resource/UI/Button.png", Vector2(500, 50));
+	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
+
+	Load();
 }
 
 BossRoom::~BossRoom()
@@ -69,6 +71,8 @@ void BossRoom::Update()
 	_wall->Update();
 	_button->Update();
 	_potal->Update();
+	_hpBar->Update();
+	_gunHpBar->Update();
 
 	if (_boss->_isAlive == false)
 		_potal->_isActive = true;
@@ -122,6 +126,18 @@ void BossRoom::Update()
 		//_player->SetHit(true);
 	}
 
+	_hpBar->SetMaxHp(_player->GetMaxHp());
+	_hpBar->SetCurHp(_player->GetHp());
+	Vector2 a = _hpBar->GetXSizeHalf();
+
+	_hpBar->SetPosition(Vector2(a.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y));
+
+	_gunHpBar->SetMaxHp(_player->GetGunMaxHp());
+	_gunHpBar->SetCurHp(_player->GetGunHp());
+	Vector2 b = _gunHpBar->GetXSizeHalf();
+
+	_gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
+
 	if (_potal->IsCollision(_player->GetCollider()) && _boss->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
 }
@@ -170,6 +186,9 @@ void BossRoom::PostRender()
 	}
 
 	_button->PostRender();
+
+	_hpBar->PostRender();
+	_gunHpBar->PostRender();
 }
 
 void BossRoom::CheckAttack()

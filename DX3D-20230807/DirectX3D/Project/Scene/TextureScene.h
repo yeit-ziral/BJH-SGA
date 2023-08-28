@@ -13,5 +13,6 @@ public:
 
 	virtual void PostRender() override;
 
+	Quad* quad;
 };
 

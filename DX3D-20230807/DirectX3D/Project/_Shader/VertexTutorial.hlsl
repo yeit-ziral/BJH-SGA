@@ -16,13 +16,13 @@ cbuffer Proj : register(b2)
 
 struct VertexInput
 {
-    float4 pos      : POSITiON; // 동차좌표계 쓰려고 float3가 아닌 float4로 한 차수 올림
+    float4 pos      : POSITION; // 동차좌표계 쓰려고 float3가 아닌 float4로 한 차수 올림
     float4 color    : COLOR;
 };
 
 struct VertexOutput // VertexInput을 그대로 반환하면 pos의 symentic name이 SV_POSITION이 아니라서 만듬
 {
-    float4 pos      : SV_POSITiON; //SV_POSITION (System value position)-> main의 반환값으로 리턴값이 RS(Rasterizer : 시스템)로 간다는 뜻 중간단계인 HS나 TS가 존재하면 SV_POSITION이 아닌 다른 것을 써 해당 중간단계로 보내줌
+    float4 pos      : SV_POSITION; //SV_POSITION (System value position)-> main의 반환값으로 리턴값이 RS(Rasterizer : 시스템)로 간다는 뜻 중간단계인 HS나 TS가 존재하면 SV_POSITION이 아닌 다른 것을 써 해당 중간단계로 보내줌
     float4 color    : COLOR;
 };
 

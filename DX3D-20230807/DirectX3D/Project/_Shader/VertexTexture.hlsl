@@ -16,13 +16,13 @@ cbuffer Proj : register(b2)
 
 struct VertexInput
 {
-    float4 pos : POSITiON;
+    float4 pos : POSITION;
     float2 uv : UV;
 };
 
 struct VertexOutput 
 {
-    float4 pos : SV_POSITiON; 
+    float4 pos : SV_POSITION; 
     float2 uv : UV;
 };
 

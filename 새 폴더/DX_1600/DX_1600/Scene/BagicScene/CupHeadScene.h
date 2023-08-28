@@ -34,5 +34,7 @@ private:
 	shared_ptr<class Potal> _potal;
 
 	shared_ptr<class HPBar> _hpBar;
+
+	shared_ptr<class HPBar> _gunHpBar;
 };
 

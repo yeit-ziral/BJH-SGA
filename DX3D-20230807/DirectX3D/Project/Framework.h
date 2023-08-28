@@ -45,6 +45,7 @@ using namespace DirectX;
 
 typedef XMMATRIX Matrix; // typedef(typedefine)은 코드라서 ; 필요, define은 메크로라서 ; 없음
 typedef XMFLOAT4 Vector4;
+typedef XMFLOAT2 Vector2;
 
 #include "Utility/Singleton.h"
 
@@ -74,6 +75,7 @@ typedef XMFLOAT4 Vector4;
 #include "System/Enviroment.h"
 
 #include "Object/Basic/Cube.h"
+#include "Object/Basic/Quad.h"
 
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"
