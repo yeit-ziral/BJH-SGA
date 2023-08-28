@@ -14,6 +14,14 @@ public:
 
     bool _pendulumMovement = false;
 
+    // 6면 정보 보내기
+    vector<Vector3> GetTopVertices() 
+    {
+        vector<Vector3> a = { vertices[0].pos, vertices[1].pos, vertices[2].pos, vertices[3].pos };
+
+        return a; 
+    }
+
 private:
     Material* material;
 

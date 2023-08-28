@@ -55,6 +55,54 @@ Quad::Quad(Vector2 size)
 	
 }
 
+Quad::Quad(vector<Vector3> points)
+{
+	vertices =
+	{
+		{Vector3(points[0].x, points[0].y, points[0].z), Vector2(0,0)},
+		{Vector3(points[1].x, points[1].y, points[0].z), Vector2(1,0)},
+		{Vector3(points[2].x, points[2].y, points[0].z), Vector2(0,1)},
+		{Vector3(points[3].x, points[3].y, points[0].z), Vector2(1,1)}
+	};
+
+	indices =
+	{
+		0, 1, 2,
+		2, 1, 3
+	};
+
+	mesh = new Mesh(vertices, indices);
+
+	material = new Material();
+	material->SetShader(L"Texture");
+
+	worldBuffer = new MatrixBuffer();
+
+	ScratchImage image;
+	LoadFromWICFile(L"Texture/Landscape/Box.png", WIC_FLAGS_NONE, nullptr, image);
+
+	CreateShaderResourceView
+	(
+		DEVICE,
+		image.GetImages(),
+		image.GetImageCount(),
+		image.GetMetadata(),
+		&srv
+	);
+
+	D3D11_SAMPLER_DESC samplerDesc = {};
+
+	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT; //LOD 관련된 설정(가까운것은 세세하게 먼것은 대충 )
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	samplerDesc.MinLOD = 0;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	DEVICE->CreateSamplerState(&samplerDesc, &samplerState);
+}
+
 Quad::~Quad()
 {
 	delete mesh;
