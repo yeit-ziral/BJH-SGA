@@ -102,6 +102,12 @@
     <ClInclude Include="Object\Basic\Box.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\BoxScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Basic\Box2.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -171,6 +177,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\Basic\Box.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\BoxScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Basic\Box2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -134,6 +134,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Basic\Box2.h" />
+    <ClInclude Include="Scene\BoxScene.h" />
     <ClInclude Include="Object\Basic\Box.h" />
     <ClInclude Include="Object\Basic\Quad.h" />
     <ClInclude Include="Render\Mesh.h" />
@@ -165,6 +167,8 @@
     <ClInclude Include="__Others\targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Basic\Box2.cpp" />
+    <ClCompile Include="Scene\BoxScene.cpp" />
     <ClCompile Include="Object\Basic\Box.cpp" />
     <ClCompile Include="Object\Basic\Quad.cpp" />
     <ClCompile Include="Render\Mesh.cpp" />

@@ -1,9 +1,9 @@
 #pragma once
-class TextureScene : public Scene
+class BoxScene : public Scene
 {
-public: 
-	TextureScene();
-	~TextureScene();
+public:
+	BoxScene();
+	~BoxScene();
 
 	virtual void Update() override;
 
@@ -13,9 +13,7 @@ public:
 
 	virtual void PostRender() override;
 
-	Quad* quad;
-	Quad* quad2;
-	//Quad* quad3;
-	//Quad* quad4;
+private:
+	Box2* box;
 };
 

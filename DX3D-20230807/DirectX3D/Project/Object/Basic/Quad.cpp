@@ -52,7 +52,7 @@ Quad::Quad(Vector2 size)
 	samplerDesc.MaxLOD			 = D3D11_FLOAT32_MAX;
 
 	DEVICE->CreateSamplerState(&samplerDesc, &samplerState);
-	
+
 }
 
 Quad::Quad(vector<Vector3> points)
