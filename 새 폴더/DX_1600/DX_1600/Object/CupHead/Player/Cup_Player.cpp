@@ -308,3 +308,13 @@ void Cup_Player::FixGun(int value)
 	if (_nowGun == Gun::CHARGE)
 		_chargeGun->FixHp(value);
 }
+
+int Cup_Player::GetNowGunDamage()
+{
+	if (_nowGun == Gun::NORMAL)
+		return _normalGun->GetDamage() + _damage;
+	if (_nowGun == Gun::MACHINE)
+		return _machineGun->GetDamage() + _damage;
+	if (_nowGun == Gun::CHARGE)
+		return _chargeGun->GetDamage() + _damage;
+}

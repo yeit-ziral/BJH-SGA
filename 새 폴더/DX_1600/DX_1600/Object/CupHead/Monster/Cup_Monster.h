@@ -45,6 +45,8 @@ public:
 
 	void SetBowAngle(Vector2 targetPos);
 
+	int GetDamage() { return _damage; }
+
 private:
 	void SetLeft();
 	void SetRight();
@@ -75,5 +77,7 @@ private:
 
 	shared_ptr<Quad> _bow;
 	shared_ptr<Transform> _bowTrans;
+
+	int _damage = 1;
 };
 

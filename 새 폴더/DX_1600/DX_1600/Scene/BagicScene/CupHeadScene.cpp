@@ -8,7 +8,7 @@
 
 CupHeadScene::CupHeadScene()
 {
-	_player = make_shared<Cup_Player>();
+	//_player = make_shared<Cup_Player>();
 
 	_monster = make_shared<Cup_Monster>();
 	_monster->SetPosition(Vector2(0, 0));
@@ -51,11 +51,11 @@ void CupHeadScene::Init()
 {
 	Vector2 trackSize = _track->GetTrackSize();
 
-	_player->SetPosition(Vector2(0, 0));
+	PLAYER->SetPosition(Vector2(0, 0));
 
-	_player->SetHP(_player->GetMaxHp());
+	PLAYER->SetHP(PLAYER->GetMaxHp());
 
-	_player->SetJumpPower(0.0f);
+	PLAYER->SetJumpPower(0.0f);
 
 
 
@@ -69,7 +69,7 @@ void CupHeadScene::Init()
 	//}
 
 
-	CAMERA->SetTarget(_player->GetTransform());
+	CAMERA->SetTarget(PLAYER->GetTransform());
 	CAMERA->SetLeftBottom(Vector2((trackSize.x * -0.5f), -1000.0f));
 	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
@@ -90,7 +90,7 @@ void CupHeadScene::Update()
 	_track2->Update();
 	_block->Update();
 
-	_player->Update();
+	PLAYER->Update();
 
 	_button->Update();
 
@@ -103,19 +103,19 @@ void CupHeadScene::Update()
 	if (_monster->_isAlive == false)
 		_potal->_isActive = true;
 
-	if (_track->GetColider()->Block(_player->GetCollider()))
+	if (_track->GetColider()->Block(PLAYER->GetCollider()))
 	{
 		if (_track->GetColider()->_sideCollision)
 			return;
 
-		_player->SetGrounded();
+		PLAYER->SetGrounded();
 	}
-	if (_track2->GetColider()->Block(_player->GetCollider()))
+	if (_track2->GetColider()->Block(PLAYER->GetCollider()))
 	{
 		if (_track2->GetColider()->_sideCollision)
 			return;
 
-		_player->SetGrounded();
+		PLAYER->SetGrounded();
 	}
 
 	if (KEY_PRESS('S'))
@@ -124,11 +124,11 @@ void CupHeadScene::Update()
 	}
 	else
 	{
-		if (_block->GetCollider()->Block(_player->GetCollider()))
+		if (_block->GetCollider()->Block(PLAYER->GetCollider()))
 		{
-			_player->SetGrounded();
-			if (_player->GetJumpPower() > 0.0f)
-				_player->SetJumpPower(0.0f);
+			PLAYER->SetGrounded();
+			if (PLAYER->GetJumpPower() > 0.0f)
+				PLAYER->SetJumpPower(0.0f);
 		}
 		if (_block->GetCollider()->_bottomCollision)
 		{
@@ -140,7 +140,7 @@ void CupHeadScene::Update()
 		}
 	}
 
-	Vector2 playerpos = _player->GetTransform()->GetWorldPosition();
+	Vector2 playerpos = PLAYER->GetTransform()->GetWorldPosition();
 
 	_monster->Update(playerpos);
 
@@ -148,20 +148,20 @@ void CupHeadScene::Update()
 	Vector2 bosspos = _monster->GetTransform()->GetWorldPosition();
 	int distance = playerpos.Distance(bosspos);
 	if (distance < 500.0f) // 이 거리는 일반몹에 적합
-		_monster->Attack(_player->GetCollider()->GetTransform()->GetWorldPosition());
+		_monster->Attack(PLAYER->GetCollider()->GetTransform()->GetWorldPosition());
 	CheckAttack();
 
-	_hpBar->SetMaxHp(_player->GetMaxHp());
-	_hpBar->SetCurHp(_player->GetHp());
+	_hpBar->SetMaxHp(PLAYER->GetMaxHp());
+	_hpBar->SetCurHp(PLAYER->GetHp());
 	Vector2 a = _hpBar->GetXSizeHalf();
 
 	_hpBar->SetPosition(Vector2(a.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y));
 
-	if (_potal->IsCollision(_player->GetCollider()) && _monster->_isAlive == false)
+	if (_potal->IsCollision(PLAYER->GetCollider()) && _monster->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
 
-	_gunHpBar->SetMaxHp(_player->GetGunMaxHp());
-	_gunHpBar->SetCurHp(_player->GetGunHp());
+	_gunHpBar->SetMaxHp(PLAYER->GetGunMaxHp());
+	_gunHpBar->SetCurHp(PLAYER->GetGunHp());
 	Vector2 b = _gunHpBar->GetXSizeHalf();
 
 	_gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
@@ -175,7 +175,7 @@ void CupHeadScene::Render()
 
 	_potal->Render();
 
-	_player->Render();
+	PLAYER->Render();
 
 	if (_monster->_isAlive == true)
 		_monster->Render();
@@ -184,17 +184,17 @@ void CupHeadScene::Render()
 
 void CupHeadScene::PostRender()
 {
-	_player->PostRender();
+	PLAYER->PostRender();
 	_monster->PostRender();
 
 	ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
 	ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
 	ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
-	ImGui::Text("PlayerHP : % d", (int)_player->GetHp());
+	ImGui::Text("PlayerHP : % d", (int)PLAYER->GetHp());
 	
 	if (ImGui::Button("TargetON", ImVec2(50, 50)))
 	{
-		CAMERA->SetTarget(_player->GetTransform());
+		CAMERA->SetTarget(PLAYER->GetTransform());
 	}
 
 	if (ImGui::Button("TargetOFF", ImVec2(50, 50)))
@@ -220,18 +220,17 @@ void CupHeadScene::PostRender()
 
 void CupHeadScene::CheckAttack()
 {
-	if (!_monster->_isAlive || !_player->_isAlive)
+	if (!_monster->_isAlive || !PLAYER->_isAlive)
 		return;
 
-	if (_player->IsCollision_Bullets(_monster->GetCollider()))
+	if (PLAYER->IsCollision_Bullets(_monster->GetCollider()))
 	{
-		_monster->GetAttacked(5);
+		_monster->GetAttacked(PLAYER->GetNowGunDamage());
 	}
 
-	if (_monster->IsCollsion_Bullets(_player->GetCollider()))
+	if (_monster->IsCollsion_Bullets(PLAYER->GetCollider()))
 	{
-		_player->Damaged(1);
-		//_player->SetHit(true);
+		PLAYER->Damaged(_monster->GetDamage());
 	}
 }
 
@@ -240,12 +239,12 @@ void CupHeadScene::Save()
 	BinaryWriter writer = BinaryWriter(L"Save/test.test");
 	writer.Int(1);
 
-	Vector2 playerPos = _player->GetCollider()->GetTransform()->GetWorldPosition();
+	Vector2 playerPos = PLAYER->GetCollider()->GetTransform()->GetWorldPosition();
 
 	writer.String("PlayerPos");
 	writer.Byte(&playerPos, sizeof(Vector2));
 
-	int playerHP = _player->GetHp();
+	int playerHP = PLAYER->GetHp();
 
 	writer.String("PlayerHP");
 	writer.Byte(&playerHP, sizeof(int));
@@ -263,7 +262,7 @@ void CupHeadScene::Load()
 	Vector2* ptr = &playerPos;
 	reader.Byte((void**)&ptr, sizeof(Vector2));
 
-	_player->SetPosition(playerPos);
+	PLAYER->SetPosition(playerPos);
 
 	string strhp = reader.String();
 	assert(strhp == "PlayerHP");
@@ -272,5 +271,5 @@ void CupHeadScene::Load()
 	int* php = &playerHP;
 	reader.Byte((void**)&php, sizeof(int));
 
-	_player->SetHP(playerHP);
+	PLAYER->SetHP(playerHP);
 }

@@ -151,11 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GunInventory.h" />
     <ClInclude Include="Object\CupHead\Items\HpPotion.h" />
     <ClInclude Include="Object\UI\inventory.h" />
     <ClInclude Include="Object\CupHead\Potal.h" />
     <ClInclude Include="Scene\BagicScene\Lobby.h" />
-    <ClInclude Include="Scene\BagicScene\Inventory.h" />
     <ClInclude Include="Object\CupHead\Gun\Bullets\HowitzerBullet.h" />
     <ClInclude Include="Object\CupHead\Cup_Wall.h" />
     <ClInclude Include="Object\CupHead\Gun\ChargingEffect.h" />
@@ -228,11 +228,11 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GunInventory.cpp" />
     <ClCompile Include="Object\CupHead\Items\HpPotion.cpp" />
     <ClCompile Include="Object\UI\inventory.cpp" />
     <ClCompile Include="Object\CupHead\Potal.cpp" />
     <ClCompile Include="Scene\BagicScene\Lobby.cpp" />
-    <ClCompile Include="Scene\BagicScene\Inventory.cpp" />
     <ClCompile Include="Object\CupHead\Gun\Bullets\HowitzerBullet.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Wall.cpp" />
     <ClCompile Include="Object\CupHead\Gun\ChargingEffect.cpp" />

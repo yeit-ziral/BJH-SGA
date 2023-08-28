@@ -5,6 +5,10 @@ class Cup_Bullet;
 
 class Cup_Player
 {
+private:
+	Cup_Player();
+	~Cup_Player();
+
 public:
 	enum Gun
 	{
@@ -12,8 +16,24 @@ public:
 		MACHINE,
 		CHARGE
 	};
-	Cup_Player();
-	~Cup_Player();
+
+	static void Create()
+	{
+		if (_instance == nullptr)
+			_instance = new Cup_Player();
+	}
+	static void Delete()
+	{
+		if (_instance != nullptr)
+			delete _instance;
+	}
+	static Cup_Player* GetInstance()
+	{
+		if (_instance != nullptr)
+			return _instance;
+
+		return nullptr;
+	}
 
 	void Update();
 	void Render();
@@ -67,7 +87,12 @@ public:
 	int GetGunMaxHp();
 	void FixGun(int value);
 
+	int GetNowGunDamage();
+
 private:
+
+	static Cup_Player* _instance;
+
 	int _hp = 10;
 	int _maxHp = 10;
 
@@ -93,4 +118,6 @@ private:
 	Vector2 _gunDir;
 
 	shared_ptr<class HPBar> _hpBar;
+
+	int _damage = 0;
 };

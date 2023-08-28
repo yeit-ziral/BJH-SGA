@@ -225,9 +225,6 @@
     <ClInclude Include="Object\CupHead\Gun\Bullets\HowitzerBullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Scene\BagicScene\Inventory.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\BagicScene\Lobby.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -238,6 +235,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object\CupHead\Items\HpPotion.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GunInventory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -413,9 +413,6 @@
     <ClCompile Include="Object\CupHead\Gun\Bullets\HowitzerBullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\BagicScene\Inventory.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Scene\BagicScene\Lobby.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -426,6 +423,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\CupHead\Items\HpPotion.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GunInventory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

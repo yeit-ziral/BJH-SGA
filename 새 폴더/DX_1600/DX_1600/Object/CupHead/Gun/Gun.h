@@ -27,6 +27,10 @@ public:
 			_hp = _maxHp;
 	}
 
+	bool _inIventory = false;
+
+	int GetDamage() { return _damage; }
+
 protected:
 	shared_ptr<Transform> _gunTrans;
 

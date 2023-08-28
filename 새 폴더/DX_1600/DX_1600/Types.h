@@ -48,6 +48,8 @@
 #define SOUND Sound::GetInstance()
 #define CAMERA Camera::GetInstance()
 
+#define PLAYER Cup_Player::GetInstance()
+
 #define SCENE SceneManager::GetInstance()
 
 #define LERP(s,e,t) s + (e - s) * t
