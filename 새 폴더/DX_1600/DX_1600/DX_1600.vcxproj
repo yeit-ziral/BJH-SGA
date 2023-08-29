@@ -220,6 +220,7 @@
     <ClInclude Include="Object\Bagic\Sprite.h" />
     <ClInclude Include="Framework\Utility\Sound.h" />
     <ClInclude Include="Object\CupHead\Gun\NormalGun.h" />
+    <ClInclude Include="Framework\Singleton\Singleton.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
     <ClInclude Include="Framework\Utility\Timer.h" />

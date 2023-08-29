@@ -47,7 +47,7 @@ void Lobby::End()
 
 void Lobby::Update()
 {
-	 _player->Update();
+	_player->Update();
 	 _track->Update();
 	 _potal->Update();
 	 _hpBar->Update();

@@ -57,8 +57,6 @@ void CupHeadScene::Init()
 
 	_player->SetJumpPower(0.0f);
 
-
-
 	//if (_monster->_isAlive == false)
 	//{
 	//	_player->SetPosition(Vector2(0, 0));

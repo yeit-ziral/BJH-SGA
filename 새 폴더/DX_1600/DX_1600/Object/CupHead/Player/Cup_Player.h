@@ -5,8 +5,6 @@ class Cup_Bullet;
 
 class Cup_Player
 {
-private:
-
 public:
 	enum Gun
 	{
@@ -14,6 +12,7 @@ public:
 		MACHINE,
 		CHARGE
 	};
+
 	Cup_Player();
 	~Cup_Player();
 
@@ -72,7 +71,6 @@ public:
 	int GetNowGunDamage();
 
 private:
-
 	int _hp = 10;
 	int _maxHp = 10;
 

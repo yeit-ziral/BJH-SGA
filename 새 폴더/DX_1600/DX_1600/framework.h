@@ -54,6 +54,9 @@ using namespace Microsoft::WRL;
 // Framework
 #include "Framework/Device/Device.h"
 
+//Singleton
+#include "Framework/Singleton/Singleton.h"
+
 // Math
 #include "Framework/Math/Vector2.h"
 #include "Framework/Math/Transform.h"
