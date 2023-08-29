@@ -34,4 +34,12 @@ void Material::SetMaterial()
 {
 	vertexShader->SetShader();
 	pixelShader->SetShader();
+
+	if (diffuseMap) // diffuseMap 안쓰는 것들의 에러를 막기 위해 diffuseMap이 nullptr이 아닌것만 사용하도록 함
+		diffuseMap->PSSetShaderResources(0);
+}
+
+void Material::SetDiffuseMap(wstring file)
+{
+	diffuseMap = Texture::Get(file);
 }

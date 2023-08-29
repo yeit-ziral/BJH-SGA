@@ -13,9 +13,7 @@ public:
 
 	virtual void PostRender() override;
 
-	Quad* quad;
-	Quad* quad2;
-	//Quad* quad3;
-	//Quad* quad4;
+private:
+	TextureCube* cube;
 };
 

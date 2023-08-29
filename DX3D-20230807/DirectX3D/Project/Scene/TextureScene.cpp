@@ -3,23 +3,18 @@
 
 TextureScene::TextureScene()
 {
-	quad = new Quad();
-	quad2 = new Quad();
-
-	quad->translation.x += 0.5;
-	quad->rotation.x += 0.01;
+	cube = new TextureCube();
+	cube->SetLabel("Cube");
 }
 
 TextureScene::~TextureScene()
 {
-	delete quad;
-	delete quad2;
+	delete cube;
 }
 
 void TextureScene::Update()
 {
-	quad->Update();
-	quad2->Update();
+	cube->Update();
 }
 
 void TextureScene::PreRender()
@@ -28,10 +23,10 @@ void TextureScene::PreRender()
 
 void TextureScene::Render()
 {
-	quad->Render();
-	quad2->Render();
+	cube->Render();
 }
 
 void TextureScene::PostRender()
 {
+	cube->Debug();
 }

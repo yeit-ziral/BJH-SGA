@@ -10,8 +10,6 @@ public:
 
     void CreateMesh(Vector4 color);
 
-    void Debug();
-
     bool _pendulumMovement = false;
 
     // 6면 정보 보내기
@@ -68,6 +66,5 @@ private:
 
     static int count;
 
-    string label = "";
 };
 

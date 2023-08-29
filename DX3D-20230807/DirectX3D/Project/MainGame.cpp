@@ -5,10 +5,10 @@ MainGame::MainGame()
 {
 	Initialize();
 
-	//scene = new TextureScene();
+	scene = new TextureScene();
 	//scene = new TutorialScene();
 	//scene = new RobotScene();
-	scene = new BoxScene();
+	//scene = new BoxScene();
 }
 
 MainGame::~MainGame()
@@ -50,10 +50,11 @@ void MainGame::Render()
 
 void MainGame::Initialize()
 {
-		Device::GetInstance(); // 안해줘도 생성시 만들어짐
-	Enviroment::GetInstance();
-	  Keyboard::GetInstance();
-		  Time::GetInstance();
+			Device::GetInstance(); // 안해줘도 생성시 만들어짐
+		Enviroment::GetInstance();
+		  Keyboard::GetInstance();
+			  Time::GetInstance();
+	  StateManager::GetInstance();
 
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
@@ -77,6 +78,7 @@ void MainGame::Release()
 	Device::Delete();
 	Shader::Delete();
 	Enviroment::Delete();
+	StateManager::Delete();
 
 	// Cleanup
 	ImGui_ImplDX11_Shutdown();

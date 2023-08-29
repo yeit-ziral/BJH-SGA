@@ -1,0 +1,58 @@
+#include "Framework.h"
+#include "Texture.h"
+
+map<wstring, Texture*> Texture::textures = {};
+
+Texture::Texture(ID3D11ShaderResourceView* srv, ScratchImage& image)
+	:srv(srv), image(move(image)) 
+// move : 이동 생성자 => 얕은 복사, 이전의 주소값을 받아오는 것을 끊고 지금 객체에만 주소값을 들고 있게 함, 메모리를 아낄 수 있음
+// 안해주면 image가 삭제된 파일이라고 나옴
+{
+
+}
+
+Texture::~Texture()
+{
+	srv->Release();
+}
+
+Texture* Texture::Get(wstring file)
+{
+	// 있으면 있는거 리턴
+	file = L"Texture/" + file;
+
+	if (textures.count(file) > 0)
+		return textures[file];
+
+	// 없으면 만들어서 리턴
+	ScratchImage image;
+	LoadFromWICFile(file.c_str(), WIC_FLAGS_NONE, nullptr, image); // ScratchImage가 이동 생성자여서 이 함수가 끝나도 지역변수인 image 가 삭제되지 않음 소유권을 여기서 넘겼기 때문
+
+	ID3D11ShaderResourceView* srv = nullptr;
+
+	CreateShaderResourceView
+	(
+		DEVICE,
+		image.GetImages(),
+		image.GetImageCount(),
+		image.GetMetadata(),
+		&srv
+	);
+
+	textures[file] = new Texture(srv, image);
+
+	return textures[file];
+}
+
+void Texture::Delete()
+{
+	for (pair<wstring, Texture*> pair : textures)
+		delete pair.second;
+
+	textures.clear();
+}
+
+void Texture::PSSetShaderResources(UINT slot)
+{
+	DC->PSSetShaderResources(slot, 1, &srv);
+}

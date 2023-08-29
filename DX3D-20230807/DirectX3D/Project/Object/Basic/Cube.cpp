@@ -15,7 +15,7 @@ Cube::Cube(Vector4 color)
 
     count++;
 
-    label = "Cube" + to_string(count);
+   
 }
 
 Cube::~Cube()
@@ -119,23 +119,4 @@ void Cube::CreateMesh(Vector4 color)
     };
 
     mesh = new Mesh(vertices, indices);
-}
-
-void Cube::Debug()
-{
-    if (ImGui::BeginMenu(label.c_str()))
-    {
-        ImGui::DragFloat3("Scale",          (float*)&scale,         0.01f,      0.01f,      100.0f);
-        //ImGui::DragFloat3("Rotation",       (float*)&rotation,      0.01f,      -XM_2PI,    XM_2PI);
-
-        ImGui::SliderAngle("RotationX", &rotation.x);
-        ImGui::SliderAngle("RotationY", &rotation.y);
-        ImGui::SliderAngle("RotationZ", &rotation.z);
-
-        ImGui::DragFloat3("Translation",    (float*)&translation,   0.01f,      -WIN_WIDTH, WIN_WIDTH);
-
-
-
-        ImGui::EndMenu();
-    }
 }

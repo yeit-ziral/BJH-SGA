@@ -17,24 +17,6 @@ public:
 		CHARGE
 	};
 
-	static void Create()
-	{
-		if (_instance == nullptr)
-			_instance = new Cup_Player();
-	}
-	static void Delete()
-	{
-		if (_instance != nullptr)
-			delete _instance;
-	}
-	static Cup_Player* GetInstance()
-	{
-		if (_instance != nullptr)
-			return _instance;
-
-		return nullptr;
-	}
-
 	void Update();
 	void Render();
 	void PostRender();
@@ -90,8 +72,6 @@ public:
 	int GetNowGunDamage();
 
 private:
-
-	static Cup_Player* _instance;
 
 	int _hp = 10;
 	int _maxHp = 10;

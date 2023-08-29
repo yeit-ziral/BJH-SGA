@@ -103,6 +103,9 @@ using namespace Microsoft::WRL;
 #include "Object/Bagic/Effect.h"
 #include "Object/Bagic/EffectManager.h"
 
+// Cup Head
+#include "Object/CupHead/Player/Cup_Player.h"
+
 // UI
 #include "Object/UI/Button.h"
 #include "Object/UI/HPBar.h"
