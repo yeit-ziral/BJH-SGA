@@ -6,8 +6,6 @@ class Cup_Bullet;
 class Cup_Player
 {
 private:
-	Cup_Player();
-	~Cup_Player();
 
 public:
 	enum Gun
@@ -16,6 +14,8 @@ public:
 		MACHINE,
 		CHARGE
 	};
+	Cup_Player();
+	~Cup_Player();
 
 	void Update();
 	void Render();

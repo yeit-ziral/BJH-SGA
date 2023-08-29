@@ -8,7 +8,7 @@
 
 BossRoom::BossRoom()
 {
-	//_player = make_shared<Cup_Player>();
+	_player = make_shared<Cup_Player>();
 
 
 	_track = make_shared<Cup_Track>();
@@ -33,7 +33,7 @@ BossRoom::BossRoom()
 	_potal = make_shared<Potal>();
 	_potal->SetPosition(Vector2(100.0f, 0.0f));
 
-	PLAYER->SetHP(PLAYER->GetMaxHp());
+	//_player->SetHP(_player->GetMaxHp());
 
 	_hpBar = make_shared<HPBar>(L"Resource/UI/Button.png", Vector2(500, 50));
 	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
@@ -47,12 +47,12 @@ BossRoom::~BossRoom()
 
 void BossRoom::Init()
 {
-	PLAYER->SetPosition(Vector2(0, 0));
-	PLAYER->SetJumpPower(0.0f);
+	_player->SetPosition(Vector2(0, 0));
+	_player->SetJumpPower(0.0f);
 
 	Vector2 trackSize = _track->GetTrackSize();
 
-	CAMERA->SetTarget(PLAYER->GetTransform());
+	CAMERA->SetTarget(_player->GetTransform());
 	CAMERA->SetLeftBottom(Vector2((-trackSize.x * 0.125f), -100.0f));
 	CAMERA->SetRightTop(Vector2((trackSize.x), 1000.0f));
 
@@ -65,8 +65,8 @@ void BossRoom::End()
 
 void BossRoom::Update()
 {
-	PLAYER->Update();
-	_boss->Update(PLAYER->GetTransform()->GetWorldPosition());
+	_player->Update();
+	_boss->Update(_player->GetTransform()->GetWorldPosition());
 	_track->Update();
 	_wall->Update();
 	_button->Update();
@@ -77,17 +77,17 @@ void BossRoom::Update()
 	if (_boss->_isAlive == false)
 		_potal->_isActive = true;
 
-	if (_wall->GetUpWall()->Block(_boss->GetCollider()) && PLAYER->_isAlive == true)
+	if (_wall->GetUpWall()->Block(_boss->GetCollider()) && _player->_isAlive == true)
 	{
 		//_boss->Fire(_player->GetCollider()->GetPos());
 	}
 
-	if (_track->GetColider()->Block(PLAYER->GetCollider()))
+	if (_track->GetColider()->Block(_player->GetCollider()))
 	{
 		if (_track->GetColider()->_sideCollision)
 			return;
 
-		PLAYER->SetGrounded();
+		_player->SetGrounded();
 	}
 	if (_track->GetColider()->Block(_boss->GetCollider()))
 	{
@@ -109,36 +109,36 @@ void BossRoom::Update()
 
 	if (_boss->_isAlive == true)
 	{
-		if (PLAYER->IsCollision_Bullets(_boss->GetCollider()))
+		if (_player->IsCollision_Bullets(_boss->GetCollider()))
 		{
-			if (PLAYER->GetNowGun() == Cup_Player::Gun::MACHINE)
+			if (_player->GetNowGun() == Cup_Player::Gun::MACHINE)
 				_boss->Damage(1);
-			if (PLAYER->GetNowGun() == Cup_Player::Gun::NORMAL)
+			if (_player->GetNowGun() == Cup_Player::Gun::NORMAL)
 				_boss->Damage(5);
-			if (PLAYER->GetNowGun() == Cup_Player::Gun::CHARGE)
+			if (_player->GetNowGun() == Cup_Player::Gun::CHARGE)
 				_boss->Damage(15);
 		}
 	}
 
-	if (_boss->IsCollsion_Bullets(PLAYER->GetCollider()))
+	if (_boss->IsCollsion_Bullets(_player->GetCollider()))
 	{
-		PLAYER->Attacked(1);
+		_player->Attacked(1);
 		//_player->SetHit(true);
 	}
 
-	_hpBar->SetMaxHp(PLAYER->GetMaxHp());
-	_hpBar->SetCurHp(PLAYER->GetHp());
+	_hpBar->SetMaxHp(_player->GetMaxHp());
+	_hpBar->SetCurHp(_player->GetHp());
 	Vector2 a = _hpBar->GetXSizeHalf();
 
 	_hpBar->SetPosition(Vector2(a.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y));
 
-	_gunHpBar->SetMaxHp(PLAYER->GetGunMaxHp());
-	_gunHpBar->SetCurHp(PLAYER->GetGunHp());
+	_gunHpBar->SetMaxHp(_player->GetGunMaxHp());
+	_gunHpBar->SetCurHp(_player->GetGunHp());
 	Vector2 b = _gunHpBar->GetXSizeHalf();
 
 	_gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
 
-	if (_potal->IsCollision(PLAYER->GetCollider()) && _boss->_isAlive == false)
+	if (_potal->IsCollision(_player->GetCollider()) && _boss->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
 }
 
@@ -149,7 +149,7 @@ void BossRoom::Render()
 
 	_potal->Render();
 
-	PLAYER->Render();
+	_player->Render();
 
 	if (_boss->_isAlive == true)
 		_boss->Render();
@@ -157,17 +157,17 @@ void BossRoom::Render()
 
 void BossRoom::PostRender()
 {
-	PLAYER->PostRender();
+	_player->PostRender();
 	_boss->PostRender();
 
 	ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
 	ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
 	ImGui::Text("MonsterHP : % d", (int)_boss->GetHp());
-	ImGui::Text("PlayerHP : % d", (int)PLAYER->GetHp());
+	ImGui::Text("PlayerHP : % d", (int)_player->GetHp());
 
 	if (ImGui::Button("TargetON", ImVec2(50, 50)))
 	{
-		CAMERA->SetTarget(PLAYER->GetTransform());
+		CAMERA->SetTarget(_player->GetTransform());
 	}
 
 	if (ImGui::Button("TargetOFF", ImVec2(50, 50)))
@@ -193,17 +193,17 @@ void BossRoom::PostRender()
 
 void BossRoom::CheckAttack()
 {
-	if (!_boss->_isAlive || !PLAYER->_isAlive)
+	if (!_boss->_isAlive || !_player->_isAlive)
 		return;
 
-	if (PLAYER->IsCollision_Bullets(_boss->GetCollider()))
+	if (_player->IsCollision_Bullets(_boss->GetCollider()))
 	{
-		_boss->GetAttacked(PLAYER->GetNowGunDamage());
+		_boss->GetAttacked(_player->GetNowGunDamage());
 	}
 
-	if (_boss->IsCollsion_Bullets(PLAYER->GetCollider()))
+	if (_boss->IsCollsion_Bullets(_player->GetCollider()))
 	{
-		PLAYER->Damaged(1);
+		_player->Damaged(1);
 		//_player->SetHit(true);
 	}
 }
