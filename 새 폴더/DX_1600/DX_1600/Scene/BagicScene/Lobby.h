@@ -14,7 +14,7 @@ public:
 	void Load();
 
 private:
-	shared_ptr<class Cup_Player> _player;
+	//shared_ptr<class Cup_Player> _player;
 
 	shared_ptr<class Cup_Track> _track;
 

@@ -8,6 +8,8 @@
 
 using namespace tinyxml2;
 
+
+Cup_Player* Cup_Player::_instance = nullptr;
 Cup_Player::Cup_Player()
 {
 	SOUND->Add("Cup_Attack", "Resource/Sound/Attack.wav", false);

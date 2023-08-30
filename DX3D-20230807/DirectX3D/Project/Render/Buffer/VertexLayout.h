@@ -7,7 +7,7 @@ struct Vertex
         pos = XMFLOAT3(x, y, z);
     }
 
-    XMFLOAT3 pos;
+    XMFLOAT3 pos = {};
 };
 
 struct VertexColor
@@ -18,18 +18,23 @@ struct VertexColor
 
     }
 
-    XMFLOAT3 pos;
-    XMFLOAT4 color;
+    XMFLOAT3 pos    = {};
+    XMFLOAT4 color  = {};
 };
 
 struct VertexTexture
 {
+    VertexTexture()
+    {
+
+    }
+
     VertexTexture(Vector3 pos, Vector2 uv)
         :pos(pos), uv(uv)
     {
 
     }
 
-    Vector3 pos;
-    Vector2 uv;
+    Vector3 pos = {};
+    Vector2 uv  = {};
 };
