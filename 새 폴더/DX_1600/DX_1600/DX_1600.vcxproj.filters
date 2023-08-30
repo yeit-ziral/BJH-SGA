@@ -243,6 +243,12 @@
     <ClInclude Include="Scene\BagicScene\CupHeadScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\UI\InventoryCell.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeedBoots.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -431,6 +437,12 @@
     <ClCompile Include="Scene\BagicScene\CupHeadScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\UI\InventoryCell.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedBoots.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc">
@@ -579,13 +591,28 @@
     <Image Include="Resource\Potal.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Resource\UI\Inventory.png">
-      <Filter>리소스 파일</Filter>
-    </Image>
     <Image Include="Resource\UI\Bar.png">
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Resource\Box.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\UI\InventoryCell.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\FixingTool.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\Helmet.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\KingBullet.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\Scope.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\SpeedBoots.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
