@@ -246,7 +246,7 @@
     <ClInclude Include="Object\UI\InventoryCell.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SpeedBoots.h">
+    <ClInclude Include="Object\CupHead\Items\SpeedBoots.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -440,7 +440,7 @@
     <ClCompile Include="Object\UI\InventoryCell.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SpeedBoots.cpp">
+    <ClCompile Include="Object\CupHead\Items\SpeedBoots.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
