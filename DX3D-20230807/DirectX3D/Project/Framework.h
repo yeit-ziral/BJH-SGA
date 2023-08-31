@@ -79,6 +79,7 @@ typedef XMFLOAT2 Vector2;
 #include "Render/State/StateManager.h"
 
 #include "System/Enviroment.h"
+#include "System/Camera.h"
 
 #include "Object/Basic/Cube.h"
 #include "Object/Basic/Quad.h"
@@ -96,3 +97,5 @@ typedef XMFLOAT2 Vector2;
 #include "MainGame.h"
 
 extern HWND hWnd; // extern : 변수의 전방선언 같은 느낌
+
+extern Vector3 mousePos;

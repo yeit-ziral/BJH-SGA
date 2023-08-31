@@ -9,7 +9,6 @@ Enviroment::Enviroment()
 
 Enviroment::~Enviroment()
 {
-    delete  viewBuffer;
     delete  projBuffer;
 }
 
@@ -28,16 +27,9 @@ void Enviroment::CreateViewport()
 
 void Enviroment::CreatePerspective()
 {
-    viewBuffer = new MatrixBuffer();
     projBuffer = new MatrixBuffer();
 
-    XMVECTOR   eyePos = XMVectorSet(+0.0f, 10.0f, -5.0f, +1.0f);
-    XMVECTOR focusPos = XMVectorSet(+0.0f, +0.0f, +0.0f, +1.0f);
-    XMVECTOR upVector = XMVectorSet(+0.0f, +1.0f, +0.0f, +0.0f);
 
-    XMMATRIX view = XMMatrixLookAtLH(eyePos, focusPos, upVector);
-
-    viewBuffer->SetData(view);
 
     XMMATRIX projection = XMMatrixPerspectiveFovLH
     (
@@ -49,6 +41,5 @@ void Enviroment::CreatePerspective()
 
     projBuffer->SetData(projection);
 
-    viewBuffer->SetVSBuffer(1);
     projBuffer->SetVSBuffer(2);
 }

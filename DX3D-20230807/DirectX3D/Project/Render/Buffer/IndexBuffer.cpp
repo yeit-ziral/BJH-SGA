@@ -5,7 +5,7 @@ IndexBuffer::IndexBuffer(vector<UINT>& indices)
 {
     D3D11_BUFFER_DESC bufferDesc = {};
 
-    bufferDesc.ByteWidth = sizeof(Vertex) * indices.size();
+    bufferDesc.ByteWidth = sizeof(UINT) * indices.size();
     bufferDesc.Usage = D3D11_USAGE_DEFAULT; // DEFAULT는 CPU에서 정보 수정 불가능
     bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
     bufferDesc.CPUAccessFlags = 0;
