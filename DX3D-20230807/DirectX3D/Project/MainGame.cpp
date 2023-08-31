@@ -85,7 +85,6 @@ void MainGame::Release()
 	StateManager::Delete();
 	Camera::Delete();
 	Texture::Delete();
-	Texture::Delete();
 
 	// Cleanup
 	ImGui_ImplDX11_Shutdown();

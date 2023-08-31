@@ -151,7 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Items\KingBullet.h" />
+    <ClInclude Include="Object\CupHead\Items\FixingTool.h" />
     <ClInclude Include="GunInventory.h" />
+    <ClInclude Include="Object\CupHead\Items\Helmet.h" />
     <ClInclude Include="Object\UI\InventoryCell.h" />
     <ClInclude Include="Object\CupHead\Items\HpPotion.h" />
     <ClInclude Include="Object\UI\inventory.h" />
@@ -223,6 +226,7 @@
     <ClInclude Include="Object\CupHead\Gun\NormalGun.h" />
     <ClInclude Include="Framework\Singleton\Singleton.h" />
     <ClInclude Include="Object\CupHead\Items\SpeedBoots.h" />
+    <ClInclude Include="Object\CupHead\Items\Scope.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Framework\Math\Transform.h" />
     <ClInclude Include="Framework\Utility\Timer.h" />
@@ -231,7 +235,10 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Items\KingBullet.cpp" />
+    <ClCompile Include="Object\CupHead\Items\FixingTool.cpp" />
     <ClCompile Include="GunInventory.cpp" />
+    <ClCompile Include="Object\CupHead\Items\Helmet.cpp" />
     <ClCompile Include="Object\UI\InventoryCell.cpp" />
     <ClCompile Include="Object\CupHead\Items\HpPotion.cpp" />
     <ClCompile Include="Object\UI\inventory.cpp" />
@@ -304,6 +311,7 @@
     <ClCompile Include="Framework\Utility\Sound.cpp" />
     <ClCompile Include="Object\CupHead\Gun\NormalGun.cpp" />
     <ClCompile Include="Object\CupHead\Items\SpeedBoots.cpp" />
+    <ClCompile Include="Object\CupHead\Items\Scope.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc" />
