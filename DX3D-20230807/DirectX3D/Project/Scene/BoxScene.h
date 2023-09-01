@@ -14,6 +14,6 @@ public:
 	virtual void PostRender() override;
 
 private:
-	Box2* box;
+	Box* box;
 };
 

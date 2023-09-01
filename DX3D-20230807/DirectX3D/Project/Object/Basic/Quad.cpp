@@ -38,9 +38,9 @@ Quad::Quad(vector<Vector3> points)
 	vertices =
 	{
 		{Vector3(points[0].x, points[0].y, points[0].z), Vector2(0,0)},
-		{Vector3(points[1].x, points[1].y, points[0].z), Vector2(1,0)},
-		{Vector3(points[2].x, points[2].y, points[0].z), Vector2(0,1)},
-		{Vector3(points[3].x, points[3].y, points[0].z), Vector2(1,1)}
+		{Vector3(points[1].x, points[1].y, points[1].z), Vector2(1,0)},
+		{Vector3(points[2].x, points[2].y, points[2].z), Vector2(0,1)},
+		{Vector3(points[3].x, points[3].y, points[3].z), Vector2(1,1)}
 	};
 
 	indices =

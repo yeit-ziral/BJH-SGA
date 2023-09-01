@@ -49,7 +49,7 @@ void Box::Update()
 
 void Box::Render()
 {
-		  cube->Render();
+		  //cube->Render();
 	   quadTop->Render();
 	quadBottom->Render();
 	 quadFront->Render();

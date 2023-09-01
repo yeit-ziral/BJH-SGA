@@ -3,7 +3,7 @@
 
 BoxScene::BoxScene()
 {
-	box = new Box2();
+	box = new Box();
 }
 
 BoxScene::~BoxScene()
