@@ -63,6 +63,16 @@ struct Vector3
 
 	Vector3 GetNormalized() { return XMVector3Normalize(*this); }
 
+	static Vector3 Cross(Vector3& v1, Vector3& v2)
+	{
+		return XMVector3Cross(v1, v2);
+	}
+	 
+	static float Dot(Vector3& v1, Vector3& v2)
+	{
+		return XMVectorGetX(XMVector3Dot(v1, v2));
+	}
+
 	Vector3 operator+(const Vector3& other) 
 	{ 
 		return Vector3(this->x + other.x, this->y + other.y, this->z + other.z);

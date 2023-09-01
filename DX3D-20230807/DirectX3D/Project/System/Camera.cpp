@@ -7,7 +7,8 @@ Camera::Camera()
 
 	transform = new Transform();
 
-	transform->translation = { 5.0f, 20.0f, -20.0f };
+	transform->translation = { 120, 100, -20 };
+	transform->rotation.x = 0.65f;
 }
 
 Camera::~Camera()
@@ -24,6 +25,12 @@ void Camera::Update()
 
 void Camera::PostRender()
 {
+	Vector3 pos = transform->translation;
+	Vector3 rot = transform->rotation;
+
+	ImGui::Text("Camera Pos : %d, %d, %d", pos.x, pos.y, pos.z);// const char* => char*은 string을 넣으라는 소리이고, const는 "abcd" 이 형식으로 넣으라는 소리이다 string a가 아니라
+	ImGui::Text("Camera Rot : %.3f, %.3f, %.3f", rot.x, rot.y, rot.z); // f앞에 .n 을 적어서 몇번째 자리까지 표현할지 정할 수 있음
+	// 서식 지정자 %d(정수), %f(실수), %c(charactor), %s(string), %p(pointer) 등에 맞게 넣어줘야 함
 }
 
 void Camera::FreeMode()

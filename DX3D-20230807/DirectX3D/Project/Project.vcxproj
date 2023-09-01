@@ -162,6 +162,7 @@
     <ClInclude Include="Render\Texture\Texture.h" />
     <ClInclude Include="Object\Basic\TextureCube.h" />
     <ClInclude Include="Scene\TerrainScene.h" />
+    <ClInclude Include="Object\Landscape\Terrain.h" />
     <ClInclude Include="Utility\Keyboard.h" />
     <ClInclude Include="Utility\Singleton.h" />
     <ClInclude Include="Scene\TutorialScene.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="Render\Texture\Texture.cpp" />
     <ClCompile Include="Object\Basic\TextureCube.cpp" />
     <ClCompile Include="Scene\TerrainScene.cpp" />
+    <ClCompile Include="Object\Landscape\Terrain.cpp" />
     <ClCompile Include="Utility\Keyboard.cpp" />
     <ClCompile Include="Utility\Time.cpp" />
     <ClCompile Include="Utility\Vector3.cpp" />
@@ -246,6 +248,12 @@
     <Image Include="__Others\small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="_Shader\PixelDiffuse.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="_Shader\PixelTexture.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -257,6 +265,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="_Shader\VertexDiffuse.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="_Shader\VertexTexture.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
@@ -273,6 +287,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="_Shader\Header.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

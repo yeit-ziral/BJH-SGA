@@ -20,3 +20,26 @@ private:
 		XMMATRIX matrix;
 	} data;
 };
+
+class LightBuffer : public ConstBuffer
+{
+public:
+	LightBuffer()
+		: ConstBuffer(&data, sizeof(data)) // 부모의 생서자 호출해서 데이터 생성을 같이 해줌
+	{
+		data.direction = V_DOWN;
+	}
+
+	void SetData(Vector3 direction)
+	{
+		data.direction = direction;
+	}
+
+private:
+	struct Data
+	{
+		Vector3 direction;
+
+		float padding;
+	} data;
+};

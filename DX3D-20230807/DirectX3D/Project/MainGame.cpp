@@ -39,11 +39,15 @@ void MainGame::Render()
 
 	Device::GetInstance()->Clear();
 
+	Enviroment::GetInstance()->SetEnviroment();
+
 	scene->Render();
 
 	scene->PostRender();
 
 	Camera::GetInstance()->PostRender();
+
+	Enviroment::GetInstance()->PostRender();
 
 	ImGui::Render();
 
