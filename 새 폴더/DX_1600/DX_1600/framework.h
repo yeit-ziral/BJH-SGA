@@ -112,6 +112,8 @@ using namespace Microsoft::WRL;
 // UI
 #include "Object/UI/Button.h"
 #include "Object/UI/HPBar.h"
+#include "Object/UI/InventoryCell.h"
+#include "Object/UI/inventory.h"
 
 // Scene
 #include "Scene/Scene.h"
