@@ -5,6 +5,7 @@
 #include "../Gun/NormalGun.h"
 #include "../Gun/Machinegun.h"
 #include "../Gun/ChargeGun.h"
+#include "../../UI/inventory.h"
 
 using namespace tinyxml2;
 
@@ -14,8 +15,13 @@ Cup_Player::Cup_Player()
 {
 	SOUND->Add("Cup_Attack", "Resource/Sound/Attack.wav", false);
 
+	_footCollider = make_shared<RectCollider>(Vector2(50.0f, 10.0f));
+
 	_collider = make_shared<CircleCollider>(50.0f);
 	_animation = make_shared<Cup_Ani>();
+
+	_collider->GetTransform()->SetParent(GetFootTransform());
+	_collider->GetTransform()->SetPosition(Vector2(0, 50));
 
 	_animation->SetParent(_collider->GetTransform());
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/hit_4x2.png", Vector2(4, 2), Vector2(100, 100), 0.1f);
@@ -33,6 +39,8 @@ Cup_Player::Cup_Player()
 	_chargeGun->GetTransform()->SetParent(_gunSlot);
 	_chargeGun->GetTransform()->SetPosition({ 50,0 });
 
+	_inventory = make_shared<inventory>();
+	_inventory->GetTransform()->SetPosition(Vector2(0, 0));
 }
 
 Cup_Player::~Cup_Player()
@@ -76,8 +84,10 @@ void Cup_Player::Update()
 
 
 	Input();
+	_footCollider->Update();
 	_collider->Update();
 	_animation->Update();
+	_inventory->Update();
 
 	if (!_animation->IsActive())
 		_isAlive = false;
@@ -87,9 +97,12 @@ void Cup_Player::Render()
 {
 	if (!_isAlive)
 		return;
+
 	_animation->Render();
 
 	_collider->Render();
+
+	_footCollider->Render();
 
 	_normalGun->Render();
 	_machineGun->Render();
@@ -104,6 +117,8 @@ void Cup_Player::PostRender()
 	ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
 	ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
 	_chargeGun->PostRender();
+
+	_inventory->PostRender();
 }
 
 
@@ -116,7 +131,7 @@ void Cup_Player::Input()
 		if (_jumpPower < -600.0f)
 			_jumpPower = -600.0f;
 
-		_collider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
+		_footCollider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
 	}
 
 	if (!_isAlive)

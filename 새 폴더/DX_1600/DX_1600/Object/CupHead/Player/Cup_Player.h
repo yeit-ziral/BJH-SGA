@@ -38,12 +38,12 @@ public:
 	void Render();
 	void PostRender();
 
-	void Move(Vector2 movePos) { _collider->GetTransform()->AddVector2(movePos); }
+	void Move(Vector2 movePos) { _footCollider->GetTransform()->AddVector2(movePos); }
 	void Input();
 	void Fire();
 	void Jump();
 
-	void SetPosition(Vector2 pos) { _collider->SetPosition(pos); }
+	void SetPosition(Vector2 pos) { _footCollider->SetPosition(pos); }
 
 	void NormalFire();
 	void MachineFire();
@@ -56,6 +56,7 @@ public:
 	void SetGrounded();
 
 	shared_ptr<Collider> GetCollider() { return _collider; }
+	shared_ptr<Collider> GetFootCollider() { return _footCollider; }
 
 	int GetHp() { return _hp; }
 	void SetHP(int value) { _hp = value; }
@@ -68,6 +69,8 @@ public:
 	bool _isAlive = true;
 
 	bool IsAlive();
+
+	shared_ptr<Transform>GetFootTransform() { return _footCollider->GetTransform(); }
 
 	shared_ptr<Transform> GetTransform() { return _collider->GetTransform(); }
 
@@ -99,6 +102,8 @@ private:
 	shared_ptr<Cup_Ani> _animation;
 	shared_ptr<Collider> _collider;
 
+	shared_ptr<Collider> _footCollider;
+
 	// ÃÑ class ¹Þ±â
 	//shared_ptr<class Gun> _gun;
 	shared_ptr<class NormalGun> _normalGun;
@@ -118,4 +123,6 @@ private:
 	shared_ptr<class HPBar> _hpBar;
 
 	int _damage = 0;
+
+	shared_ptr<class inventory> _inventory;
 };

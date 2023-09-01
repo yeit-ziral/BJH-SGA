@@ -18,10 +18,15 @@ public:
 	// _invenCell1의 Items 를 넘겨주는 함수
 	InventoryCell::Items GetInvenState();
 
+	void SetOn(bool value) { _on = value; }
+
+	shared_ptr<Collider> GetTransform() { return _collider; }
+
 private:
 	//아이템 먹을 시 순서대로 각 이벤토리 칸에 해당 아이템의 정보 불러오기 
-	shared_ptr<class InventoryCell> _invenCell1;
-	shared_ptr<class InventoryCell> _invenCell2;
-	shared_ptr<class InventoryCell> _invenCell3;
-	shared_ptr<class InventoryCell> _invenCell4;
+	vector<shared_ptr<class InventoryCell>> _inventory;
+
+	shared_ptr<Collider> _collider;
+
+	bool _on = false;
 };

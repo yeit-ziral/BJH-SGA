@@ -82,7 +82,7 @@ void BossRoom::Update()
 		//_boss->Fire(_player->GetCollider()->GetPos());
 	}
 
-	if (_track->GetColider()->Block(PLAYER->GetCollider()))
+	if (_track->GetColider()->Block(PLAYER->GetFootCollider()))
 	{
 		if (_track->GetColider()->_sideCollision)
 			return;

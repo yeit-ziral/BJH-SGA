@@ -101,14 +101,14 @@ void CupHeadScene::Update()
 	if (_monster->_isAlive == false)
 		_potal->_isActive = true;
 
-	if (_track->GetColider()->Block(PLAYER->GetCollider()))
+	if (_track->GetColider()->Block(PLAYER->GetFootCollider()))
 	{
 		if (_track->GetColider()->_sideCollision)
 			return;
 
 		PLAYER->SetGrounded();
 	}
-	if (_track2->GetColider()->Block(PLAYER->GetCollider()))
+	if (_track2->GetColider()->Block(PLAYER->GetFootCollider()))
 	{
 		if (_track2->GetColider()->_sideCollision)
 			return;
@@ -122,20 +122,21 @@ void CupHeadScene::Update()
 	}
 	else
 	{
-		if (_block->GetCollider()->Block(PLAYER->GetCollider()))
+		if (_block->GetCollider()->IsCollision(PLAYER->GetFootCollider()))
 		{
-			PLAYER->SetGrounded();
-			if (PLAYER->GetJumpPower() > 0.0f)
-				PLAYER->SetJumpPower(0.0f);
+			if(_block->GetCollider()->_bottomCollision)
+			{ }
+			else
+			{
+				if (_block->GetCollider()->Block(PLAYER->GetFootCollider()))
+				{
+					PLAYER->SetGrounded();
+					if (PLAYER->GetJumpPower() > 0.0f)
+						PLAYER->SetJumpPower(0.0f);
+				}
+			}
 		}
-		if (_block->GetCollider()->_bottomCollision)
-		{
-
-		}
-		else
-		{
-
-		}
+		
 	}
 
 	Vector2 playerpos = PLAYER->GetTransform()->GetWorldPosition();

@@ -4,10 +4,23 @@
 
 inventory::inventory()
 {
-	_invenCell1 = make_shared<InventoryCell>();
-	_invenCell2 = make_shared<InventoryCell>();
-	_invenCell3 = make_shared<InventoryCell>();
-	_invenCell4 = make_shared<InventoryCell>();
+	_collider = make_shared<RectCollider>(Vector2(200, 50));
+
+	for (int i = 0; i < 4; i++)
+	{
+		shared_ptr<InventoryCell> _invenCell = make_shared<InventoryCell>();
+
+		_invenCell->GetTransform()->SetParent(_collider->GetTransform());
+
+		Vector2 invenScale = _invenCell->GetTransform()->GetScale();
+
+		float PosX = _collider->GetTransform()->GetWorldPosition().x - ((-1.5f + i) * invenScale.x);
+
+		_invenCell->GetTransform()->SetPosition(Vector2(PosX, 0.0f));
+
+		_inventory.push_back(_invenCell);
+	}
+
 }
 
 inventory::~inventory()
@@ -16,41 +29,58 @@ inventory::~inventory()
 
 void inventory::Update()
 {
+	//if (!_on)
+	//	return;
+
+	_collider->Update();
+
+	for (auto cell : _inventory)
+	{
+		cell->Update();
+	}
 }
 
 void inventory::PostRender()
 {
+	if (!_on)
+		return;
+
+	_collider->Render();
+
+	for (auto cell : _inventory)
+	{
+		cell->PostRender();
+	}
 }
 
 void inventory::FillInventory(InventoryCell::Items item)
 {
-	if (_invenCell1->_isFilled = false)
+	for (int i = 0; i < 4; i++)
 	{
-		_invenCell1->SetItemState(item);
-		_invenCell1->_isFilled = true;
-	}
-	if (_invenCell2->_isFilled = false)
-	{
-		_invenCell2->SetItemState(item);
-		_invenCell2->_isFilled = true;
-	}
-	if (_invenCell3->_isFilled = false)
-	{
-		_invenCell3->SetItemState(item);
-		_invenCell3->_isFilled = true;
-	}
-	if (_invenCell4->_isFilled = false)
-	{
-		_invenCell4->SetItemState(item);
-		_invenCell4->_isFilled = true;
+		if (_inventory[i]->_isFilled == false)
+		{
+			_inventory[i]->SetItemState(item);
+			_inventory[i]->_isFilled = true;
+			return;
+		}
 	}
 }
 
 void inventory::DropItems()
 {
+	if (_inventory[0]->_isFilled == false)
+		return;
+
+	for (int i = 0; i < 3; i++)
+	{
+		_inventory[i]->SetItemState(_inventory[i + 1]->GetItemState());
+		_inventory[i]->_isFilled = false;
+	}
+	_inventory[3]->SetItemState(InventoryCell::Items::NONE);
+	_inventory[3]->_isFilled = false;
 }
 
 InventoryCell::Items inventory::GetInvenState()
 {
-	return _invenCell1->GetItemState();
+	return _inventory[0]->GetItemState();
 }

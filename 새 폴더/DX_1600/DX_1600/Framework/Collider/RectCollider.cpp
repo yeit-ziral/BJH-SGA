@@ -215,7 +215,14 @@ bool RectCollider::AABB_Collision(shared_ptr<RectCollider> other)
     else if (abs(center1.y - center2.y) > distance.y)
         return false;
     else
+    {
+        if (center1.y > center2.y)
+            _bottomCollision = true;
+        else
+            _bottomCollision = false;
+
         return true;
+    }
 }
 
 bool RectCollider::AABB_Collision(shared_ptr<CircleCollider> other)

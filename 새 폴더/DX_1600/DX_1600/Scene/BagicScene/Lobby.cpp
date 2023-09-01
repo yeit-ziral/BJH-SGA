@@ -53,7 +53,7 @@ void Lobby::Update()
 	 _hpBar->Update();
 	 _gunHpBar->Update();
 
-	 if (_track->GetColider()->Block(PLAYER->GetCollider()))
+	 if (_track->GetColider()->Block(PLAYER->GetFootCollider()))
 	 {
 		 if (_track->GetColider()->_sideCollision)
 			 return;
