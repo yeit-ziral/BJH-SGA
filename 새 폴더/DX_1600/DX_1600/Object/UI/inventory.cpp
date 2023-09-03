@@ -5,6 +5,7 @@
 inventory::inventory()
 {
 	_collider = make_shared<RectCollider>(Vector2(200, 50));
+	_collider->SetPosition({0.0f, 0.0f});
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -42,8 +43,6 @@ void inventory::Update()
 
 void inventory::PostRender()
 {
-	if (!_on)
-		return;
 
 	_collider->Render();
 

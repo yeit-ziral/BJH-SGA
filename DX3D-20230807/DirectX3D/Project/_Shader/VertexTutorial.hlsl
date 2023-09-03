@@ -1,23 +1,32 @@
-cbuffer World : register(b0)
-{
-    matrix world;
+#include "Header.hlsli"
 
-};
+//cbuffer World : register(b0)
+//{
+//    matrix world;
+//
+//};
+//
+//cbuffer View : register(b1)
+//{
+//    matrix view;
+//};
+//
+//cbuffer Proj : register(b2)
+//{
+//    matrix projection;
+//};
+//
+//struct VertexInput
+//{
+//    float4 pos      : POSITION; // 동차좌표계 쓰려고 float3가 아닌 float4로 한 차수 올림
+//    float4 color    : COLOR;
+//};
 
-cbuffer View : register(b1)
+struct VertexColorNormal
 {
-    matrix view;
-};
-
-cbuffer Proj : register(b2)
-{
-    matrix projection;
-};
-
-struct VertexInput
-{
-    float4 pos      : POSITION; // 동차좌표계 쓰려고 float3가 아닌 float4로 한 차수 올림
-    float4 color    : COLOR;
+    float4 pos : POSITION;
+    float4 color : COLOR;
+    float3 normal : NORMAL;
 };
 
 struct VertexOutput // VertexInput을 그대로 반환하면 pos의 symentic name이 SV_POSITION이 아니라서 만듬

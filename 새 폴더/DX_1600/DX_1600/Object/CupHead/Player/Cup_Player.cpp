@@ -87,6 +87,7 @@ void Cup_Player::Update()
 	_footCollider->Update();
 	_collider->Update();
 	_animation->Update();
+	
 	_inventory->Update();
 
 	if (!_animation->IsActive())
@@ -119,6 +120,8 @@ void Cup_Player::PostRender()
 	_chargeGun->PostRender();
 
 	_inventory->PostRender();
+	
+
 }
 
 

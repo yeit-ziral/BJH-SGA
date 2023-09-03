@@ -13,7 +13,6 @@ Terrain::Terrain(wstring diffuseFile, wstring heightFile)
 
 	CreateMesh();
 
-	//
 	CreateNormal();
 
 	mesh = new Mesh(vertices, indices);

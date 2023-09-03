@@ -18,7 +18,7 @@ public:
 	// _invenCell1의 Items 를 넘겨주는 함수
 	InventoryCell::Items GetInvenState();
 
-	void SetOn(bool value) { _on = value; }
+	//void SetOn(bool value) { _on = value; }
 
 	shared_ptr<Collider> GetTransform() { return _collider; }
 
@@ -27,6 +27,4 @@ private:
 	vector<shared_ptr<class InventoryCell>> _inventory;
 
 	shared_ptr<Collider> _collider;
-
-	bool _on = false;
 };

@@ -15,4 +15,14 @@ public:
 
 private:
 	Terrain* terrain;
+
+	//// ·Îº¿
+	//Cube* _body;
+	//Cube* _head;
+	//Cube* _leftArm;
+	//Cube* _rightArm;
+	//Cube* _leftLeg;
+	//Cube* _rightLeg;
+
+	Sphere* sphere;
 };

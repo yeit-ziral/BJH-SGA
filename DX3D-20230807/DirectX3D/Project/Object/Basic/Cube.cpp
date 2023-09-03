@@ -5,13 +5,16 @@ int Cube::count = 0;
 
 Cube::Cube(Vector4 color)
 {
-    material = new Material(L"Tutorial");
+    //material = new Material(L"Tutorial");
+    material = new Material();
+    material->SetShader(L"Diffuse");
 
     CreateMesh(color);
 
     //WVP
 
     worldBuffer = new MatrixBuffer();
+    //worldBuffer = new LightBuffer();
 
     count++;
 

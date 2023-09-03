@@ -60,6 +60,7 @@ private:
     Mesh* mesh;
 
     MatrixBuffer* worldBuffer;
+    //LightBuffer* worldBuffer;
 
     vector<VertexColor> vertices;
     vector<UINT> indices;

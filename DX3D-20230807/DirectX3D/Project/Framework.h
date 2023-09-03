@@ -14,6 +14,7 @@
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 
+
 using namespace std;
 using namespace DirectX;
 
@@ -42,6 +43,10 @@ using namespace DirectX;
 #define KEY_UP(p)		Keyboard::GetInstance()->Up(p)
 #define KEY_DOWN(p)		Keyboard::GetInstance()->Down(p)
 #define KEY_PRESS(p)	Keyboard::GetInstance()->Press(p)
+
+
+#define PI 3.141592
+
 
 typedef XMMATRIX Matrix; // typedef(typedefine)은 코드라서 ; 필요, define은 메크로라서 ; 없음
 typedef XMFLOAT4 Vector4;
@@ -86,6 +91,8 @@ typedef XMFLOAT2 Vector2;
 #include "Object/Basic/Box.h"
 #include "Object/Basic/Box2.h"
 #include "Object/Basic/TextureCube.h"
+#include "Object/Basic/Circle.h"
+#include "Object/Basic/Sphere.h"
 
 #include "Object/Landscape/Terrain.h"
 
@@ -95,6 +102,7 @@ typedef XMFLOAT2 Vector2;
 #include "Scene/RobotScene.h"
 #include "Scene/BoxScene.h"
 #include "Scene/TerrainScene.h"
+#include "Scene/SphereScene.h"
 
 #include "MainGame.h"
 

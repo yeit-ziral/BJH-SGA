@@ -41,12 +41,12 @@ RobotScene::RobotScene()
 
 RobotScene::~RobotScene()
 {
-	delete _body;
 	delete _head;
 	delete _leftArm;
 	delete _rightArm;
 	delete _leftLeg;
 	delete _rightLeg;
+	delete _body;
 }
 
 void RobotScene::Update()
@@ -139,10 +139,10 @@ void RobotScene::Render()
 
 void RobotScene::PostRender()
 {
-			 _body->Debug();
-			 _head->Debug();
-		  _leftArm->Debug();
-		 _rightArm->Debug();
-		  _leftLeg->Debug();
-		 _rightLeg->Debug();
+			// _body->Debug();
+			// _head->Debug();
+		 // _leftArm->Debug();
+		 //_rightArm->Debug();
+		 // _leftLeg->Debug();
+		 //_rightLeg->Debug();
 }
