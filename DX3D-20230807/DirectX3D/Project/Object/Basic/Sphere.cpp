@@ -2,65 +2,102 @@
 #include "Sphere.h"
 
 Sphere::Sphere(Vector4 color, float radius)
+    : radius(radius)
 {
-    for (int i = 0; i < 2160; i++)
-    {
-        Circle* circle = new Circle(color, radius);
-        circles.push_back(circle);
-        if (i > 0)
-            circles[i]->SetParent(circles[0]);
-    }
+    material = new Material(L"Diffuse");
+    //material = new Material(L"DiffuseColor");
 
+    worldBuffer = new MatrixBuffer();
 
-    for (int i = 0; i < 720; i++)
-    {
-        circles[i]->rotation.x = Ridan(0.5f * i);
-    }
+    CreateMesh(color);
+    CreateNormal();
 
-    for (int i = 720; i < 1440; i++)
-    {
-        circles[i]->rotation.y = Ridan(0.5f * i);
-    }
-
-    for (int i = 1440; i < 2160; i++)
-    {
-        circles[i]->rotation.y = Ridan(90);
-        circles[i]->rotation.z = Ridan(0.5f * i);
-    }
+    mesh = new Mesh(vertices, indices);
 }
 
 Sphere::~Sphere()
 {
+    delete mesh;
+    delete material;
+    delete worldBuffer;
 }
 
 void Sphere::Update()
 {
-    for (Circle* circle : circles)
-        circle->Update();
+    Transform::Update();
 
-    if (KEY_PRESS('Q'))
-    {
-        circles[0]->rotation.y -= Time::Delta();
-    }
-
-    if (KEY_PRESS('E'))
-    {
-        circles[0]->rotation.y += Time::Delta();
-    }
-
-    if (KEY_PRESS('W'))
-    {
-        circles[0]->rotation.x += Time::Delta();
-    }
-
-    if (KEY_PRESS('S'))
-    {
-        circles[0]->rotation.x -= Time::Delta();
-    }
+    worldBuffer->SetData(world);
 }
 
 void Sphere::Render()
 {
-    for (Circle* circle : circles)
-        circle->Render();
+    material->SetMaterial();
+    mesh->SetMesh();
+
+    worldBuffer->SetVSBuffer(0);
+
+    DC->DrawIndexed(indices.size(), 0, 0);
+}
+
+void Sphere::CreateMesh(Vector4 color)
+{
+    for (int i = 0; i <= latitudes; i++)
+    {
+        float theta = i * XM_PI / latitudes;
+        for (int j = 0; j < longitudes; j++)
+        {
+            VertexColorNormal vertex;
+            float phi = j * 2 * XM_PI / longitudes;
+
+            vertex.pos.x = radius * sin(theta) * cos(phi);
+            vertex.pos.y = radius * cos(theta);
+            vertex.pos.z = radius * sin(theta) * sin(phi);
+
+            vertex.normal.x = sin(theta) * cos(phi);
+            vertex.normal.y = cos(theta);
+            vertex.normal.z = sin(theta) * sin(phi);
+        }
+    }
+
+    for (int i = 0; i < latitudes; i++)
+    {
+        for (int j = 0; j < longitudes; j++)
+        {
+            UINT LB = j + 0 + (i + 0) * (longitudes + 1);
+            UINT RB = j + 1 + (i + 0) * (longitudes + 1);
+            UINT LT = j + 0 + (i + 1) * (longitudes + 1);
+            UINT RT = j + 1 + (i + 1) * (longitudes + 1);
+
+            indices.push_back(LT);
+            indices.push_back(RT);
+            indices.push_back(LB);
+
+            indices.push_back(LB);
+            indices.push_back(RT);
+            indices.push_back(RB);
+        }
+    }
+}
+
+void Sphere::CreateNormal()
+{
+    for (UINT i = 0; indices.size() / 3; i++)
+    {
+        UINT index0 = indices[i * 3 + 0];
+        UINT index1 = indices[i * 3 + 1];
+        UINT index2 = indices[i * 3 + 2];
+
+        Vector3 p0 = vertices[index0].pos;
+        Vector3 p1 = vertices[index1].pos;
+        Vector3 p2 = vertices[index2].pos;
+
+        Vector3 v01 = p1 - p0;
+        Vector3 v02 = p2 - p0;
+
+        Vector3 normal = Vector3::Cross(v01, v02).GetNormalized();
+
+        vertices[index0].normal += normal;
+        vertices[index1].normal += normal;
+        vertices[index2].normal += normal;
+    }
 }
