@@ -5,6 +5,8 @@
 #include "../../Object/CupHead/Potal.h"
 #include "../../Object/UI/HPBar.h"
 #include "../../Object/UI/inventory.h"
+#include "../../Object/CupHead/Items/Helmet.h"
+#include "../../Object/CupHead/Items/KingBullet.h"
 
 Lobby::Lobby()
 {
@@ -23,8 +25,16 @@ Lobby::Lobby()
 
 	PLAYER->SetPosition(Vector2(0, 0));
 
-	_inven = make_shared<inventory>();
-	_inven->GetTransform()->SetPosition(PLAYER->GetTransform()->GetWorldPosition());
+	//_inven = make_shared<inventory>();
+	//_inven->GetTransform()->SetPosition(PLAYER->GetTransform()->GetWorldPosition());
+
+	_helmet = make_shared<Helmet>();
+	_helmet->GetTransform()->SetPosition(Vector2(100, 0));
+	_helmet->_isActivated = true;
+
+	_kingBullet = make_shared<KingBullet>();
+	_kingBullet->GetTransform()->SetPosition(Vector2(-100, 0));
+	_kingBullet->_isActivated = true;
 }
 
 Lobby::~Lobby()
@@ -77,7 +87,27 @@ void Lobby::Update()
 
 	 _gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
 
-	 _inven->Update();
+
+	 _helmet->Update();
+
+	 if (_helmet->GetCollider()->IsCollision(PLAYER->GetCollider()) && _helmet->_isActivated)
+	 {
+		 //if (!_helmet->_isActivated)
+			// return;
+		
+		 _helmet->_isActivated = false;
+		 PLAYER->FillItem(Cup_Player::Item::HELMET);
+	 }
+
+	 _kingBullet->Update();
+
+	 if (_kingBullet->GetCollider()->IsCollision(PLAYER->GetCollider()))
+	 {
+		 _kingBullet->_isActivated = false;
+		 PLAYER->FillItem(Cup_Player::Item::KINGBULLET);
+	 }
+
+	 //_inven->Update();
 
 	 if (_potal->IsCollision(PLAYER->GetCollider()))
 		 SceneManager::GetInstance()->NextScene();
@@ -87,12 +117,17 @@ void Lobby::Render()
 {
 	 _potal->Render();
 	 _track->Render();
+	 _helmet->Render();
+	 _kingBullet->Render();
+
 	 PLAYER->Render();
 
 	// 다른 Scene에서는 PostRender에 넣을것
 	_hpBar->PostRender(); 
 	_gunHpBar->PostRender();
-	_inven->PostRender();
+	
+	
+	//_inven->PostRender();
 }
 
 void Lobby::Save()

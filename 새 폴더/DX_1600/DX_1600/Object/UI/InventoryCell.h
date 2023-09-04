@@ -24,7 +24,7 @@ public:
 
 	bool _isFilled = false;
 
-	shared_ptr<Transform> GetTransform() { return _transform; }
+	shared_ptr<Transform> GetTransform() { return _collider->GetTransform(); }
 
 private:
 	shared_ptr<Collider> _collider;

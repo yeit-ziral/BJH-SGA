@@ -6,6 +6,7 @@
 #include "../Gun/Machinegun.h"
 #include "../Gun/ChargeGun.h"
 #include "../../UI/inventory.h"
+#include "../../UI/InventoryCell.h"
 
 using namespace tinyxml2;
 
@@ -40,7 +41,7 @@ Cup_Player::Cup_Player()
 	_chargeGun->GetTransform()->SetPosition({ 50,0 });
 
 	_inventory = make_shared<inventory>();
-	_inventory->GetTransform()->SetParent(_collider->GetTransform());
+	//_inventory->GetTransform()->SetParent(_collider->GetTransform());
 	_inventory->GetTransform()->SetPosition(Vector2(0, 0));
 
 }
@@ -110,6 +111,9 @@ void Cup_Player::Render()
 	_normalGun->Render();
 	_machineGun->Render();
 	_chargeGun->Render();
+
+	if(KEY_PRESS('I'))
+		_inventory->PostRender();
 }
 
 void Cup_Player::PostRender()
@@ -120,8 +124,6 @@ void Cup_Player::PostRender()
 	ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
 	ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
 	_chargeGun->PostRender();
-
-	_inventory->PostRender();
 	
 
 }
@@ -339,4 +341,28 @@ int Cup_Player::GetNowGunDamage()
 		return _machineGun->GetDamage() + _damage;
 	if (_nowGun == Gun::CHARGE)
 		return _chargeGun->GetDamage() + _damage;
+}
+
+void Cup_Player::FillItem(Item value)
+{
+	if (value == Item::NONE)
+	{
+		_inventory->FillItem(inventory::ItemState::NONE);
+	}
+	if (value == Item::HELMET)
+	{
+		_inventory->FillItem(inventory::ItemState::HELMET);
+	}
+	if (value == Item::KINGBULLET)
+	{
+		_inventory->FillItem(inventory::ItemState::KINGBULLET);
+	}
+	if (value == Item::SCOPE)
+	{
+		_inventory->FillItem(inventory::ItemState::SCOPE);
+	}
+	if (value == Item::SPEEDBOOTS)
+	{
+		_inventory->FillItem(inventory::ItemState::SPEEDBOOTS);
+	}
 }

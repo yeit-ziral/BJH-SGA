@@ -1,6 +1,7 @@
 #pragma once
 class Cup_Ani;
 class Cup_Bullet;
+class inventory;
 
 
 class Cup_Player
@@ -14,6 +15,14 @@ public:
 		NORMAL,
 		MACHINE,
 		CHARGE
+	};
+	enum Item
+	{
+		NONE,
+		HELMET,
+		KINGBULLET,
+		SCOPE,
+		SPEEDBOOTS
 	};
 
 	static void Create()
@@ -91,6 +100,8 @@ public:
 
 	int GetNowGunDamage();
 
+	void FillItem(Item value);
+
 private:
 	static Cup_Player* _instance;
 
@@ -124,5 +135,5 @@ private:
 
 	int _damage = 0;
 
-	shared_ptr<class inventory> _inventory;
+	shared_ptr<inventory> _inventory;
 };
