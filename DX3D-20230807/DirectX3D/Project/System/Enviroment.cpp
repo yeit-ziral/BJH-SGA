@@ -36,7 +36,7 @@ void Enviroment::CreatePerspective()
 
     XMMATRIX projection = XMMatrixPerspectiveFovLH
     (
-        /*XM_PIDIV2*/1.8151424221f, // 그냥 실수를 넣어도 됨
+        XM_PIDIV4/*1.8151424221f*/, // 그냥 실수를 넣어도 됨
         WIN_WIDTH / WIN_HEIGHT,
         0.1f,
         1000.0f
@@ -49,7 +49,7 @@ void Enviroment::CreatePerspective()
 
 void Enviroment::SetEnviroment()
 {
-    lightBuffer->SetVSBuffer(3);
+    lightBuffer->SetPSBuffer(3);
 
     lightBuffer->SetData(lightDirection);
 }

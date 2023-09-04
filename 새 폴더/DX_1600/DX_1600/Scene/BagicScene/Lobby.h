@@ -23,4 +23,6 @@ private:
 	shared_ptr<class HPBar> _hpBar;
 
 	shared_ptr<class HPBar> _gunHpBar;
+
+	shared_ptr<class inventory> _inven;
 };

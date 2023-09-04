@@ -12,8 +12,8 @@ private:
 	Material* material = nullptr;
 	Mesh*	  mesh	   = nullptr;
 
-	vector<VertexTexture> vertices;
-	vector<UINT>		  indices;
+	vector<VertexTextureNormal> vertices;
+	vector<UINT>				indices;
 
 
 	MatrixBuffer* worldBuffer = nullptr;

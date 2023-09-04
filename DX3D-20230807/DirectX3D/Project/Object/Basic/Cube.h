@@ -1,6 +1,8 @@
 #pragma once
 class Cube : public Transform // 부모클래스여서 간접접근하지 않아도 됨
 {
+    typedef VertexColorNormal VertexType;
+
 public:
 	Cube(Vector4 color);
 	~Cube();
@@ -9,6 +11,7 @@ public:
     void Render();
 
     void CreateMesh(Vector4 color);
+    void CreateNormal();
 
     bool _pendulumMovement = false;
 
@@ -60,9 +63,8 @@ private:
     Mesh* mesh;
 
     MatrixBuffer* worldBuffer;
-    //LightBuffer* worldBuffer;
 
-    vector<VertexColor> vertices;
+    vector<VertexType> vertices;
     vector<UINT> indices;
 
     static int count;

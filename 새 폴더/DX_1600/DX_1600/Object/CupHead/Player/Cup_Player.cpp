@@ -40,7 +40,9 @@ Cup_Player::Cup_Player()
 	_chargeGun->GetTransform()->SetPosition({ 50,0 });
 
 	_inventory = make_shared<inventory>();
+	_inventory->GetTransform()->SetParent(_collider->GetTransform());
 	_inventory->GetTransform()->SetPosition(Vector2(0, 0));
+
 }
 
 Cup_Player::~Cup_Player()

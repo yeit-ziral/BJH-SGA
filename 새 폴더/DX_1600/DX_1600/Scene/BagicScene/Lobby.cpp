@@ -4,6 +4,7 @@
 #include "../../Object/CupHead/Cup_Track.h"
 #include "../../Object/CupHead/Potal.h"
 #include "../../Object/UI/HPBar.h"
+#include "../../Object/UI/inventory.h"
 
 Lobby::Lobby()
 {
@@ -21,6 +22,9 @@ Lobby::Lobby()
 	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
 
 	PLAYER->SetPosition(Vector2(0, 0));
+
+	_inven = make_shared<inventory>();
+	_inven->GetTransform()->SetPosition(PLAYER->GetTransform()->GetWorldPosition());
 }
 
 Lobby::~Lobby()
@@ -73,7 +77,7 @@ void Lobby::Update()
 
 	 _gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
 
-
+	 _inven->Update();
 
 	 if (_potal->IsCollision(PLAYER->GetCollider()))
 		 SceneManager::GetInstance()->NextScene();
@@ -88,6 +92,7 @@ void Lobby::Render()
 	// 다른 Scene에서는 PostRender에 넣을것
 	_hpBar->PostRender(); 
 	_gunHpBar->PostRender();
+	_inven->PostRender();
 }
 
 void Lobby::Save()

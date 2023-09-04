@@ -25,6 +25,12 @@ struct VertexInput
     float4 color : COLOR;
 };
 
+struct VertexColor
+{
+    float4 pos : POSITIONT;
+    float4 color : COLOR;
+};
+
 struct VertexTexture
 {
     float4 pos : POSITION;
@@ -36,6 +42,13 @@ struct VertexTextureNormal
 {
     float4 pos : POSITION; // 동차좌표계 쓰려고 float3가 아닌 float4로 한 차수 올림
     float2 uv : UV;
+    float3 normal : NORMAL;
+};
+
+struct VertexColorNormal
+{
+    float4 pos : POSITION;
+    float4 color : COLOR;
     float3 normal : NORMAL;
 };
 

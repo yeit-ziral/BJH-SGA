@@ -11,11 +11,13 @@ inventory::inventory()
 	{
 		shared_ptr<InventoryCell> _invenCell = make_shared<InventoryCell>();
 
+		_invenCell->GetTransform()->SetScale({ 0.1f, 0.1f });
+
 		_invenCell->GetTransform()->SetParent(_collider->GetTransform());
 
 		Vector2 invenScale = _invenCell->GetTransform()->GetScale();
 
-		float PosX = _collider->GetTransform()->GetWorldPosition().x - ((-1.5f + i) * invenScale.x);
+		float PosX = _collider->GetTransform()->GetPos().x - ((-1.5f + i) * invenScale.x);
 
 		_invenCell->GetTransform()->SetPosition(Vector2(PosX, 0.0f));
 
