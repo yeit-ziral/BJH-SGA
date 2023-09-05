@@ -32,6 +32,8 @@ public:
 	void SetLeft();
 	void SetRight();
 
+	int RandomNum(int min, int max) { return rand() % (max - min) + min; }
+
 private:
 	State _state = State::INTRO;
 

@@ -68,8 +68,10 @@ public:
 	shared_ptr<Collider> GetFootCollider() { return _footCollider; }
 
 	int GetHp() { return _hp; }
-	void SetHP(int value) { _hp = value; }
+	void SetHp(int value) { _hp = value; }
+	void AddHP(int value) { _hp += value; if (_hp > _maxHp) _hp = _maxHp; }
 	int GetMaxHp() { return _maxHp; }
+	void AddMaxHp(int value) { _maxHp += value; _hp += value; }
 
 	void Attacked(int value) { _hp -= value; }
 	//void Hit();
@@ -101,6 +103,8 @@ public:
 	int GetNowGunDamage();
 
 	void FillItem(Item value);
+
+	//void InvenSetPosition(Vector2 pos);
 
 private:
 	static Cup_Player* _instance;
@@ -135,5 +139,5 @@ private:
 
 	int _damage = 0;
 
-	shared_ptr<inventory> _inventory;
+	shared_ptr<class inventory> _inventory;
 };

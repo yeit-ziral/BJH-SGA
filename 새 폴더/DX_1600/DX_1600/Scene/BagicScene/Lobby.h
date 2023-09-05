@@ -28,4 +28,9 @@ private:
 
 	shared_ptr<class Helmet> _helmet;
 	shared_ptr<class KingBullet> _kingBullet;
+	shared_ptr<class Scope> _scope;
+	shared_ptr<class SpeedBoots> _speedBoots;
+
+	shared_ptr<class HpPotion> _hpPotion;
+	shared_ptr<class FixingTool> _fixingTool;
 };

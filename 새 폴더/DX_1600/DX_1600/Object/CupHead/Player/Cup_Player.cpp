@@ -42,7 +42,7 @@ Cup_Player::Cup_Player()
 
 	_inventory = make_shared<inventory>();
 	//_inventory->GetTransform()->SetParent(_collider->GetTransform());
-	_inventory->GetTransform()->SetPosition(Vector2(0, 0));
+
 
 }
 
@@ -92,6 +92,7 @@ void Cup_Player::Update()
 	_animation->Update();
 	
 	_inventory->Update();
+	_inventory->GetTransform()->SetPosition(Vector2(_footCollider->GetPos().x, _footCollider->GetPos().y + 100));
 
 	if (!_animation->IsActive())
 		_isAlive = false;
@@ -366,3 +367,8 @@ void Cup_Player::FillItem(Item value)
 		_inventory->FillItem(inventory::ItemState::SPEEDBOOTS);
 	}
 }
+
+//void Cup_Player::InvenSetPosition(Vector2 pos)
+//{
+//	_inventory->GetTransform()->SetPosition(pos);
+//}

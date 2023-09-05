@@ -1,4 +1,6 @@
 #pragma once
+class Cup_Player;
+
 class HpPotion
 {
 public:

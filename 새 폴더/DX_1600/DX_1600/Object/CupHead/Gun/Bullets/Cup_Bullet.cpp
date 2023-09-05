@@ -44,6 +44,8 @@ void Cup_Bullet::Update()
 	if (_dir.x < 0)
 		SetLeft();
 
+	_dir.y += RandomNum(-0.02, 0.02);
+
 	_bullet->GetTransform()->AddVector2(_dir * _speed * DELTA_TIME);
 
 	_bullet->Update();

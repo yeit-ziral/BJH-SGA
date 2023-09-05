@@ -22,7 +22,10 @@ InventoryCell::InventoryCell()
 		 _scope->GetTransform()->SetParent(_collider->GetTransform());
 	_speedBoots->GetTransform()->SetParent(_collider->GetTransform());
 
-	_helmet->GetTransform()->SetScale(Vector2(15, 15));
+		_helmet->GetTransform()->SetScale(Vector2(15, 15));
+	_kingBullet->GetTransform()->SetScale(Vector2(15, 15));
+		 _scope->GetTransform()->SetScale(Vector2(15, 15));
+	_speedBoots->GetTransform()->SetScale(Vector2(15, 15));
 }
 
 InventoryCell::~InventoryCell()

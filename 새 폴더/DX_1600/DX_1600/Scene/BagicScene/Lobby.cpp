@@ -7,6 +7,8 @@
 #include "../../Object/UI/inventory.h"
 #include "../../Object/CupHead/Items/Helmet.h"
 #include "../../Object/CupHead/Items/KingBullet.h"
+#include "../../Object/CupHead/Items/HpPotion.h"
+#include "../../Object/CupHead/Items/FixingTool.h"
 
 Lobby::Lobby()
 {
@@ -35,6 +37,14 @@ Lobby::Lobby()
 	_kingBullet = make_shared<KingBullet>();
 	_kingBullet->GetTransform()->SetPosition(Vector2(-100, 0));
 	_kingBullet->_isActivated = true;
+
+	_hpPotion = make_shared<HpPotion>();
+	_hpPotion->GetTransform()->SetPosition(Vector2(-200, 0));
+	_hpPotion->_isActivated = true;
+
+	_fixingTool = make_shared<FixingTool>();
+	_fixingTool->GetTransform()->SetPosition(Vector2(-300, 0));
+	_fixingTool->_isActivated = true;
 }
 
 Lobby::~Lobby()
@@ -48,9 +58,13 @@ void Lobby::Init()
 
 	Vector2 trackSize = _track->GetTrackSize();
 
-	CAMERA->SetTarget(PLAYER->GetTransform());
+	//CAMERA->SetTarget(PLAYER->GetTransform());
 	//CAMERA->SetLeftBottom(Vector2((-trackSize.x * 0.125f), -100.0f));
 	//CAMERA->SetRightTop(Vector2((trackSize.x), 1000.0f));
+
+	//CAMERA->SetTarget(PLAYER->GetTransform());
+	CAMERA->SetLeftBottom(Vector2(0.0f, 0.0f));
+	CAMERA->SetRightTop(Vector2(trackSize.x - 200.0f, 1000.0f));
 
 	Load();
 }
@@ -101,13 +115,26 @@ void Lobby::Update()
 
 	 _kingBullet->Update();
 
-	 if (_kingBullet->GetCollider()->IsCollision(PLAYER->GetCollider()))
+	 if (_kingBullet->GetCollider()->IsCollision(PLAYER->GetCollider()) && _kingBullet->_isActivated)
 	 {
 		 _kingBullet->_isActivated = false;
 		 PLAYER->FillItem(Cup_Player::Item::KINGBULLET);
 	 }
 
-	 //_inven->Update();
+	 _hpPotion->Update();
+	 if (_hpPotion->GetCollider()->IsCollision(PLAYER->GetCollider()) && _hpPotion->_isActivated)
+	 {
+		 _hpPotion->_isActivated = false;
+		 PLAYER->AddHP(5);
+	 }
+
+	 _fixingTool->Update();
+	 if (_fixingTool->GetCollider()->IsCollision(PLAYER->GetCollider()) && _fixingTool->_isActivated)
+	 {
+		 _fixingTool->_isActivated = false;
+		 PLAYER->FixGun(15);
+	 }
+
 
 	 if (_potal->IsCollision(PLAYER->GetCollider()))
 		 SceneManager::GetInstance()->NextScene();
@@ -119,6 +146,8 @@ void Lobby::Render()
 	 _track->Render();
 	 _helmet->Render();
 	 _kingBullet->Render();
+	 _hpPotion->Render();
+	 _fixingTool->Render();
 
 	 PLAYER->Render();
 

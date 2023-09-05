@@ -270,5 +270,5 @@ void CupHeadScene::Load()
 	int* php = &playerHP;
 	reader.Byte((void**)&php, sizeof(int));
 
-	PLAYER->SetHP(playerHP);
+	PLAYER->SetHp(playerHP);
 }

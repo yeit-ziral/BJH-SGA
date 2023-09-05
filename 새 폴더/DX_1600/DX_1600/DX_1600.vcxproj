@@ -159,6 +159,7 @@
     <ClInclude Include="Object\CupHead\Items\HpPotion.h" />
     <ClInclude Include="Object\UI\inventory.h" />
     <ClInclude Include="Object\CupHead\Potal.h" />
+    <ClInclude Include="RandomBox.h" />
     <ClInclude Include="Scene\BagicScene\BossRoom.h" />
     <ClInclude Include="Scene\BagicScene\CupHeadScene.h" />
     <ClInclude Include="Scene\BagicScene\Lobby.h" />
@@ -243,6 +244,7 @@
     <ClCompile Include="Object\CupHead\Items\HpPotion.cpp" />
     <ClCompile Include="Object\UI\inventory.cpp" />
     <ClCompile Include="Object\CupHead\Potal.cpp" />
+    <ClCompile Include="RandomBox.cpp" />
     <ClCompile Include="Scene\BagicScene\BossRoom.cpp" />
     <ClCompile Include="Scene\BagicScene\CupHeadScene.cpp" />
     <ClCompile Include="Scene\BagicScene\Lobby.cpp" />
