@@ -3,7 +3,7 @@
 
 SphereScene::SphereScene()
 {
-	sphere = new Sphere({ 0.0f, 0.2f, 0.5f, 1.0f }, 5.0f);
+	sphere = new Sphere();
 }
 
 SphereScene::~SphereScene()

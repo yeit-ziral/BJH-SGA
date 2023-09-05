@@ -7,6 +7,7 @@ cbuffer World : register(b0)
 cbuffer View : register(b1)
 {
     matrix view;
+    matrix inverseView;
 };
 
 cbuffer Proj : register(b2)

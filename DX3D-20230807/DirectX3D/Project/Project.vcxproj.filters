@@ -347,6 +347,8 @@
     <FxCompile Include="_Shader\PixelDiffuse.hlsl" />
     <FxCompile Include="_Shader\VertexColor.hlsl" />
     <FxCompile Include="_Shader\PixelColor.hlsl" />
+    <FxCompile Include="_Shader\VertexSpecular.hlsl" />
+    <FxCompile Include="_Shader\PixelSpecular.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

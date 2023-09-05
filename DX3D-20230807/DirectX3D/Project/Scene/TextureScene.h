@@ -17,5 +17,7 @@ private:
 	TextureCube* cube;
 
 	Cube* cube2;
+
+	Sphere* sphere;
 };
 

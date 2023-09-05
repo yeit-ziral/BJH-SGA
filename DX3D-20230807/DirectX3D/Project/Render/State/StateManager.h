@@ -9,6 +9,8 @@ public:
 	void CreateSamplerState();
 	void CreateRasterizerState();
 
+	RasterizerState* GetRS() { return rasterizerState; }
+
 private:
 	SamplerState* samplerState = nullptr;
 	RasterizerState* rasterizerState = nullptr;

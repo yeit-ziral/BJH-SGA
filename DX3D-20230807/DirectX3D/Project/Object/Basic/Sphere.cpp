@@ -1,18 +1,18 @@
 #include "Framework.h"
 #include "Sphere.h"
 
-Sphere::Sphere(Vector4 color, float radius)
-    : radius(radius)
+Sphere::Sphere(float radius, UINT sliceCount, UINT stackCount)
+    : radius(radius), sliceCount (sliceCount), stackCount(stackCount)
 {
-    material = new Material(L"Diffuse");
-    //material = new Material(L"DiffuseColor");
-
-    worldBuffer = new MatrixBuffer();
-
-    CreateMesh(color);
-    CreateNormal();
+    CreateMesh();
 
     mesh = new Mesh(vertices, indices);
+
+    material = new Material();
+    material->SetShader(L"Specular");
+    material->SetDiffuseMap(L"Landscape/Bricks.png");
+
+    worldBuffer = new MatrixBuffer();
 }
 
 Sphere::~Sphere()
@@ -25,79 +25,54 @@ Sphere::~Sphere()
 void Sphere::Update()
 {
     Transform::Update();
-
     worldBuffer->SetData(world);
 }
 
 void Sphere::Render()
 {
-    material->SetMaterial();
-    mesh->SetMesh();
-
+    worldBuffer->SetData(world);
     worldBuffer->SetVSBuffer(0);
+
+    material->SetMaterial();
+        mesh->SetMesh();
 
     DC->DrawIndexed(indices.size(), 0, 0);
 }
 
-void Sphere::CreateMesh(Vector4 color)
+void Sphere::CreateMesh()
 {
-    for (int i = 0; i <= latitudes; i++)
+    for (int i = 0; i < stackCount + 1; i++)
     {
-        float theta = i * XM_PI / latitudes;
-        for (int j = 0; j < longitudes; j++)
+        float theta = i * XM_PI / stackCount;
+        for (int j = 0; j < sliceCount + 1; j++)
         {
-            VertexColorNormal vertex;
-            float phi = j * 2 * XM_PI / longitudes;
+            VertexType vertex;
+            float phi = j * XM_2PI / sliceCount;
 
             vertex.pos.x = radius * sin(theta) * cos(phi);
             vertex.pos.y = radius * cos(theta);
             vertex.pos.z = radius * sin(theta) * sin(phi);
 
-            vertex.normal.x = sin(theta) * cos(phi);
-            vertex.normal.y = cos(theta);
-            vertex.normal.z = sin(theta) * sin(phi);
+            vertex.normal = vertex.pos / radius;
+
+            vertex.uv.x = j / (float)sliceCount;
+            vertex.uv.y = i / (float)stackCount;
+
+            vertices.push_back(vertex);
         }
     }
 
-    for (int i = 0; i < latitudes; i++)
+    for (int j = 0; j < stackCount; j++)
     {
-        for (int j = 0; j < longitudes; j++)
+        for (int i = 0; i < sliceCount; i++)
         {
-            UINT LB = j + 0 + (i + 0) * (longitudes + 1);
-            UINT RB = j + 1 + (i + 0) * (longitudes + 1);
-            UINT LT = j + 0 + (i + 1) * (longitudes + 1);
-            UINT RT = j + 1 + (i + 1) * (longitudes + 1);
+            indices.push_back(i + 0 + (j + 0) * (sliceCount + 1));
+            indices.push_back(i + 1 + (j + 0) * (sliceCount + 1));
+            indices.push_back(i + 0 + (j + 1) * (sliceCount + 1));
 
-            indices.push_back(LT);
-            indices.push_back(RT);
-            indices.push_back(LB);
-
-            indices.push_back(LB);
-            indices.push_back(RT);
-            indices.push_back(RB);
+            indices.push_back(i + 0 + (j + 1) * (sliceCount + 1));
+            indices.push_back(i + 1 + (j + 0) * (sliceCount + 1));
+            indices.push_back(i + 1 + (j + 1) * (sliceCount + 1));
         }
-    }
-}
-
-void Sphere::CreateNormal()
-{
-    for (UINT i = 0; indices.size() / 3; i++)
-    {
-        UINT index0 = indices[i * 3 + 0];
-        UINT index1 = indices[i * 3 + 1];
-        UINT index2 = indices[i * 3 + 2];
-
-        Vector3 p0 = vertices[index0].pos;
-        Vector3 p1 = vertices[index1].pos;
-        Vector3 p2 = vertices[index2].pos;
-
-        Vector3 v01 = p1 - p0;
-        Vector3 v02 = p2 - p0;
-
-        Vector3 normal = Vector3::Cross(v01, v02).GetNormalized();
-
-        vertices[index0].normal += normal;
-        vertices[index1].normal += normal;
-        vertices[index2].normal += normal;
     }
 }

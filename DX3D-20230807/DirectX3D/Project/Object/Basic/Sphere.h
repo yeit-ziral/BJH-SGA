@@ -1,28 +1,28 @@
 #pragma once
 class Sphere : public Transform
 {
+	typedef VertexTextureNormal VertexType;
 public:
-	Sphere(Vector4 color, float radius);
+	Sphere(float radius = 1.0f, UINT sliceCount = 20, UINT stackCount = 10);
 	~Sphere();
 
 	void Update();
 	void Render();
 
-	float Ridan(float value) { return value * XM_PI / 180; }
+private:
+	void CreateMesh();
 
-	void CreateMesh(Vector4 color);
-	void CreateNormal();
 
 private:
-	MatrixBuffer* worldBuffer;
+	MatrixBuffer* worldBuffer = nullptr;
 
-	vector<VertexColorNormal> vertices;
+	vector<VertexType> vertices;
 	vector<UINT> indices;
 
-	Material* material;
-	Mesh* mesh;
+	Material*	material = nullptr;
+	Mesh*		mesh	 = nullptr;
 
-	UINT latitudes = 25;
-	UINT longitudes = 25;
+	UINT sliceCount = 25;
+	UINT stackCount = 25;
 	float radius;
 };

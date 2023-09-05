@@ -46,6 +46,7 @@ using namespace DirectX;
 
 #define CAMERA Camera::GetInstance()->GetTransform()
 
+#define RS StateManager::GetInstance()->GetRS()
 
 #define PI 3.141592
 

@@ -43,3 +43,27 @@ private:
 		float padding;
 	} data;
 };
+
+class ViewBuffer : public ConstBuffer
+{
+public:
+	ViewBuffer()
+		: ConstBuffer(&data, sizeof(data)) // 부모의 생서자 호출해서 데이터 생성을 같이 해줌
+	{
+		data.view = XMMatrixIdentity();
+		data.inverseView = XMMatrixIdentity();
+	}
+
+	void SetData(Matrix view, Matrix inverseView)
+	{
+		data.view = XMMatrixTranspose(view);
+		data.inverseView	= XMMatrixTranspose(inverseView);
+	}
+
+private:
+	struct Data
+	{
+		Matrix view;
+		Matrix inverseView;
+	} data;
+};

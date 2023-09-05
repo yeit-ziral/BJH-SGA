@@ -25,7 +25,7 @@ private:
 	float moveSpeed = 20.0f;
 	float rotSpeed = 5.0f;
 
-	MatrixBuffer* viewBuffer;
+	ViewBuffer* viewBuffer;
 	Matrix		  viewMatrix;
 
 	Vector3 oldPos;
