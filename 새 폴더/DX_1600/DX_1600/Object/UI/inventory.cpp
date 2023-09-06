@@ -118,8 +118,15 @@ void inventory::DropItems()
 	_inventory[3]->_isFilled = false;
 }
 
-InventoryCell::Items inventory::GetInvenState()
+inventory::ItemState inventory::GetInvenState()
 {
-	return _inventory[0]->GetItemState();
+	if (_inventory[0]->GetItemState() == InventoryCell::Items::HELMET)
+		return ItemState::HELMET;
+	if (_inventory[0]->GetItemState() == InventoryCell::Items::KINGBULLET)
+		return ItemState::KINGBULLET;
+	if (_inventory[0]->GetItemState() == InventoryCell::Items::SCOPE)
+		return ItemState::SCOPE;
+	if (_inventory[0]->GetItemState() == InventoryCell::Items::SPEEDBOOTS)
+		return ItemState::SPEEDBOOTS;
 }
 

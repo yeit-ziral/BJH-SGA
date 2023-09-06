@@ -27,7 +27,7 @@ public:
 	void DropItems();
 
 	// _invenCell1의 Items 를 넘겨주는 함수
-	InventoryCell::Items GetInvenState();
+	inventory::ItemState GetInvenState();
 
 	//void SetOn(bool value) { _on = value; }
 

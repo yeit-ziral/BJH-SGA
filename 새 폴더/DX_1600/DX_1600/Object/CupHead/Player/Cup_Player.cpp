@@ -56,7 +56,7 @@ void Cup_Player::Update()
 		return;
 
 	_gunDir = W_MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
-	_gunShootDir = Vector2(_gunDir.x, _gunDir.y + RandomNum(-30, 30));
+	_gunShootDir = Vector2(_gunDir.x, _gunDir.y + RandomNum(-_spread, _spread));
 
 	if (_nowGun == NORMAL)
 	{
@@ -94,9 +94,15 @@ void Cup_Player::Update()
 	
 	_inventory->Update();
 	_inventory->GetTransform()->SetPosition(Vector2(_footCollider->GetPos().x, _footCollider->GetPos().y + 100));
-	if (KEY_PRESS('O'))
+	
+	if (KEY_PRESS('I'))
 	{
-		_inventory->DropItems();
+		if (KEY_UP('O'))
+		{
+			DropItem();
+
+			_inventory->DropItems();
+		}
 	}
 
 	if (!_animation->IsActive())
@@ -124,14 +130,18 @@ void Cup_Player::Render()
 
 void Cup_Player::PostRender()
 {
-	ImGui::Text("PlayerPositionX : % f", _collider->GetTransform()->GetPos().x);
-	ImGui::Text("PlayerPositionY : % f", _collider->GetTransform()->GetPos().y);
+	//ImGui::Text("PlayerPositionX : % f", _collider->GetTransform()->GetPos().x);
+	//ImGui::Text("PlayerPositionY : % f", _collider->GetTransform()->GetPos().y);
 
-	ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
-	ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
-	_chargeGun->PostRender();
+	//ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
+	//ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
+	//_chargeGun->PostRender();
 	
-
+	ImGui::Text("PlayerMaxHp : %d", _maxHp);
+	ImGui::Text("PlayerHp : %d", _hp);
+	ImGui::Text("PlayerDamage : %d", _damage);
+	ImGui::Text("PlayerAimStraitness : %d", _spread);
+	ImGui::Text("Playerspeed : %d", _speed);
 }
 
 
@@ -358,18 +368,45 @@ void Cup_Player::FillItem(Item value)
 	if (value == Item::HELMET)
 	{
 		_inventory->FillItem(inventory::ItemState::HELMET);
+		AddMaxHp(5);
 	}
 	if (value == Item::KINGBULLET)
 	{
 		_inventory->FillItem(inventory::ItemState::KINGBULLET);
+		_damage += 5;
 	}
 	if (value == Item::SCOPE)
 	{
 		_inventory->FillItem(inventory::ItemState::SCOPE);
+		FineAim(5);
 	}
 	if (value == Item::SPEEDBOOTS)
 	{
 		_inventory->FillItem(inventory::ItemState::SPEEDBOOTS);
+		_speed += 300;
+	}
+}
+
+void Cup_Player::DropItem()
+{
+	if (_inventory->GetInvenState() == inventory::ItemState::HELMET)
+	{
+		_maxHp -= 5;
+
+		if (_hp > _maxHp)
+			_hp = _maxHp;
+	}
+	if (_inventory->GetInvenState() == inventory::ItemState::KINGBULLET)
+	{
+		_damage -= 5;
+	}
+	if (_inventory->GetInvenState() == inventory::ItemState::SCOPE)
+	{
+		FineAim(-5);
+	}
+	if (_inventory->GetInvenState() == inventory::ItemState::SPEEDBOOTS)
+	{
+		_speed -= 300;
 	}
 }
 

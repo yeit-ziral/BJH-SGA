@@ -111,6 +111,7 @@ void Lobby::Update()
 		
 		 _helmet->_isActivated = false;
 		 PLAYER->FillItem(Cup_Player::Item::HELMET);
+		 //_hpBar-> »çÀÌÁî ¾ç ¿·À¸·Î ´Ã¸®±â
 	 }
 
 	 _kingBullet->Update();
@@ -155,7 +156,7 @@ void Lobby::Render()
 	_hpBar->PostRender(); 
 	_gunHpBar->PostRender();
 	
-	
+	PLAYER->PostRender();
 	//_inven->PostRender();
 }
 

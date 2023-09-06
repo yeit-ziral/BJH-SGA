@@ -104,7 +104,11 @@ public:
 
 	void FillItem(Item value);
 
+	void DropItem();
+
 	int RandomNum(int min, int max) { return rand() % (max - min) + min; }
+
+	void FineAim(int value) { _spread -= value; }
 
 private:
 	static Cup_Player* _instance;
@@ -126,7 +130,7 @@ private:
 	shared_ptr<class ChargeGun> _chargeGun;
 
 
-	float _speed = 1000.0f;
+	float _speed = 500.0f;
 	float _time = 0.0f;
 
 	float _jumpPower = 0.0f;
@@ -139,6 +143,8 @@ private:
 	shared_ptr<class HPBar> _hpBar;
 
 	int _damage = 0;
+
+	int _spread = 50;
 
 	shared_ptr<class inventory> _inventory;
 };

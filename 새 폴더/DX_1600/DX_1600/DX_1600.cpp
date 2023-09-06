@@ -18,6 +18,7 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -49,6 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     ImGui_ImplWin32_Init(hWnd);
     ImGui_ImplDX11_Init(DEVICE.Get(), DC.Get());
+
 
     InputManager::Create();
     Timer::Create();

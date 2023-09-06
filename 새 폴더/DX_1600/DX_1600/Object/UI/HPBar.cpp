@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "HPBar.h"
 
+
 HPBar::HPBar(wstring path, Vector2 size)
 {
 	_transform = make_shared<Transform>();
