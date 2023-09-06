@@ -1,10 +1,10 @@
 #include "Framework.h"
 #include "Terrain.h"
 
-Terrain::Terrain(wstring diffuseFile, wstring heightFile)
+Terrain::Terrain(wstring diffuseFile, wstring heightFile) // Specular 적용시키기
 {
 	material = new Material();
-	material->SetShader(L"Diffuse");
+	material->SetShader(L"Specular");
 	material->SetDiffuseMap(diffuseFile);
 
 	worldBuffer = new MatrixBuffer();
@@ -27,6 +27,7 @@ Terrain::~Terrain()
 
 void Terrain::Render()
 {
+	worldBuffer->SetData(world);
 	worldBuffer->SetVSBuffer(0);
 
 	mesh->SetMesh();

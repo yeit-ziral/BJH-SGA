@@ -10,7 +10,7 @@ Sphere::Sphere(float radius, UINT sliceCount, UINT stackCount)
 
     material = new Material();
     material->SetShader(L"Specular");
-    material->SetDiffuseMap(L"Landscape/Bricks.png");
+
 
     worldBuffer = new MatrixBuffer();
 }

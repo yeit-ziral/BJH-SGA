@@ -104,7 +104,7 @@ public:
 
 	void FillItem(Item value);
 
-	//void InvenSetPosition(Vector2 pos);
+	int RandomNum(int min, int max) { return rand() % (max - min) + min; }
 
 private:
 	static Cup_Player* _instance;
@@ -134,6 +134,7 @@ private:
 	shared_ptr<Transform> _gunSlot;
 
 	Vector2 _gunDir;
+	Vector2 _gunShootDir;
 
 	shared_ptr<class HPBar> _hpBar;
 

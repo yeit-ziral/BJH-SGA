@@ -93,6 +93,4 @@ void NormalGun::Fire(Vector2 dir)
 			_hp = 0;
 
 		_atkCool = true;
-
-		// bullet 생성까지 잘 됨 문제가 뭔지 모르겠음
 }

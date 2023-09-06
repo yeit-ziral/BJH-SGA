@@ -19,6 +19,5 @@ private:
 
 	LightBuffer* lightBuffer;
 
-	Vector3 lightDirection = V_DOWN;
 };
 

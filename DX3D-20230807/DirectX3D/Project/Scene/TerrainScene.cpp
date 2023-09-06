@@ -5,7 +5,8 @@ TerrainScene::TerrainScene()
 {
 	terrain = new Terrain(L"Landscape/Dirt.png", L"HeightMap/HeightMap.png");
 
-
+	//terrain->GetMaterial()->SetDiffuseMap(L"Landscape/Fieldstone_DM.tga");
+	terrain->GetMaterial()->SetSpecularMap(L"Landscape/Fieldstone_SM.tga");
 
 	sphere = new Sphere();
 }
@@ -35,4 +36,5 @@ void TerrainScene::Render()
 
 void TerrainScene::PostRender()
 {
+	terrain->GetMaterial()->PostRender();
 }

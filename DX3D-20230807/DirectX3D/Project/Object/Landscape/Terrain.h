@@ -7,6 +7,8 @@ public:
 
 	void Render();
 
+	Material* GetMaterial() { return material; }
+
 private:
 	void CreateMesh();
 	void CreateNormal();

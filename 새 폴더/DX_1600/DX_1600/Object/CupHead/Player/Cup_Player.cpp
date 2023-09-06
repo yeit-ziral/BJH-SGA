@@ -56,6 +56,7 @@ void Cup_Player::Update()
 		return;
 
 	_gunDir = W_MOUSE_POS - _collider->GetTransform()->GetWorldPosition();
+	_gunShootDir = Vector2(_gunDir.x, _gunDir.y + RandomNum(-30, 30));
 
 	if (_nowGun == NORMAL)
 	{
@@ -93,6 +94,10 @@ void Cup_Player::Update()
 	
 	_inventory->Update();
 	_inventory->GetTransform()->SetPosition(Vector2(_footCollider->GetPos().x, _footCollider->GetPos().y + 100));
+	if (KEY_PRESS('O'))
+	{
+		_inventory->DropItems();
+	}
 
 	if (!_animation->IsActive())
 		_isAlive = false;
@@ -211,7 +216,7 @@ void Cup_Player::NormalFire()
 {
 	if (KEY_UP(VK_LBUTTON))
 	{
-		_normalGun->Fire(_gunDir);
+		_normalGun->Fire(_gunShootDir);
 	}
 }
 
@@ -219,7 +224,7 @@ void Cup_Player::MachineFire()
 {
 	if (KEY_PRESS(VK_LBUTTON))
 	{
-		_machineGun->Fire(_gunDir);
+		_machineGun->Fire(_gunShootDir);
 	}
 }
 
@@ -232,7 +237,7 @@ void Cup_Player::ChargeFire()
 	}
 	if (KEY_UP(VK_LBUTTON))
 	{
-		_chargeGun->Fire(_gunDir);
+		_chargeGun->Fire(_gunShootDir);
 		_chargeGun->SetChargingCount(0);
 	}
 }

@@ -15,9 +15,24 @@ cbuffer Proj : register(b2)
     matrix projection;
 };
 
-cbuffer LightDirection : register(b3)
+cbuffer LightDirection : register(b0) // pixelshader에 적용하는거라서 World와 다름
 {
     float3 lightDirection;
+    float padding; // 위와 아래의 메모리 용량이 맞지 않아서 padding 넣음
+    float4 ambientLight;
+};
+
+cbuffer MaterialBuffer : register(b1)
+{
+    float4 mDiffuse;
+    float4 mSpecular;
+    float4 mAmbient;
+    
+    int hasDiffuseMap;
+    int hasSpecularMap;
+    int hasNormalMap;
+    
+    float shininess;
 };
 
 struct VertexInput
@@ -53,5 +68,8 @@ struct VertexColorNormal
     float3 normal : NORMAL;
 };
 
-Texture2D diffuseMap : register(t0);
+Texture2D  diffuseMap : register(t0);
+Texture2D specularMap : register(t1);
+
+
 SamplerState samp : register(s0); // Desc 같은 것, Sampling 할 때 세부적인 사항을 설명

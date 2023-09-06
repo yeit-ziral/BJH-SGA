@@ -24,9 +24,20 @@ Texture* Texture::Get(wstring file)
 	if (textures.count(file) > 0)
 		return textures[file];
 
+	wstring extension = GetExtension(file);
+
 	// 없으면 만들어서 리턴
 	ScratchImage image;
-	LoadFromWICFile(file.c_str(), WIC_FLAGS_NONE, nullptr, image); // ScratchImage가 이동 생성자여서 이 함수가 끝나도 지역변수인 image 가 삭제되지 않음 소유권을 여기서 넘겼기 때문
+
+	if (extension == L"tga")
+		LoadFromTGAFile(file.c_str(), nullptr, image);
+
+	else if (extension == L"dds")
+		LoadFromDDSFile(file.c_str(), DDS_FLAGS_NONE, nullptr, image);
+
+	else
+		LoadFromWICFile(file.c_str(), WIC_FLAGS_NONE, nullptr, image); // ScratchImage가 이동 생성자여서 이 함수가 끝나도 지역변수인 image 가 삭제되지 않음 소유권을 여기서 넘겼기 때문
+
 
 	ID3D11ShaderResourceView* srv = nullptr;
 
