@@ -51,7 +51,7 @@ void Terrain::CreateMesh()
 	{
 		for (float x = 0; x < width; x++)
 		{
-			VertexTextureNormal vertex;
+			VertexType vertex;
 			vertex.pos = Vector3(x, 0, z);
 
 			vertex.uv.x = x / (width - 1);
@@ -60,6 +60,8 @@ void Terrain::CreateMesh()
 			//HeightMap
 			UINT index = x + z * width;
 			vertex.pos.y = colors[index].x * MAP_HEIGHT;
+
+			vertex.normal = vertex.pos / vertex.pos.y;
 
 			vertices.push_back(vertex); // normal값 넣어주기
 		}
