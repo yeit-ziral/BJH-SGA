@@ -208,7 +208,7 @@ void Cup_Monster::Roaming()
 
 void Cup_Monster::SetBowAngle(Vector2 targetPos)
 {
-	Vector2 monsterToPlayer = targetPos -_transform->GetWorldPosition();
+	Vector2 monsterToPlayer = targetPos - _monster->GetTransform()->GetPos();
 	float angle = monsterToPlayer.Angle();
 	_bowSlot->SetAngle(angle);
 }

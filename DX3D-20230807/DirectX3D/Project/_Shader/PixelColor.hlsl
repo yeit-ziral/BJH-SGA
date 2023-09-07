@@ -12,7 +12,7 @@ float4 main(VertexOutput input) : SV_TARGET
 {
     float3 L = normalize(lightDirection);
     
-    float diffuse = dot(input.normal, L);
+    float diffuse = dot(input.normal, -L);
     
     return input.color * diffuse;
 }

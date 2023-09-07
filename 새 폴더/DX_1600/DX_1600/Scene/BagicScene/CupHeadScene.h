@@ -24,6 +24,8 @@ private:
 	shared_ptr<class Cup_Block> _block;
 
 	shared_ptr<class Cup_Monster> _monster;
+	shared_ptr<class RoamingMonster> _monsterR;
+
 
 	shared_ptr<Button> _button;
 

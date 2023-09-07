@@ -68,8 +68,17 @@ struct VertexColorNormal
     float3 normal : NORMAL;
 };
 
+struct VertexTextureNormalTanagent
+{
+    float4 pos : POSITION;
+    float2 uv : UV;
+    float3 normal : NORMAL;
+    float3 tangent : TANGENT;
+};
+
 Texture2D  diffuseMap : register(t0);
 Texture2D specularMap : register(t1);
+Texture2D normalMap : register(t2);
 
 
 SamplerState samp : register(s0); // Desc 같은 것, Sampling 할 때 세부적인 사항을 설명

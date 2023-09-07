@@ -27,7 +27,7 @@ public:
 
 	bool IsCollision(shared_ptr<CircleCollider> other) { return _bullet->IsCollision(other); }
 
-	Vector2 GetPosition() { return _transform->GetWorldPosition(); }
+	Vector2 GetPosition() { return _bullet->GetTransform()->GetWorldPosition(); }
 
 	void SetLeft();
 	void SetRight();

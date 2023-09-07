@@ -4,7 +4,7 @@
 Terrain::Terrain(wstring diffuseFile, wstring heightFile) // Specular 적용시키기
 {
 	material = new Material();
-	material->SetShader(L"Specular");
+	material->SetShader(L"NormalMapping");
 	material->SetDiffuseMap(diffuseFile);
 
 	worldBuffer = new MatrixBuffer();
@@ -14,6 +14,8 @@ Terrain::Terrain(wstring diffuseFile, wstring heightFile) // Specular 적용시키기
 	CreateMesh();
 
 	CreateNormal();
+
+	CreateTangent();
 
 	mesh = new Mesh(vertices, indices);
 }
@@ -100,5 +102,48 @@ void Terrain::CreateNormal()
 		vertices[index0].normal += normal;
 		vertices[index1].normal += normal;
 		vertices[index2].normal += normal;
+	}
+}
+
+void Terrain::CreateTangent()
+{
+	for (UINT i = 0; i < indices.size() / 3; i++)
+	{
+		UINT index0 = indices[i * 3 + 0];
+		UINT index1 = indices[i * 3 + 1];
+		UINT index2 = indices[i * 3 + 2];
+
+		Vector3 p0 = vertices[index0].pos;
+		Vector3 p1 = vertices[index1].pos;
+		Vector3 p2 = vertices[index2].pos;
+
+		Vector2 uv0 = vertices[index0].uv;
+		Vector2 uv1 = vertices[index1].uv;
+		Vector2 uv2 = vertices[index2].uv;
+
+		Vector3 e01 = p1 - p0;
+		Vector3 e02 = p2 - p0;
+
+		float u1 = uv1.x - uv0.x;
+		float v1 = uv1.y - uv0.y;
+
+		float u2 = uv2.x - uv0.x;
+		float v2 = uv2.y - uv0.y;
+
+		float D = 1.0f / (u1 * v2 - v1 * u2); // Determiant (판별식) : 여기서는 값이 몇개인지 확인함
+
+		Vector3 tangent = D * (e01 * v2 - e02 * v1);
+
+		vertices[index0].tangent += tangent;
+		vertices[index1].tangent += tangent;
+		vertices[index2].tangent += tangent;
+	}
+
+	for (VertexType& vertex : vertices)
+	{
+		Vector3 T = vertex.tangent;
+		Vector3 N = vertex.normal;
+
+		vertex.tangent = (T - N * Vector3::Dot(N, T)).GetNormalized();
 	}
 }
