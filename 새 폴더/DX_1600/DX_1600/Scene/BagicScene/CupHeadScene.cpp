@@ -2,16 +2,22 @@
 #include "CupHeadScene.h"
 #include "../../Object/CupHead/Player/Cup_Player.h"
 #include "../../Object/CupHead/Monster/Cup_Monster.h"
+#include "../../Object/CupHead/Monster/RoamingMonster.h"
 #include "../../Object/CupHead/Cup_Track.h"
 #include "../../Object/CupHead/Cup_Block.h"
 #include "../../Object/CupHead/Potal.h"
 
 CupHeadScene::CupHeadScene()
 {
-	//_player = make_shared<Cup_Player>();
-
 	_monster = make_shared<Cup_Monster>();
-	_monster->SetPosition(Vector2(0, 0));
+	_monster->SetPosition(Vector2(100, 0));
+
+	_monster1 = make_shared<Cup_Monster>();
+	_monster1->SetPosition(Vector2(500, 0));
+
+	//_monsterR = make_shared<RoamingMonster>();
+	//_monsterR->SetPosition(Vector2(1000, 0));
+	//_monsterR->GetTransform()->SetPosition(Vector2(0, 0));
 
 	_track = make_shared<Cup_Track>();
 
@@ -51,20 +57,17 @@ void CupHeadScene::Init()
 {
 	Vector2 trackSize = _track->GetTrackSize();
 
-	PLAYER->SetPosition(Vector2(0, 0));
-
-	//_player->SetHP(_player->GetMaxHp());
+	PLAYER->SetPosition(Vector2(0, 20));
 
 	PLAYER->SetJumpPower(0.0f);
 
-	//if (_monster->_isAlive == false)
-	//{
-	//	_player->SetPosition(Vector2(0, 0));
+	if (_monster->_isAlive == false)
+	{
 
-	//	_monster->SetPosition(Vector2(0, 0));
-	//	_monster->ResetHp();
-	//	_monster->_isAlive = true;
-	//}
+		_monster->SetPosition(Vector2(0, 0));
+		_monster->ResetHp();
+		_monster->_isAlive = true;
+	}
 
 
 	CAMERA->SetTarget(PLAYER->GetTransform());
@@ -139,16 +142,36 @@ void CupHeadScene::Update()
 		
 	}
 
+	if (_block->GetCollider()->Block(_monster->GetCollider()))
+	{
+
+	}
+	if (_track->GetColddider()->Block(_monster1->GetCollider()))
+	{
+
+	}
+
+
 	Vector2 playerpos = PLAYER->GetTransform()->GetWorldPosition();
 
 	_monster->Update(playerpos);
+	_monster1->Update(playerpos);
+	//_monsterR->Update(playerpos);
 
 	// 보스가 일정 거리 안에서만 공격
 	Vector2 bosspos = _monster->GetTransform()->GetWorldPosition();
 	int distance = playerpos.Distance(bosspos);
 	if (distance < 500.0f) // 이 거리는 일반몹에 적합
 		_monster->Attack(PLAYER->GetCollider()->GetTransform()->GetWorldPosition());
+
+	Vector2 bossposR = _monster1->GetTransform()->GetWorldPosition();
+	int distanceR = playerpos.Distance(bossposR);
+	if (distanceR < 500.0f) // 이 거리는 일반몹에 적합
+		_monster1->Attack(PLAYER->GetCollider()->GetTransform()->GetWorldPosition());
+
+
 	CheckAttack();
+
 
 	_hpBar->SetMaxHp(PLAYER->GetMaxHp());
 	_hpBar->SetCurHp(PLAYER->GetHp());
@@ -179,16 +202,19 @@ void CupHeadScene::Render()
 	if (_monster->_isAlive == true)
 		_monster->Render();
 
+	if (_monster1->_isAlive == true)
+		_monster1->Render();
 }
 
 void CupHeadScene::PostRender()
 {
 	PLAYER->PostRender();
 	_monster->PostRender();
+	_monster1->PostRender();
 
-	ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
-	ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
-	ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
+	//ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
+	//ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
+	//ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
 	ImGui::Text("PlayerHP : % d", (int)PLAYER->GetHp());
 	
 	if (ImGui::Button("TargetON", ImVec2(50, 50)))
@@ -227,9 +253,19 @@ void CupHeadScene::CheckAttack()
 		_monster->GetAttacked(PLAYER->GetNowGunDamage());
 	}
 
+	if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+	{
+		_monster1->GetAttacked(PLAYER->GetNowGunDamage());
+	}
+
 	if (_monster->IsCollsion_Bullets(PLAYER->GetCollider()))
 	{
 		PLAYER->Damaged(_monster->GetDamage());
+	}
+
+	if (_monster1->IsCollsion_Bullets(PLAYER->GetCollider()))
+	{
+		PLAYER->Damaged(_monster1->GetDamage());
 	}
 }
 

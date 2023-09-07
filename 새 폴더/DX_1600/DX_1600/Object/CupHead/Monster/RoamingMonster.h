@@ -18,9 +18,7 @@ public:
 
 	void Attack(Vector2 targetPos);
 
-	void SetPosition(Vector2 pos) { _monster->SetPosition(pos); }
-
-	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type, CallBack event = nullptr);
+	void SetPosition(Vector2 pos) { _monster->GetTransform()->SetPosition(pos); }
 
 	void StartEvent() { _state = State::START; }
 	void DieEvent() { _state = State::END; }

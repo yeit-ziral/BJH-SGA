@@ -17,14 +17,14 @@ public:
 	void Load();
 
 private:
-	//shared_ptr<class Cup_Player> _player;
 
 	shared_ptr<class Cup_Track> _track;
 	shared_ptr<class Cup_Track> _track2;
 	shared_ptr<class Cup_Block> _block;
 
 	shared_ptr<class Cup_Monster> _monster;
-	shared_ptr<class RoamingMonster> _monsterR;
+	shared_ptr<class Cup_Monster> _monster1;
+	//shared_ptr<class RoamingMonster> _monsterR;
 
 
 	shared_ptr<Button> _button;

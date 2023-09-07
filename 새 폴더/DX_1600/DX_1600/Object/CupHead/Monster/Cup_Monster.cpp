@@ -5,9 +5,9 @@ using namespace tinyxml2;
 
 Cup_Monster::Cup_Monster()
 {
-	_monster = make_shared<CircleCollider>(150);
+	_monster = make_shared<CircleCollider>(100);
 
-	CreateAction(L"Resource/CupHead/boss/BossStart.png", "Resource/CupHead/boss/BossStart.xml", "START", Vector2(100, 100), Action::Type::END);
+	CreateAction(L"Resource/CupHead/boss/BossStart.png", "Resource/CupHead/boss/BossStart.xml", "START", Vector2(100, 100), Action::Type::END, std::bind(&Cup_Monster::StartEvent, this));
 	CreateAction(L"Resource/CupHead/boss/BossLoop.png", "Resource/CupHead/boss/BossLoop.xml", "LOOP", Vector2(200, 200), Action::Type::LOOP);
 	CreateAction(L"Resource/CupHead/boss/BossDie.png", "Resource/CupHead/boss/BossDie.xml", "DEAD", Vector2(300, 300), Action::Type::END, std::bind(&Cup_Monster::DieEvent, this));
 
@@ -25,6 +25,7 @@ Cup_Monster::Cup_Monster()
 	_transform->SetParent(_monster->GetTransform());
 
 	_bowSlot = make_shared<Transform>();
+	_bowSlot->SetParent(_transform);
 
 	_bow = make_shared<Quad>(L"Resource/CupHead/weapon/Bow.png");
 	_bowTrans = make_shared<Transform>();
@@ -55,6 +56,17 @@ void Cup_Monster::Update(Vector2 targetPos)
 
 	if (_hp <= 0)
 		_isAlive = false;
+
+	// 중력적용
+	{
+		_jumpPower -= 1000.0f * DELTA_TIME;
+
+		if (_jumpPower < -600.0f)
+			_jumpPower = -600.0f;
+
+		_monster->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
+	}
+
 
 	if (_state == State::END && _intBuffer->_data.bInt > 1)
 		_intBuffer->_data.bInt -= 5;

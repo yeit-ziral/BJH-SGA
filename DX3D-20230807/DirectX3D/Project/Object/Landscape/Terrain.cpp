@@ -61,7 +61,7 @@ void Terrain::CreateMesh()
 			UINT index = x + z * width;
 			vertex.pos.y = colors[index].x * MAP_HEIGHT;
 
-			vertices.push_back(vertex);
+			vertices.push_back(vertex); // normal값 넣어주기
 		}
 	}
 

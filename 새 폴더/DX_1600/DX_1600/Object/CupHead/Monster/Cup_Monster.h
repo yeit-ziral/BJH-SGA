@@ -21,11 +21,12 @@ public:
 	void Attack(Vector2 targetPos);
 
 	void SetPosition(Vector2 pos) { _monster->SetPosition(pos); }
-	
+
 	void CreateAction(wstring srvpath, string xmlpath, string actionName, Vector2 size, Action::Type type, CallBack event = nullptr);
 
-	void StartEvent() { _state = State::START; }
+	void StartEvent() { _state = State::LOOP; }
 	void DieEvent() { _state = State::END; }
+	void RestartEvent() { _state = State::START; }
 	//void EndEvent() { _isAlive = false; }
 
 	const int& GetHp() { return _hp; }
@@ -79,5 +80,7 @@ private:
 	shared_ptr<Transform> _bowTrans;
 
 	int _damage = 1;
+
+	int _jumpPower = 0;
 };
 

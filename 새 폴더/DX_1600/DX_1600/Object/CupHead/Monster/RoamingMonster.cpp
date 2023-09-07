@@ -13,6 +13,7 @@ RoamingMonster::RoamingMonster()
 	_transform->SetParent(_monster->GetTransform());
 
 	_bowSlot = make_shared<Transform>();
+	_bowSlot->SetParent(_transform);
 
 	_bow = make_shared<Quad>(L"Resource/CupHead/weapon/Bow.png");
 	_bowTrans = make_shared<Transform>();
@@ -76,6 +77,8 @@ void RoamingMonster::Render()
 void RoamingMonster::PostRender()
 {
 	ImGui::SliderInt("RoamingMonsterState", (int*)&_state, 0, 3);
+	ImGui::Text("R-monsterPos : %f, %f", _monster->GetPos().x, _monster->GetPos().y);
+	ImGui::Text("bowTransPos : %f , %f", _bowSlot->GetPos().x, _bowSlot->GetPos().y);
 }
 
 void RoamingMonster::Attack(Vector2 targetPos)
@@ -141,10 +144,15 @@ void RoamingMonster::Roaming()
 
 void RoamingMonster::SetBowAngle(Vector2 targetPos)
 {
+	Vector2 monsterToPlayer = targetPos - _monster->GetTransform()->GetPos();
+
+	float angle = monsterToPlayer.Angle();
+	_bowSlot->SetAngle(angle);
 }
 
 void RoamingMonster::SetLeft()
 {
+	_monsterQuad->FlipVertically();
 }
 
 void RoamingMonster::SetRight()
