@@ -1,13 +1,7 @@
 #pragma once
-class RoamingMonster
+class RoamingMonster // 돌아다니다가 플레이어한테 돌진해서 자폭공격
 {
 public:
-	enum State
-	{
-		START,
-		LOOP,
-		END
-	};
 
 	RoamingMonster();
 	~RoamingMonster();
@@ -16,12 +10,9 @@ public:
 	void Render();
 	void PostRender();
 
-	void Attack(Vector2 targetPos);
+	void Attack(shared_ptr<Collider> collider);
 
 	void SetPosition(Vector2 pos) { _monster->GetTransform()->SetPosition(pos); }
-
-	void StartEvent() { _state = State::START; }
-	void DieEvent() { _state = State::END; }
 
 	const int& GetHp() { return _hp; }
 	void ResetHp() { _hp = _maxHp; }
@@ -42,13 +33,11 @@ public:
 
 	int GetDamage() { return _damage; }
 
+	void Move(Vector2 movePos) { _monster->GetTransform()->AddVector2(movePos); }
+
 private:
 	void SetLeft();
 	void SetRight();
-
-	bool _isEnd = false;
-
-	State _state = State::START;
 
 	shared_ptr<CircleCollider> _monster;
 

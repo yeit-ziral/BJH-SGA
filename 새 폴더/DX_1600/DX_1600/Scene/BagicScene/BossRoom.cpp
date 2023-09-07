@@ -82,16 +82,16 @@ void BossRoom::Update()
 		//_boss->Fire(_player->GetCollider()->GetPos());
 	}
 
-	if (_track->GetColider()->Block(PLAYER->GetFootCollider()))
+	if (_track->GetCollider()->Block(PLAYER->GetFootCollider()))
 	{
-		if (_track->GetColider()->_sideCollision)
+		if (_track->GetCollider()->_sideCollision)
 			return;
 
 		PLAYER->SetGrounded();
 	}
-	if (_track->GetColider()->Block(_boss->GetCollider()))
+	if (_track->GetCollider()->Block(_boss->GetCollider()))
 	{
-		if (_track->GetColider()->_sideCollision)
+		if (_track->GetCollider()->_sideCollision)
 			return;
 	}
 

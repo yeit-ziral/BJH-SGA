@@ -26,9 +26,9 @@ CupHeadScene::CupHeadScene()
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 
 	Vector2 trackSize = _track->GetTrackSize();
-	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
+	float track2PosX = _track2->GetCollider()->GetTransform()->GetWorldPosition().x;
 
-	Vector2 track2WorldPos = _track2->GetColider()->GetTransform()->GetWorldPosition();
+	Vector2 track2WorldPos = _track2->GetCollider()->GetTransform()->GetWorldPosition();
 	_track2->SetPosition(track2WorldPos + Vector2(trackSize.x, 150.0f));
 
 	_block = make_shared<Cup_Block>(track2WorldPos + Vector2(100, 300));
@@ -72,7 +72,7 @@ void CupHeadScene::Init()
 
 	CAMERA->SetTarget(PLAYER->GetTransform());
 	CAMERA->SetLeftBottom(Vector2((trackSize.x * -0.5f), -1000.0f));
-	float track2PosX = _track2->GetColider()->GetTransform()->GetWorldPosition().x;
+	float track2PosX = _track2->GetCollider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
 
 
@@ -104,16 +104,16 @@ void CupHeadScene::Update()
 	if (_monster->_isAlive == false)
 		_potal->_isActive = true;
 
-	if (_track->GetColider()->Block(PLAYER->GetFootCollider()))
+	if (_track->GetCollider()->Block(PLAYER->GetFootCollider()))
 	{
-		if (_track->GetColider()->_sideCollision)
+		if (_track->GetCollider()->_sideCollision)
 			return;
 
 		PLAYER->SetGrounded();
 	}
-	if (_track2->GetColider()->Block(PLAYER->GetFootCollider()))
+	if (_track2->GetCollider()->Block(PLAYER->GetFootCollider()))
 	{
-		if (_track2->GetColider()->_sideCollision)
+		if (_track2->GetCollider()->_sideCollision)
 			return;
 
 		PLAYER->SetGrounded();
@@ -146,7 +146,7 @@ void CupHeadScene::Update()
 	{
 
 	}
-	if (_track->GetColddider()->Block(_monster1->GetCollider()))
+	if (_track->GetCollider()->Block(_monster1->GetCollider()))
 	{
 
 	}

@@ -8,7 +8,7 @@ public:
 	void Update();
 	void Render();
 
-	shared_ptr<Collider> GetColider() { return _col; }
+	shared_ptr<Collider> GetCollider() { return _col; }
 
 	Vector2 GetTrackSize() { return trackSize; }
 

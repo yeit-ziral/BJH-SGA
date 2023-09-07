@@ -13,7 +13,7 @@
 Lobby::Lobby()
 {
 	//_player = make_shared<Cup_Player>();
-
+	PLAYER->SetPosition(Vector2(0, 0));
 
 	_track = make_shared<Cup_Track>();
 	Vector2 trackSize = _track->GetTrackSize();
@@ -81,9 +81,9 @@ void Lobby::Update()
 	 _hpBar->Update();
 	 _gunHpBar->Update();
 
-	 if (_track->GetColider()->Block(PLAYER->GetFootCollider()))
+	 if (_track->GetCollider()->Block(PLAYER->GetFootCollider()))
 	 {
-		 if (_track->GetColider()->_sideCollision)
+		 if (_track->GetCollider()->_sideCollision)
 			 return;
 
 		 PLAYER->SetGrounded();

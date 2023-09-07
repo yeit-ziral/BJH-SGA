@@ -15,18 +15,7 @@ RoamingMonster::RoamingMonster()
 	_bowSlot = make_shared<Transform>();
 	_bowSlot->SetParent(_transform);
 
-	_bow = make_shared<Quad>(L"Resource/CupHead/weapon/Bow.png");
-	_bowTrans = make_shared<Transform>();
-
-	_bowTrans->SetParent(_bowSlot);
-	_bowTrans->SetPosition({ 50,0 });
-	_bowTrans->SetAngle(-PI * 0.75f);
-
-	for (int i = 0; i < 30; i++)
-	{
-		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();
-		_bullets.push_back(bullet);
-	}
+	_bow = make_shared<Quad>(L"Resource/howitzerBullet.png");
 
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
@@ -76,33 +65,30 @@ void RoamingMonster::Render()
 
 void RoamingMonster::PostRender()
 {
-	ImGui::SliderInt("RoamingMonsterState", (int*)&_state, 0, 3);
 	ImGui::Text("R-monsterPos : %f, %f", _monster->GetPos().x, _monster->GetPos().y);
 	ImGui::Text("bowTransPos : %f , %f", _bowSlot->GetPos().x, _bowSlot->GetPos().y);
 }
 
-void RoamingMonster::Attack(Vector2 targetPos)
+void RoamingMonster::Attack(shared_ptr<Collider> collider)
 {
-	_time += DELTA_TIME;
-	if (_time > _atkSpeed)
+	float dir = collider->GetTransform()->GetWorldPosition().x - _monster->GetTransform()->GetWorldPosition().x;
+
+
+
+	if (dir > 0)
 	{
-		_time = 0.0f;
+		Move(Vector2(1, 0));
 	}
-	else
-		return;
+	if (dir < 0)
+	{
+		Move(Vector2(-1, 0));
+	}
+	if (collider->IsCollision(_monster))
+	{
+		_hp = 0;
+		EFFECT_PLAY("Hit", _monster->GetTransform()->GetWorldPosition());
+	}
 
-	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
-		[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->_isActive; });
-
-	if (bulletIter == _bullets.end())
-		return;
-
-	//_atkCool = true;
-	Vector2 startPos = _bowTrans->GetWorldPosition();
-	Vector2 dir = targetPos - startPos;
-	dir.Normallize();
-	(*bulletIter)->SetAngle(dir.Angle());
-	(*bulletIter)->Shoot(dir, startPos);
 }
 
 void RoamingMonster::GetAttacked(int amount)
@@ -115,8 +101,6 @@ void RoamingMonster::GetAttacked(int amount)
 	if (_hp <= 0)
 	{
 		_hp = 0;
-
-		DieEvent();
 	}
 }
 
