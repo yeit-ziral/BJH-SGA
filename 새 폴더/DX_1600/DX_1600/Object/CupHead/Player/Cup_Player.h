@@ -15,7 +15,7 @@ public:
 		MACHINE,
 		CHARGE
 	};
-	enum Item
+	enum class Item
 	{
 		NONE,
 		HELMET,
