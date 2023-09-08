@@ -106,7 +106,7 @@ void CupHeadScene::Update()
 	
 	_gunHpBar->Update();
 
-	if (_monster->_isAlive == false)
+	if (_monster->_isAlive == false && _monster1->_isAlive == false)
 		_potal->_isActive = true;
 
 	if (_track->GetCollider()->Block(PLAYER->GetFootCollider()))
@@ -163,7 +163,7 @@ void CupHeadScene::Update()
 	_monster1->Update(playerpos);
 	//_monsterR->Update(playerpos);
 
-	// 보스가 일정 거리 안에서만 공격
+	// 몬스터가 일정 거리 안에서만 공격
 	Vector2 bosspos = _monster->GetTransform()->GetWorldPosition();
 	int distance = playerpos.Distance(bosspos);
 	if (distance < 500.0f) // 이 거리는 일반몹에 적합
@@ -171,7 +171,7 @@ void CupHeadScene::Update()
 
 	Vector2 bossposR = _monster1->GetTransform()->GetWorldPosition();
 	int distanceR = playerpos.Distance(bossposR);
-	if (distanceR < 500.0f) // 이 거리는 일반몹에 적합
+	if (distanceR < 500.0f) 
 		_monster1->Attack(PLAYER->GetCollider()->GetTransform()->GetWorldPosition());
 
 
@@ -184,7 +184,7 @@ void CupHeadScene::Update()
 
 	_hpBar->SetPosition(Vector2(a.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y));
 
-	if (_potal->IsCollision(PLAYER->GetCollider()) && _monster->_isAlive == false)
+	if (_potal->IsCollision(PLAYER->GetCollider()) && _monster->_isAlive == false && _monster1->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
 
 	_gunHpBar->SetMaxHp(PLAYER->GetGunMaxHp());
@@ -192,6 +192,9 @@ void CupHeadScene::Update()
 	Vector2 b = _gunHpBar->GetXSizeHalf();
 
 	_gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
+
+	if (!PLAYER->_isAlive)
+		SceneManager::GetInstance()->LobbyScene();
 }
 
 void CupHeadScene::Render()
@@ -250,28 +253,37 @@ void CupHeadScene::PostRender()
 
 void CupHeadScene::CheckAttack()
 {
-	if (!_monster->_isAlive || !PLAYER->_isAlive)
-		return;
-
-	if (PLAYER->IsCollision_Bullets(_monster->GetCollider()))
+	if (_monster->_isAlive && PLAYER->GetHp() > 0)
 	{
-		_monster->GetAttacked(PLAYER->GetNowGunDamage());
+		if (_monster->IsCollsion_Bullets(PLAYER->GetCollider()))
+		{
+			PLAYER->Damaged(_monster->GetDamage());
+		}
+
+		if (PLAYER->IsCollision_Bullets(_monster->GetCollider()))
+		{
+			_monster->GetAttacked(PLAYER->GetNowGunDamage());
+		}
 	}
 
-	if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+	if (_monster1->_isAlive && PLAYER->GetHp() > 0)
 	{
-		_monster1->GetAttacked(PLAYER->GetNowGunDamage());
+
+		if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+		{
+			_monster1->GetAttacked(PLAYER->GetNowGunDamage());
+		}
+
+
+
+		if (_monster1->IsCollsion_Bullets(PLAYER->GetCollider()))
+		{
+			PLAYER->Damaged(_monster1->GetDamage());
+		}
 	}
 
-	if (_monster->IsCollsion_Bullets(PLAYER->GetCollider()))
-	{
-		PLAYER->Damaged(_monster->GetDamage());
-	}
 
-	if (_monster1->IsCollsion_Bullets(PLAYER->GetCollider()))
-	{
-		PLAYER->Damaged(_monster1->GetDamage());
-	}
+
 }
 
 void CupHeadScene::Save()

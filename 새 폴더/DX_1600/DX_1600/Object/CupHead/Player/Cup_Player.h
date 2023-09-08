@@ -6,7 +6,6 @@ class inventory;
 
 class Cup_Player
 {
-private:
 	Cup_Player();
 	~Cup_Player();
 public:
@@ -106,9 +105,13 @@ public:
 
 	void DropItem();
 
+	Item GetItemState();
+
 	int RandomNum(int min, int max) { return rand() % (max - min) + min; }
 
 	void FineAim(int value) { _spread -= value; }
+
+	void Revive();
 
 private:
 	static Cup_Player* _instance;
@@ -117,6 +120,8 @@ private:
 	int _maxHp = 10;
 
 	Gun _nowGun = Gun::NORMAL;
+
+	Item _itemState = Item::NONE;
 
 	shared_ptr<Cup_Ani> _animation;
 	shared_ptr<Collider> _collider;

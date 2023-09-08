@@ -112,7 +112,9 @@ void Cup_Player::Update()
 void Cup_Player::Render()
 {
 	if (!_isAlive)
+	{
 		return;
+	}
 
 	_animation->Render();
 
@@ -407,6 +409,38 @@ void Cup_Player::DropItem()
 	{
 		_speed -= 300;
 	}
+}
+
+Cup_Player::Item Cup_Player::GetItemState()
+{
+	if (_inventory->GetInvenState() == inventory::ItemState::HELMET)
+	{
+		_itemState = Item::HELMET;
+	}
+	if (_inventory->GetInvenState() == inventory::ItemState::KINGBULLET)
+	{
+		_itemState = Item::KINGBULLET;
+	}
+	if (_inventory->GetInvenState() == inventory::ItemState::SCOPE)
+	{
+		_itemState = Item::SCOPE;
+	}
+	if (_inventory->GetInvenState() == inventory::ItemState::SPEEDBOOTS)
+	{
+		_itemState = Item::SPEEDBOOTS;
+	}
+	if (_inventory->GetInvenState() == inventory::ItemState::NONE)
+	{
+		_itemState = Item::NONE;
+	}
+
+	return _itemState;
+}
+
+void Cup_Player::Revive()
+{
+	_hp = _maxHp;
+	_isAlive = true;
 }
 
 //void Cup_Player::InvenSetPosition(Vector2 pos)

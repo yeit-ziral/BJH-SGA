@@ -48,7 +48,7 @@ protected:
 
 	bool _selected = false;
 
-	int _damage = 20;
+	int _damage;
 
 	int _hp = 100;
 	int _maxHp = 100;

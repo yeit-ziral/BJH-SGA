@@ -74,7 +74,14 @@ public:
 
 	bool IsCollsion_Bullets(shared_ptr<Collider> col);
 
-	void SetBossState(Boss_State value) { _state = value; }
+	Boss_State GetBossState() { return _state; }
+
+	bool IsDash() { if (_state == DASHLOOP) return true; }
+
+	void SetState(Boss_State value) { _state = value; }
+
+	int GetDamage() { return _damage; }
+	int GetDashDamage() { return _dashDamage; }
 
 
 private:
@@ -119,5 +126,8 @@ private:
 	bool _atkCool = false;
 
 	float _timer = 0.0f;
+
+	int _damage = 2;
+	int _dashDamage = 5;
 };
 

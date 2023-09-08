@@ -111,7 +111,7 @@ void Cup_Monster::Render()
 
 void Cup_Monster::PostRender()
 {
-	ImGui::SliderInt("MonsterState", (int*)&_state, 0, 3);
+	ImGui::Text("Hp : %d", _hp);
 }
 
 void Cup_Monster::Attack(Vector2 targetPos)

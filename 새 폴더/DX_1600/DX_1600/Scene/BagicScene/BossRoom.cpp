@@ -16,7 +16,7 @@ BossRoom::BossRoom()
 
 	_wall = make_shared<Cup_Wall>();
 
-	_boss = make_shared<Cup_Boss>();
+	
 
 
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
@@ -49,6 +49,8 @@ void BossRoom::Init()
 {
 	PLAYER->SetPosition(Vector2(0, 0));
 	PLAYER->SetJumpPower(0.0f);
+
+	_boss = make_shared<Cup_Boss>();
 
 	Vector2 trackSize = _track->GetTrackSize();
 
@@ -118,13 +120,23 @@ void BossRoom::Update()
 			if (PLAYER->GetNowGun() == Cup_Player::Gun::CHARGE)
 				_boss->Damage(15);
 		}
+
+		if (_boss->IsCollsion_Bullets(PLAYER->GetCollider()))
+		{
+			PLAYER->Damaged(_boss->GetDamage());
+			//_player->SetHit(true);
+		}
+
+		if (_boss->IsDash())
+		{
+			if(PLAYER->GetCollider()->IsCollision(_boss->GetCollider()))
+			{
+				PLAYER->Damaged(_boss->GetDashDamage());
+			}
+		}
 	}
 
-	if (_boss->IsCollsion_Bullets(PLAYER->GetCollider()))
-	{
-		PLAYER->Attacked(1);
-		//_player->SetHit(true);
-	}
+
 
 	_hpBar->SetMaxHp(PLAYER->GetMaxHp());
 	_hpBar->SetCurHp(PLAYER->GetHp());
@@ -140,6 +152,9 @@ void BossRoom::Update()
 
 	if (_potal->IsCollision(PLAYER->GetCollider()) && _boss->_isAlive == false)
 		SceneManager::GetInstance()->NextScene();
+
+	if (!PLAYER->_isAlive)
+		SceneManager::GetInstance()->LobbyScene();
 }
 
 void BossRoom::Render()

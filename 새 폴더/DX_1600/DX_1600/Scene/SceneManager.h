@@ -33,6 +33,7 @@ public:
 	void NextScene();
 	void PrevScene();
 	void SetScene(int number);
+	void LobbyScene();
 
 private:
 	static SceneManager* _instance;

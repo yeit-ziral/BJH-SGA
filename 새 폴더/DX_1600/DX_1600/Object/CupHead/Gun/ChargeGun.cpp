@@ -20,7 +20,7 @@ ChargeGun::ChargeGun()
 	//_chargingEffect->SetParent(_gunTrans);
 	//_chargingEffect->SetPosition(Vector2(12, 0));
 
-	_damage = 0;
+	_damage = 20;
 }
 
 ChargeGun::~ChargeGun()
