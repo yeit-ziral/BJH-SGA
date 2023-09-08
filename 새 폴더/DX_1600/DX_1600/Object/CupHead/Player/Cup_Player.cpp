@@ -275,9 +275,8 @@ bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 	else if (_nowGun == MACHINE)
 		return _machineGun->IsCollision_Bullets(col);
 	else if(_nowGun == CHARGE)
-		return _chargeGun->IsCollision_Bullets(col);
+		return _chargeGun->IsCollision_CBullet(col);
 }
-
 
 void Cup_Player::SetGrounded()
 {

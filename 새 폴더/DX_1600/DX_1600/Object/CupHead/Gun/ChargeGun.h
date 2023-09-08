@@ -17,6 +17,8 @@ public:
 
 	void SetChargingCount(float a) { _chargingCount = a; }
 
+	bool IsCollision_CBullet(shared_ptr<Collider> col);
+
 private:
 
 	vector<shared_ptr<class ChargingBullet>> _Cbullets;

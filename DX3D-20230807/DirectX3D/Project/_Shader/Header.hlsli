@@ -15,7 +15,7 @@ cbuffer Proj : register(b2)
     matrix projection;
 };
 
-cbuffer LightDirection : register(b0) // pixelshader에 적용하는거라서 World와 다름
+cbuffer LightDirection : register(b0) // pixelshader에 적용하는거라서 World에 할당된 b0와 다름
 {
     float3 lightDirection;
     float padding; // 위와 아래의 메모리 용량이 맞지 않아서 padding 넣음

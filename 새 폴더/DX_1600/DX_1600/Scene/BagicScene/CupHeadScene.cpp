@@ -61,12 +61,17 @@ void CupHeadScene::Init()
 
 	PLAYER->SetJumpPower(0.0f);
 
-	if (_monster->_isAlive == false)
+	if (_monster->_isAlive == false && _monster1->_isAlive ==false)
 	{
+		_monster = make_shared<Cup_Monster>();
+		_monster->SetPosition(Vector2(100, 0));
 
-		_monster->SetPosition(Vector2(0, 0));
-		_monster->ResetHp();
-		_monster->_isAlive = true;
+		_monster1 = make_shared<Cup_Monster>();
+		_monster1->SetPosition(Vector2(500, 0));
+
+		//_monster->SetPosition(Vector2(0, 0));
+		//_monster->ResetHp();
+		//_monster->_isAlive = true;
 	}
 
 

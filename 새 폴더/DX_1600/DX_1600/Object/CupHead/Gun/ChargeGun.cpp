@@ -107,3 +107,21 @@ void ChargeGun::Fire(Vector2 dir)
 	if (_hp <= 0)
 		_hp = 0;
 }
+
+bool ChargeGun::IsCollision_CBullet(shared_ptr<Collider> col)
+{
+	for (auto bullet : _Cbullets)
+	{
+		if (bullet->_isActive == false)
+			continue;
+
+		if (col->IsCollision(bullet->GetBulletCollider()))
+		{
+			bullet->_isActive = false;
+			EFFECT_PLAY("Hit", bullet->GetPosition());
+			return true;
+		}
+	}
+
+	return false;
+}

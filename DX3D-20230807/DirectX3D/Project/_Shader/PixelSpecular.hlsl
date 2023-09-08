@@ -11,7 +11,7 @@ struct VertexOutput
 
 float4 main(VertexOutput input) : SV_TARGET
 {
-    float3 L = normalize(lightDirection);
+    float3 L = normalize(-lightDirection);
     
     float diffuseIntensity = saturate(dot(input.normal, -L)); //N dot L
     
