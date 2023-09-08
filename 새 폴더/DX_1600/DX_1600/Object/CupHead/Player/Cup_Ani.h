@@ -36,6 +36,7 @@ public:
 	bool GetIsRight() const { return _isRight; }
 
 	bool IsActive() { return _isActive; }
+	void ReviveAni() { _isActive = true; }
 
 private:
 	bool _isActive = true;

@@ -101,7 +101,6 @@ void Cup_Player::Update()
 		{
 			DropItem();
 
-			_inventory->DropItems();
 		}
 	}
 
@@ -149,6 +148,9 @@ void Cup_Player::PostRender()
 
 void Cup_Player::Input()
 {
+	if (!_isAlive)
+		return;
+
 	// 중력적용 -> 보스 총알에도 구현해야 됨
 	{
 		_jumpPower -= 1000.0f * DELTA_TIME;
@@ -158,9 +160,6 @@ void Cup_Player::Input()
 
 		_footCollider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
 	}
-
-	if (!_isAlive)
-		return;
 
 	if (_animation->GetState() == Cup_Ani::State::HIT)
 		return;
@@ -396,18 +395,25 @@ void Cup_Player::DropItem()
 
 		if (_hp > _maxHp)
 			_hp = _maxHp;
+		_inventory->DropItems();
 	}
 	if (_inventory->GetInvenState() == inventory::ItemState::KINGBULLET)
 	{
 		_damage -= 5;
+
+		_inventory->DropItems();
 	}
 	if (_inventory->GetInvenState() == inventory::ItemState::SCOPE)
 	{
 		FineAim(-5);
+		
+		_inventory->DropItems();
 	}
 	if (_inventory->GetInvenState() == inventory::ItemState::SPEEDBOOTS)
 	{
 		_speed -= 300;
+
+		_inventory->DropItems();
 	}
 }
 
@@ -441,6 +447,8 @@ void Cup_Player::Revive()
 {
 	_hp = _maxHp;
 	_isAlive = true;
+	_animation->ReviveAni();
+	_animation->SetState(Cup_Ani::State::IDLE);
 }
 
 //void Cup_Player::InvenSetPosition(Vector2 pos)

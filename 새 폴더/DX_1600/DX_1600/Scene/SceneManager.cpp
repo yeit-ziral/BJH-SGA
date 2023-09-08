@@ -87,4 +87,6 @@ void SceneManager::LobbyScene()
 {
 	_scenes[_curScene]->End();
 	_curScene = 0;
+
+	_scenes[_curScene]->Init();
 }

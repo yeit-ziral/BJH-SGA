@@ -53,15 +53,16 @@ Lobby::~Lobby()
 
 void Lobby::Init()
 {
-	PLAYER->Revive();
-	while (PLAYER->GetItemState() == Cup_Player::Item::NONE) // 인벤 첫 칸이 NONE일 때 까지
+	if (!PLAYER->_isAlive)
+		PLAYER->Revive();
+
+	while (PLAYER->GetItemState() != Cup_Player::Item::NONE) // 인벤 첫 칸이 NONE일 때 까지
 	{
 		PLAYER->DropItem();
 	}
 
 	PLAYER->SetPosition(Vector2(0, 0));
 	PLAYER->SetJumpPower(0.0f);
-
 
 	Vector2 trackSize = _track->GetTrackSize();
 
@@ -82,6 +83,8 @@ void Lobby::End()
 
 void Lobby::Update()
 {
+
+
 	PLAYER->Update();
 	 _track->Update();
 	 _potal->Update();

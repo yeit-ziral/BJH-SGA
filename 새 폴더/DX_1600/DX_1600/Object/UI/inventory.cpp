@@ -112,7 +112,9 @@ void inventory::DropItems()
 	for (int i = 0; i < 3; i++)
 	{
 		_inventory[i]->SetItemState(_inventory[i + 1]->GetItemState());
-		_inventory[i]->_isFilled = false;
+
+		if (_inventory[i]->GetItemState() == InventoryCell::Items::NONE)
+			_inventory[i]->_isFilled = false;
 	}
 	_inventory[3]->SetItemState(InventoryCell::Items::NONE);
 	_inventory[3]->_isFilled = false;
