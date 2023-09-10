@@ -47,10 +47,11 @@ BossRoom::~BossRoom()
 
 void BossRoom::Init()
 {
-	PLAYER->SetPosition(Vector2(0, 0));
+	PLAYER->SetPosition(Vector2(-200, 0));
 	PLAYER->SetJumpPower(0.0f);
 
 	_boss = make_shared<Cup_Boss>();
+	_boss->GetCollider()->SetPosition(Vector2(200.0f, 0.0f));
 
 	Vector2 trackSize = _track->GetTrackSize();
 

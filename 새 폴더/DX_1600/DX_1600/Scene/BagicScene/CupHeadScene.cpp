@@ -47,6 +47,8 @@ CupHeadScene::CupHeadScene()
 
 	_hpBar = make_shared<HPBar>(L"Resource/UI/Button.png", Vector2(500, 50));
 	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
+
+	_potal->_isActive = false;
 }
 
 CupHeadScene::~CupHeadScene()
@@ -63,11 +65,16 @@ void CupHeadScene::Init()
 
 	if (_monster->_isAlive == false && _monster1->_isAlive ==false)
 	{
+		_monster->~Cup_Monster();
+		_monster1->~Cup_Monster();
+
 		_monster = make_shared<Cup_Monster>();
 		_monster->SetPosition(Vector2(100, 0));
+		_monster->_isAlive = true;
 
 		_monster1 = make_shared<Cup_Monster>();
 		_monster1->SetPosition(Vector2(500, 0));
+		_monster1->_isAlive = true;
 
 		//_monster->SetPosition(Vector2(0, 0));
 		//_monster->ResetHp();
@@ -203,7 +210,8 @@ void CupHeadScene::Render()
 	_track2->Render();
 	_block->Render();
 
-	_potal->Render();
+	if (_potal->_isActive == true)
+		_potal->Render();
 
 	PLAYER->Render();
 
