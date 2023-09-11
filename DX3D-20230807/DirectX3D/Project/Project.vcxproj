@@ -175,6 +175,15 @@
     <ClInclude Include="Render\Buffer\VertexLayout.h" />
     <ClInclude Include="Utility\Time.h" />
     <ClInclude Include="Utility\Vector3.h" />
+    <ClInclude Include="_include\DirectXTex.h" />
+    <ClInclude Include="_include\imconfig.h" />
+    <ClInclude Include="_include\imgui.h" />
+    <ClInclude Include="_include\imgui_impl_dx11.h" />
+    <ClInclude Include="_include\imgui_impl_win32.h" />
+    <ClInclude Include="_include\imgui_internal.h" />
+    <ClInclude Include="_include\imstb_rectpack.h" />
+    <ClInclude Include="_include\imstb_textedit.h" />
+    <ClInclude Include="_include\imstb_truetype.h" />
     <ClInclude Include="__Others\Resource.h" />
     <ClInclude Include="__Others\targetver.h" />
   </ItemGroup>
@@ -331,6 +340,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />
+    <None Include="_include\DirectXTex.inl" />
     <None Include="_Shader\Header.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

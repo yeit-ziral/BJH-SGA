@@ -87,7 +87,6 @@ void CupHeadScene::Init()
 	float track2PosX = _track2->GetCollider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
 
-
 	//Load();
 }
 
@@ -192,7 +191,10 @@ void CupHeadScene::Update()
 	_hpBar->SetPosition(Vector2(a.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y));
 
 	if (_potal->IsCollision(PLAYER->GetCollider()) && _monster->_isAlive == false && _monster1->_isAlive == false)
+	{
+		_potal->_isActive = false;
 		SceneManager::GetInstance()->NextScene();
+	}
 
 	_gunHpBar->SetMaxHp(PLAYER->GetGunMaxHp());
 	_gunHpBar->SetCurHp(PLAYER->GetGunHp());

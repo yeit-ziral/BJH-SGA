@@ -152,7 +152,10 @@ void BossRoom::Update()
 	_gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
 
 	if (_potal->IsCollision(PLAYER->GetCollider()) && _boss->_isAlive == false)
+	{
+		_potal->_isActive = false;
 		SceneManager::GetInstance()->NextScene();
+	}
 
 	if (!PLAYER->_isAlive)
 		SceneManager::GetInstance()->LobbyScene();

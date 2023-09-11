@@ -144,6 +144,33 @@
     <ClInclude Include="Utility\Utility.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="_include\DirectXTex.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_include\imgui.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_include\imconfig.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_include\imgui_impl_dx11.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_include\imgui_impl_win32.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_include\imgui_internal.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_include\imstb_rectpack.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_include\imstb_textedit.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="_include\imstb_truetype.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -361,5 +388,8 @@
   <ItemGroup>
     <None Include="imgui.ini" />
     <None Include="_Shader\Header.hlsli" />
+    <None Include="_include\DirectXTex.inl">
+      <Filter>헤더 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>

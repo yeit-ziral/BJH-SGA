@@ -49,5 +49,5 @@ private:
 	float _speed = 450.0f;
 
 	float _timer = 0.0f;
-	const float _inactiveTime = 3.0f;
+	const float _inactiveTime = 4.0f;
 };
