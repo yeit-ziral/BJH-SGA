@@ -38,5 +38,7 @@ private:
 	shared_ptr<class HPBar> _hpBar;
 
 	shared_ptr<class HPBar> _gunHpBar;
+
+	//hared_ptr<class RandomBox> _randomBox;
 };
 

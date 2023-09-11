@@ -9,6 +9,7 @@
 #include "../../Object/CupHead/Items/KingBullet.h"
 #include "../../Object/CupHead/Items/HpPotion.h"
 #include "../../Object/CupHead/Items/FixingTool.h"
+#include "../../Object/CupHead/Items/RandomBox.h"
 
 Lobby::Lobby()
 {
@@ -45,6 +46,11 @@ Lobby::Lobby()
 	_fixingTool = make_shared<FixingTool>();
 	_fixingTool->GetTransform()->SetPosition(Vector2(-300, 0));
 	_fixingTool->_isActivated = true;
+
+	_randomBox = make_shared<RandomBox>();
+	_randomBox->GetTransform()->SetPosition(Vector2(300, -50));
+	_randomBox->SetRandomItem();
+	_randomBox->_isActive = true;
 }
 
 Lobby::~Lobby()
@@ -73,6 +79,9 @@ void Lobby::Init()
 	//CAMERA->SetTarget(PLAYER->GetTransform());
 	CAMERA->SetLeftBottom(Vector2(0.0f, 0.0f));
 	CAMERA->SetRightTop(Vector2(trackSize.x - 200.0f, 1000.0f));
+
+	_randomBox->SetRandomItem();
+
 
 	Load();
 }
@@ -143,12 +152,19 @@ void Lobby::Update()
 	 if (_fixingTool->GetCollider()->IsCollision(PLAYER->GetCollider()) && _fixingTool->_isActivated)
 	 {
 		 _fixingTool->_isActivated = false;
+
 		 PLAYER->FixGun(15);
 	 }
 
+	 if (_randomBox->_isActive)
+		 _randomBox->Update();
 
 	 if (_potal->IsCollision(PLAYER->GetCollider()))
+	 {
+		 _randomBox->SetItemStateNone();
+		 _randomBox->_isActive = false;
 		 SceneManager::GetInstance()->NextScene();
+	 }
 }
 
 void Lobby::Render()
@@ -162,12 +178,17 @@ void Lobby::Render()
 
 	 PLAYER->Render();
 
+	 if (_randomBox->_isActive)
+		 _randomBox->Render();
+
 	// 다른 Scene에서는 PostRender에 넣을것
 	_hpBar->PostRender(); 
 	_gunHpBar->PostRender();
 	
 	PLAYER->PostRender();
 	//_inven->PostRender();
+
+	ImGui::Text("RandomBoxPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
 }
 
 void Lobby::Save()

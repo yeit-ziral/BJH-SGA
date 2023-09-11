@@ -261,7 +261,7 @@
     <ClInclude Include="Object\CupHead\Items\Scope.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="RandomBox.h">
+    <ClInclude Include="Object\CupHead\Items\RandomBox.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object\CupHead\Monster\RoamingMonster.h">
@@ -473,7 +473,7 @@
     <ClCompile Include="Object\CupHead\Items\Scope.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="RandomBox.cpp">
+    <ClCompile Include="Object\CupHead\Items\RandomBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\CupHead\Monster\RoamingMonster.cpp">
