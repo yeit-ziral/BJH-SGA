@@ -89,7 +89,7 @@ using namespace Utility;
 #include "Render/State/SamplerState.h"
 #include "Render/State/StateManager.h"
 
-#include "System/Enviroment.h"
+#include "System/Environment.h"
 #include "System/Camera.h"
 
 #include "Object/Basic/Cube.h"

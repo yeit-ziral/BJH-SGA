@@ -51,7 +51,7 @@
     <ClInclude Include="Render\Shader\PixelShader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="System\Enviroment.h">
+    <ClInclude Include="System\Environment.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Render\Buffer\VertexBuffer.h">
@@ -203,7 +203,7 @@
     <ClCompile Include="Render\Shader\PixelShader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="System\Enviroment.cpp">
+    <ClCompile Include="System\Environment.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Render\Buffer\VertexBuffer.cpp">

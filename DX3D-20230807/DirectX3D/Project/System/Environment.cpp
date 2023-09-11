@@ -1,7 +1,7 @@
 #include "Framework.h"
-#include "Enviroment.h"
+#include "Environment.h"
 
-Enviroment::Enviroment()
+Environment::Environment()
 {
     CreateViewport();
     CreatePerspective();
@@ -9,13 +9,13 @@ Enviroment::Enviroment()
     lightBuffer = new LightBuffer();
 }
 
-Enviroment::~Enviroment()
+Environment::~Environment()
 {
     delete  projBuffer;
     delete lightBuffer;
 }
 
-void Enviroment::CreateViewport() // 3D 절두체를 2D로 압축하면서 어떻게 표현할지 결정
+void Environment::CreateViewport() // 3D 절두체를 2D로 압축하면서 어떻게 표현할지 결정
 {
     D3D11_VIEWPORT viewPort; // 우리가 띄워주는 화면 -> 여러개 띄울 수 있음(화면 분할 가능)
     viewPort.TopLeftX = 0.0f;
@@ -28,7 +28,7 @@ void Enviroment::CreateViewport() // 3D 절두체를 2D로 압축하면서 어떻게 표현할지
     DC->RSSetViewports(1, &viewPort); // RS니까 Rasterizer State에서 실행, 설정단계라서 OM보다 뒤에 와도 상관 없음
 }
 
-void Enviroment::CreatePerspective()
+void Environment::CreatePerspective()
 {
     projBuffer = new MatrixBuffer();
 
@@ -47,13 +47,13 @@ void Enviroment::CreatePerspective()
     projBuffer->SetVSBuffer(2);
 }
 
-void Enviroment::SetEnviroment()
+void Environment::SetEnvironment()
 {
     lightBuffer->SetPSBuffer(0);
 
 }
 
-void Enviroment::PostRender()
+void Environment::PostRender()
 {
     ImGui::SliderFloat3("LightDirection", (float*)&lightBuffer->data.direction, -1.0f, +1.0f);
     ImGui::ColorEdit4("AmbientLight", (float*)&lightBuffer->data.ambientLight);

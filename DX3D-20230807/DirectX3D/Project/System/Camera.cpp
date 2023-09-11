@@ -49,7 +49,7 @@ Ray Camera::ScreenPointToRay(Vector3 screenPos) // screenPos : Near Plane에 찍히
 
 	//////////////Invporjection/////////////// 맨 아래 윈쪽을 0,0으로 유지하기 위해서
 
-	Matrix projection = Enviroment::GetInstance()->GetProjMatrix();
+	Matrix projection = Environment::GetInstance()->GetProjMatrix();
 
 	XMFLOAT4X4 proj;
 

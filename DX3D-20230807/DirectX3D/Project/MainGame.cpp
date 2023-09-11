@@ -41,7 +41,7 @@ void MainGame::Render()
 
 	Device::GetInstance()->Clear();
 
-	Enviroment::GetInstance()->SetEnviroment();
+	Environment::GetInstance()->SetEnvironment();
 
 	scene->Render();
 
@@ -49,7 +49,7 @@ void MainGame::Render()
 
 	Camera::GetInstance()->PostRender();
 
-	Enviroment::GetInstance()->PostRender();
+	Environment::GetInstance()->PostRender();
 
 	ImGui::Render();
 
@@ -61,7 +61,7 @@ void MainGame::Render()
 void MainGame::Initialize()
 {
 			Device::GetInstance(); // 안해줘도 생성시 만들어짐
-		Enviroment::GetInstance();
+	   Environment::GetInstance();
 		  Keyboard::GetInstance();
 			  Time::GetInstance();
 	  StateManager::GetInstance();
@@ -87,7 +87,7 @@ void MainGame::Release()
 {
 	Device::Delete();
 	Shader::Delete();
-	Enviroment::Delete();
+	Environment::Delete();
 	StateManager::Delete();
 	Camera::Delete();
 	Texture::Delete();

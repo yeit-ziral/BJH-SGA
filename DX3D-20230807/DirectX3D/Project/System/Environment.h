@@ -1,16 +1,16 @@
 #pragma once
-class Enviroment : public Singleton<Enviroment>
+class Environment : public Singleton<Environment>
 {
 	friend class Singleton;
 private:
-	Enviroment();
-	~Enviroment();
+	Environment();
+	~Environment();
 
 	void CreateViewport();
 	void CreatePerspective();
 
 public:
-	void SetEnviroment();
+	void SetEnvironment();
 
 	void PostRender();
 
