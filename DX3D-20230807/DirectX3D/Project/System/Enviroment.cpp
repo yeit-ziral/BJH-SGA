@@ -34,7 +34,7 @@ void Enviroment::CreatePerspective()
 
 
 
-    XMMATRIX projection = XMMatrixPerspectiveFovLH
+    projMatrix = XMMatrixPerspectiveFovLH
     (
         XM_PIDIV4/*1.8151424221f*/, // 그냥 실수를 넣어도 됨
         WIN_WIDTH / WIN_HEIGHT,
@@ -42,7 +42,7 @@ void Enviroment::CreatePerspective()
         1000.0f
     ); //Fov : Fild of view 시야각
 
-    projBuffer->SetData(projection);
+    projBuffer->SetData(projMatrix);
 
     projBuffer->SetVSBuffer(2);
 }

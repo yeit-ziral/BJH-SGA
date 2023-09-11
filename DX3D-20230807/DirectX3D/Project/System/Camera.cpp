@@ -33,6 +33,41 @@ void Camera::PostRender()
 	// 서식 지정자 %d(정수), %f(실수), %c(charactor), %s(string), %p(pointer) 등에 맞게 넣어줘야 함
 }
 
+Ray Camera::ScreenPointToRay(Vector3 screenPos) // screenPos : Near Plane에 찍히는 점의 위치
+{
+	Ray ray;
+	ray.origin = transform->translation;
+
+	///////////////////Direction
+
+	Vector3 point;
+
+	point.x = +(2.0f * screenPos.x) / WIN_WIDTH - 1.0f;
+		//y를 뒤집어줘야 함-> viewport
+	point.y = -(2.0f * screenPos.y) / WIN_HEIGHT + 1.0f;
+	point.z = 1.0f; //FarZ
+
+	//////////////Invporjection/////////////// 맨 아래 윈쪽을 0,0으로 유지하기 위해서
+
+	Matrix projection = Enviroment::GetInstance()->GetProjMatrix();
+
+	XMFLOAT4X4 proj;
+
+	XMStoreFloat4x4(&proj, projection);
+
+	point.x /= proj._11;
+	point.y /= proj._22;
+
+	////////////////invView/////////////
+
+	Matrix invView = transform->GetWorld();
+
+	ray.direction = point * invView;
+	ray.direction.Normalize();
+
+	return ray;
+}
+
 void Camera::FreeMode()
 {
 	if (KEY_PRESS(VK_RBUTTON))
@@ -92,6 +127,6 @@ void Camera::SetView()
 
 	viewMatrix = XMMatrixInverse(nullptr, transform->GetWorld());
 
-	viewBuffer->SetData(viewMatrix, transform->GetWorld());
+	viewBuffer->SetData(viewMatrix, transform->GetWorld()); // transform->GetWorld()가 Inverse View이다
 	viewBuffer->SetVSBuffer(1);
 }

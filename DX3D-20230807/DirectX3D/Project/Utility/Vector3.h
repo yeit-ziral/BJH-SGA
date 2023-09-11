@@ -131,6 +131,18 @@ struct Vector3
 		this->z /= value;
 	}
 
+	Vector3 operator*(const Matrix& value)
+	{
+		Vector3 result;
+
+		result = XMVector3Transform(*this, value);
+
+		//TODO : Coord버전 구분
+
+		return result;
+		//return XMVector3Transform(*this, value);
+	}
+
 	float x = 0.0f;
 	float y = 0.0f;
 	float z = 0.0f;

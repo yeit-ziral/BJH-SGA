@@ -9,8 +9,9 @@ MainGame::MainGame()
 	//scene = new TutorialScene();
 	//scene = new RobotScene();
 	//scene = new BoxScene();
-	scene = new TerrainScene();
+	//scene = new TerrainScene();
 	//scene = new SphereScene();
+	scene = new TerrainEditorScene();
 }
 
 MainGame::~MainGame()

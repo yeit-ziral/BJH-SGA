@@ -13,7 +13,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
-
+#include <DirectXCollision.h>
 
 using namespace std;
 using namespace DirectX;
@@ -101,6 +101,7 @@ using namespace Utility;
 #include "Object/Basic/Sphere.h"
 
 #include "Object/Landscape/Terrain.h"
+#include "Object/Landscape/TerrainEditor.h"
 
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"
@@ -109,6 +110,7 @@ using namespace Utility;
 #include "Scene/BoxScene.h"
 #include "Scene/TerrainScene.h"
 #include "Scene/SphereScene.h"
+#include "Scene/TerrainEditorScene.h"
 
 #include "MainGame.h"
 
