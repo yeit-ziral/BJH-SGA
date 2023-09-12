@@ -100,7 +100,6 @@ void Cup_Player::Update()
 		if (KEY_UP('O'))
 		{
 			DropItem();
-
 		}
 	}
 
@@ -142,7 +141,7 @@ void Cup_Player::PostRender()
 	ImGui::Text("PlayerHp : %d", _hp);
 	ImGui::Text("PlayerDamage : %d", _damage);
 	ImGui::Text("PlayerAimStraitness : %d", _spread);
-	ImGui::Text("Playerspeed : %d", _speed);
+	ImGui::Text("Playerspeed : %f", _speed);
 }
 
 
@@ -159,6 +158,13 @@ void Cup_Player::Input()
 			_jumpPower = -600.0f;
 
 		_footCollider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
+	}
+
+	if(_invincible)
+	{
+		_invincibleTime += DELTA_TIME;
+		if (_invincibleTime > 0.3f)
+			_invincible = false;
 	}
 
 	if (_animation->GetState() == Cup_Ani::State::HIT)
@@ -258,9 +264,14 @@ void Cup_Player::Damaged(int damage)
 	if (!_isAlive)
 		return;
 
-	//CAMERA->ShakeStart(50.0f, 30.0f);
-	_hp -= damage;
-	_animation->DamagedEvent();
+	if (!_invincible)
+	{
+		//CAMERA->ShakeStart(50.0f, 30.0f);
+		_hp -= damage;
+		_animation->DamagedEvent();
+		_invincible = true;
+		_invincibleTime = 0.0f;
+	}
 
 	if (_hp < 1)
 	{
@@ -349,6 +360,13 @@ void Cup_Player::FixGun(int value)
 		_chargeGun->FixHp(value);
 }
 
+void Cup_Player::FixAllGun(int value)
+{
+	_normalGun->FixHp(value);
+	_machineGun->FixHp(value);
+	_chargeGun->FixHp(value);
+}
+
 int Cup_Player::GetNowGunDamage()
 {
 	if (_nowGun == Gun::NORMAL)
@@ -395,25 +413,34 @@ void Cup_Player::DropItem()
 
 		if (_hp > _maxHp)
 			_hp = _maxHp;
+		
 		_inventory->DropItems();
+
+		return;
 	}
 	if (_inventory->GetInvenState() == inventory::ItemState::KINGBULLET)
 	{
 		_damage -= 5;
 
 		_inventory->DropItems();
+		
+		return;
 	}
 	if (_inventory->GetInvenState() == inventory::ItemState::SCOPE)
 	{
 		FineAim(-5);
 		
 		_inventory->DropItems();
+
+		return;
 	}
 	if (_inventory->GetInvenState() == inventory::ItemState::SPEEDBOOTS)
 	{
 		_speed -= 300;
 
 		_inventory->DropItems();
+
+		return;
 	}
 }
 
@@ -449,6 +476,8 @@ void Cup_Player::Revive()
 	_isAlive = true;
 	_animation->ReviveAni();
 	_animation->SetState(Cup_Ani::State::IDLE);
+
+	FixAllGun(100);
 }
 
 //void Cup_Player::InvenSetPosition(Vector2 pos)

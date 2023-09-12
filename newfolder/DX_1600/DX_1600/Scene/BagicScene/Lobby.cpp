@@ -9,6 +9,8 @@
 #include "../../Object/CupHead/Items/KingBullet.h"
 #include "../../Object/CupHead/Items/HpPotion.h"
 #include "../../Object/CupHead/Items/FixingTool.h"
+#include "../../Object/CupHead/Items/Scope.h"
+#include "../../Object/CupHead/Items/SpeedBoots.h"
 #include "../../Object/CupHead/Items/RandomBox.h"
 
 Lobby::Lobby()
@@ -35,9 +37,9 @@ Lobby::Lobby()
 	_helmet->GetTransform()->SetPosition(Vector2(100, 0));
 	_helmet->_isActivated = true;
 
-	_kingBullet = make_shared<KingBullet>();
-	_kingBullet->GetTransform()->SetPosition(Vector2(-100, 0));
-	_kingBullet->_isActivated = true;
+	_speedBoots = make_shared<SpeedBoots>();
+	_speedBoots->GetTransform()->SetPosition(Vector2(-100, 0));
+	_speedBoots->_isActivated = true;
 
 	_hpPotion = make_shared<HpPotion>();
 	_hpPotion->GetTransform()->SetPosition(Vector2(-200, 0));
@@ -122,47 +124,25 @@ void Lobby::Update()
 
 
 	 _helmet->Update();
+	 _helmet->IsCollision(PLAYER);
 
-	 if (_helmet->GetCollider()->IsCollision(PLAYER->GetCollider()) && _helmet->_isActivated)
-	 {
-		 //if (!_helmet->_isActivated)
-			// return;
-		
-		 _helmet->_isActivated = false;
-		 PLAYER->FillItem(Cup_Player::Item::HELMET);
-		 //_hpBar-> »çÀÌÁî ¾ç ¿·À¸·Î ´Ã¸®±â
-	 }
-
-	 _kingBullet->Update();
-
-	 if (_kingBullet->GetCollider()->IsCollision(PLAYER->GetCollider()) && _kingBullet->_isActivated)
-	 {
-		 _kingBullet->_isActivated = false;
-		 PLAYER->FillItem(Cup_Player::Item::KINGBULLET);
-	 }
+	 _speedBoots->Update();
+	 _speedBoots->IsCollision(PLAYER);
 
 	 _hpPotion->Update();
-	 if (_hpPotion->GetCollider()->IsCollision(PLAYER->GetCollider()) && _hpPotion->_isActivated)
-	 {
-		 _hpPotion->_isActivated = false;
-		 PLAYER->AddHP(5);
-	 }
+	 _hpPotion->IsCollision(PLAYER);
 
 	 _fixingTool->Update();
-	 if (_fixingTool->GetCollider()->IsCollision(PLAYER->GetCollider()) && _fixingTool->_isActivated)
-	 {
-		 _fixingTool->_isActivated = false;
-
-		 PLAYER->FixGun(15);
-	 }
+	 _fixingTool->IsCollision(PLAYER);
 
 	 if (_randomBox->_isActive)
 		 _randomBox->Update();
 
+	 _randomBox->IsCollision(PLAYER);
+
 	 if (_potal->IsCollision(PLAYER->GetCollider()))
 	 {
 		 _randomBox->SetItemStateNone();
-		 _randomBox->_isActive = false;
 		 SceneManager::GetInstance()->NextScene();
 	 }
 }
@@ -172,7 +152,7 @@ void Lobby::Render()
 	 _potal->Render();
 	 _track->Render();
 	 _helmet->Render();
-	 _kingBullet->Render();
+	 _speedBoots->Render();
 	 _hpPotion->Render();
 	 _fixingTool->Render();
 

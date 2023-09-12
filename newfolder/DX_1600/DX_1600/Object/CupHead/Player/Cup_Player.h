@@ -98,6 +98,7 @@ public:
 	int GetGunHp();
 	int GetGunMaxHp();
 	void FixGun(int value);
+	void FixAllGun(int value);
 
 	int GetNowGunDamage();
 
@@ -152,4 +153,8 @@ private:
 	int _spread = 50;
 
 	shared_ptr<class inventory> _inventory;
+
+	bool _invincible = false;
+
+	float _invincibleTime = 0.0f;
 };

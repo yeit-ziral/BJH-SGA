@@ -6,6 +6,7 @@
 #include "../../Object/CupHead/Cup_Track.h"
 #include "../../Object/CupHead/Cup_Block.h"
 #include "../../Object/CupHead/Potal.h"
+#include "../../Object/CupHead/Items/RandomBox.h"
 
 CupHeadScene::CupHeadScene()
 {
@@ -49,6 +50,9 @@ CupHeadScene::CupHeadScene()
 	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
 
 	_potal->_isActive = false;
+
+	_randomBox = make_shared<RandomBox>();
+	_randomBox->GetTransform()->SetPosition(Vector2(400, 0));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -86,6 +90,8 @@ void CupHeadScene::Init()
 	CAMERA->SetLeftBottom(Vector2((trackSize.x * -0.5f), -1000.0f));
 	float track2PosX = _track2->GetCollider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
+
+	_randomBox->_isActive = false;
 
 	//Load();
 }
@@ -202,6 +208,18 @@ void CupHeadScene::Update()
 
 	_gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
 
+	if (!_monster->_isAlive && !_monster1->_isAlive)
+		_randomBox->_isActive = true;
+
+	if (_randomBox->_isActive)
+	{
+		_randomBox->Update();
+		_randomBox->IsCollision(PLAYER);
+	}
+
+
+
+
 	if (!PLAYER->_isAlive)
 		SceneManager::GetInstance()->LobbyScene();
 }
@@ -222,6 +240,9 @@ void CupHeadScene::Render()
 
 	if (_monster1->_isAlive == true)
 		_monster1->Render();
+
+	if (!_monster->_isAlive && !_monster1->_isAlive)
+		_randomBox->Render();
 }
 
 void CupHeadScene::PostRender()

@@ -29,3 +29,17 @@ void KingBullet::Render()
 	_transform->SetBuffer(0);
 	_quad->Render();
 }
+
+bool KingBullet::IsCollision(Cup_Player* a)
+{
+	if (a->GetCollider()->IsCollision(_collider) && _isActivated)
+	{
+		a->FillItem(Cup_Player::Item::KINGBULLET);
+
+		_isActivated = false;
+
+		return true;
+	}
+
+	return false;
+}

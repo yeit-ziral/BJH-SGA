@@ -29,3 +29,18 @@ void Helmet::Render()
 	_transform->SetBuffer(0);
 	_quad->Render();
 }
+
+bool Helmet::IsCollision(Cup_Player* a)
+{
+	if (a->GetCollider()->IsCollision(_collider) && _isActivated)
+	{
+		a->FillItem(Cup_Player::Item::HELMET);
+
+		_isActivated = false;
+
+		return true;
+	}
+
+
+	return false;
+}

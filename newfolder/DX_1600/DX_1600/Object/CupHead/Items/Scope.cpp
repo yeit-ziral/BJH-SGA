@@ -29,3 +29,17 @@ void Scope::Render()
 	_transform->SetBuffer(0);
 	_quad->Render();
 }
+
+bool Scope::IsCollision(Cup_Player* a)
+{
+	if (a->GetCollider()->IsCollision(_collider) && _isActivated)
+	{
+		a->FillItem(Cup_Player::Item::SCOPE);
+
+		_isActivated = false;
+
+		return true;
+	}
+
+	return false;
+}

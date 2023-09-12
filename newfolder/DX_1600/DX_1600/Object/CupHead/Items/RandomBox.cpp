@@ -200,3 +200,53 @@ void RandomBox::SetRandomItem()
 		_speedBoots->Render();
 	}
 }
+
+bool RandomBox::IsCollision(Cup_Player* a)
+{
+	if (_itemState == ItemState::NONE)
+	{
+		return false;
+	}
+
+	if (_itemState == ItemState::FIXINGTOOL && _fixingTool->GetCollider()->IsCollision(a->GetCollider()))
+	{
+		_fixingTool->IsCollision(a);
+		_isActive = false;
+		return true;
+	}
+	if (_itemState == ItemState::HELMET && _helmet->GetCollider()->IsCollision(a->GetCollider()))
+	{
+		_helmet->IsCollision(a);
+		_isActive = false;
+		return true;
+	}
+	if (_itemState == ItemState::HPPOTION && _hpPotion->GetCollider()->IsCollision(a->GetCollider()))
+	{
+		_hpPotion->IsCollision(a);
+		_isActive = false;
+		return true;
+	}
+	if (_itemState == ItemState::KINGBULLET && _kingBullet->GetCollider()->IsCollision(a->GetCollider()))
+	{
+		_kingBullet->IsCollision(a);
+		_isActive = false;
+		return true;
+	}
+
+	if (_itemState == ItemState::SCOPE && _scope->GetCollider()->IsCollision(a->GetCollider()))
+	{
+		_scope->IsCollision(a);
+		_isActive = false;
+		return true;
+	}
+
+	if (_itemState == ItemState::SPEEDBOOTS && _speedBoots->GetCollider()->IsCollision(a->GetCollider()))
+	{
+		_speedBoots->IsCollision(a);
+		_isActive = false;
+		return true;
+	}
+
+
+	return false;
+}

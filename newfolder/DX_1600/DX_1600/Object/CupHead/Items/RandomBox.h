@@ -27,6 +27,8 @@ public:
 
 	bool _isActive = false;
 
+	bool IsCollision(Cup_Player* a);
+
 private:
 	shared_ptr<class FixingTool> _fixingTool;
 	shared_ptr<class Helmet> _helmet;
