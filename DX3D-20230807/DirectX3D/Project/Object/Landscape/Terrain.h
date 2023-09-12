@@ -10,6 +10,8 @@ public:
 
 	Material* GetMaterial() { return material; }
 
+	bool Picking(OUT Vector3* position);
+
 private:
 	void CreateMesh();
 	void CreateNormal();

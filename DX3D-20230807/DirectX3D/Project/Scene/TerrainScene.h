@@ -17,4 +17,6 @@ private:
 	Terrain* terrain;
 
 	Sphere* sphere;
+
+	Vector3 pickedPos;
 };

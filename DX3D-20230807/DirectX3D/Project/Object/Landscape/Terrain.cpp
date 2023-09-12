@@ -38,6 +38,47 @@ void Terrain::Render()
 	DC->DrawIndexed(indices.size(), 0, 0);
 }
 
+bool Terrain::Picking(OUT Vector3* position)
+{
+	Ray ray = Camera::GetInstance()->ScreenPointToRay(mousePos);
+
+	for (UINT z = 0; z < height - 1; z++)
+	{
+		for (UINT x = 0; x < width - 1; x++)
+		{
+			UINT index[4];
+			index[0] = (x + 0) + (width * (z + 0));
+			index[1] = (x + 1) + (width * (z + 0));
+			index[2] = (x + 0) + (width * (z + 1));
+			index[3] = (x + 1) + (width * (z + 1));
+
+			Vector3 pos[4];
+			for (UINT i = 0; i < 4; i++)
+			{
+				pos[i] = vertices[index[i]].pos;
+			}
+
+			float distance = 0.0f;
+
+			// ray의 origin부터 poligon까지의 거리를 반환하는 함수
+			if (TriangleTests::Intersects(ray.origin, ray.direction, pos[0], pos[1], pos[2], distance)) // distance에 거리가 기록 됨 // 이 함수도  OUT형식임(연산이 느림)
+			{
+				*position = ray.origin + ray.direction * distance;
+
+				return true;
+			}
+			if (TriangleTests::Intersects(ray.origin, ray.direction, pos[2], pos[1], pos[3], distance))
+			{
+				*position = ray.origin + ray.direction * distance;
+
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 void Terrain::CreateMesh()
 {
 	width = heightMap->GetSize().x;
