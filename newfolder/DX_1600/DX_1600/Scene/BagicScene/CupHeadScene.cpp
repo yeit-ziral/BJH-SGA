@@ -52,7 +52,7 @@ CupHeadScene::CupHeadScene()
 	_potal->_isActive = false;
 
 	_randomBox = make_shared<RandomBox>();
-	_randomBox->GetTransform()->SetPosition(Vector2(400, 0));
+	_randomBox->GetTransform()->SetPosition(Vector2(-300, 0));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -91,6 +91,7 @@ void CupHeadScene::Init()
 	float track2PosX = _track2->GetCollider()->GetTransform()->GetWorldPosition().x;
 	CAMERA->SetRightTop(Vector2(track2PosX + trackSize.x, 1000.0f));
 
+	_randomBox->SetRandomItem();
 	_randomBox->_isActive = false;
 
 	//Load();
@@ -280,6 +281,8 @@ void CupHeadScene::PostRender()
 
 	_hpBar->PostRender();
 	_gunHpBar->PostRender();
+
+	ImGui::Text("RandomBosPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
 }
 
 void CupHeadScene::CheckAttack()

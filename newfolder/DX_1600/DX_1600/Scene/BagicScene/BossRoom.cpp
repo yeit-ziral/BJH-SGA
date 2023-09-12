@@ -5,23 +5,15 @@
 #include "../../Object/CupHead/Cup_Wall.h"
 #include "../../Object/CupHead/Cup_Track.h"
 #include "../../Object/CupHead/Potal.h"
+#include "../../Object/CupHead/Items/RandomBox.h"
 
 BossRoom::BossRoom()
 {
-	//_player = make_shared<Cup_Player>();
-
-
 	_track = make_shared<Cup_Track>();
-
 
 	_wall = make_shared<Cup_Wall>();
 
-	
-
-
 	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
-
-
 
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
 	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
@@ -37,6 +29,9 @@ BossRoom::BossRoom()
 
 	_hpBar = make_shared<HPBar>(L"Resource/UI/Button.png", Vector2(500, 50));
 	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
+
+	_randomBox = make_shared<RandomBox>();
+	_randomBox->GetTransform()->SetPosition(Vector2(-200, 0));
 
 	Load();
 }
@@ -58,6 +53,9 @@ void BossRoom::Init()
 	CAMERA->SetTarget(PLAYER->GetTransform());
 	CAMERA->SetLeftBottom(Vector2((-trackSize.x * 0.125f), -100.0f));
 	CAMERA->SetRightTop(Vector2((trackSize.x), 1000.0f));
+
+	_randomBox->SetRandomItem();
+	_randomBox->_isActive = false;
 
 	Load();
 }
@@ -159,6 +157,15 @@ void BossRoom::Update()
 
 	if (!PLAYER->_isAlive)
 		SceneManager::GetInstance()->LobbyScene();
+
+	if (!_boss->_isAlive)
+		_randomBox->_isActive = true;
+
+	if (_randomBox->_isActive)
+	{
+		_randomBox->Update();
+		_randomBox->IsCollision(PLAYER);
+	}
 }
 
 void BossRoom::Render()
@@ -172,6 +179,9 @@ void BossRoom::Render()
 
 	if (_boss->_isAlive == true)
 		_boss->Render();
+
+	if (!_boss->_isAlive)
+		_randomBox->Render();
 }
 
 void BossRoom::PostRender()
