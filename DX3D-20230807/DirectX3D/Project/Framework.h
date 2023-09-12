@@ -29,6 +29,8 @@ using namespace DirectX;
 
 #pragma comment(lib, "ImGui.lib")
 
+#include "ImGuiFileDialog.h"
+
 #include "DirectXTex.h"
 #include "DirectXTex.inl"
 

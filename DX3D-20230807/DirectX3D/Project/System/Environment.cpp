@@ -20,8 +20,8 @@ void Environment::CreateViewport() // 3D 절두체를 2D로 압축하면서 어떻게 표현할�
     D3D11_VIEWPORT viewPort; // 우리가 띄워주는 화면 -> 여러개 띄울 수 있음(화면 분할 가능)
     viewPort.TopLeftX = 0.0f;
     viewPort.TopLeftY = 0.0f;
-    viewPort.Width = WIN_WIDTH  ;
-    viewPort.Height = WIN_HEIGHT;
+    viewPort.Width    = WIN_WIDTH;
+    viewPort.Height     = WIN_HEIGHT;
     viewPort.MinDepth = 0.0f;
     viewPort.MaxDepth = 1.0f;
 

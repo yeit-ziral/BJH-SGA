@@ -135,7 +135,7 @@ struct Vector3
 	{
 		Vector3 result;
 
-		result = XMVector3Transform(*this, value);
+		result = XMVector3TransformNormal(*this, value);
 
 		//TODO : Coord버전 구분
 

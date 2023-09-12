@@ -21,13 +21,19 @@ public:
 
 	void PostRender();
 
+	void SelectMap();
+
 private:
 	VertexShader* vertexShader = nullptr;
-	PixelShader* pixelShader = nullptr;
+	PixelShader*   pixelShader = nullptr;
 
-	Texture* diffuseMap = nullptr;
+	Texture*  diffuseMap = nullptr;
 	Texture* specularMap = nullptr;
-	Texture* normalMap = nullptr;
+	Texture*   normalMap = nullptr;
 
 	MaterialBuffer* buffer = nullptr;
+
+	string projectDir; //project Directory
+
+	static string ID;
 };

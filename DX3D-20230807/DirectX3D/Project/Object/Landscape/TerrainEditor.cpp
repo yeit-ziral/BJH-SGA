@@ -53,10 +53,10 @@ bool TerrainEditor::Picking(OUT Vector3* position)
 		for (UINT x = 0; x < width - 1; x++)
 		{
 			UINT index[4];
-			index[0] = (x + 0) + width * (z + 0);
-			index[1] = (x + 1) + width * (z + 0);
-			index[2] = (x + 0) + width * (z + 1);
-			index[3] = (x + 1) + width * (z + 1);
+			index[0] = (x + 0) + (width * (z + 0));
+			index[1] = (x + 1) + (width * (z + 0));
+			index[2] = (x + 0) + (width * (z + 1));
+			index[3] = (x + 1) + (width * (z + 1));
 
 			Vector3 pos[4];
 			for (UINT i = 0; i < 4; i++)

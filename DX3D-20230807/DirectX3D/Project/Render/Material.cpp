@@ -1,9 +1,21 @@
 #include "Framework.h"
 #include "Material.h"
 
+string Material::ID = "";
+
 Material::Material()
 {
 	buffer = new MaterialBuffer();
+
+	char path[128];
+
+	GetCurrentDirectoryA(128, path);
+
+	projectDir = path; // GetCurrentDirectoryA에 string이 안들어가서 간접적으로 넣어줌
+
+	projectDir += "Texture";
+
+	ID += ".";
 }
 
 Material::Material(wstring file)
@@ -11,6 +23,16 @@ Material::Material(wstring file)
 	SetShader(file);
 
 	buffer = new MaterialBuffer();
+
+	char path[128];
+
+	GetCurrentDirectoryA(128, path);
+
+	projectDir = path;
+
+	projectDir += "Texture/";
+
+	ID += ".";
 }
 
 Material::~Material()
@@ -83,4 +105,49 @@ void Material::PostRender()
 	ImGui::Checkbox("HasNormalMap", (bool*)&buffer->data.hasNormalMap);
 
 	ImGui::SliderFloat("Shininess", &buffer->data.shininess, 1.0f, 50.0f);
+}
+
+void Material::SelectMap()
+{
+#define Dialog ImGuiFileDialog::Instance()
+
+	if (ImGui::BeginChild(ID.c_str(), ImVec2(100, 85), true)) // ImGui는 Begin을 하면 꼭 End를 해줘야 함
+	{
+		if (ImGui::Button("DiffuseMap"))
+			Dialog->OpenDialog("Diffuse", "Select Diffuse", ".png, .jpg, .tga", "Texture/");
+
+		if (ImGui::Button("SpecularMap"))
+			Dialog->OpenDialog("Specular", "Select Specular", ".png, .jpg, .tga", "Texture/");
+
+		if (ImGui::Button("NormalMap"))
+			Dialog->OpenDialog("Normal", "Select Normal", ".png, .jpg, .tga", "Texture/");
+
+		if (Dialog->Display("Diffuse") || Dialog->Display("Specular") || Dialog->Display("Normal"))
+		{
+			if (Dialog->IsOk())
+			{
+				string path = Dialog->GetFilePathName();
+
+				//절대경로를 상대경로로 바꿔줘야 함
+
+				path = path.substr(projectDir.size() + 1, path.size());
+
+				wstring file = ToWString(path);
+
+				// SetDiffuse는 wstring을 받아서 path를 wstring으로 변환시켜줘야 함
+				if (Dialog->GetOpenedKey() == "Diffuse")
+					SetDiffuseMap(file); 
+
+				if (Dialog->GetOpenedKey() == "Specular")
+					SetSpecularMap(file);
+
+				if (Dialog->GetOpenedKey() == "Normal")
+					SetNormalMap(file);
+			}
+
+			Dialog->Close();
+		}
+
+		ImGui::EndChild();
+	}
 }
