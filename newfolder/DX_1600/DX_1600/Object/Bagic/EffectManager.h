@@ -29,6 +29,8 @@ public:
 	void Update();
 	void Render();
 
+	void PostRender();
+
 	vector<shared_ptr<Effect>>& GetEffects(string name) { return _effectTable[name]; }
 
 	void AddEffect(string name, wstring file, Vector2 maxFrame, Vector2 size, float speed = 0.03f, Action::Type type = Action::Type::END);

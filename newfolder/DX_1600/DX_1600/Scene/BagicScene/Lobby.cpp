@@ -53,6 +53,7 @@ Lobby::Lobby()
 	_randomBox->GetTransform()->SetPosition(Vector2(300, -50));
 	_randomBox->SetRandomItem();
 	_randomBox->_isActive = true;
+
 }
 
 Lobby::~Lobby()

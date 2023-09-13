@@ -54,6 +54,7 @@ void Program::Render()
 	CAMERA->SetUICameraBuffer();
 	CAMERA->PostRender();
 	SCENE->PostRender();
+	EffectManager::GetInstance()->PostRender();
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

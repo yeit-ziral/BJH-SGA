@@ -443,6 +443,8 @@ void Cup_Boss::GetAttacked(int amount)
 	{
 		_hp = 0;
 
+		EFFECT_PLAY("Exp2", _collider->GetTransform()->GetWorldPosition());
+
 		DieEvent();
 	}
 }

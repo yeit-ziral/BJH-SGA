@@ -94,5 +94,5 @@ void TerrainEditorScene::RawData()
 
 	fclose(file);
 
-	delete output;
+	delete[] output;
 }

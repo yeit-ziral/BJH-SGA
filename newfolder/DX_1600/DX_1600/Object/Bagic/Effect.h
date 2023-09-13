@@ -7,6 +7,7 @@ public:
 
 	void Update();
 	void Render();
+	void PostRender();
 
 	void Play(Vector2 pos);
 	void End();

@@ -23,13 +23,9 @@ public:
 	bool _isAlive = true;
 	shared_ptr<Collider> GetCollider() { return _monster; }
 
-	bool IsCollsion_Bullets(shared_ptr<Collider> col);
-
 	shared_ptr<Transform> GetTransform() { return _monster->GetTransform(); }
 
 	void Roaming();
-
-	void SetBowAngle(Vector2 targetPos);
 
 	int GetDamage() { return _damage; }
 
@@ -49,17 +45,12 @@ private:
 	int _hp = 30;
 	int _maxHp = 30;
 
-	vector<shared_ptr<class Cup_Bullet>> _bullets;
 	float _speed = 200.0f;
 	float _time = 0.0f;
 	float _atkSpeed = 1.0f;
 
-	shared_ptr<Transform> _bowSlot;
 
-	shared_ptr<Quad> _bow;
-	shared_ptr<Transform> _bowTrans;
-
-	int _damage = 1;
+	int _damage = 3;
 
 	bool _isRight = true;
 };

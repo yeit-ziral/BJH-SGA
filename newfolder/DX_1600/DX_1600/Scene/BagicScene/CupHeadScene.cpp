@@ -53,6 +53,8 @@ CupHeadScene::CupHeadScene()
 
 	_randomBox = make_shared<RandomBox>();
 	_randomBox->GetTransform()->SetPosition(Vector2(-300, 0));
+
+	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -152,8 +154,8 @@ void CupHeadScene::Update()
 				if (_block->GetCollider()->Block(PLAYER->GetFootCollider()))
 				{
 					PLAYER->SetGrounded();
-					if (PLAYER->GetJumpPower() > 0.0f)
-						PLAYER->SetJumpPower(0.0f);
+					//if (PLAYER->GetJumpPower() > 0.0f)
+					//	PLAYER->SetJumpPower(0.0f);
 				}
 			}
 		}
@@ -218,7 +220,10 @@ void CupHeadScene::Update()
 		_randomBox->IsCollision(PLAYER);
 	}
 
-
+	if (KEY_DOWN(VK_LBUTTON))
+	{
+		EFFECT_PLAY("Hit", MOUSE_POS);
+	}
 
 
 	if (!PLAYER->_isAlive)
@@ -291,6 +296,7 @@ void CupHeadScene::CheckAttack()
 	{
 		if (_monster->IsCollsion_Bullets(PLAYER->GetCollider()))
 		{
+
 			PLAYER->Damaged(_monster->GetDamage());
 		}
 
@@ -305,6 +311,7 @@ void CupHeadScene::CheckAttack()
 
 		if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
 		{
+			EFFECT_PLAY("Hit", _monster->GetTransform()->GetWorldPosition());
 			_monster1->GetAttacked(PLAYER->GetNowGunDamage());
 		}
 
@@ -312,6 +319,7 @@ void CupHeadScene::CheckAttack()
 
 		if (_monster1->IsCollsion_Bullets(PLAYER->GetCollider()))
 		{
+			EFFECT_PLAY("Hit", _monster1->GetTransform()->GetWorldPosition());
 			PLAYER->Damaged(_monster1->GetDamage());
 		}
 	}

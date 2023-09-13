@@ -42,7 +42,6 @@ Cup_Monster::Cup_Monster()
 		_bullets.push_back(bullet);
 	}
 
-	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
 
 Cup_Monster::~Cup_Monster()
@@ -188,10 +187,13 @@ void Cup_Monster::GetAttacked(int amount)
 		return;
 	_hp -= amount;
 
+
 	if (_hp <= 0)
 	{
 		_hp = 0;
 		
+		EFFECT_PLAY("Exp", _monster->GetTransform()->GetWorldPosition());
+
 		DieEvent();
 	}
 }
@@ -206,7 +208,6 @@ bool Cup_Monster::IsCollsion_Bullets(shared_ptr<Collider> col)
 		if (col->IsCollision(bullet->GetBulletCollider()))
 		{
 			bullet->_isActive = false;
-			EFFECT_PLAY("Hit", bullet->GetPosition());
 			return true;
 		}
 	}

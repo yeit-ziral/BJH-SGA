@@ -11,13 +11,8 @@ RoamingMonster::RoamingMonster()
 
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_monster->GetTransform());
-
-	_bowSlot = make_shared<Transform>();
-	_bowSlot->SetParent(_transform);
-
-	_bow = make_shared<Quad>(L"Resource/howitzerBullet.png");
-
-	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
+	
+	//활 대신 창, 창은 각도 바꾸지 않음
 }
 
 RoamingMonster::~RoamingMonster()
@@ -36,13 +31,6 @@ void RoamingMonster::Update(Vector2 targetPos)
 
 	_transform->Update();
 
-	SetBowAngle(targetPos);
-	_bowSlot->SetPosition(_transform->GetPos());
-	_bowSlot->Update();
-	_bowTrans->Update();
-
-	for (auto& bullet : _bullets)
-		bullet->Update();
 }
 
 void RoamingMonster::Render()
@@ -56,17 +44,12 @@ void RoamingMonster::Render()
 
 	_monsterQuad->Render();
 
-	_bowTrans->SetBuffer(1);
-	_bow->Render();
-
-	for (auto& bullet : _bullets)
-		bullet->Render();
 }
 
 void RoamingMonster::PostRender()
 {
 	ImGui::Text("R-monsterPos : %f, %f", _monster->GetPos().x, _monster->GetPos().y);
-	ImGui::Text("bowTransPos : %f , %f", _bowSlot->GetPos().x, _bowSlot->GetPos().y);
+	ImGui::Text("R-monsterHp : %d", _hp);
 }
 
 void RoamingMonster::Attack(shared_ptr<Collider> collider)
@@ -104,34 +87,8 @@ void RoamingMonster::GetAttacked(int amount)
 	}
 }
 
-bool RoamingMonster::IsCollsion_Bullets(shared_ptr<Collider> col)
-{
-	for (auto bullet : _bullets)
-	{
-		if (bullet->_isActive == false)
-			continue;
-
-		if (col->IsCollision(bullet->GetBulletCollider()))
-		{
-			EFFECT_PLAY("Hit", bullet->GetPosition());
-			bullet->_isActive = false;
-			return true;
-		}
-	}
-
-	return false;
-}
-
 void RoamingMonster::Roaming()
 {
-}
-
-void RoamingMonster::SetBowAngle(Vector2 targetPos)
-{
-	Vector2 monsterToPlayer = targetPos - _monster->GetTransform()->GetPos();
-
-	float angle = monsterToPlayer.Angle();
-	_bowSlot->SetAngle(angle);
 }
 
 void RoamingMonster::SetLeft()

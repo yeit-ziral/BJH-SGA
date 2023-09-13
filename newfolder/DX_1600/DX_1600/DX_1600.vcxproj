@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\EffectScene.h" />
     <ClInclude Include="Object\CupHead\Items\KingBullet.h" />
     <ClInclude Include="Object\CupHead\Items\FixingTool.h" />
     <ClInclude Include="GunInventory.h" />
@@ -237,6 +238,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scene\EffectScene.cpp" />
     <ClCompile Include="Object\CupHead\Items\KingBullet.cpp" />
     <ClCompile Include="Object\CupHead\Items\FixingTool.cpp" />
     <ClCompile Include="GunInventory.cpp" />
@@ -361,6 +363,7 @@
     <Image Include="Resource\CupHead\weapon\ChargingEffect.png" />
     <Image Include="Resource\CupHead\weapon\Kar98.png" />
     <Image Include="Resource\CupHead\weapon\SunLord.png" />
+    <Image Include="Resource\exp2.png" />
     <Image Include="Resource\explosion.png" />
     <Image Include="Resource\CupHead\player\Idle.png" />
     <Image Include="Resource\CupHead\weapon\rifle.png" />
@@ -375,6 +378,7 @@
     <Image Include="Resource\Potal.png" />
     <Image Include="Resource\UI\Button.png" />
     <Image Include="Resource\UI\InventoryCell.png" />
+    <Image Include="Resource\UllapoolCaber.png" />
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
