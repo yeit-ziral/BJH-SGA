@@ -63,8 +63,6 @@ void Machinegun::Fire(Vector2 dir)
 	if (_hp <= 0)
 		return;
 
-	SOUND->Play("Cup_Attack", 0.3f);
-
 	if (_atkCool)
 	{
 		_time += DELTA_TIME;
@@ -75,6 +73,8 @@ void Machinegun::Fire(Vector2 dir)
 		}
 		return;
 	}
+
+	SOUND->Play("Cup_Attack", 0.3f);
 
 	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
 		[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->_isActive; });

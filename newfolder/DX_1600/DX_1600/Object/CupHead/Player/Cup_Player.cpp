@@ -15,6 +15,7 @@ Cup_Player* Cup_Player::_instance = nullptr;
 Cup_Player::Cup_Player()
 {
 	SOUND->Add("Cup_Attack", "Resource/Sound/Attack.wav", false);
+	SOUND->Add("Damaged", "Resource/Sound/drumloop.wav", false);
 
 	_footCollider = make_shared<RectCollider>(Vector2(50.0f, 10.0f));
 
@@ -269,6 +270,7 @@ void Cup_Player::Damaged(int damage)
 		//CAMERA->ShakeStart(50.0f, 30.0f);
 		_hp -= damage;
 		_animation->DamagedEvent();
+		SOUND->Play("Damaged", 0.3f);
 		_invincible = true;
 		_invincibleTime = 0.0f;
 	}
