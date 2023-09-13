@@ -29,7 +29,7 @@ private:
 
 	float runningTime;
 
-	float scanningRate;
+	float scanningRate; // 주사율(모니터에 나타나는 정보를 업데이트 하는 비율)
 
 	float oneSecCount;
 };

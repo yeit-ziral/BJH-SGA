@@ -23,7 +23,7 @@ void Time::Update()
 
 	timeElapsed = (curTick - lastTick) * timeScale;
 
-	if (scanningRate != 0)
+	if (scanningRate != 0) // 수직동기화 작업
 	{
 		while (timeElapsed < (1.0 / scanningRate))
 		{
@@ -51,4 +51,6 @@ void Time::Update()
 
 void Time::Render()
 {
+	ImGui::Text("FPS : %d", frameRate);
+
 }
