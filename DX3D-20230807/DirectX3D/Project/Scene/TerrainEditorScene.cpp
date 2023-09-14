@@ -54,7 +54,7 @@ void TerrainEditorScene::RawData()
 		UINT groupIndex;
 	};
 
-	UINT size = 10 * 8 * 3;
+	UINT size = 10 * 8 * 3 * 2;
 
 	Output* output = new Output[size];
 
@@ -65,7 +65,8 @@ void TerrainEditorScene::RawData()
 	shader->SetShader();
 
 	DC->CSSetUnorderedAccessViews(0, 1, &uav, nullptr);
-	DC->Dispatch(1, 1, 1);
+
+	DC->Dispatch(2, 1, 1); // computeShader에서 가장 중요한 함수, compute shade의 시작을 알리는 함수
 
 	buffer->Copy(output, sizeof(Output)* size);
 
@@ -79,7 +80,7 @@ void TerrainEditorScene::RawData()
 			file,
 			"%d, %d,%d,%d, %d,%d,%d, %d,%d,%d, %d\n",
 			i,
-			output[i].groupID[0],
+			output[i].groupID[0], // groupID는 
 			output[i].groupID[1],
 			output[i].groupID[2],
 			output[i].groupThreadID[0],
