@@ -80,16 +80,16 @@ void TerrainEditorScene::RawData()
 			file,
 			"%d, %d,%d,%d, %d,%d,%d, %d,%d,%d, %d\n",
 			i,
-			output[i].groupID[0], // groupID는 
+			output[i].groupID[0], // 첫번째 3쌍
 			output[i].groupID[1],
 			output[i].groupID[2],
-			output[i].groupThreadID[0],
+			output[i].groupThreadID[0], // 두번째 3쌍
 			output[i].groupThreadID[1],
 			output[i].groupThreadID[2],
 			output[i].dispatchThreadID[0],
 			output[i].dispatchThreadID[1],
 			output[i].dispatchThreadID[2],
-			output[i].groupIndex
+			output[i].groupIndex // 그룹 내의 인덱스
 		);
 	}
 

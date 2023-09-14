@@ -40,10 +40,37 @@ void StructuredBuffer::Copy(void* data, UINT size)
 
 void StructuredBuffer::CreateInput()
 {
+	ID3D11Buffer* buffer;
+
+	D3D11_BUFFER_DESC desc = {};
+
+	desc.Usage = D3D11_USAGE_DEFAULT;
+	desc.ByteWidth = inputStride * inputCount;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+	desc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+
+	D3D11_SUBRESOURCE_DATA initData = {};
+	initData.pSysMem = inputData;
+
+	DEVICE->CreateBuffer(&desc, &initData, &buffer);
+
+	input = (ID3D11Resource*)buffer;
 }
 
 void StructuredBuffer::CreateSRV()
 {
+	ID3D11Buffer* buffer = (ID3D11Buffer*)input;
+
+	D3D11_BUFFER_DESC desc = {};
+	buffer->GetDesc(&desc);
+
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+	srvDesc.Format				= DXGI_FORMAT_UNKNOWN;
+	srvDesc.ViewDimension		= D3D11_SRV_DIMENSION_BUFFER;
+	srvDesc.Buffer.FirstElement = 0;
+	srvDesc.Buffer.NumElements	= inputCount;
+
+	DEVICE->CreateShaderResourceView(buffer, &srvDesc, &srv);
 }
 
 void StructuredBuffer::CreateOutput()
@@ -74,8 +101,8 @@ void StructuredBuffer::CreateUAV()
 	uavDesc.Format				= DXGI_FORMAT_UNKNOWN;
 	uavDesc.ViewDimension		= D3D11_UAV_DIMENSION_BUFFER;
 	uavDesc.Buffer.FirstElement = 0;
-	uavDesc.Buffer.Flags		= D3D11_BUFFER_UAV_FLAG_RAW;
-	uavDesc.Buffer.NumElements	= desc.ByteWidth / 4;
+	uavDesc.Buffer.Flags		= 0;
+	uavDesc.Buffer.NumElements	= outputCount;
 
 	DEVICE->CreateUnorderedAccessView(buffer, &uavDesc, &uav);
 }
@@ -88,7 +115,7 @@ void StructuredBuffer::CreateResult()
 
 	((ID3D11Buffer*)output)->GetDesc(&desc);
 
-	desc.Usage = D3D11_USAGE_STAGING;
+	desc.Usage = D3D11_USAGE_STAGING; // Read, Write 둘 다 되서 Staging 사용(계산된 값을 cpu에 넘겨줘야하기 때문)
 	desc.BindFlags = 0;
 	desc.MiscFlags = 0;
 	desc.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
