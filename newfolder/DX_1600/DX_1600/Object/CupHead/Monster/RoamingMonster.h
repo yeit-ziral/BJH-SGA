@@ -6,7 +6,7 @@ public:
 	RoamingMonster();
 	~RoamingMonster();
 
-	void Update(Vector2 targetPos);
+	void Update(shared_ptr<Collider> collider);
 	void Render();
 	void PostRender();
 
@@ -39,18 +39,19 @@ private:
 
 	shared_ptr<CircleCollider> _monster;
 
-	shared_ptr<Quad> _monsterQuad;
-
 	shared_ptr<Transform> _transform;
 
-	shared_ptr<Quad> _weapon;
+	shared_ptr<Quad> _monsterQuad;
 
 
 	int _hp = 30;
 	int _maxHp = 30;
 
-	float _speed = 200.0f;
+	float _jumpPower = 0.0f;
+
+	float _speed = 400.0f;
 	float _time = 0.0f;
+	float _atkTime = 0.0f;
 	float _atkSpeed = 1.0f;
 
 
@@ -59,5 +60,7 @@ private:
 	bool _isRight = true;
 
 	bool _seeEnemy = false;
+
+	int movingDir = 0;
 };
 

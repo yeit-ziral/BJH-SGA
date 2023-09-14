@@ -12,11 +12,18 @@
 #include "../../Object/CupHead/Items/Scope.h"
 #include "../../Object/CupHead/Items/SpeedBoots.h"
 #include "../../Object/CupHead/Items/RandomBox.h"
+#include "../../Object/CupHead/Monster/RoamingMonster.h"
 
 Lobby::Lobby()
 {
-	//_player = make_shared<Cup_Player>();
 	PLAYER->SetPosition(Vector2(0, 0));
+
+
+
+
+
+
+
 
 	_track = make_shared<Cup_Track>();
 	Vector2 trackSize = _track->GetTrackSize();
@@ -29,9 +36,6 @@ Lobby::Lobby()
 	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
 
 	PLAYER->SetPosition(Vector2(0, 0));
-
-	//_inven = make_shared<inventory>();
-	//_inven->GetTransform()->SetPosition(PLAYER->GetTransform()->GetWorldPosition());
 
 	_helmet = make_shared<Helmet>();
 	_helmet->GetTransform()->SetPosition(Vector2(100, 0));
@@ -53,7 +57,6 @@ Lobby::Lobby()
 	_randomBox->GetTransform()->SetPosition(Vector2(300, -50));
 	_randomBox->SetRandomItem();
 	_randomBox->_isActive = true;
-
 }
 
 Lobby::~Lobby()
@@ -72,6 +75,8 @@ void Lobby::Init()
 
 	PLAYER->SetPosition(Vector2(0, 0));
 	PLAYER->SetJumpPower(0.0f);
+
+
 
 	Vector2 trackSize = _track->GetTrackSize();
 
@@ -98,6 +103,7 @@ void Lobby::Update()
 
 
 	PLAYER->Update();
+
 	 _track->Update();
 	 _potal->Update();
 	 _hpBar->Update();
@@ -110,6 +116,10 @@ void Lobby::Update()
 
 		 PLAYER->SetGrounded();
 	 }
+
+
+
+
 
 	 _hpBar->SetMaxHp(PLAYER->GetMaxHp());
 	 _hpBar->SetCurHp(PLAYER->GetHp());
@@ -159,6 +169,7 @@ void Lobby::Render()
 
 	 PLAYER->Render();
 
+
 	 if (_randomBox->_isActive)
 		 _randomBox->Render();
 
@@ -167,7 +178,6 @@ void Lobby::Render()
 	_gunHpBar->PostRender();
 	
 	PLAYER->PostRender();
-	//_inven->PostRender();
 
 	ImGui::Text("RandomBoxPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
 }

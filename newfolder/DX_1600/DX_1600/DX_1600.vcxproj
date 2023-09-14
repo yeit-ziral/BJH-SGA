@@ -324,6 +324,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX_1600.ico" />
+    <Image Include="Resource\BoomMonster.png" />
     <Image Include="Resource\Box.png" />
     <Image Include="Resource\Bullet.png" />
     <Image Include="Resource\CupHead\boss\Boss_Opening_Scene.png" />

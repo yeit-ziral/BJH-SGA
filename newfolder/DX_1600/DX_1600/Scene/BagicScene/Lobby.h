@@ -35,4 +35,5 @@ private:
 	shared_ptr<class FixingTool> _fixingTool;
 
 	shared_ptr<class RandomBox> _randomBox;
+
 };

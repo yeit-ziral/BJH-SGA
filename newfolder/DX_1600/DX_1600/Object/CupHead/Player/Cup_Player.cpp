@@ -151,7 +151,6 @@ void Cup_Player::Input()
 	if (!_isAlive)
 		return;
 
-	// 중력적용 -> 보스 총알에도 구현해야 됨
 	{
 		_jumpPower -= 1000.0f * DELTA_TIME;
 

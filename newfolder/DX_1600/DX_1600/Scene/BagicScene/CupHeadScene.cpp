@@ -16,6 +16,10 @@ CupHeadScene::CupHeadScene()
 	_monster1 = make_shared<Cup_Monster>();
 	_monster1->SetPosition(Vector2(500, 0));
 
+
+	_rMonster = make_shared<RoamingMonster>();
+	_rMonster->SetPosition(Vector2(900, 0));
+
 	//_monsterR = make_shared<RoamingMonster>();
 	//_monsterR->SetPosition(Vector2(1000, 0));
 	//_monsterR->GetTransform()->SetPosition(Vector2(0, 0));
@@ -69,7 +73,7 @@ void CupHeadScene::Init()
 
 	PLAYER->SetJumpPower(0.0f);
 
-	if (_monster->_isAlive == false && _monster1->_isAlive ==false)
+	if (_monster->_isAlive == false && _monster1->_isAlive ==false && _rMonster->_isAlive == false)
 	{
 		_monster->~Cup_Monster();
 		_monster1->~Cup_Monster();
@@ -85,7 +89,14 @@ void CupHeadScene::Init()
 		//_monster->SetPosition(Vector2(0, 0));
 		//_monster->ResetHp();
 		//_monster->_isAlive = true;
+
+		//
+		_rMonster = make_shared<RoamingMonster>();
+		_rMonster->SetPosition(Vector2(900, 0));
+		_rMonster->_isAlive = true;
+		//
 	}
+
 
 
 	CAMERA->SetTarget(PLAYER->GetTransform());
@@ -121,7 +132,7 @@ void CupHeadScene::Update()
 	
 	_gunHpBar->Update();
 
-	if (_monster->_isAlive == false && _monster1->_isAlive == false)
+	if (_monster->_isAlive == false && _monster1->_isAlive == false && _rMonster->_isAlive == false)
 		_potal->_isActive = true;
 
 	if (_track->GetCollider()->Block(PLAYER->GetFootCollider()))
@@ -170,13 +181,19 @@ void CupHeadScene::Update()
 	{
 
 	}
+	if (_track2->GetCollider()->Block(_rMonster->GetCollider()))
+	{
 
+	}
 
 	Vector2 playerpos = PLAYER->GetTransform()->GetWorldPosition();
 
 	_monster->Update(playerpos);
 	_monster1->Update(playerpos);
 	//_monsterR->Update(playerpos);
+	//
+	_rMonster->Update(PLAYER->GetCollider());
+	//
 
 	// 몬스터가 일정 거리 안에서만 공격
 	Vector2 bosspos = _monster->GetTransform()->GetWorldPosition();
@@ -247,7 +264,10 @@ void CupHeadScene::Render()
 	if (_monster1->_isAlive == true)
 		_monster1->Render();
 
-	if (!_monster->_isAlive && !_monster1->_isAlive)
+	if (_rMonster->_isAlive)
+		_rMonster->Render();
+
+	if (!_monster->_isAlive && !_monster1->_isAlive && !_rMonster->_isAlive)
 		_randomBox->Render();
 }
 

@@ -9,5 +9,5 @@ public:
 	virtual void Render() override;
 
 private:
-
+	shared_ptr<class RoamingMonster> _RMonster;
 };
