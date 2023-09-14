@@ -31,6 +31,8 @@ public:
 
 	void Move(Vector2 movePos) { _monster->GetTransform()->AddVector2(movePos); }
 
+	int RandomNum(int min, int max) { return rand() % (max - min) + min; }
+
 private:
 	void SetLeft();
 	void SetRight();
@@ -40,6 +42,8 @@ private:
 	shared_ptr<Quad> _monsterQuad;
 
 	shared_ptr<Transform> _transform;
+
+	shared_ptr<Quad> _weapon;
 
 
 	int _hp = 30;
@@ -53,5 +57,7 @@ private:
 	int _damage = 3;
 
 	bool _isRight = true;
+
+	bool _seeEnemy = false;
 };
 

@@ -13,6 +13,7 @@ RoamingMonster::RoamingMonster()
 	_transform->SetParent(_monster->GetTransform());
 	
 	//활 대신 창, 창은 각도 바꾸지 않음
+	_weapon = make_shared<Quad>(L"Resource/UllapoolCaber.png");
 }
 
 RoamingMonster::~RoamingMonster()
@@ -43,6 +44,7 @@ void RoamingMonster::Render()
 	_transform->SetBuffer(0);
 
 	_monsterQuad->Render();
+	_weapon->Render();
 
 }
 
@@ -89,13 +91,31 @@ void RoamingMonster::GetAttacked(int amount)
 
 void RoamingMonster::Roaming()
 {
+	if (!_seeEnemy)
+		return;
+
+	int a = RandomNum(-1,1);
+
+	Vector2 movePos = Vector2(a * _speed, 0.0f) * DELTA_TIME;
+	Move(movePos);
 }
 
 void RoamingMonster::SetLeft()
 {
-	_monsterQuad->FlipVertically();
+	if (_isRight)
+	{
+		_monsterQuad->FlipVertically();
+		_weapon->FlipVertically();
+		_isRight = false;
+	}
 }
 
 void RoamingMonster::SetRight()
 {
+	if (!_isRight)
+	{
+		_monsterQuad->FlipVertically();
+		_weapon->FlipVertically();
+		_isRight = false;
+	}
 }
