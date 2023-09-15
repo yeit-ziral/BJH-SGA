@@ -24,7 +24,7 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-	FONT->Delete();
+	Font::Delete();
 }
 
 void SceneManager::Update()
@@ -36,7 +36,7 @@ void SceneManager::Render()
 {
 	_scenes[_curScene]->Render();
 
-
+	Timer::GetInstance()->Render();
 }
 
 void SceneManager::PostRender()

@@ -9,6 +9,7 @@ public:
 	void Update();
 	void PostRender();
 
+	Vector2 GetPosition() { return _transform->GetWorldPosition(); }
 	void SetPosition(Vector2 pos) { _transform->SetPosition(pos); }
 
 	void SetMaxHp(UINT value)

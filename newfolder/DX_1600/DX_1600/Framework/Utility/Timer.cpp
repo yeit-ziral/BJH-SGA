@@ -56,5 +56,5 @@ void Timer::Render()
 {
 	wstring str;
 	str = L"RunTime : " + to_wstring((int)_runTime);
-	FONT->RenderText(str, "D2Coding", Vector2(0, 100), Vector2(100, 100));
+	FONT->RenderText(str, "D2Coding", Vector2(0, 10));
 }

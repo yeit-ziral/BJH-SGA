@@ -151,8 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Framework\Utility\Font\Font.h" />
-    <ClInclude Include="Framework\Utility\Singleton.h" />
+    <ClInclude Include="Framework\Utility\Font.h" />
     <ClInclude Include="Object\UI\GunInvenCell.h" />
     <ClInclude Include="Scene\EffectScene.h" />
     <ClInclude Include="Object\CupHead\Items\KingBullet.h" />
@@ -241,7 +240,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Framework\Utility\Font\Font.cpp" />
+    <ClCompile Include="Framework\Utility\Font.cpp" />
     <ClCompile Include="Object\UI\GunInvenCell.cpp" />
     <ClCompile Include="Scene\EffectScene.cpp" />
     <ClCompile Include="Object\CupHead\Items\KingBullet.cpp" />

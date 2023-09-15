@@ -42,7 +42,7 @@ Font::~Font()
 		delete pair.second;
 }
 
-void Font::Add(string key, wstring font, Vector3 color, float size, DWRITE_PARAGRAPH_ALIGNMENT pAlignment, DWRITE_TEXT_ALIGNMENT tAlignment, DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STYLE style, DWRITE_FONT_STRETCH stretch)
+void Font::Add(string key, wstring font, XMFLOAT3 color, float size, DWRITE_PARAGRAPH_ALIGNMENT pAlignment, DWRITE_TEXT_ALIGNMENT tAlignment, DWRITE_FONT_WEIGHT weight, DWRITE_FONT_STYLE style, DWRITE_FONT_STRETCH stretch)
 {
 	if (fonts.count(key) > 0)
 		return;

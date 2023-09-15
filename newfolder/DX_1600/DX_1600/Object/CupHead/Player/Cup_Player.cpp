@@ -127,6 +127,10 @@ void Cup_Player::Render()
 
 	if(KEY_PRESS('I'))
 		_inventory->PostRender();
+
+	wstring str;
+	str = to_wstring(_hp) + L" / " + to_wstring(_maxHp);
+	FONT->RenderText(str, "D2Coding", _hpBar->GetPosition());
 }
 
 void Cup_Player::PostRender()

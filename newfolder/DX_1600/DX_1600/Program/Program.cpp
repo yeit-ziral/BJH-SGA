@@ -45,6 +45,8 @@ void Program::Render()
 
 	ALPHA->SetState();
 
+	FONT->GetDC()->BeginDraw();
+
 	SCENE->Render();
 	EffectManager::GetInstance()->Render();
 
@@ -55,6 +57,8 @@ void Program::Render()
 	CAMERA->PostRender();
 	SCENE->PostRender();
 	EffectManager::GetInstance()->PostRender();
+
+	FONT->GetDC()->EndDraw();
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

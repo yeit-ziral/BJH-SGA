@@ -273,10 +273,7 @@
     <ClInclude Include="Object\UI\GunInvenCell.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Framework\Utility\Font\Font.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Framework\Utility\Singleton.h">
+    <ClInclude Include="Framework\Utility\Font.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -497,7 +494,7 @@
     <ClCompile Include="Object\UI\GunInvenCell.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Framework\Utility\Font\Font.cpp">
+    <ClCompile Include="Framework\Utility\Font.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

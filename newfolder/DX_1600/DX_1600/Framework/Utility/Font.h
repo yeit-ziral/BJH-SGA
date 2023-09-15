@@ -19,7 +19,7 @@ public:
 	Font();
 	~Font();
 
-	void Add(string key, wstring font, Vector3 color = Vector3(1, 1, 1), float size = 20.0f, 
+	void Add(string key, wstring font, XMFLOAT3 color = XMFLOAT3(1, 1, 1), float size = 20.0f,
 		DWRITE_PARAGRAPH_ALIGNMENT pAlignment = DWRITE_PARAGRAPH_ALIGNMENT_NEAR,
 		DWRITE_TEXT_ALIGNMENT      tAlignment = DWRITE_TEXT_ALIGNMENT_TRAILING,
 		DWRITE_FONT_WEIGHT         weight     = DWRITE_FONT_WEIGHT_NORMAL,
