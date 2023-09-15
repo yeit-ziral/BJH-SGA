@@ -2,7 +2,7 @@
 class StructuredBuffer
 {
 public:
-	StructuredBuffer(void* inputDate, UINT inputStride, UINT inputCount, UINT outputStride, UINT outputCount);
+	StructuredBuffer(void* inputData, UINT inputStride, UINT inputCount, UINT outputStride, UINT outputCount);
 	~StructuredBuffer();
 
 	void Copy(void* data, UINT size); // GPU에서 넘겨받은 읽을 수 있는 데이터를 쓸 수 있는 데이터로 변환
@@ -11,6 +11,10 @@ public:
 	ID3D11ShaderResourceView* GetSRV() { return srv; }
 
 	// D3D11_USAGE_WRITE는 버퍼를 다시 GPU에서 사용할 때
+
+
+	void SetSRV();
+	void SetUAV();
 
 private:
 	void CreateInput();

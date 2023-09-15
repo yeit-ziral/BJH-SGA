@@ -16,6 +16,38 @@ TerrainEditor::TerrainEditor(UINT height, UINT width)
 	CreateTangent();
 
 	mesh = new Mesh(vertices, indices);
+
+	rayBuffer = new RayBuffer();
+	computeShader = Shader::GetCS(L"ComputePicking");
+
+	polygonCount = indices.size() / 3;
+
+	input = new InputDesc[polygonCount];
+
+	for (UINT i = 0; i < polygonCount; i++)
+	{
+		input[i].index = i;
+
+		UINT index0 = indices[i * 3 + 0];
+		UINT index1 = indices[i * 3 + 1];
+		UINT index2 = indices[i * 3 + 2];
+
+		input[i].v0 = vertices[index0].pos;
+		input[i].v1 = vertices[index1].pos;
+		input[i].v2 = vertices[index2].pos;
+	}
+
+	structuredBuffer 
+		= new StructuredBuffer
+		(
+			input, 
+			sizeof(InputDesc), 
+			polygonCount, 
+			sizeof(OutputDesc), 
+			polygonCount
+		);
+
+	output = new OutputDesc[polygonCount];
 }
 
 TerrainEditor::~TerrainEditor()
@@ -23,6 +55,12 @@ TerrainEditor::~TerrainEditor()
 	delete mesh;
 	delete worldBuffer;
 	delete material;
+
+	delete[] input;
+	delete[] output;
+
+	delete rayBuffer;
+	delete structuredBuffer;
 }
 
 void TerrainEditor::Update()
@@ -48,37 +86,32 @@ bool TerrainEditor::Picking(OUT Vector3* position)
 {
 	Ray ray = Camera::GetInstance()->ScreenPointToRay(mousePos);
 
-	for (UINT z = 0; z < height - 1; z++)
+	rayBuffer->data.origin = ray.origin;
+	rayBuffer->data.direction = ray.direction;
+	rayBuffer->data.outputSize = polygonCount;
+
+	rayBuffer->SetCSBuffer(0);
+
+	//////////////////////////////////
+
+	structuredBuffer->SetSRV();
+	structuredBuffer->SetUAV();
+
+	computeShader->SetShader();
+
+	UINT groupCount = ceil(polygonCount / 1024.0f);
+
+	DC->Dispatch(groupCount, 1, 1);
+
+	structuredBuffer->Copy(output, sizeof(OutputDesc) * polygonCount);
+
+	for (UINT i = 0; i < polygonCount; i++)
 	{
-		for (UINT x = 0; x < width - 1; x++)
+		if (output[i].isPicked) 
 		{
-			UINT index[4];
-			index[0] = (x + 0) + (width * (z + 0));
-			index[1] = (x + 1) + (width * (z + 0));
-			index[2] = (x + 0) + (width * (z + 1));
-			index[3] = (x + 1) + (width * (z + 1));
+			*position = ray.origin + ray.direction * output[i].distance;
 
-			Vector3 pos[4];
-			for (UINT i = 0; i < 4; i++)
-			{
-				pos[i] = vertices[index[i]].pos;
-			}
-
-			float distance = 0.0f;
-			
-			// ray의 origin부터 poligon까지의 거리를 반환하는 함수
-			if (TriangleTests::Intersects(ray.origin, ray.direction, pos[0], pos[1], pos[2], distance)) // distance에 거리가 기록 됨 // 이 함수도  OUT형식임(연산이 느림)
-			{
-				*position = ray.origin + ray.direction * distance;
-
-				return true;
-			}
-			if (TriangleTests::Intersects(ray.origin, ray.direction, pos[2], pos[1], pos[3], distance))
-			{
-				*position = ray.origin + ray.direction * distance;
-
-				return true;
-			}
+			return true;
 		}
 	}
 

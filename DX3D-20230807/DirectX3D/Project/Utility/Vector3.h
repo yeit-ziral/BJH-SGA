@@ -78,6 +78,11 @@ struct Vector3
 		return Vector3(this->x + other.x, this->y + other.y, this->z + other.z);
 	}
 
+	//Vector3 operator+(const XMVECTOR& other)
+	//{
+	//	return XMVECTOR(*this) + other;
+	//}
+
 	Vector3 operator-(const Vector3& other) 
 	{ 
 		return Vector3(this->x - other.x, this->y - other.y, this->z - other.z);

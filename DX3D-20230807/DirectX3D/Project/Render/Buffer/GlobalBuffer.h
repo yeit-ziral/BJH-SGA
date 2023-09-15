@@ -88,3 +88,22 @@ public:
 		float shininess = 24.0f;
 	} data;
 };
+
+class RayBuffer : public ConstBuffer
+{
+public:
+	RayBuffer()
+		: ConstBuffer(&data, sizeof(data)) 
+	{
+		
+	}
+
+	struct Data
+	{
+		Vector3 origin		= {};
+		float	outputSize	= 0;
+
+		Vector3 direction	= {};
+		float	padding		= 0;
+	} data;
+};

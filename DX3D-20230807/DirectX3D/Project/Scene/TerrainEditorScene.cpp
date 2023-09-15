@@ -8,7 +8,7 @@ TerrainEditorScene::TerrainEditorScene()
 	terrainEditor->GetMaterial()->SetSpecularMap(L"LandScape/fieldstone_SM.tga");
 	terrainEditor->GetMaterial()->SetNormalMap  (L"LandScape/fieldstone_NM.tga");
 
-	RawData();
+	//RawData();
 }
 
 TerrainEditorScene::~TerrainEditorScene()

@@ -1,7 +1,7 @@
 #include "Framework.h"
 #include "StructuredBuffer.h"
 
-StructuredBuffer::StructuredBuffer(void* inputDate, UINT inputStride, UINT inputCount, UINT outputStride, UINT outputCount)
+StructuredBuffer::StructuredBuffer(void* inputData, UINT inputStride, UINT inputCount, UINT outputStride, UINT outputCount)
 	:inputData   (inputData), 
 	 inputStride (inputStride),
 	 inputCount  (inputCount),
@@ -38,6 +38,16 @@ void StructuredBuffer::Copy(void* data, UINT size)
 	DC->Unmap(result, 0);
 }
 
+void StructuredBuffer::SetSRV()
+{
+	DC->CSSetShaderResources(0, 1, &srv);
+}
+
+void StructuredBuffer::SetUAV()
+{
+	DC->CSSetUnorderedAccessViews(0, 1, &uav, nullptr);
+}
+
 void StructuredBuffer::CreateInput()
 {
 	ID3D11Buffer* buffer;
@@ -48,6 +58,8 @@ void StructuredBuffer::CreateInput()
 	desc.ByteWidth = inputStride * inputCount;
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 	desc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+
+	desc.StructureByteStride = inputStride;
 
 	D3D11_SUBRESOURCE_DATA initData = {};
 	initData.pSysMem = inputData;
@@ -83,6 +95,8 @@ void StructuredBuffer::CreateOutput()
 	desc.ByteWidth = outputStride * outputCount;
 	desc.BindFlags = D3D11_BIND_UNORDERED_ACCESS;
 	desc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+
+	desc.StructureByteStride = outputStride;
 
 	DEVICE->CreateBuffer(&desc, nullptr, &buffer);
 
