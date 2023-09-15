@@ -18,11 +18,13 @@ SceneManager::SceneManager()
 
 	EffectManager::GetInstance()->AddEffect("Exp", L"Resource/exp2.png", Vector2(5, 4), Vector2(150, 150)); // Àâ¸÷ Á×À» ¶§
 	EffectManager::GetInstance()->AddEffect("Exp2", L"Resource/explosion.png", Vector2(5, 5), Vector2(150, 150)); // º¸½º Á×À» ¶§, ÀÚÆøº´ ÀÚÆø
+
+	FONT->Add("D2Coding", L"D2Coding");
 }
 
 SceneManager::~SceneManager()
 {
-	
+	FONT->Delete();
 }
 
 void SceneManager::Update()
@@ -33,6 +35,8 @@ void SceneManager::Update()
 void SceneManager::Render()
 {
 	_scenes[_curScene]->Render();
+
+
 }
 
 void SceneManager::PostRender()

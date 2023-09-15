@@ -16,6 +16,8 @@ public:
 	ID3D11Device*			GetDevice() { return device; }
 	ID3D11DeviceContext*	GetDC() { return deviceContext; }
 
+	IDXGISwapChain* GetSwapChain() { return swapChain; }
+
 private:
 	ID3D11Device* device;         // 무언가를 만들 때 사용, CPU를 다루는 객체
 	ID3D11DeviceContext* deviceContext;  // 무언가를 그릴 때 사용, GPU를 다루는 객체

@@ -12,6 +12,8 @@ MainGame::MainGame()
 	//scene = new TerrainScene();
 	//scene = new SphereScene();
 	scene = new TerrainEditorScene();
+
+	FONT->Add("D2Coding", L"D2Coding");
 }
 
 MainGame::~MainGame()
@@ -19,6 +21,8 @@ MainGame::~MainGame()
 	delete scene;
 
 	Release();
+
+	FONT->Delete();
 }
 
 void MainGame::Update()

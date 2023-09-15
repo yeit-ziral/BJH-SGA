@@ -231,7 +231,7 @@
     <ClInclude Include="Object\CupHead\Items\HpPotion.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GunInventory.h">
+    <ClInclude Include="Object\UI\GunInventory.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Framework\Singleton\Singleton.h">
@@ -268,6 +268,15 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scene\EffectScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\UI\GunInvenCell.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utility\Font\Font.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utility\Singleton.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -449,7 +458,7 @@
     <ClCompile Include="Object\CupHead\Items\HpPotion.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GunInventory.cpp">
+    <ClCompile Include="Object\UI\GunInventory.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\BagicScene\BossRoom.cpp">
@@ -483,6 +492,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\EffectScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\UI\GunInvenCell.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utility\Font\Font.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

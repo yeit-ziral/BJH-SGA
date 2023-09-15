@@ -10,6 +10,12 @@
 #include <string>
 #include <functional>
 
+#include <d2d1_2.h>
+#include <dwrite.h>
+
+#pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
+
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
@@ -65,7 +71,11 @@ typedef XMFLOAT2 Vector2;
 #include "Utility/Time.h"
 #include "Utility/Utility.h"
 
+#include "Utility/Font/Font.h"
+
 using namespace Utility;
+
+#define FONT Font::GetInstance()
 
 #include "Object/Transform.h"
 

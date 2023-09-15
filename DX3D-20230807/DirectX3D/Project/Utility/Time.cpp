@@ -53,4 +53,7 @@ void Time::Render()
 {
 	ImGui::Text("FPS : %d", frameRate);
 
+	wstring str;
+	str = L"RunTime : " + to_wstring((int)runningTime);
+	FONT->RenderText(str, "D2Coding", Vector2(0, 100), Vector2(100,100));
 }

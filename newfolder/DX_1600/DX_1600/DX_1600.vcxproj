@@ -151,10 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Utility\Font\Font.h" />
+    <ClInclude Include="Framework\Utility\Singleton.h" />
+    <ClInclude Include="Object\UI\GunInvenCell.h" />
     <ClInclude Include="Scene\EffectScene.h" />
     <ClInclude Include="Object\CupHead\Items\KingBullet.h" />
     <ClInclude Include="Object\CupHead\Items\FixingTool.h" />
-    <ClInclude Include="GunInventory.h" />
+    <ClInclude Include="Object\UI\GunInventory.h" />
     <ClInclude Include="Object\CupHead\Items\Helmet.h" />
     <ClInclude Include="Object\UI\InventoryCell.h" />
     <ClInclude Include="Object\CupHead\Items\HpPotion.h" />
@@ -238,10 +241,12 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Utility\Font\Font.cpp" />
+    <ClCompile Include="Object\UI\GunInvenCell.cpp" />
     <ClCompile Include="Scene\EffectScene.cpp" />
     <ClCompile Include="Object\CupHead\Items\KingBullet.cpp" />
     <ClCompile Include="Object\CupHead\Items\FixingTool.cpp" />
-    <ClCompile Include="GunInventory.cpp" />
+    <ClCompile Include="Object\UI\GunInventory.cpp" />
     <ClCompile Include="Object\CupHead\Items\Helmet.cpp" />
     <ClCompile Include="Object\UI\InventoryCell.cpp" />
     <ClCompile Include="Object\CupHead\Items\HpPotion.cpp" />

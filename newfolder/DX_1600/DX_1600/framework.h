@@ -22,6 +22,13 @@
 #include <functional>
 #include <wrl/client.h>
 #include <windows.h>
+#include <map>
+
+#include <d2d1_2.h>
+#include <dwrite.h>
+
+#pragma (lib, "d2d1.lib")
+#pragma (lib, "dwrite.lib")
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -69,6 +76,8 @@ using namespace Microsoft::WRL;
 #include "Framework/Utility/Sound.h"
 #include "Framework/Utility/BinaryWriter.h"
 #include "Framework/Utility/BinaryReader.h"
+#include "Framework/Utility/Vector3.h"
+#include "Framework/Utility/Font/Font.h"
 
 //Render
 #include "Framework/Render/ConstantBuffer.h"

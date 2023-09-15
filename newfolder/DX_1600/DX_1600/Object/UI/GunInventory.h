@@ -19,8 +19,10 @@ public:
 
 	void Render();
 
+	void FillInventory();
+
+	void DropGun();
+
 private:
-	shared_ptr<class NormalGun> _normalGun;
-	shared_ptr<class Machinegun> _machineGun;
-	shared_ptr<class ChargeGun> _chargeGun;
+	vector<class GunInvenCell> _invencells;
 };

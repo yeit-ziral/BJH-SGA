@@ -29,6 +29,8 @@ public:
 
 	void SetMainRenderTarget();
 
+	ComPtr<IDXGISwapChain> GetSwapChain() { return _swapChain; }
+
 private:
 	Device();
 	~Device();

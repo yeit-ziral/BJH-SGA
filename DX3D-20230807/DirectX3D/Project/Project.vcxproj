@@ -171,6 +171,7 @@
     <ClInclude Include="Object\Landscape\Terrain.h" />
     <ClInclude Include="Scene\TerrainEditorScene.h" />
     <ClInclude Include="Object\Landscape\TerrainEditor.h" />
+    <ClInclude Include="Utility\Font\Font.h" />
     <ClInclude Include="Utility\Utility.h" />
     <ClInclude Include="Utility\Keyboard.h" />
     <ClInclude Include="Utility\Singleton.h" />
@@ -233,6 +234,7 @@
     <ClCompile Include="Object\Landscape\Terrain.cpp" />
     <ClCompile Include="Scene\TerrainEditorScene.cpp" />
     <ClCompile Include="Object\Landscape\TerrainEditor.cpp" />
+    <ClCompile Include="Utility\Font\Font.cpp" />
     <ClCompile Include="Utility\Utility.cpp" />
     <ClCompile Include="Utility\Keyboard.cpp" />
     <ClCompile Include="Utility\Time.cpp" />

@@ -27,6 +27,8 @@ public:
 	}
 
 	void Update();
+
+	void Render();
 	void SetLockFPS(double value) { _lockFPS = value;}
 
 	int GetFPS() { return _frameRate;}

@@ -54,6 +54,8 @@
 
 #define LERP(s,e,t) s + (e - s) * t
 
+#define FONT Font::GetInstance()
+
 using CallBack = function<void(void)>;
 
 struct Hit_Result

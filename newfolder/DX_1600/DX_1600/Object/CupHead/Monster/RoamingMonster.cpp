@@ -28,14 +28,14 @@ void RoamingMonster::Update(shared_ptr<Collider> collider)
 	if (_hp <= 0)
 		_isAlive = false;
 
-	//{
-	//	_jumpPower -= 1000.0f * DELTA_TIME;
+	{
+		_jumpPower -= 1000.0f * DELTA_TIME;
 
-	//	if (_jumpPower < -600.0f)
-	//		_jumpPower = -600.0f;
+		if (_jumpPower < -600.0f)
+			_jumpPower = -600.0f;
 
-	//	_monster->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
-	//}
+		_monster->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
+	}
 
 	_monster->Update();
 
@@ -134,13 +134,13 @@ void RoamingMonster::Roaming()
 	if (movingDir > 0)
 	{
 		SetRight();
-		Vector2 movePos = Vector2(_speed * 0.5f, 0.0f) * DELTA_TIME;
+		Vector2 movePos = Vector2(_speed * 0.1f, 0.0f) * DELTA_TIME;
 		Move(movePos);
 	}
 	if (movingDir < 0)
 	{
 		SetLeft();
-		Vector2 movePos = Vector2(_speed * -0.5f, 0.0f) * DELTA_TIME;
+		Vector2 movePos = Vector2(_speed * -0.1f, 0.0f) * DELTA_TIME;
 		Move(movePos);
 	}
 
