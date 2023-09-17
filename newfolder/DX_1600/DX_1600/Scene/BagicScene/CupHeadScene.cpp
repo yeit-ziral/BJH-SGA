@@ -331,7 +331,6 @@ void CupHeadScene::CheckAttack()
 
 		if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
 		{
-			EFFECT_PLAY("Hit", _monster->GetTransform()->GetWorldPosition());
 			_monster1->GetAttacked(PLAYER->GetNowGunDamage());
 		}
 

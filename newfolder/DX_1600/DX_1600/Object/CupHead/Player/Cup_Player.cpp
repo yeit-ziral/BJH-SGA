@@ -15,7 +15,7 @@ Cup_Player* Cup_Player::_instance = nullptr;
 Cup_Player::Cup_Player()
 {
 	SOUND->Add("Cup_Attack", "Resource/Sound/Attack.wav", false);
-	SOUND->Add("Damaged", "Resource/Sound/drumloop.wav", false);
+	SOUND->Add("Damaged", "Resource/Sound/attack.wav", false);
 
 	_footCollider = make_shared<RectCollider>(Vector2(50.0f, 10.0f));
 
@@ -130,7 +130,7 @@ void Cup_Player::Render()
 
 	wstring str;
 	str = to_wstring(_hp) + L" / " + to_wstring(_maxHp);
-	FONT->RenderText(str, "D2Coding", _hpBar->GetPosition());
+	FONT->RenderText(str, "D2Coding", Vector2(200, 18));
 }
 
 void Cup_Player::PostRender()

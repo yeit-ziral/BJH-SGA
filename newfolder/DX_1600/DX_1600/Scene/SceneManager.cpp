@@ -20,6 +20,9 @@ SceneManager::SceneManager()
 	EffectManager::GetInstance()->AddEffect("Exp2", L"Resource/explosion.png", Vector2(5, 5), Vector2(150, 150)); // º¸½º Á×À» ¶§, ÀÚÆøº´ ÀÚÆø
 
 	FONT->Add("D2Coding", L"D2Coding");
+
+	SOUND->Add("BGM", "Resource/Sound/drumloop.wav", false);
+	SOUND->Play("BGM");
 }
 
 SceneManager::~SceneManager()
@@ -36,7 +39,7 @@ void SceneManager::Render()
 {
 	_scenes[_curScene]->Render();
 
-	Timer::GetInstance()->Render();
+	//Timer::GetInstance()->Render();
 }
 
 void SceneManager::PostRender()
