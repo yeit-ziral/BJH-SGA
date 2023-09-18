@@ -24,7 +24,7 @@ private:
 
 	shared_ptr<class Cup_Monster> _monster;
 	shared_ptr<class Cup_Monster> _monster1;
-	//shared_ptr<class RoamingMonster> _monsterR;
+	shared_ptr<class RoamingMonster> _rMonster;
 
 
 	shared_ptr<Button> _button;
@@ -41,6 +41,5 @@ private:
 
 	shared_ptr<class RandomBox> _randomBox;
 
-	shared_ptr<class RoamingMonster> _rMonster;
 };
 

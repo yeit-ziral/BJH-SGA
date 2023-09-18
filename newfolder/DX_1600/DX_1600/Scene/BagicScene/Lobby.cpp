@@ -65,8 +65,8 @@ Lobby::~Lobby()
 
 void Lobby::Init()
 {
-	if (!PLAYER->_isAlive)
-		PLAYER->Revive();
+	//if (!PLAYER->_isAlive)
+	PLAYER->Revive();
 
 	while (PLAYER->GetItemState() != Cup_Player::Item::NONE) // 인벤 첫 칸이 NONE일 때 까지
 	{

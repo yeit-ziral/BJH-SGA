@@ -181,6 +181,10 @@ void CupHeadScene::Update()
 	{
 
 	}
+	if (_track->GetCollider()->Block(_rMonster->GetCollider()))
+	{
+
+	}
 	if (_track2->GetCollider()->Block(_rMonster->GetCollider()))
 	{
 
@@ -216,7 +220,7 @@ void CupHeadScene::Update()
 
 	_hpBar->SetPosition(Vector2(a.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y));
 
-	if (_potal->IsCollision(PLAYER->GetCollider()) && _monster->_isAlive == false && _monster1->_isAlive == false)
+	if (_potal->IsCollision(PLAYER->GetCollider()) && _potal->_isActive == true /*_monster->_isAlive == false && _monster1->_isAlive == false && _rMonster->_isAlive == false*/)
 	{
 		_potal->_isActive = false;
 		SceneManager::GetInstance()->NextScene();
@@ -343,7 +347,20 @@ void CupHeadScene::CheckAttack()
 		}
 	}
 
+	if (_rMonster->_isAlive && PLAYER->GetHp() > 0)
+	{
 
+		if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+		{
+			_monster1->GetAttacked(PLAYER->GetNowGunDamage());
+		}
+
+		if (_rMonster->GetCollider()->IsCollision(PLAYER->GetCollider()))
+		{
+			EFFECT_PLAY("Hit", _rMonster->GetTransform()->GetWorldPosition());
+			PLAYER->Damaged(_rMonster->GetDamage());
+		}
+	}
 
 }
 
