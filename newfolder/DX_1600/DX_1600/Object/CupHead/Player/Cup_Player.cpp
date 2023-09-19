@@ -26,7 +26,6 @@ Cup_Player::Cup_Player()
 	_collider->GetTransform()->SetPosition(Vector2(0, 50));
 
 	_animation->SetParent(_collider->GetTransform());
-	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/hit_4x2.png", Vector2(4, 2), Vector2(100, 100), 0.1f);
 
 	_normalGun = make_shared<NormalGun>();
 	_machineGun = make_shared<Machinegun>();

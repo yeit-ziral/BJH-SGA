@@ -23,6 +23,8 @@ SceneManager::SceneManager()
 
 	SOUND->Add("BGM", "Resource/Sound/drumloop.wav", false);
 	SOUND->Play("BGM");
+
+	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/GreenExplosion.png", Vector2(4, 4), Vector2(50, 50));
 }
 
 SceneManager::~SceneManager()

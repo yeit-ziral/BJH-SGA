@@ -146,7 +146,7 @@ void CupHeadScene::PostRender()
 		Load();
 	}
 
-	//ImGui::SliderInt("Mosaic", &_filter->_data.value1, 1, 300);
+	ImGui::SliderInt("Mosaic", &_filter->_data.value1, 1, 300);
 
 	_button->PostRender();
 }

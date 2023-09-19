@@ -47,14 +47,14 @@ bool Collider::IsCollision(shared_ptr<Collider> other)
 {
 	switch (other->_type)
 	{
-	case Collider::ColType::NONE:
+	case Collider::ColliderType::NONE:
 		return false;
-	case Collider::ColType::CIRCLE:
+	case Collider::ColliderType::CIRCLE:
 	{
 		auto circle = dynamic_pointer_cast<CircleCollider>(other);
 		return IsCollision(circle);
 	}
-	case Collider::ColType::RECT:
+	case Collider::ColliderType::RECT:
 	{
 		auto rect = dynamic_pointer_cast<RectCollider>(other);
 		return IsCollision(rect);

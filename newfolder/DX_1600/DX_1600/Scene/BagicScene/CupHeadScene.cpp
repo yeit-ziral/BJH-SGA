@@ -28,8 +28,6 @@ CupHeadScene::CupHeadScene()
 
 	_track2 = make_shared<Cup_Track>();
 
-	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
-
 	Vector2 trackSize = _track->GetTrackSize();
 	float track2PosX = _track2->GetCollider()->GetTransform()->GetWorldPosition().x;
 
@@ -57,8 +55,6 @@ CupHeadScene::CupHeadScene()
 
 	_randomBox = make_shared<RandomBox>();
 	_randomBox->GetTransform()->SetPosition(Vector2(-300, 0));
-
-	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -124,7 +120,7 @@ void CupHeadScene::Update()
 
 	PLAYER->Update();
 
-	_button->Update();
+	//_button->Update();
 
 	_potal->Update();
 
@@ -194,10 +190,7 @@ void CupHeadScene::Update()
 
 	_monster->Update(playerpos);
 	_monster1->Update(playerpos);
-	//_monsterR->Update(playerpos);
-	//
-	_rMonster->Update(PLAYER->GetCollider());
-	//
+
 
 	// 몬스터가 일정 거리 안에서만 공격
 	Vector2 bosspos = _monster->GetTransform()->GetWorldPosition();
@@ -213,6 +206,7 @@ void CupHeadScene::Update()
 
 	CheckAttack();
 
+	_rMonster->Update(PLAYER->GetCollider());
 
 	_hpBar->SetMaxHp(PLAYER->GetMaxHp());
 	_hpBar->SetCurHp(PLAYER->GetHp());
@@ -241,11 +235,22 @@ void CupHeadScene::Update()
 		_randomBox->IsCollision(PLAYER);
 	}
 
-	if (KEY_DOWN(VK_LBUTTON))
+	//if (KEY_DOWN(VK_LBUTTON))
+	//{
+	//	EFFECT_PLAY("Hit", W_MOUSE_POS);
+	//}
+
+	if (PLAYER->GetCollider()->GetTransform()->GetWorldPosition().y < (_track->GetCollider()->GetTransform()->GetWorldPosition().y - 1000.0f))
 	{
-		EFFECT_PLAY("Hit", MOUSE_POS);
+		PLAYER->SetHp(0);
+		PLAYER->_isAlive = false;
 	}
 
+	if (_rMonster->GetCollider()->GetTransform()->GetWorldPosition().y < (_track->GetCollider()->GetTransform()->GetWorldPosition().y - 1000.0f))
+	{
+		_rMonster->SetHp(0);
+		_rMonster->_isAlive = false;
+	}
 
 	if (!PLAYER->_isAlive)
 		SceneManager::GetInstance()->LobbyScene();
@@ -306,7 +311,7 @@ void CupHeadScene::PostRender()
 		Load();
 	}
 
-	_button->PostRender();
+	//_button->PostRender();
 
 	_hpBar->PostRender();
 	_gunHpBar->PostRender();
@@ -332,12 +337,8 @@ void CupHeadScene::CheckAttack()
 
 	if (_monster1->_isAlive && PLAYER->GetHp() > 0)
 	{
-
-		if (_monster1->GetHp() > 0)
-		{
-			if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
-				_monster1->GetAttacked(PLAYER->GetNowGunDamage());
-		}
+		if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+			_monster1->GetAttacked(PLAYER->GetNowGunDamage());
 
 
 
@@ -351,9 +352,9 @@ void CupHeadScene::CheckAttack()
 	if (_rMonster->_isAlive && PLAYER->GetHp() > 0)
 	{
 
-		if (_rMonster->_isAlive && PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+		if (PLAYER->IsCollision_Bullets(_rMonster->GetCollider()))
 		{
-			_monster1->GetAttacked(PLAYER->GetNowGunDamage());
+			_rMonster->GetAttacked(PLAYER->GetNowGunDamage());
 		}
 
 		if (_rMonster->GetCollider()->IsCollision(PLAYER->GetCollider()))

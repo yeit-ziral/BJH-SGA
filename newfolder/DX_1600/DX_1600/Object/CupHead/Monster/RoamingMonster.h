@@ -14,6 +14,7 @@ public:
 
 	void SetPosition(Vector2 pos) { _monster->GetTransform()->SetPosition(pos); }
 
+	void SetHp(int value) { _hp = value; }
 	const int& GetHp() { return _hp; }
 	void ResetHp() { _hp = _maxHp; }
 	const int GetMaxHp() { return _maxHp; }

@@ -13,8 +13,6 @@ BossRoom::BossRoom()
 
 	_wall = make_shared<Cup_Wall>();
 
-	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
-
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/UI/Button.png");
 	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(96, 48));
 	_button->SetPosition(Vector2(WIN_WIDTH * 0.5f - 70.0f, WIN_HEIGHT * 0.5f - 24.0f));

@@ -112,6 +112,7 @@ void RoamingMonster::Attack(shared_ptr<Collider> collider)
 		_hp = 0;
 		EFFECT_PLAY("Exp2", _monster->GetTransform()->GetWorldPosition());
 		_time = 0.0f;
+		_isAlive = false;
 	}
 
 }
@@ -126,6 +127,8 @@ void RoamingMonster::GetAttacked(int amount)
 	if (_hp <= 0)
 	{
 		_hp = 0;
+		EFFECT_PLAY("Exp2", _monster->GetTransform()->GetWorldPosition());
+		_isAlive = false;
 	}
 }
 

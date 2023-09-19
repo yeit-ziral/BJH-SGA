@@ -49,8 +49,6 @@ Cup_Boss::Cup_Boss()
 		shared_ptr<HowitzerBullet> bullet = make_shared<HowitzerBullet>();
 		_Hbullets.push_back(bullet);
 	}
-
-	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/explosion.png", Vector2(5, 3), Vector2(150, 150));
 }
 
 Cup_Boss::~Cup_Boss()

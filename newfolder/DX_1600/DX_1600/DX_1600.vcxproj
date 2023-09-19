@@ -373,6 +373,7 @@
     <Image Include="Resource\CupHead\player\Idle.png" />
     <Image Include="Resource\CupHead\weapon\rifle.png" />
     <Image Include="Resource\FixingTool.png" />
+    <Image Include="Resource\GreenExplosion.png" />
     <Image Include="Resource\Helmet.png" />
     <Image Include="Resource\howitzerBullet.png" />
     <Image Include="Resource\KingBullet.png" />
