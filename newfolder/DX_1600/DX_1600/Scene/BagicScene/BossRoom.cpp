@@ -120,15 +120,14 @@ void BossRoom::Update()
 				_boss->Damage(15);
 		}
 
-		if (_boss->IsCollsion_Bullets(PLAYER->GetCollider()) && PLAYER->_isAlive)
+		if (PLAYER->IsAlive() && _boss->IsCollsion_Bullets(PLAYER->GetCollider()))
 		{
 			PLAYER->Damaged(_boss->GetDamage());
-			//_player->SetHit(true);
 		}
 
 		if (_boss->IsDash())
 		{
-			if(PLAYER->GetCollider()->IsCollision(_boss->GetCollider()) && PLAYER->_isAlive)
+			if(PLAYER->IsAlive() && PLAYER->GetCollider()->IsCollision(_boss->GetCollider()))
 			{
 				PLAYER->Damaged(_boss->GetDashDamage());
 			}

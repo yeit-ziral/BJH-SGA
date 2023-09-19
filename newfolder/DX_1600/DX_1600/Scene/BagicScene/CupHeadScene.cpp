@@ -324,7 +324,7 @@ void CupHeadScene::CheckAttack()
 			PLAYER->Damaged(_monster->GetDamage());
 		}
 
-		if (PLAYER->IsCollision_Bullets(_monster->GetCollider()))
+		if (_monster->_isAlive && PLAYER->IsCollision_Bullets(_monster->GetCollider()))
 		{
 			_monster->GetAttacked(PLAYER->GetNowGunDamage());
 		}
@@ -333,9 +333,10 @@ void CupHeadScene::CheckAttack()
 	if (_monster1->_isAlive && PLAYER->GetHp() > 0)
 	{
 
-		if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+		if (_monster1->GetHp() > 0)
 		{
-			_monster1->GetAttacked(PLAYER->GetNowGunDamage());
+			if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+				_monster1->GetAttacked(PLAYER->GetNowGunDamage());
 		}
 
 
@@ -350,7 +351,7 @@ void CupHeadScene::CheckAttack()
 	if (_rMonster->_isAlive && PLAYER->GetHp() > 0)
 	{
 
-		if (PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
+		if (_rMonster->_isAlive && PLAYER->IsCollision_Bullets(_monster1->GetCollider()))
 		{
 			_monster1->GetAttacked(PLAYER->GetNowGunDamage());
 		}

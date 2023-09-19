@@ -17,5 +17,4 @@ public:
 private:
 	TerrainEditor* terrainEditor;
 
-	Vector3 pickedPos;
 };

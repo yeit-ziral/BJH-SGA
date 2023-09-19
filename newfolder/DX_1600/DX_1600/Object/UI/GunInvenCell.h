@@ -18,9 +18,14 @@ public:
 
 	GunState GetGunState() { return _gunState; }
 
+	// 아이템을 먹을 때 Items를 바꿔주는 함수
+	void SetItemState(GunState itemState) { _gunState = itemState; }
+
 	bool _isFilled = false;
 
-	void FillInven();
+	shared_ptr<Transform> GetTransform() { return _collider->GetTransform(); }
+
+	shared_ptr<Gun>GetNowGun();
 
 private:
 	shared_ptr<Collider> _collider;
