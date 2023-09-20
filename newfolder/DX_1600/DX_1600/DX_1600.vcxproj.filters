@@ -681,6 +681,15 @@
     <Image Include="Resource\GreenExplosion.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\UI\RedLine.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\UI\RedSquare.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\UI\HpBarFrame.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />

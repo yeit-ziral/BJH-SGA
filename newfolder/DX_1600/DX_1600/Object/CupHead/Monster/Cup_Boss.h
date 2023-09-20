@@ -114,6 +114,8 @@ private:
 	vector<shared_ptr<Cup_Bullet>> _bullets;
 	vector<shared_ptr<class HowitzerBullet>> _Hbullets;
 
+	shared_ptr<class HPBar> _hpBar;
+
 	int shootCount = 0;
 
 	float _jumpPower = 0.0f;
