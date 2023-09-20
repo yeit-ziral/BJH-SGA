@@ -37,6 +37,10 @@ using namespace DirectX;
 
 #include "ImGuiFileDialog.h"
 
+#include <Shlwapi.h>
+
+#pragma comment(lib, "shlwapi.lib")
+
 #include "DirectXTex.h"
 #include "DirectXTex.inl"
 

@@ -21,6 +21,8 @@ Texture* Texture::Get(wstring file)
 	// 있으면 있는거 리턴
 	file = L"Texture/" + file;
 
+	assert(PathFileExists(file.c_str())); // 없는 파일을 추가했을때 실제로 파일이 있는지 확인(PathFileExists)하고 없으면 중단(assert)
+
 	if (textures.count(file) > 0)
 		return textures[file];
 

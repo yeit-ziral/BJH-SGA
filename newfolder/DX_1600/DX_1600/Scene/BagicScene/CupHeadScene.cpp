@@ -235,11 +235,6 @@ void CupHeadScene::Update()
 		_randomBox->IsCollision(PLAYER);
 	}
 
-	//if (KEY_DOWN(VK_LBUTTON))
-	//{
-	//	EFFECT_PLAY("Hit", W_MOUSE_POS);
-	//}
-
 	if (PLAYER->GetCollider()->GetTransform()->GetWorldPosition().y < (_track->GetCollider()->GetTransform()->GetWorldPosition().y - 1000.0f))
 	{
 		PLAYER->SetHp(0);
@@ -364,6 +359,13 @@ void CupHeadScene::CheckAttack()
 		}
 	}
 
+	_monster->IsCollsion_Bullets(_track->GetCollider());
+	_monster1->IsCollsion_Bullets(_track->GetCollider());
+	PLAYER->IsCollision_Bullets(_track->GetCollider());
+
+	_monster->IsCollsion_Bullets(_track2->GetCollider());
+	_monster1->IsCollsion_Bullets(_track2->GetCollider());
+	PLAYER->IsCollision_Bullets(_track2->GetCollider());
 }
 
 void CupHeadScene::Save()

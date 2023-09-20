@@ -25,7 +25,8 @@ Quad::Quad(Vector2 size)
 	mesh = new Mesh(vertices, indices);
 
 	material = new Material();
-	material->SetShader(L"Diffuse");
+	//material->SetShader(L"Diffuse");
+	material->SetShader(L"TerrainBrush");
 	material->SetDiffuseMap(L"Landscape/Box.png");
 
 	worldBuffer = new MatrixBuffer();

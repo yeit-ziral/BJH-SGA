@@ -41,6 +41,15 @@ void MainGame::Render()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
+	if (isWireFrame)
+	{
+		RS->ChangeState(D3D11_FILL_WIREFRAME);
+	}
+	else
+	{
+		RS->ChangeState(D3D11_FILL_SOLID);
+	}
+
 	scene->PreRender();
 
 	Device::GetInstance()->Clear();
@@ -55,6 +64,8 @@ void MainGame::Render()
 	Camera::GetInstance()->PostRender();
 
 	Environment::GetInstance()->PostRender();
+
+	ImGui::Checkbox("WireFrame", &isWireFrame);
 
 	ImGui::Render();
 

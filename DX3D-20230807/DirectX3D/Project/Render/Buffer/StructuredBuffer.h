@@ -6,6 +6,7 @@ public:
 	~StructuredBuffer();
 
 	void Copy(void* data, UINT size); // GPU에서 넘겨받은 읽을 수 있는 데이터를 쓸 수 있는 데이터로 변환
+	void UpdateInput(void* data);
 
 	ID3D11UnorderedAccessView* GetUAV() { return uav; }
 	ID3D11ShaderResourceView* GetSRV() { return srv; }

@@ -123,6 +123,8 @@ void BossRoom::Update()
 			PLAYER->Damaged(_boss->GetDamage());
 		}
 
+		_boss->IsCollsion_Bullets(_track->GetCollider());
+
 		if (_boss->IsDash())
 		{
 			if(PLAYER->IsAlive() && PLAYER->GetCollider()->IsCollision(_boss->GetCollider()))

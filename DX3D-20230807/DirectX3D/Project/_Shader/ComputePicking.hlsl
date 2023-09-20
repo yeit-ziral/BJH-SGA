@@ -28,7 +28,7 @@ struct OutputDesc
     float distance;
 };
 
-StructuredBuffer<InputDesc>     input : register(t0);
+StructuredBuffer<InputDesc>     input : register(t0); //structuredBuffer의 input에 vertices를 받아옴
 RWStructuredBuffer<OutputDesc> output : register(u0);
 
 void Intersects(uint index)

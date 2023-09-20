@@ -12,6 +12,8 @@ VertexShader* Shader::GetVS(wstring file)
 {
     file = L"_Shader/Vertex" + file + L".hlsl";
 
+    assert(PathFileExists(file.c_str()));
+
     if (shaders.count(file) > 0)
         return (VertexShader*)shaders[file]; // 명시적 형변환, 강제적으로 형변환을 시킴(static_cast), dynamic_cast는 형변환이 안되면 null 반환, 때에 따라 강제로 형변환 시켜서 안되면 터지도록 하는게 오류 찾기 더 편함
 
@@ -23,6 +25,8 @@ VertexShader* Shader::GetVS(wstring file)
 PixelShader* Shader::GetPS(wstring file)
 {
     file = L"_Shader/Pixel" + file + L".hlsl";
+
+    assert(PathFileExists(file.c_str()));
 
     if (shaders.count(file) > 0)
         return (PixelShader*)shaders[file];
@@ -37,6 +41,8 @@ PixelShader* Shader::GetPS(wstring file)
 ComputeShader* Shader::GetCS(wstring file)
 {
     file = L"_Shader/" + file + L".hlsl";
+
+    assert(PathFileExists(file.c_str()));
 
     if (shaders.count(file) > 0)
         return (ComputeShader*)shaders[file];

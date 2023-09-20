@@ -457,7 +457,7 @@ bool Cup_Boss::IsCollsion_Bullets(shared_ptr<Collider> col)
 		if (col->IsCollision(bullet->GetBulletCollider()))
 		{
 			bullet->_isActive = false;
-			EFFECT_PLAY("Hit", bullet->GetBulletCollider()->GetTransform()->GetWorldPosition());
+			EFFECT_PLAY("Exp2", bullet->GetBulletCollider()->GetTransform()->GetWorldPosition());
 			return true;
 		}
 	}
