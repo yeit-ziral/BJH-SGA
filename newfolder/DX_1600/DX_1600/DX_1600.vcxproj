@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\UI\BossHpBar.h" />
     <ClInclude Include="Framework\Utility\Font.h" />
     <ClInclude Include="Object\UI\GunInvenCell.h" />
     <ClInclude Include="Scene\EffectScene.h" />
@@ -240,6 +241,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\UI\BossHpBar.cpp" />
     <ClCompile Include="Framework\Utility\Font.cpp" />
     <ClCompile Include="Object\UI\GunInvenCell.cpp" />
     <ClCompile Include="Scene\EffectScene.cpp" />

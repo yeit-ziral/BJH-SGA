@@ -3,7 +3,7 @@
 class HPBar
 {
 public:
-	HPBar(wstring path, Vector2 size);
+	HPBar(wstring path = L"Resource/UI/RedSquare.png", Vector2 size = Vector2(800, 50));
 	~HPBar();
 
 	void Update();
@@ -25,6 +25,8 @@ public:
 
 	Vector2 GetXSizeHalf() { return _quad->GetQuadHalfSize(); }
 
+	shared_ptr<Transform> GetTransform() { return _transform; }
+
 private:
 	shared_ptr<Quad> _quad;
 	shared_ptr<Transform> _transform;
@@ -32,7 +34,4 @@ private:
 	shared_ptr<IntBuffer> _intBuffer;
 	UINT _maxHP = 100;
 	UINT _curHP = 100;
-
-	shared_ptr<Quad>		_frameQuad;
-	shared_ptr<Transform>	_frameTransform;
 };

@@ -13,6 +13,7 @@
 #include "../../Object/CupHead/Items/SpeedBoots.h"
 #include "../../Object/CupHead/Items/RandomBox.h"
 #include "../../Object/CupHead/Monster/RoamingMonster.h"
+////////////
 
 Lobby::Lobby()
 {
@@ -57,6 +58,13 @@ Lobby::Lobby()
 	_randomBox->GetTransform()->SetPosition(Vector2(300, -50));
 	_randomBox->SetRandomItem();
 	_randomBox->_isActive = true;
+
+
+
+	/// <summary>
+	/// //////////////////////////////////////////
+	/// </summary>
+
 }
 
 Lobby::~Lobby()
@@ -156,6 +164,13 @@ void Lobby::Update()
 		 _randomBox->SetItemStateNone();
 		 SceneManager::GetInstance()->NextScene();
 	 }
+
+
+
+	 /// <summary>
+	 /// //////////////////////////////////////////
+	 /// </summary>
+
 }
 
 void Lobby::Render()
@@ -180,6 +195,7 @@ void Lobby::Render()
 	PLAYER->PostRender();
 
 	ImGui::Text("RandomBoxPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
+
 }
 
 void Lobby::Save()

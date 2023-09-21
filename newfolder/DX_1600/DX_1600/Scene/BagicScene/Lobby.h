@@ -36,4 +36,6 @@ private:
 
 	shared_ptr<class RandomBox> _randomBox;
 
+
+	shared_ptr<class BossHpBar> _bossHp;
 };

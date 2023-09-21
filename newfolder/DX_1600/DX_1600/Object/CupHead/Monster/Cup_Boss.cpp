@@ -50,9 +50,6 @@ Cup_Boss::Cup_Boss()
 		shared_ptr<HowitzerBullet> bullet = make_shared<HowitzerBullet>();
 		_Hbullets.push_back(bullet);
 	}
-
-	_hpBar = make_shared<HPBar>(L"Resource/UI/RedSquare.png", Vector2(800, 50));
-	_hpBar->SetPosition(Vector2(WIN_WIDTH * 0.5f, 10.0f));
 }
 
 Cup_Boss::~Cup_Boss()

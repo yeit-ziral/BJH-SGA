@@ -7,6 +7,8 @@
 #include "../../Object/CupHead/Potal.h"
 #include "../../Object/CupHead/Items/RandomBox.h"
 
+#include "../../Object/UI/BossHpBar.h"
+
 BossRoom::BossRoom()
 {
 	_track = make_shared<Cup_Track>();
@@ -30,6 +32,11 @@ BossRoom::BossRoom()
 
 	_randomBox = make_shared<RandomBox>();
 	_randomBox->GetTransform()->SetPosition(Vector2(-200, 0));
+
+	_bossHp = make_shared<BossHpBar>();
+
+	Vector2 A = _bossHp->GetCollider()->GetTransform()->GetWorldScale();
+	_bossHp->GetCollider()->GetTransform()->SetPosition(Vector2(WIN_WIDTH * 0.5f - A.x , WIN_HEIGHT * 0.5f - A.y - 5));
 
 	Load();
 }
@@ -55,6 +62,8 @@ void BossRoom::Init()
 	_randomBox->SetRandomItem();
 	_randomBox->_isActive = false;
 
+	_bossHp->SetMaxHp(_boss->GetMaxHp());
+
 	Load();
 }
 
@@ -72,6 +81,7 @@ void BossRoom::Update()
 	_potal->Update();
 	_hpBar->Update();
 	_gunHpBar->Update();
+	_bossHp->Update();
 
 	if (_boss->_isAlive == false)
 		_potal->_isActive = true;
@@ -148,6 +158,8 @@ void BossRoom::Update()
 
 	_gunHpBar->SetPosition(Vector2(b.x - WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f - a.y - (b.y * 2.0f)));
 
+	_bossHp->SetCurHp(_boss->GetHp());
+
 	if (_potal->IsCollision(PLAYER->GetCollider()) && _boss->_isAlive == false)
 	{
 		_potal->_isActive = false;
@@ -217,6 +229,8 @@ void BossRoom::PostRender()
 
 	_hpBar->PostRender();
 	_gunHpBar->PostRender();
+
+	_bossHp->Render();
 }
 
 void BossRoom::CheckAttack()
