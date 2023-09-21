@@ -27,6 +27,7 @@ Material::Material(wstring file)
 	char path[128];
 
 	GetCurrentDirectoryA(128, path);
+	//GetCurrentDirectory(128, path);
 
 	projectDir = path;
 
@@ -109,7 +110,6 @@ void Material::PostRender()
 
 void Material::SelectMap()
 {
-#define Dialog ImGuiFileDialog::Instance()
 
 	if (ImGui::BeginChild(ID.c_str(), ImVec2(100, 85), true)) // ImGui는 Begin을 하면 꼭 End를 해줘야 함
 	{
@@ -148,6 +148,6 @@ void Material::SelectMap()
 			Dialog->Close();
 		}
 
-		ImGui::EndChild();
 	}
+		ImGui::EndChild();
 }

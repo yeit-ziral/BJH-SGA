@@ -9,6 +9,8 @@ TerrainEditorScene::TerrainEditorScene()
 	terrainEditor->GetMaterial()->SetNormalMap  (L"LandScape/fieldstone_NM.tga");
 
 	//RawData();
+
+	wstring str = GetProjectDir();
 }
 
 TerrainEditorScene::~TerrainEditorScene()
@@ -34,6 +36,7 @@ void TerrainEditorScene::PostRender()
 {
 	terrainEditor->Debug();
 	terrainEditor->GetMaterial()->SelectMap();
+	terrainEditor->GetMaterial()->PostRender();
 }
 
 void TerrainEditorScene::RawData()

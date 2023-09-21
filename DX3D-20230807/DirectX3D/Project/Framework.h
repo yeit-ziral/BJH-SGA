@@ -62,6 +62,8 @@ using namespace DirectX;
 
 #define PI 3.141592
 
+#define Dialog ImGuiFileDialog::Instance()
+
 
 typedef XMMATRIX Matrix; // typedef(typedefine)은 코드라서 ; 필요, define은 메크로라서 ; 없음
 typedef XMFLOAT4 Vector4;

@@ -32,4 +32,7 @@ private:
 	shared_ptr<IntBuffer> _intBuffer;
 	UINT _maxHP = 100;
 	UINT _curHP = 100;
+
+	shared_ptr<Quad>		_frameQuad;
+	shared_ptr<Transform>	_frameTransform;
 };
