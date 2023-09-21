@@ -16,8 +16,10 @@ BossHpBar::BossHpBar()
 
 	_frameQuad = make_shared<Quad>(L"Resource/UI/HpBarFrame.png");
 
-	_hpBar->GetTransform()->SetScale(Vector2(_frameTransform->GetWorldScale().x / 1.1f, _frameTransform->GetWorldScale().y * 0.9));
 
+	_hpBar->GetTransform()->SetScale(Vector2(1, 600));
+
+	_hpBar->GetTransform()->SetScale(Vector2(_frameTransform->GetWorldScale().x / 1.1f, _frameTransform->GetWorldScale().y * 0.9f));
 }
 
 BossHpBar::~BossHpBar()
