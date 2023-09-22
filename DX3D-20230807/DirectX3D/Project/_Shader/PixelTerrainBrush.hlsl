@@ -34,14 +34,21 @@ float3 SetBrushColor(float3 pos) // VertexOutput의 worldPos값을 받아서 계산함
         if (distance <= range)
             return color; // BrushBuffer의 color
     }
-    if (type == 1)
+    else if (type == 1)
     {
         float x = abs(pos.x - location.x);
         float z = abs(pos.z - location.z);
         
         if (x <= range && z <= range)
             return color;
+    }
+    else if (type == 2)
+    {
+        float x = abs(pos.x - location.x);
+        float z = abs(pos.z - location.z);
         
+        if (x <= range && z <= range)
+            return color;
     }
     
     return float3(0, 0, 0);

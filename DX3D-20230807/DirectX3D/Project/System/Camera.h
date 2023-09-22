@@ -28,6 +28,9 @@ private:
 
 	void SetView();
 
+	void Save();
+	void Load();
+
 private:
 	Transform* transform;
 

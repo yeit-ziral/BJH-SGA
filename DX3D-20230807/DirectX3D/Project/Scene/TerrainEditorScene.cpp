@@ -11,6 +11,11 @@ TerrainEditorScene::TerrainEditorScene()
 	//RawData();
 
 	wstring str = GetProjectDir();
+
+	BinaryWriter data(L"Data");
+	data.WriteData(10);
+	data.WriteData(1.5f);
+	data.WriteData("HelloWorld");
 }
 
 TerrainEditorScene::~TerrainEditorScene()

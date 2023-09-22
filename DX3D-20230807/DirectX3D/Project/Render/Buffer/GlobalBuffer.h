@@ -119,7 +119,8 @@ public:
 
 	struct Data
 	{
-		int	type	= 1;
+		//int	type	= 1;
+		int	type	= 0;
 		Vector3 location = {};
 
 		float	range = 10;

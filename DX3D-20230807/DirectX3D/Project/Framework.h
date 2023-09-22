@@ -79,6 +79,9 @@ typedef XMFLOAT2 Vector2;
 
 #include "Utility/Font/Font.h"
 
+#include "Utility/BinaryReader.h"
+#include "Utility/BinaryWriter.h"
+
 using namespace Utility;
 
 #define FONT Font::GetInstance()

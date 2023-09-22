@@ -90,7 +90,7 @@ public:
 private:
 	void SetLeft();
 	void SetRight();
-	int _hp = 10;
+	int _hp = 45;
 	int _maxHp = 10;
 
 

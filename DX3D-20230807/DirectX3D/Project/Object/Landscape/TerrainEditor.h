@@ -81,4 +81,6 @@ private:
 	BrushBuffer* brushBuffer;
 
 	float adjustValue = 20.0f;
+
+	bool isRaise = true;
 };

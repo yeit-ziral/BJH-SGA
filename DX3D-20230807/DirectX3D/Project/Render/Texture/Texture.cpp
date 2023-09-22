@@ -18,6 +18,9 @@ Texture::~Texture()
 
 Texture* Texture::Get(wstring file)
 {
+	wstring path = file;
+
+
 	// 있으면 있는거 리턴
 	file = L"Texture/" + file;
 
@@ -54,11 +57,15 @@ Texture* Texture::Get(wstring file)
 
 	textures[file] = new Texture(srv, image);
 
+	textures[file]->path = path;
+
 	return textures[file];
 }
 
 Texture* Texture::Load(wstring file)
 {
+	wstring path = file;
+
 	// 있으면 있는거 리턴
 	file = L"Texture/" + file;
 
@@ -96,6 +103,8 @@ Texture* Texture::Load(wstring file)
 	);
 
 	textures[file] = new Texture(srv, image);
+
+	textures[file]->path = path;
 
 	return textures[file];
 }
