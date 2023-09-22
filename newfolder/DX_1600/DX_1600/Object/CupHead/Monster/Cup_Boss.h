@@ -91,7 +91,7 @@ private:
 	void SetLeft();
 	void SetRight();
 	int _hp = 45;
-	int _maxHp = 10;
+	int _maxHp = 45;
 
 
 	bool _isLeft = true;

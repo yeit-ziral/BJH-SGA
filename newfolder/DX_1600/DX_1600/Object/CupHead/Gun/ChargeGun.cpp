@@ -10,6 +10,8 @@ ChargeGun::ChargeGun()
 	_gunTrans->SetScale({ 5,5 });
 	_atkSpeed = 0.001f;
 
+	EffectManager::AddEffect("Charging", L"Resource/")
+
 	for (int i = 0; i < 30; i++)
 	{
 		shared_ptr<ChargingBullet> bullet = make_shared<ChargingBullet>();

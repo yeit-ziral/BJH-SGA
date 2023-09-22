@@ -119,11 +119,11 @@ void BossRoom::Update()
 		if (PLAYER->IsCollision_Bullets(_boss->GetCollider()))
 		{
 			if (PLAYER->GetNowGun() == Cup_Player::Gun::MACHINE)
-				_boss->Damage(PLAYER->GetNowGunDamage());
+				_boss->GetAttacked(PLAYER->GetNowGunDamage());
 			if (PLAYER->GetNowGun() == Cup_Player::Gun::NORMAL)
-				_boss->Damage(PLAYER->GetNowGunDamage());
+				_boss->GetAttacked(PLAYER->GetNowGunDamage());
 			if (PLAYER->GetNowGun() == Cup_Player::Gun::CHARGE)
-				_boss->Damage(PLAYER->GetNowGunDamage());
+				_boss->GetAttacked(PLAYER->GetNowGunDamage());
 		}
 
 		if (PLAYER->IsAlive() && _boss->IsCollsion_HBullets(PLAYER->GetCollider()))
