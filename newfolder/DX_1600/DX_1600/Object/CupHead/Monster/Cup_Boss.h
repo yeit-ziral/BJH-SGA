@@ -73,6 +73,7 @@ public:
 	void GetAttacked(int amount);
 
 	bool IsCollsion_Bullets(shared_ptr<Collider> col);
+	bool IsCollsion_HBullets(shared_ptr<Collider> col);
 
 	Boss_State GetBossState() { return _state; }
 
@@ -81,6 +82,7 @@ public:
 	void SetState(Boss_State value) { _state = value; }
 
 	int GetDamage() { return _damage; }
+	int GetDamageH() { return _damageH; }
 	int GetDashDamage() { return _dashDamage; }
 
 	int GetMaxHp() { return _maxHp; }
@@ -128,7 +130,8 @@ private:
 
 	float _timer = 0.0f;
 
-	int _damage = 2;
+	int _damage = 1;
+	int _damageH = 3;
 	int _dashDamage = 5;
 };
 

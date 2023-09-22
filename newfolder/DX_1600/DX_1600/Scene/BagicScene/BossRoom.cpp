@@ -25,8 +25,6 @@ BossRoom::BossRoom()
 	_potal = make_shared<Potal>();
 	_potal->SetPosition(Vector2(100.0f, 0.0f));
 
-	//_player->SetHP(_player->GetMaxHp());
-
 	_hpBar = make_shared<HPBar>(L"Resource/UI/Button.png", Vector2(500, 50));
 	_gunHpBar = make_shared<HPBar>(L"Resource/UI/Bar.png", Vector2(500, 50));
 
@@ -37,11 +35,6 @@ BossRoom::BossRoom()
 
 	Vector2 A = _bossHp->GetCollider()->GetTransform()->GetWorldScale();
 	_bossHp->GetCollider()->GetTransform()->SetPosition(Vector2(WIN_WIDTH * 0.5f - A.x - 300.0f, WIN_HEIGHT * 0.5f - A.y - 50));
-
-
-	/// <summary>
-	Init();
-	/// </summary>
 
 	Load();
 }
@@ -126,19 +119,24 @@ void BossRoom::Update()
 		if (PLAYER->IsCollision_Bullets(_boss->GetCollider()))
 		{
 			if (PLAYER->GetNowGun() == Cup_Player::Gun::MACHINE)
-				_boss->Damage(1);
+				_boss->Damage(1 + PLAYER->GetNowGunDamage());
 			if (PLAYER->GetNowGun() == Cup_Player::Gun::NORMAL)
-				_boss->Damage(5);
+				_boss->Damage(5 + PLAYER->GetNowGunDamage());
 			if (PLAYER->GetNowGun() == Cup_Player::Gun::CHARGE)
-				_boss->Damage(15);
+				_boss->Damage(15 + PLAYER->GetNowGunDamage());
 		}
 
+		if (PLAYER->IsAlive() && _boss->IsCollsion_HBullets(PLAYER->GetCollider()))
+		{
+			PLAYER->Damaged(_boss->GetDamageH());
+		}
 		if (PLAYER->IsAlive() && _boss->IsCollsion_Bullets(PLAYER->GetCollider()))
 		{
 			PLAYER->Damaged(_boss->GetDamage());
 		}
 
 		_boss->IsCollsion_Bullets(_track->GetCollider());
+		_boss->IsCollsion_HBullets(_track->GetCollider());
 
 		if (_boss->IsDash())
 		{

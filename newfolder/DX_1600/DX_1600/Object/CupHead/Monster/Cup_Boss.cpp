@@ -450,19 +450,6 @@ void Cup_Boss::GetAttacked(int amount)
 
 bool Cup_Boss::IsCollsion_Bullets(shared_ptr<Collider> col)
 {
-	for (auto bullet : _Hbullets)
-	{
-		if (bullet->_isActive == false)
-			continue;
-
-		if (col->IsCollision(bullet->GetBulletCollider()))
-		{
-			bullet->_isActive = false;
-			EFFECT_PLAY("Exp2", bullet->GetBulletCollider()->GetTransform()->GetWorldPosition());
-			return true;
-		}
-	}
-
 	for (auto bullet : _bullets)
 	{
 		if (bullet->_isActive == false)
@@ -472,6 +459,24 @@ bool Cup_Boss::IsCollsion_Bullets(shared_ptr<Collider> col)
 		{
 			bullet->_isActive = false;
 			EFFECT_PLAY("Hit", bullet->GetPosition());
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Cup_Boss::IsCollsion_HBullets(shared_ptr<Collider> col)
+{
+	for (auto bullet : _Hbullets)
+	{
+		if (bullet->_isActive == false)
+			continue;
+
+		if (col->IsCollision(bullet->GetBulletCollider()))
+		{
+			bullet->_isActive = false;
+			EFFECT_PLAY("Exp2", bullet->GetBulletCollider()->GetTransform()->GetWorldPosition());
 			return true;
 		}
 	}
