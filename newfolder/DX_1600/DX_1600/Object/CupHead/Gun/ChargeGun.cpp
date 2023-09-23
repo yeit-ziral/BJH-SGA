@@ -10,7 +10,7 @@ ChargeGun::ChargeGun()
 	_gunTrans->SetScale({ 5,5 });
 	_atkSpeed = 0.001f;
 
-	EffectManager::AddEffect("Charging", L"Resource/")
+	_chargeEffect = make_shared<Sprite>(L"Resource/chargingEffect/chargingEffect.png", "Resource/chargingEffect/chargingEffect.xml", Vector2(40, 40));
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -68,7 +68,8 @@ void ChargeGun::Render()
 	for (auto bullet : _Cbullets)
 		bullet->Render();
 
-	//_chargingEffect->Render();
+	if (_isCharging)
+		_chargeEffect->Render();
 }
 
 void ChargeGun::PostRender()
@@ -78,7 +79,49 @@ void ChargeGun::PostRender()
 
 void ChargeGun::Charge()
 {
+	_isCharging = true;
 	_chargingCount += DELTA_TIME;
+
+	if (_chargingCount < 0.125f)
+	{
+		_chargeEffect->SetCurClip(0);
+		_chargeEffect->Update();
+	}
+	if (_chargingCount > 0.125 && _chargingCount < 0.25f)
+	{
+		_chargeEffect->SetCurClip(1);
+		_chargeEffect->Update();
+	}
+	if (_chargingCount > 0.25f && _chargingCount < 0.375f)
+	{
+		_chargeEffect->SetCurClip(2);
+		_chargeEffect->Update();
+	}
+	if (_chargingCount > 0.375f && _chargingCount < 0.5f)
+	{
+		_chargeEffect->SetCurClip(3);
+		_chargeEffect->Update();
+	}
+	if (_chargingCount > 0.5f && _chargingCount < 0.625f)
+	{
+		_chargeEffect->SetCurClip(4);
+		_chargeEffect->Update();
+	}
+	if (_chargingCount > 0.625f && _chargingCount < 0.75f)
+	{
+		_chargeEffect->SetCurClip(5);
+		_chargeEffect->Update();
+	}
+	if (_chargingCount > 0.75f && _chargingCount < 0.875f)
+	{
+		_chargeEffect->SetCurClip(6);
+		_chargeEffect->Update();
+	}
+	if (_chargingCount > 0.875f && _chargingCount < 1.0f)
+	{
+		_chargeEffect->SetCurClip(7);
+		_chargeEffect->Update();
+	}
 }
 
 void ChargeGun::Fire(Vector2 dir)

@@ -259,6 +259,7 @@ void Cup_Player::ChargeFire()
 	{
 		_chargeGun->Fire(_gunShootDir);
 		_chargeGun->SetChargingCount(0);
+		_chargeGun->EndCharging();
 	}
 }
 

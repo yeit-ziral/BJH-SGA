@@ -19,6 +19,8 @@ public:
 
 	bool IsCollision_CBullet(shared_ptr<Collider> col);
 
+	void EndCharging() { _isCharging = false; }
+
 private:
 
 	vector<shared_ptr<class ChargingBullet>> _Cbullets;
@@ -28,4 +30,6 @@ private:
 	bool _isCharging = false;
 
 	float _chargingCount = 0.0f;
+
+	shared_ptr<Sprite> _chargeEffect;
 };
