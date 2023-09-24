@@ -87,6 +87,8 @@ void TerrainEditor::Render()
 	brushBuffer->SetPSBuffer(10);
 
 	DC->DrawIndexed(indices.size(), 0, 0);
+
+	material->PostRender();
 }
 
 void TerrainEditor::Debug()

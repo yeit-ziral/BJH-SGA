@@ -23,6 +23,12 @@ public:
 
 	void SelectMap();
 
+	void SaveMap(wstring file);
+	void LoadMap(wstring file);
+
+	void SaveDialog();
+	void LoadDialog();
+
 private:
 	VertexShader* vertexShader = nullptr;
 	PixelShader*   pixelShader = nullptr;

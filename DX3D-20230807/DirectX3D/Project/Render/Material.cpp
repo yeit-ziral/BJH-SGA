@@ -106,6 +106,9 @@ void Material::PostRender()
 	ImGui::Checkbox("HasNormalMap", (bool*)&buffer->data.hasNormalMap);
 
 	ImGui::SliderFloat("Shininess", &buffer->data.shininess, 1.0f, 50.0f);
+
+	SaveDialog();
+	LoadDialog();
 }
 
 void Material::SelectMap()
@@ -150,4 +153,70 @@ void Material::SelectMap()
 
 	}
 		ImGui::EndChild();
+}
+
+void Material::SaveMap(wstring file)
+{
+	BinaryWriter data(file);
+
+	data.WriteData(diffuseMap->GetPath());
+	data.WriteData(specularMap->GetPath());
+	data.WriteData(normalMap->GetPath());
+}
+
+void Material::LoadMap(wstring file)
+{
+	BinaryReader data(file);
+
+	SetDiffuseMap(data.ReadWString());
+	SetSpecularMap(data.ReadWString());
+	SetNormalMap(data.ReadWString());
+}
+
+void Material::SaveDialog()
+{
+	if (ImGui::Button("Save Map"))
+		Dialog->OpenDialog("SaveMap", "Save", ".materialMap", "_TextData/");
+
+	if (Dialog->Display("SaveMap"))
+	{
+		if (Dialog->IsOk())
+		{
+			string path = Dialog->GetFilePathName();
+
+			path = path.substr(projectDir.size() + 4, path.size());
+
+			wstring file = ToWString(path);
+			
+			if (Dialog->GetOpenedKey() == "SaveMap")
+				SaveMap(file);
+		}
+
+		Dialog->Close();
+	}
+}
+
+void Material::LoadDialog()
+{
+	if (ImGui::Button("Load Map"))
+	{
+		Dialog->OpenDialog("LoadMap", "Load", ".materialMap", "_TextData/");
+	}
+
+	if (Dialog->Display("LoadMap"))
+	{
+		if (Dialog->IsOk())
+		{
+			string path = Dialog->GetFilePathName();
+
+			path = path.substr(GetTextureDir().size() + 2, path.length());
+
+			wstring file = ToWString(path);
+
+			if(Dialog->GetOpenedKey() == "LoadMap")
+				LoadMap(ToWString(path));
+		}
+
+		Dialog->Close();
+	}
 }
