@@ -69,7 +69,7 @@ void CupHeadScene::Init()
 
 	PLAYER->SetJumpPower(0.0f);
 
-	if (_monster->_isAlive == false && _monster1->_isAlive ==false && _rMonster->_isAlive == false)
+	if (_monster->_isAlive == false || _monster1->_isAlive ==false || _rMonster->_isAlive == false)
 	{
 		_monster->~Cup_Monster();
 		_monster1->~Cup_Monster();

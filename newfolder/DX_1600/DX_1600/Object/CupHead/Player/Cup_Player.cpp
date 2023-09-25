@@ -151,7 +151,7 @@ void Cup_Player::PostRender()
 
 void Cup_Player::Input()
 {
-	if (!_isAlive)
+	if (!_isAlive || _hp <= 0)
 		return;
 
 	{
@@ -170,8 +170,14 @@ void Cup_Player::Input()
 			_invincible = false;
 	}
 
-	if (_animation->GetState() == Cup_Ani::State::HIT)
+	if (_animation->GetState() == Cup_Ani::State::HIT && _hp > 0)
+	{
+		_normalGun->Update();
+		_machineGun->Update();
+		_chargeGun->Update();
+
 		return;
+	}
 
 	if (KEY_PRESS('A'))
 	{

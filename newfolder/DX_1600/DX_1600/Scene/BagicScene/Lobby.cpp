@@ -84,7 +84,26 @@ void Lobby::Init()
 	PLAYER->SetPosition(Vector2(0, 0));
 	PLAYER->SetJumpPower(0.0f);
 
+	_helmet = make_shared<Helmet>();
+	_helmet->GetTransform()->SetPosition(Vector2(100, 0));
+	_helmet->_isActivated = true;
 
+	_speedBoots = make_shared<SpeedBoots>();
+	_speedBoots->GetTransform()->SetPosition(Vector2(-100, 0));
+	_speedBoots->_isActivated = true;
+
+	_hpPotion = make_shared<HpPotion>();
+	_hpPotion->GetTransform()->SetPosition(Vector2(-200, 0));
+	_hpPotion->_isActivated = true;
+
+	_fixingTool = make_shared<FixingTool>();
+	_fixingTool->GetTransform()->SetPosition(Vector2(-300, 0));
+	_fixingTool->_isActivated = true;
+
+	_randomBox = make_shared<RandomBox>();
+	_randomBox->GetTransform()->SetPosition(Vector2(300, -50));
+	_randomBox->SetRandomItem();
+	_randomBox->_isActive = true;
 
 	Vector2 trackSize = _track->GetTrackSize();
 
@@ -164,12 +183,6 @@ void Lobby::Update()
 		 _randomBox->SetItemStateNone();
 		 SceneManager::GetInstance()->NextScene();
 	 }
-
-
-
-	 /// <summary>
-	 /// //////////////////////////////////////////
-	 /// </summary>
 
 }
 

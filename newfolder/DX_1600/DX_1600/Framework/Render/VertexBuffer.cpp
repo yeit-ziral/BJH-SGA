@@ -10,6 +10,7 @@ VertexBuffer::VertexBuffer(void* data, UINT stride, UINT count, UINT offset)
 VertexBuffer::~VertexBuffer()
 {
 }
+
 void VertexBuffer::CreateVertexBuffer()
 {
     D3D11_BUFFER_DESC bd = {};
