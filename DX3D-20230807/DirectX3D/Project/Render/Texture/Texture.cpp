@@ -64,7 +64,7 @@ Texture* Texture::Get(wstring file)
 
 Texture* Texture::Load(wstring file)
 {
-	wstring path = file;
+	wstring path = file; // 멤버변수인 path는 static변수라서 같은 static변수나 함수 포인터만 받음
 
 	// 있으면 있는거 리턴
 	file = L"Texture/" + file;
@@ -79,7 +79,7 @@ Texture* Texture::Load(wstring file)
 	wstring extension = GetExtension(file);
 
 	// 없으면 만들어서 리턴
-	ScratchImage image;
+	ScratchImage image; // 위의 path와 같은 경우
 
 	if (extension == L"tga")
 		LoadFromTGAFile(file.c_str(), nullptr, image);

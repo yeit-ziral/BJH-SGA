@@ -23,11 +23,14 @@ public:
 
 	void SelectMap();
 
-	void SaveMap(wstring file);
-	void LoadMap(wstring file);
+	//void SaveMap(wstring file);
+	//void LoadMap(wstring file);
 
-	void SaveDialog();
-	void LoadDialog();
+	//void SaveDialogMap();
+	//void LoadDialogMap();
+
+	void Save(wstring file);
+	void Load(wstring file);
 
 private:
 	VertexShader* vertexShader = nullptr;
@@ -40,6 +43,9 @@ private:
 	MaterialBuffer* buffer = nullptr;
 
 	string projectDir; //project Directory
+	string projectDirMap; //project Directory
 
-	static string ID;
+	static int ID;
+
+	string label = "";
 };

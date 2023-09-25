@@ -64,7 +64,7 @@ string BinaryReader::ReadString()
 
 	delete[] data;
 
-    return data;
+    return str;
 }
 
 wstring BinaryReader::ReadWString()

@@ -4,9 +4,7 @@
 TerrainEditorScene::TerrainEditorScene()
 {
 	terrainEditor = new TerrainEditor(200, 200);
-	terrainEditor->GetMaterial()->SetDiffuseMap (L"LandScape/Fieldstone_DM.tga");
-	terrainEditor->GetMaterial()->SetSpecularMap(L"LandScape/fieldstone_SM.tga");
-	terrainEditor->GetMaterial()->SetNormalMap  (L"LandScape/fieldstone_NM.tga");
+
 
 	//RawData();
 
@@ -40,8 +38,7 @@ void TerrainEditorScene::Render()
 void TerrainEditorScene::PostRender()
 {
 	terrainEditor->Debug();
-	terrainEditor->GetMaterial()->SelectMap();
-	terrainEditor->GetMaterial()->PostRender();
+	//terrainEditor->GetMaterial()->PostRender();
 }
 
 void TerrainEditorScene::RawData()

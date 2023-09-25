@@ -1,11 +1,18 @@
 #include "Framework.h"
 #include "Material.h"
 
-string Material::ID = "";
+int Material::ID = 0;
 
 Material::Material()
 {
 	buffer = new MaterialBuffer();
+
+	SetShader(L"TerrainBrush");
+
+	SetDiffuseMap(L"LandScape/Fieldstone_DM.tga");
+	SetSpecularMap(L"LandScape/fieldstone_SM.tga");
+	SetNormalMap(L"LandScape/fieldstone_NM.tga");
+
 
 	char path[128];
 
@@ -15,25 +22,48 @@ Material::Material()
 
 	projectDir += "Texture";
 
-	ID += ".";
+	char pathC[128];
+
+	//GetCurrentDirectoryA(128, pathC);
+
+	//projectDirMap = pathC;
+
+	//projectDirMap += "_TextData/";
+
+	ID += 1; // Key값 중복 안되게 하려고
+
+	label = "Material" + to_string(ID);
 }
 
 Material::Material(wstring file)
 {
-	SetShader(file);
-
 	buffer = new MaterialBuffer();
+
+	SetDiffuseMap(L"LandScape/Fieldstone_DM.tga");
+	SetSpecularMap(L"LandScape/fieldstone_SM.tga");
+	SetNormalMap(L"LandScape/fieldstone_NM.tga");
+
+	SetShader(file);
 
 	char path[128];
 
 	GetCurrentDirectoryA(128, path);
-	//GetCurrentDirectory(128, path);
 
 	projectDir = path;
 
 	projectDir += "Texture/";
 
-	ID += ".";
+	char pathC[128];
+
+	GetCurrentDirectoryA(128, pathC);
+
+	projectDirMap = pathC;
+
+	projectDirMap += "_TextData/";
+
+	ID += 1;
+
+	label = "Material" + to_string(ID);
 }
 
 Material::~Material()
@@ -97,33 +127,49 @@ void Material::SetNormalMap(wstring file)
 
 void Material::PostRender()
 {
-	ImGui::ColorEdit4("Diffuse", (float*)&buffer->data.diffuse);
-	ImGui::ColorEdit4("Specular", (float*)&buffer->data.specular);
-	ImGui::ColorEdit4("Ambient", (float*)&buffer->data.ambient);
+		ImGui::InputText("Label", (char*)label.data(), 128);
 
-	ImGui::Checkbox("HasDiffuseMap", (bool*)&buffer->data.hasDiffuseMap);
-	ImGui::Checkbox("HasSpecularMap", (bool*)&buffer->data.hasSpecularMap);
-	ImGui::Checkbox("HasNormalMap", (bool*)&buffer->data.hasNormalMap);
+	if (ImGui::BeginMenu(label.c_str(), true))
+	{
 
-	ImGui::SliderFloat("Shininess", &buffer->data.shininess, 1.0f, 50.0f);
+		ImGui::ColorEdit4((label + "Diffuse").c_str(), (float*)&buffer->data.diffuse);
+		ImGui::ColorEdit4((label + "Specular").c_str(), (float*)&buffer->data.specular);
+		ImGui::ColorEdit4((label + "Ambient").c_str(), (float*)&buffer->data.ambient);
 
-	SaveDialog();
-	LoadDialog();
+		ImGui::Checkbox((label + "HasDiffuseMap").c_str(), (bool*)&buffer->data.hasDiffuseMap);
+		ImGui::Checkbox((label + "HasSpecularMap").c_str(), (bool*)&buffer->data.hasSpecularMap);
+		ImGui::Checkbox((label + "HasNormalMap").c_str(), (bool*)&buffer->data.hasNormalMap);
+
+		ImGui::SliderFloat((label + "Shininess").c_str(), &buffer->data.shininess, 1.0f, 50.0f);
+
+		if (ImGui::Button(("Save " + label).c_str()))
+			Save(ToWString(label + " Data"));
+
+		if (ImGui::Button(("Load " + label).c_str()))
+			Load(ToWString(label + " Load"));
+
+		ImGui::EndMenu();
+	}
+
+	SelectMap();
+
+	//SaveDialogMap();
+	//LoadDialogMap();
 }
 
 void Material::SelectMap()
 {
 
-	if (ImGui::BeginChild(ID.c_str(), ImVec2(100, 85), true)) // ImGui는 Begin을 하면 꼭 End를 해줘야 함
+	if (ImGui::BeginMenu(label.c_str())) // ImGui는 Begin을 하면 꼭 End를 해줘야 함
 	{
 		if (ImGui::Button("DiffuseMap"))
 			Dialog->OpenDialog("Diffuse", "Select Diffuse", ".png, .jpg, .tga", "Texture/");
 
-		if (ImGui::Button("SpecularMap"))
-			Dialog->OpenDialog("Specular", "Select Specular", ".png, .jpg, .tga", "Texture/");
-
 		if (ImGui::Button("NormalMap"))
 			Dialog->OpenDialog("Normal", "Select Normal", ".png, .jpg, .tga", "Texture/");
+
+		if (ImGui::Button("SpecularMap"))
+			Dialog->OpenDialog("Specular", "Select Specular", ".png, .jpg, .tga", "Texture/");
 
 		if (Dialog->Display("Diffuse") || Dialog->Display("Specular") || Dialog->Display("Normal"))
 		{
@@ -151,72 +197,139 @@ void Material::SelectMap()
 			Dialog->Close();
 		}
 
+		ImGui::EndMenu();
 	}
-		ImGui::EndChild();
 }
 
-void Material::SaveMap(wstring file)
+//void Material::SaveMap(wstring file)
+//{
+//	BinaryWriter data(file);
+//
+//	data.WriteData(diffuseMap->GetPath());
+//	data.WriteData(specularMap->GetPath());
+//	data.WriteData(normalMap->GetPath());
+//}
+//
+//void Material::LoadMap(wstring file)
+//{
+//	BinaryReader data(file);
+//
+//	SetDiffuseMap(data.ReadWString());
+//	SetSpecularMap(data.ReadWString());
+//	SetNormalMap(data.ReadWString());
+//}
+//
+//void Material::SaveDialogMap()
+//{
+//	if (ImGui::Button("Save Map"))
+//		Dialog->OpenDialog("SaveMap", "Save", ".materialMap", "_TextData/");
+//
+//	if (Dialog->Display("SaveMap"))
+//	{
+//		if (Dialog->IsOk())
+//		{
+//			string path = Dialog->GetFilePathName();
+//
+//			path = path.substr(projectDirMap.size() + 1, path.size());
+//
+//			wstring file = ToWString(path);
+//			
+//			if (Dialog->GetOpenedKey() == "SaveMap")
+//				SaveMap(file);
+//		}
+//
+//		Dialog->Close();
+//	}
+//}
+//
+//void Material::LoadDialogMap()
+//{
+//	if (ImGui::Button("Load Map"))
+//	{
+//		Dialog->OpenDialog("LoadMap", "Load", ".materialMap", "_TextData/");
+//	}
+//
+//	if (Dialog->Display("LoadMap"))
+//	{
+//		if (Dialog->IsOk())
+//		{
+//			string path = Dialog->GetFilePathName();
+//
+//			path = path.substr(projectDirMap.size() + 1, path.length());
+//
+//			wstring file = ToWString(path);
+//
+//			if(Dialog->GetOpenedKey() == "LoadMap")
+//				LoadMap(ToWString(path));
+//		}
+//
+//		Dialog->Close();
+//	}
+//}
+
+void Material::Save(wstring file)
 {
 	BinaryWriter data(file);
 
-	data.WriteData(diffuseMap->GetPath());
-	data.WriteData(specularMap->GetPath());
-	data.WriteData(normalMap->GetPath());
+	data.WriteData(label);
+
+	if (vertexShader)
+		data.WriteData(vertexShader->GetPath());
+	else
+		data.WriteData(L"");
+
+	if (pixelShader)
+		data.WriteData(pixelShader->GetPath());
+	else
+		data.WriteData(L"");
+
+	if (diffuseMap)
+		data.WriteData(diffuseMap->GetPath());
+	else
+		data.WriteData(L"");
+
+	if (specularMap)
+		data.WriteData(specularMap->GetPath());
+	else
+		data.WriteData(L"");
+
+	if (normalMap)
+		data.WriteData(normalMap->GetPath());
+	else
+		data.WriteData(L"");
 }
 
-void Material::LoadMap(wstring file)
+void Material::Load(wstring file)
 {
 	BinaryReader data(file);
 
-	SetDiffuseMap(data.ReadWString());
-	SetSpecularMap(data.ReadWString());
-	SetNormalMap(data.ReadWString());
-}
+	if (!data.Succeeded())
+		return;
 
-void Material::SaveDialog()
-{
-	if (ImGui::Button("Save Map"))
-		Dialog->OpenDialog("SaveMap", "Save", ".materialMap", "_TextData/");
+	label = data.ReadString();
 
-	if (Dialog->Display("SaveMap"))
-	{
-		if (Dialog->IsOk())
-		{
-			string path = Dialog->GetFilePathName();
+	wstring str;
 
-			path = path.substr(projectDir.size() + 4, path.size());
+	str = data.ReadWString();
+	if (str != L"")
+		vertexShader = Shader::GetVS(str);
 
-			wstring file = ToWString(path);
-			
-			if (Dialog->GetOpenedKey() == "SaveMap")
-				SaveMap(file);
-		}
 
-		Dialog->Close();
-	}
-}
+	str = data.ReadWString();
+	if (str != L"")
+		pixelShader = Shader::GetPS(str);
 
-void Material::LoadDialog()
-{
-	if (ImGui::Button("Load Map"))
-	{
-		Dialog->OpenDialog("LoadMap", "Load", ".materialMap", "_TextData/");
-	}
 
-	if (Dialog->Display("LoadMap"))
-	{
-		if (Dialog->IsOk())
-		{
-			string path = Dialog->GetFilePathName();
+	str = data.ReadWString();
+	if (str != L"")
+		diffuseMap = Texture::Get(str);
 
-			path = path.substr(GetTextureDir().size() + 2, path.length());
 
-			wstring file = ToWString(path);
+	str = data.ReadWString();
+	if (str != L"")
+		specularMap = Texture::Get(str);
 
-			if(Dialog->GetOpenedKey() == "LoadMap")
-				LoadMap(ToWString(path));
-		}
-
-		Dialog->Close();
-	}
+	str = data.ReadWString();
+	if (str != L"")
+		normalMap = Texture::Get(str);
 }

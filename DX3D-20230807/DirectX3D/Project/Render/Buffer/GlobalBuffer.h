@@ -29,7 +29,7 @@ public:
 	{
 		data.direction = V_DOWN;
 		data.padding = 0.0f;
-		data.ambientLight = Vector4(0.1f, 0.1f, 0.1f, 0.1f);
+		data.ambientLight = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
 	struct Data
