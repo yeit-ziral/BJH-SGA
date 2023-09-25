@@ -116,9 +116,9 @@ void Cup_Player::Render()
 
 	_animation->Render();
 
-	_collider->Render();
+	//_collider->Render();
 
-	_footCollider->Render();
+	//_footCollider->Render();
 
 	_normalGun->Render();
 	_machineGun->Render();

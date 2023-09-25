@@ -20,7 +20,7 @@ void CircleCollider::Update()
 
 void CircleCollider::Render()
 {
-	Collider::Render();
+	//Collider::Render();
 }
 
 void CircleCollider::CreateVertices()
