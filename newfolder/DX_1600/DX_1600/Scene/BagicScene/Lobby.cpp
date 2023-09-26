@@ -39,12 +39,20 @@ Lobby::Lobby()
 	PLAYER->SetPosition(Vector2(0, 0));
 
 	_helmet = make_shared<Helmet>();
-	_helmet->GetTransform()->SetPosition(Vector2(100, 0));
+	_helmet->GetTransform()->SetPosition(Vector2(-100, 50));
 	_helmet->_isActivated = true;
 
 	_speedBoots = make_shared<SpeedBoots>();
 	_speedBoots->GetTransform()->SetPosition(Vector2(-100, 0));
 	_speedBoots->_isActivated = true;
+
+	_kingBullet = make_shared<KingBullet>();
+	_kingBullet->GetTransform()->SetPosition(Vector2(-300, 50));
+	_kingBullet->_isActivated = true;
+
+	_scope = make_shared<Scope>();
+	_scope->GetTransform()->SetPosition(Vector2(-200, 50));
+	_scope->_isActivated = true;
 
 	_hpPotion = make_shared<HpPotion>();
 	_hpPotion->GetTransform()->SetPosition(Vector2(-200, 0));
@@ -55,7 +63,7 @@ Lobby::Lobby()
 	_fixingTool->_isActivated = true;
 
 	_randomBox = make_shared<RandomBox>();
-	_randomBox->GetTransform()->SetPosition(Vector2(300, -50));
+	_randomBox->GetTransform()->SetPosition(Vector2(100, 0));
 	_randomBox->SetRandomItem();
 	_randomBox->_isActive = true;
 
@@ -99,6 +107,14 @@ void Lobby::Init()
 	_fixingTool = make_shared<FixingTool>();
 	_fixingTool->GetTransform()->SetPosition(Vector2(-300, 0));
 	_fixingTool->_isActivated = true;
+
+	_kingBullet = make_shared<KingBullet>();
+	_kingBullet->GetTransform()->SetPosition(Vector2(-300, 50));
+	_kingBullet->_isActivated = true;
+
+	_scope = make_shared<Scope>();
+	_scope->GetTransform()->SetPosition(Vector2(-200, 50));
+	_scope->_isActivated = true;
 
 	_randomBox = make_shared<RandomBox>();
 	_randomBox->GetTransform()->SetPosition(Vector2(300, -50));
@@ -167,6 +183,12 @@ void Lobby::Update()
 	 _speedBoots->Update();
 	 _speedBoots->IsCollision(PLAYER);
 
+	 _kingBullet->Update();
+	 _kingBullet->IsCollision(PLAYER);
+
+	 _scope->Update();
+	 _scope->IsCollision(PLAYER);
+
 	 _hpPotion->Update();
 	 _hpPotion->IsCollision(PLAYER);
 
@@ -192,6 +214,8 @@ void Lobby::Render()
 	 _track->Render();
 	 _helmet->Render();
 	 _speedBoots->Render();
+	 _kingBullet->Render();
+	 _scope->Render();
 	 _hpPotion->Render();
 	 _fixingTool->Render();
 

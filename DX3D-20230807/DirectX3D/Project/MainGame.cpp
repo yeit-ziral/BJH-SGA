@@ -5,13 +5,13 @@ MainGame::MainGame()
 {
 	Initialize();
 
-	//scene = new TextureScene();
+scene = new TextureScene();
 	//scene = new TutorialScene();
 	//scene = new RobotScene();
 	//scene = new BoxScene();
 	//scene = new TerrainScene();
 	//scene = new SphereScene();
-	scene = new TerrainEditorScene();
+	//scene = new TerrainEditorScene();
 
 	FONT->Add("D2Coding", L"D2Coding");
 }
