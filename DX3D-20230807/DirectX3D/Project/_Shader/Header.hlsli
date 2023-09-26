@@ -31,8 +31,10 @@ cbuffer MaterialBuffer : register(b1)
     int hasDiffuseMap;
     int hasSpecularMap;
     int hasNormalMap;
+    int hasAlphaMap;
     
     float shininess;
+    // 받아오는곳은 패딩 필요 없음
 };
 
 struct VertexInput
@@ -74,6 +76,15 @@ struct VertexTextureNormalTanagent
     float2 uv : UV;
     float3 normal : NORMAL;
     float3 tangent : TANGENT;
+};
+
+struct VertexTextureNormalTanagentAlpha
+{
+    float4 pos : POSITION;
+    float2 uv : UV;
+    float3 normal : NORMAL;
+    float3 tangent : TANGENT;
+    float4 alpha : ALPHA;
 };
 
 Texture2D  diffuseMap : register(t0);

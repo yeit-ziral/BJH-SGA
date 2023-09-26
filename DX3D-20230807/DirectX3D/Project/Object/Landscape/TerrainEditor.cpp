@@ -4,7 +4,7 @@
 TerrainEditor::TerrainEditor(UINT height, UINT width)
 	: height(height), width(width)
 {
-	material = new Material();
+	material = new Material(L"01TextureSplatting");
 
 
 	worldBuffer = new MatrixBuffer();
@@ -34,7 +34,11 @@ TerrainEditor::TerrainEditor(UINT height, UINT width)
 
 	brushBuffer = new BrushBuffer();
 
-	
+	////////////////////////
+
+	 alphaMap = Texture::Get(L"HeightMap/AlphaMap.png");
+
+	secondMap = Texture::Get(L"LandScape/Box.png");
 }
 
 TerrainEditor::~TerrainEditor()
@@ -67,7 +71,12 @@ void TerrainEditor::Update()
 
 	if (Picking(&pickedPos) && KEY_PRESS(VK_LBUTTON) && !ImGui::GetIO().WantCaptureMouse) // if문 안에 AND 연산시 앞에 있는것부터 연산하기에 Picking은 실행된다
 	{
-		AdjustHeight();
+		if (adjustAlpha)
+			AdjustAlpha();
+		else
+		{
+			AdjustHeight();
+		}
 	}
 
 	if (KEY_PRESS(VK_LSHIFT))
@@ -86,6 +95,14 @@ void TerrainEditor::Render()
 
 	brushBuffer->SetPSBuffer(10);
 
+	if (alphaMap)
+	{
+		alphaMap->PSSetShaderResources(10);
+	}
+
+	if (secondMap)
+		secondMap->PSSetShaderResources(11);
+
 	DC->DrawIndexed(indices.size(), 0, 0);
 }
 
@@ -100,12 +117,15 @@ void TerrainEditor::Debug()
 		{
 			ImGui::ColorEdit3("BrushColor", (float*)&brushBuffer->data.color);
 
-			ImGui::SliderFloat("BrushIntensity", &adjustValue, 1.0f, 50.0f);
+			//ImGui::SliderFloat("BrushIntensity", &adjustValue, 1.0f, 50.0f);
 			ImGui::SliderFloat("BrushRange", &brushBuffer->data.range, 1.0f, 50.0f);
 
 			const char* typeList[] = { "Circle", "Rect", "Rect1" };
 
 			ImGui::Combo("BrushType", &brushBuffer->data.type, typeList, 3);
+
+			ImGui::Checkbox("AdjustAlpha", &adjustAlpha);
+			ImGui::Checkbox("HasAlphaMap", (bool*)&material->GetBuffer()->data.hasAlphaMap);
 
 			ImGui::EndMenu();
 		}
@@ -458,11 +478,7 @@ void TerrainEditor::AdjustHeight()
 					vertex.pos.y -= value * Time::Delta();
 
 
-				if (vertex.pos.y > MAP_HEIGHT)
-					vertex.pos.y = MAP_HEIGHT;
-
-				if (vertex.pos.y < 0)
-					vertex.pos.y = 0;
+				vertex.pos.y = Clamp(vertex.pos.y, 0.0f, MAP_HEIGHT);
 			}
 		}
 		break;
@@ -482,12 +498,7 @@ void TerrainEditor::AdjustHeight()
 				else
 					vertex.pos.y -= value * Time::Delta();
 
-
-				if (vertex.pos.y > MAP_HEIGHT)
-					vertex.pos.y = MAP_HEIGHT;
-
-				if (vertex.pos.y < 0)
-					vertex.pos.y = 0;
+				vertex.pos.y = Clamp(vertex.pos.y, 0.0f, MAP_HEIGHT);
 			}
 
 		}
@@ -510,11 +521,106 @@ void TerrainEditor::AdjustHeight()
 				else
 					vertex.pos.y -= adjustValue * Time::Delta();
 
-				if (vertex.pos.y > MAP_HEIGHT)
-					vertex.pos.y = MAP_HEIGHT;
+				vertex.pos.y = Clamp(vertex.pos.y, 0.0f, MAP_HEIGHT);
+			}
+		}
 
-				if (vertex.pos.y < 0)
-					vertex.pos.y = 0;
+		break;
+	default:
+		break;
+	}
+
+	CreateNormal();
+	CreateTangent();
+
+	mesh->UpdateVertex(vertices.data(), vertices.size());
+
+	for (UINT i = 0; i < polygonCount; i++)
+	{
+		input[i].index = i;
+
+		UINT index0 = indices[i * 3 + 0];
+		UINT index1 = indices[i * 3 + 1];
+		UINT index2 = indices[i * 3 + 2];
+
+		input[i].v0 = vertices[index0].pos;
+		input[i].v1 = vertices[index1].pos;
+		input[i].v2 = vertices[index2].pos;
+	}
+
+	structuredBuffer->UpdateInput(input);
+}
+
+void TerrainEditor::AdjustAlpha()
+{
+	adjustValue = 5.0f;
+
+	switch (brushBuffer->data.type)
+	{
+	case 0:
+		for (VertexType& vertex : vertices)
+		{
+			Vector3 p1 = Vector3(vertex.pos.x, 0.0f, vertex.pos.z);
+			Vector3 p2 = Vector3(pickedPos.x, 0.0f, pickedPos.z);
+
+			float distance = (p1 - p2).Length();
+
+			float value = adjustValue * max(0, cos(XM_PIDIV2 * distance / brushBuffer->data.range));
+
+			if (distance <= brushBuffer->data.range)
+			{
+				if (isRaise)
+					vertex.alpha[selectedMap] += value * Time::Delta();
+				else
+					vertex.alpha[selectedMap] -= value * Time::Delta();
+
+				vertex.alpha[selectedMap] = Saturate(vertex.alpha[selectedMap]);
+
+				
+			}
+		}
+		break;
+	case 1:
+		for (VertexType& vertex : vertices)
+		{
+			float x1 = abs(vertex.pos.x - pickedPos.x);
+			float z1 = abs(vertex.pos.z - pickedPos.z);
+
+
+			float value = adjustValue * max(0, cos(XM_PIDIV2 * x1 / brushBuffer->data.range));
+
+			if (x1 <= brushBuffer->data.range && z1 <= brushBuffer->data.range)
+			{
+				if (isRaise)
+					vertex.alpha[selectedMap] += value * Time::Delta();
+				else
+					vertex.alpha[selectedMap] -= value * Time::Delta();
+
+				vertex.alpha[selectedMap] = Saturate(vertex.alpha[selectedMap]);
+			}
+
+		}
+
+		break;
+
+	case 2:
+		for (VertexType& vertex : vertices)
+		{
+			Vector3 p1 = Vector3(vertex.pos.x, 0.0f, vertex.pos.z);
+			Vector3 p2 = Vector3(pickedPos.x, 0.0f, pickedPos.z);
+
+			Vector3 distance = p1 - p2;
+
+			if (abs(distance.x) <= brushBuffer->data.range &&
+				abs(distance.z) <= brushBuffer->data.range)
+			{
+				if (isRaise)
+					vertex.alpha[selectedMap] += adjustValue * Time::Delta();
+				else
+					vertex.alpha[selectedMap] -= adjustValue * Time::Delta();
+
+
+				vertex.alpha[selectedMap] = Saturate(vertex.alpha[selectedMap]);
 			}
 		}
 

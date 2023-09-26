@@ -10,4 +10,6 @@ namespace Utility
 
 	wstring GetProjectDir();
 	wstring GetTextureDir();
+
+	wstring GetTextDataDir();
 }

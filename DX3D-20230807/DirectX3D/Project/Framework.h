@@ -82,7 +82,10 @@ typedef XMFLOAT2 Vector2;
 #include "Utility/BinaryReader.h"
 #include "Utility/BinaryWriter.h"
 
+#include "Utility/MyMath.h"
+
 using namespace Utility;
+using namespace MyMath;
 
 #define FONT Font::GetInstance()
 

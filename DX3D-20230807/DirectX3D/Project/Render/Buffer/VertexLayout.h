@@ -92,3 +92,17 @@ struct VertexTextureNormalTangent
     Vector3 normal = {};
     Vector3 tangent = {};
 };
+
+struct VertexTextureNormalTangentAlpha
+{
+    VertexTextureNormalTangentAlpha()
+    {
+
+    }
+
+    Vector3 pos     = {};
+    Vector2 uv      = {};
+    Vector3 normal  = {};
+    Vector3 tangent = {};
+    float  alpha[4] = {};
+};
