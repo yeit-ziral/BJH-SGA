@@ -74,7 +74,7 @@ void ChargeGun::Render()
 
 void ChargeGun::PostRender()
 {
-	ImGui::Text("ChargingCount = %f", _chargingCount);
+	//ImGui::Text("ChargingCount = %f", _chargingCount);
 }
 
 void ChargeGun::Charge()

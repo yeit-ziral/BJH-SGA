@@ -19,9 +19,9 @@ Lobby::Lobby()
 {
 	PLAYER->SetPosition(Vector2(0, 0));
 
+	_backGroundTransform = make_shared<Transform>();
 
-
-
+	_backGround = make_shared<Quad>(L"Resource/BackGround.png");
 
 
 
@@ -143,7 +143,9 @@ void Lobby::End()
 
 void Lobby::Update()
 {
+	_backGroundTransform->Update();
 
+	_backGroundTransform->SetScale(Vector2(5, 5));
 
 	PLAYER->Update();
 
@@ -210,6 +212,10 @@ void Lobby::Update()
 
 void Lobby::Render()
 {
+	_backGroundTransform->SetBuffer(0);
+
+	_backGround->Render();
+
 	 _potal->Render();
 	 _track->Render();
 	 _helmet->Render();
@@ -229,9 +235,9 @@ void Lobby::Render()
 	_hpBar->PostRender(); 
 	_gunHpBar->PostRender();
 	
-	PLAYER->PostRender();
+	//PLAYER->PostRender();
 
-	ImGui::Text("RandomBoxPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
+	//ImGui::Text("RandomBoxPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
 
 }
 

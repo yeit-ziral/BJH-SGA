@@ -11,6 +11,9 @@
 
 BossRoom::BossRoom()
 {
+	_backGroundTransform = make_shared<Transform>();
+	_backGround = make_shared<Quad>(L"Resource/BackGround.png");
+
 	_track = make_shared<Cup_Track>();
 
 	_wall = make_shared<Cup_Wall>();
@@ -71,6 +74,12 @@ void BossRoom::End()
 
 void BossRoom::Update()
 {
+	_backGroundTransform->Update();
+
+	_backGroundTransform->SetScale(Vector2(5, 5));
+
+	_backGroundTransform->SetPosition(PLAYER->GetCollider()->GetTransform()->GetWorldPosition() * 0.3f);
+
 	PLAYER->Update();
 	_boss->Update(PLAYER->GetTransform()->GetWorldPosition());
 	_track->Update();
@@ -184,6 +193,9 @@ void BossRoom::Update()
 
 void BossRoom::Render()
 {
+	_backGroundTransform->SetBuffer(0);
+	_backGround->Render();
+
 	_track->Render();
 	_wall->Render();
 
@@ -200,33 +212,33 @@ void BossRoom::Render()
 
 void BossRoom::PostRender()
 {
-	PLAYER->PostRender();
-	_boss->PostRender();
+	//PLAYER->PostRender();
+	//_boss->PostRender();
 
-	ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
-	ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
-	ImGui::Text("MonsterHP : % d", (int)_boss->GetHp());
-	ImGui::Text("PlayerHP : % d", (int)PLAYER->GetHp());
+	//ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
+	//ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
+	//ImGui::Text("MonsterHP : % d", (int)_boss->GetHp());
+	//ImGui::Text("PlayerHP : % d", (int)PLAYER->GetHp());
 
-	if (ImGui::Button("TargetON", ImVec2(50, 50)))
-	{
-		CAMERA->SetTarget(PLAYER->GetTransform());
-	}
+	//if (ImGui::Button("TargetON", ImVec2(50, 50)))
+	//{
+	//	CAMERA->SetTarget(PLAYER->GetTransform());
+	//}
 
-	if (ImGui::Button("TargetOFF", ImVec2(50, 50)))
-	{
-		CAMERA->SetTarget(nullptr);
-	}
+	//if (ImGui::Button("TargetOFF", ImVec2(50, 50)))
+	//{
+	//	CAMERA->SetTarget(nullptr);
+	//}
 
-	if (ImGui::Button("Save", ImVec2(50, 50)))
-	{
-		Save();
-	}
+	//if (ImGui::Button("Save", ImVec2(50, 50)))
+	//{
+	//	Save();
+	//}
 
-	if (ImGui::Button("Load", ImVec2(50, 50)))
-	{
-		Load();
-	}
+	//if (ImGui::Button("Load", ImVec2(50, 50)))
+	//{
+	//	Load();
+	//}
 
 	//_button->PostRender();
 

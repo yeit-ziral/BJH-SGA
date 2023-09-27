@@ -76,7 +76,7 @@ void GunInvenCell::Update()
 
 void GunInvenCell::PostRender()
 {
-	ImGui::Text("CellPositionX : %f", _collider->GetTransform()->GetWorldPosition());
+	//ImGui::Text("CellPositionX : %f", _collider->GetTransform()->GetWorldPosition());
 
 	_collider->Render();
 	_transform->SetBuffer(0);

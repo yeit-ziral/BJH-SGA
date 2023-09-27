@@ -58,7 +58,7 @@ void SceneManager::PostRender()
 	//	SetScene(_test);
 
 	//ImGui::SliderInt("SetSceneNumber", (int*)&_test, 0, 2);
-	ImGui::SliderInt("NowState", (int*)&_curScene, 0, 2);
+	//ImGui::SliderInt("NowState", (int*)&_curScene, 0, 2);
 }
 
 void SceneManager::NextScene()

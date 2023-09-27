@@ -10,6 +10,9 @@
 
 CupHeadScene::CupHeadScene()
 {
+	_backGroundTransform = make_shared<Transform>();
+	_backGround = make_shared<Quad>(L"Resource/BackGround.png" );
+
 	_monster = make_shared<Cup_Monster>();
 	_monster->SetPosition(Vector2(100, 0));
 
@@ -114,6 +117,12 @@ void CupHeadScene::End()
 
 void CupHeadScene::Update()
 {
+	_backGroundTransform->Update();
+
+	_backGroundTransform->SetScale(Vector2(5, 5));
+
+	_backGroundTransform->SetPosition(PLAYER->GetCollider()->GetTransform()->GetWorldPosition() * 0.3f);
+
 	_track->Update();
 	_track2->Update();
 	_block->Update();
@@ -253,6 +262,10 @@ void CupHeadScene::Update()
 
 void CupHeadScene::Render()
 {
+	_backGroundTransform->SetBuffer(0);
+
+	_backGround->Render();
+
 	_track->Render();
 	_track2->Render();
 	_block->Render();
@@ -277,41 +290,41 @@ void CupHeadScene::Render()
 
 void CupHeadScene::PostRender()
 {
-	PLAYER->PostRender();
-	_monster->PostRender();
-	_monster1->PostRender();
+	//PLAYER->PostRender();
+	//_monster->PostRender();
+	//_monster1->PostRender();
 
 	//ImGui::Text("MousePositionX : % d", (int)W_MOUSE_POS.x);
 	//ImGui::Text("MousePositionY : % d", (int)W_MOUSE_POS.y);
 	//ImGui::Text("MonsterHP : % d", (int)_monster->GetHp());
-	ImGui::Text("PlayerHP : % d", (int)PLAYER->GetHp());
+	//ImGui::Text("PlayerHP : % d", (int)PLAYER->GetHp());
 	
-	if (ImGui::Button("TargetON", ImVec2(50, 50)))
-	{
-		CAMERA->SetTarget(PLAYER->GetTransform());
-	}
+	//if (ImGui::Button("TargetON", ImVec2(50, 50)))
+	//{
+	//	CAMERA->SetTarget(PLAYER->GetTransform());
+	//}
 
-	if (ImGui::Button("TargetOFF", ImVec2(50, 50)))
-	{
-		CAMERA->SetTarget(nullptr);
-	}
+	//if (ImGui::Button("TargetOFF", ImVec2(50, 50)))
+	//{
+	//	CAMERA->SetTarget(nullptr);
+	//}
 
-	if (ImGui::Button("Save", ImVec2(50, 50)))
-	{
-		Save();
-	}
+	//if (ImGui::Button("Save", ImVec2(50, 50)))
+	//{
+	//	Save();
+	//}
 
-	if (ImGui::Button("Load", ImVec2(50, 50)))
-	{
-		Load();
-	}
+	//if (ImGui::Button("Load", ImVec2(50, 50)))
+	//{
+	//	Load();
+	//}
 
 	//_button->PostRender();
 
 	_hpBar->PostRender();
 	_gunHpBar->PostRender();
 
-	ImGui::Text("RandomBosPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
+	//ImGui::Text("RandomBosPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
 }
 
 void CupHeadScene::CheckAttack()

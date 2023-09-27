@@ -78,8 +78,8 @@ void RoamingMonster::Render()
 
 void RoamingMonster::PostRender()
 {
-	ImGui::Text("R-monsterPos : %f, %f", _monster->GetPos().x, _monster->GetPos().y);
-	ImGui::Text("R-monsterHp : %d", _hp);
+	//ImGui::Text("R-monsterPos : %f, %f", _monster->GetPos().x, _monster->GetPos().y);
+	//ImGui::Text("R-monsterHp : %d", _hp);
 }
 
 void RoamingMonster::Attack(shared_ptr<Collider> collider)

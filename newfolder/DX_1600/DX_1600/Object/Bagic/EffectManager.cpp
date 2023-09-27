@@ -35,13 +35,13 @@ void EffectManager::Render()
 
 void EffectManager::PostRender()
 {
-	for (auto effectV : _effectTable)
-	{
-		for (auto effect : effectV.second)
-		{
-			effect->PostRender();
-		}
-	}
+	//for (auto effectV : _effectTable)
+	//{
+	//	for (auto effect : effectV.second)
+	//	{
+	//		effect->PostRender();
+	//	}
+	//}
 }
 
 void EffectManager::AddEffect(string name, wstring file, Vector2 maxFrame, Vector2 size, float speed, Action::Type type)

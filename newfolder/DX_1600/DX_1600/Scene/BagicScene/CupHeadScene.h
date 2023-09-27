@@ -41,5 +41,7 @@ private:
 
 	shared_ptr<class RandomBox> _randomBox;
 
+	shared_ptr<Transform> _backGroundTransform;
+	shared_ptr<Quad> _backGround;
 };
 

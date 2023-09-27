@@ -116,9 +116,9 @@ void Cup_Player::Render()
 
 	_animation->Render();
 
-	//_collider->Render();
+	_collider->Render();
 
-	//_footCollider->Render();
+	_footCollider->Render();
 
 	_normalGun->Render();
 	_machineGun->Render();
@@ -140,12 +140,12 @@ void Cup_Player::PostRender()
 	//ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
 	//ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
 	//_chargeGun->PostRender();
-	
-	ImGui::Text("PlayerMaxHp : %d", _maxHp);
-	ImGui::Text("PlayerHp : %d", _hp);
-	ImGui::Text("PlayerDamage : %d", _damage);
-	ImGui::Text("PlayerAimStraitness : %d", _spread);
-	ImGui::Text("Playerspeed : %f", _speed);
+	//
+	//ImGui::Text("PlayerMaxHp : %d", _maxHp);
+	//ImGui::Text("PlayerHp : %d", _hp);
+	//ImGui::Text("PlayerDamage : %d", _damage);
+	//ImGui::Text("PlayerAimStraitness : %d", _spread);
+	//ImGui::Text("Playerspeed : %f", _speed);
 }
 
 

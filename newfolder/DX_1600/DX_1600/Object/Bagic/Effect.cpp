@@ -31,7 +31,7 @@ void Effect::Render()
 
 void Effect::PostRender()
 {
-	ImGui::Text("EffectPos : %f, %f", _transform->GetWorldPosition().x, _transform->GetWorldPosition().y);
+	//ImGui::Text("EffectPos : %f, %f", _transform->GetWorldPosition().x, _transform->GetWorldPosition().y);
 }
 
 void Effect::Play(Vector2 pos)

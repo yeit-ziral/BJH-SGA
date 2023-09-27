@@ -65,7 +65,7 @@ void HowitzerBullet::Render()
 
 void HowitzerBullet::PostRender()
 {
-	ImGui::Text("Up Power : %f", this->_upPower);
+	//ImGui::Text("Up Power : %f", this->_upPower);
 }
 
 void HowitzerBullet::Shoot(Vector2 target, Vector2 startPos)

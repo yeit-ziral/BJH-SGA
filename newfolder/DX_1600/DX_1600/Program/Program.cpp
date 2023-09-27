@@ -50,8 +50,8 @@ void Program::Render()
 	SCENE->Render();
 	EffectManager::GetInstance()->Render();
 
-	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
-	ImGui::Text("MousePos : { %.0f , %.0f}", MOUSE_POS.x, MOUSE_POS.y);
+	//ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
+	//ImGui::Text("MousePos : { %.0f , %.0f}", MOUSE_POS.x, MOUSE_POS.y);
 
 	CAMERA->SetUICameraBuffer();
 	CAMERA->PostRender();

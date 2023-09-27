@@ -110,7 +110,7 @@ void Cup_Monster::Render()
 
 void Cup_Monster::PostRender()
 {
-	ImGui::Text("Hp : %d", _hp);
+	//ImGui::Text("Hp : %d", _hp);
 }
 
 void Cup_Monster::Attack(Vector2 targetPos)

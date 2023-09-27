@@ -132,8 +132,8 @@ void Cup_Boss::Render()
 
 void Cup_Boss::PostRender()
 {
-	ImGui::Text("BossHP : %d", _hp);
-	ImGui::SliderInt("State", (int*)&_state, 0, 13);
+	//ImGui::Text("BossHP : %d", _hp);
+	//ImGui::SliderInt("State", (int*)&_state, 0, 13);
 	//ImGui::SliderInt("Mosaic", &_intBuffer->_data.bInt, 0, 300);
 	for (auto bullet : _Hbullets)
 		bullet->PostRender();
