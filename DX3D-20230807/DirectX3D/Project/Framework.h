@@ -46,6 +46,12 @@ using namespace DirectX;
 
 #pragma comment(lib, "DirectXTex.lib")
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
+#pragma comment(lib, "assimp.lib")
+
 #define WIN_WIDTH 1280.0f
 #define WIN_HEIGHT 720.0f
 
@@ -129,6 +135,8 @@ using namespace MyMath;
 #include "Object/Landscape/Terrain.h"
 #include "Object/Landscape/TerrainEditor.h"
 
+#include "ModelExporter/ModelExporter.h"
+
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"
 #include "Scene/TextureScene.h"
@@ -137,6 +145,7 @@ using namespace MyMath;
 #include "Scene/TerrainScene.h"
 #include "Scene/SphereScene.h"
 #include "Scene/TerrainEditorScene.h"
+#include "Scene/ModelExportScene.h"
 
 #include "MainGame.h"
 

@@ -37,9 +37,9 @@ Material::Material(wstring file)
 {
 	buffer = new MaterialBuffer();
 
-	SetDiffuseMap(L"LandScape/Fieldstone_DM.tga");
-	SetSpecularMap(L"LandScape/fieldstone_SM.tga");
-	SetNormalMap(L"LandScape/fieldstone_NM.tga");
+	SetDiffuseMap(L"Landscape/Fieldstone_DM.tga");
+	SetSpecularMap(L"Landscape/fieldstone_SM.tga");
+	SetNormalMap(L"Landscape/fieldstone_NM.tga");
 
 	SetShader(file);
 
@@ -302,6 +302,13 @@ void Material::Save(wstring file)
 		data.WriteData(normalMap->GetPath());
 	else
 		data.WriteData(L"");
+
+	data.WriteData(buffer->data.diffuse  );
+	data.WriteData(buffer->data.specular );
+	data.WriteData(buffer->data.ambient  );
+	data.WriteData(buffer->data.emissive );
+
+	data.WriteData(buffer->data.shininess);
 }
 
 void Material::Load(wstring file)
@@ -337,6 +344,14 @@ void Material::Load(wstring file)
 	str = data.ReadWString();
 	if (str != L"")
 		normalMap = Texture::Get(str);
+
+
+	buffer->data.diffuse   = data.ReadVector4();
+	buffer->data.specular  = data.ReadVector4();
+	buffer->data.ambient   = data.ReadVector4();
+	buffer->data.emissive  = data.ReadVector4();
+
+	buffer->data.shininess = data.ReadFloat();
 }
 
 void Material::SaveDialog()
