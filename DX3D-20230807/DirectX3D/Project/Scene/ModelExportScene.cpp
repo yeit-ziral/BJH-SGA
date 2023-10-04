@@ -5,13 +5,14 @@ ModelExportScene::ModelExportScene()
 {
 	string name = "Knight D Pelegrini";
 
-	exporter = new ModelExporter("_ModelData/FBX/" + name + ".fbx");
+	exporter = new ModelExporter(name);
 
-	exporter->ExportMaterial(name);
+	exporter->ExportMaterial();
 }
 
 ModelExportScene::~ModelExportScene()
 {
+	delete exporter;
 }
 
 void ModelExportScene::Update()

@@ -7,9 +7,9 @@ Material::Material()
 {
 	buffer = new MaterialBuffer();
 
-	SetDiffuseMap(L"LandScape/Fieldstone_DM.tga");
-	SetSpecularMap(L"LandScape/fieldstone_SM.tga");
-	SetNormalMap(L"LandScape/fieldstone_NM.tga");
+	//SetDiffuseMap(L"LandScape/Fieldstone_DM.tga");
+	//SetSpecularMap(L"LandScape/fieldstone_SM.tga");
+	//SetNormalMap(L"LandScape/fieldstone_NM.tga");
 
 
 	char path[128];

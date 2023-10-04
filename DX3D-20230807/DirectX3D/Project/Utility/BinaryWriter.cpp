@@ -3,7 +3,10 @@
 
 BinaryWriter::BinaryWriter(wstring path)
 {
-	path = L"_TextData/" + path;
+	//path = L"_TextData/" + path;
+
+	if (!StartsWith(path, L"_")) 	// 있으면 있는거 리턴
+		path = L"_TextData/" + path;
 
 	file = CreateFile
 	(
