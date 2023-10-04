@@ -235,7 +235,7 @@ void Lobby::Render()
 	_hpBar->PostRender(); 
 	_gunHpBar->PostRender();
 	
-	//PLAYER->PostRender();
+	PLAYER->PostRender();
 
 	//ImGui::Text("RandomBoxPos : %f, %f", _randomBox->GetTransform()->GetWorldPosition().x, _randomBox->GetTransform()->GetWorldPosition().y);
 

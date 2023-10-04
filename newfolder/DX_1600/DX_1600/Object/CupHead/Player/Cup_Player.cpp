@@ -134,18 +134,18 @@ void Cup_Player::Render()
 
 void Cup_Player::PostRender()
 {
-	//ImGui::Text("PlayerPositionX : % f", _collider->GetTransform()->GetPos().x);
-	//ImGui::Text("PlayerPositionY : % f", _collider->GetTransform()->GetPos().y);
+	ImGui::Text("PlayerPositionX : % f", _collider->GetTransform()->GetPos().x);
+	ImGui::Text("PlayerPositionY : % f", _collider->GetTransform()->GetPos().y);
 
-	//ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
-	//ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
-	//_chargeGun->PostRender();
-	//
-	//ImGui::Text("PlayerMaxHp : %d", _maxHp);
-	//ImGui::Text("PlayerHp : %d", _hp);
-	//ImGui::Text("PlayerDamage : %d", _damage);
-	//ImGui::Text("PlayerAimStraitness : %d", _spread);
-	//ImGui::Text("Playerspeed : %f", _speed);
+	ImGui::Text("GunPositionX : % f", _normalGun->GetTransform()->GetWorldPosition().x);
+	ImGui::Text("GunPositionY : % f", _normalGun->GetTransform()->GetPos().y);
+	_chargeGun->PostRender();
+	
+	ImGui::Text("PlayerMaxHp : %d", _maxHp);
+	ImGui::Text("PlayerHp : %d", _hp);
+	ImGui::Text("PlayerDamage : %d", _damage);
+	ImGui::Text("PlayerAimStraitness : %d", _spread);
+	ImGui::Text("Playerspeed : %f", _speed);
 }
 
 

@@ -22,7 +22,7 @@ void RectCollider::Update()
 
 void RectCollider::Render()
 {
-    //+Collider::Render();
+    Collider::Render();
 }
 
 void RectCollider::CreateVertices()
