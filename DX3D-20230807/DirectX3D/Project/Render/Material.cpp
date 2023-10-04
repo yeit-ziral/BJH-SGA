@@ -7,9 +7,9 @@ Material::Material()
 {
 	buffer = new MaterialBuffer();
 
-	//SetDiffuseMap(L"LandScape/Fieldstone_DM.tga");
-	//SetSpecularMap(L"LandScape/fieldstone_SM.tga");
-	//SetNormalMap(L"LandScape/fieldstone_NM.tga");
+	SetDiffuseMap(L"LandScape/Fieldstone_DM.tga");
+	SetSpecularMap(L"LandScape/fieldstone_SM.tga");
+	SetNormalMap(L"LandScape/fieldstone_NM.tga");
 
 
 	char path[128];
@@ -20,17 +20,12 @@ Material::Material()
 
 	projectDir += "Texture";
 
-	char pathC[128];
-
-	//GetCurrentDirectoryA(128, pathC);
-
-	//projectDirMap = pathC;
-
-	//projectDirMap += "_TextData/";
-
 	ID += 1; // Key값 중복 안되게 하려고
 
+	label.resize(20);
 	label = "Material" + to_string(ID);
+
+	Load(ToWString(label + " Data"));
 }
 
 Material::Material(wstring file)
@@ -51,16 +46,9 @@ Material::Material(wstring file)
 
 	projectDir += "Texture/";
 
-	char pathC[128];
-
-	GetCurrentDirectoryA(128, pathC);
-
-	projectDirMap = pathC;
-
-	projectDirMap += "_TextData/";
-
 	ID += 1;
 
+	label.resize(20);
 	label = "Material" + to_string(ID);
 }
 
@@ -125,9 +113,7 @@ void Material::SetNormalMap(wstring file)
 
 void Material::PostRender()
 {
-	char* str;
-
-	str = (char*)label.data();
+	char*  str = (char*)label.data();
 
 	ImGui::InputText("Label", str, 128);
 
@@ -205,72 +191,6 @@ void Material::SelectMap()
 		ImGui::EndMenu();
 	}
 }
-
-//void Material::SaveMap(wstring file)
-//{
-//	BinaryWriter data(file);
-//
-//	data.WriteData(diffuseMap->GetPath());
-//	data.WriteData(specularMap->GetPath());
-//	data.WriteData(normalMap->GetPath());
-//}
-//
-//void Material::LoadMap(wstring file)
-//{
-//	BinaryReader data(file);
-//
-//	SetDiffuseMap(data.ReadWString());
-//	SetSpecularMap(data.ReadWString());
-//	SetNormalMap(data.ReadWString());
-//}
-//
-//void Material::SaveDialogMap()
-//{
-//	if (ImGui::Button("Save Map"))
-//		Dialog->OpenDialog("SaveMap", "Save", ".materialMap", "_TextData/");
-//
-//	if (Dialog->Display("SaveMap"))
-//	{
-//		if (Dialog->IsOk())
-//		{
-//			string path = Dialog->GetFilePathName();
-//
-//			path = path.substr(projectDirMap.size() + 1, path.size());
-//
-//			wstring file = ToWString(path);
-//			
-//			if (Dialog->GetOpenedKey() == "SaveMap")
-//				SaveMap(file);
-//		}
-//
-//		Dialog->Close();
-//	}
-//}
-//
-//void Material::LoadDialogMap()
-//{
-//	if (ImGui::Button("Load Map"))
-//	{
-//		Dialog->OpenDialog("LoadMap", "Load", ".materialMap", "_TextData/");
-//	}
-//
-//	if (Dialog->Display("LoadMap"))
-//	{
-//		if (Dialog->IsOk())
-//		{
-//			string path = Dialog->GetFilePathName();
-//
-//			path = path.substr(projectDirMap.size() + 1, path.length());
-//
-//			wstring file = ToWString(path);
-//
-//			if(Dialog->GetOpenedKey() == "LoadMap")
-//				LoadMap(ToWString(path));
-//		}
-//
-//		Dialog->Close();
-//	}
-//}
 
 void Material::Save(wstring file)
 {

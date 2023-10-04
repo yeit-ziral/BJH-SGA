@@ -23,12 +23,6 @@ public:
 
 	void SelectMap();
 
-	//void SaveMap(wstring file);
-	//void LoadMap(wstring file);
-
-	//void SaveDialogMap();
-	//void LoadDialogMap();
-
 	void Save(wstring file);
 	void Load(wstring file);
 
