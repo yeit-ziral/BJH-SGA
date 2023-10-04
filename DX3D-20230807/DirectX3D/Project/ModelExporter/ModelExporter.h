@@ -5,9 +5,7 @@ public:
 	ModelExporter(string file);
 	~ModelExporter();
 
-	void ExportMaterial(string name);
-
-	void ReadMaterial(); //읽어오기
+	void ExportMaterial(); // 읽어오기
 
 	wstring CreateTexture(string file); //만들기
 
