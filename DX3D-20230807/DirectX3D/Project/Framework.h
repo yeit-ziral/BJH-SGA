@@ -131,6 +131,7 @@ using namespace MyMath;
 #include "Object/Basic/TextureCube.h"
 #include "Object/Basic/Circle.h"
 #include "Object/Basic/Sphere.h"
+#include "Object/Basic/Knight.h"
 
 #include "Object/Landscape/Terrain.h"
 #include "Object/Landscape/TerrainEditor.h"

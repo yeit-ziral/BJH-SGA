@@ -19,6 +19,10 @@ ModelExportScene::~ModelExportScene()
 
 void ModelExportScene::Update()
 {
+	for (ModelMesh* mesh : reader->GetMeshes())
+	{
+		mesh->GetVertices();
+	}
 }
 
 void ModelExportScene::PreRender()
@@ -27,6 +31,7 @@ void ModelExportScene::PreRender()
 
 void ModelExportScene::Render()
 {
+	reader->SetShader(L"NormalMapping");
 }
 
 void ModelExportScene::PostRender()

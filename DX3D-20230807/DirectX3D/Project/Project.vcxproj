@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Basic\Knight.h" />
     <ClInclude Include="ModelExporter\ModelExporter.h" />
     <ClInclude Include="ModelExporter\ModelType.h" />
     <ClInclude Include="Model\ModelMesh.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="__Others\targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Basic\Knight.cpp" />
     <ClCompile Include="ModelExporter\ModelExporter.cpp" />
     <ClCompile Include="Model\ModelMesh.cpp" />
     <ClCompile Include="Model\ModelReader.cpp" />

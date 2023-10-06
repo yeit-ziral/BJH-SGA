@@ -7,6 +7,8 @@ public:
 
 	void SetShader(wstring file);
 
+	vector<ModelMesh*> GetMeshes() { return meshes; }
+
 private:
 	void ReadMaterial();
 	void ReadMesh();
@@ -14,6 +16,6 @@ private:
 private:
 	string name;
 
-	vector<Material*> materials;
+	vector<Material*> materials; // 모든 material을 모아놓는곳
 	vector<ModelMesh*> meshes;
 };

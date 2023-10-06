@@ -6,12 +6,15 @@ public:
 	ModelMesh();
 	~ModelMesh();
 
+	vector<ModelVertex> GetVertices() { return vertices; }
+	vector<UINT>		GetIndices()  { return indices; }
+
 private:
 	string name;
 
 	UINT materialIndex;
 
-	Material* material;
+	Material* material; // ¾µ Material
 
 	Mesh* mesh;
 
