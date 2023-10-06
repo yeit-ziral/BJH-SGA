@@ -7,6 +7,7 @@ public:
 
 	void ExportModel();
 
+private:
 	void ExportMaterial(); // 읽어오기
 	void ExportMesh(); // 읽어오기
 
@@ -23,4 +24,6 @@ private:
 	const aiScene* scene;
 
 	vector<MeshData*> meshes; // 부위별로 뜯어오려고 vector로 만듬
+
+	vector<string> materialNames;
 };

@@ -12,4 +12,6 @@ public:
 
 private:
 	ModelExporter* exporter;
+
+	ModelReader* reader;
 };

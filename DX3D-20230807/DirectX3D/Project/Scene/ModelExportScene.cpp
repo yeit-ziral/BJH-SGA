@@ -7,7 +7,9 @@ ModelExportScene::ModelExportScene()
 
 	exporter = new ModelExporter(name);
 
-	exporter->ExportMaterial();
+	exporter->ExportModel();
+
+	reader = new ModelReader("Knight D Pelegrini");
 }
 
 ModelExportScene::~ModelExportScene()
