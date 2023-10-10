@@ -15,6 +15,8 @@ private:
 
 	//vector<BodyPart*> bodyparts;
 
+	//ModelReader* reader;
+
 	//ModelA* model;
 
 	Model* model;
