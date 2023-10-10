@@ -4,10 +4,13 @@
 Transform::Transform()
 {
 	world = XMMatrixIdentity();
+	
+	worldBuffer = new MatrixBuffer();
 }
 
 Transform::~Transform()
 {
+	delete worldBuffer;
 }
 
 void Transform::Update()
@@ -61,4 +64,10 @@ void Transform::Debug()
 
 		ImGui::EndMenu();
 	}
+}
+
+void Transform::SetWorld()
+{
+	worldBuffer->SetData(world);
+	worldBuffer->SetVSBuffer(0);
 }

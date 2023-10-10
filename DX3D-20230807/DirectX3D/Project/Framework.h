@@ -131,7 +131,8 @@ using namespace MyMath;
 #include "Object/Basic/TextureCube.h"
 #include "Object/Basic/Circle.h"
 #include "Object/Basic/Sphere.h"
-#include "Object/Basic/Knight.h"
+#include "Object/Basic/BodyPart.h"
+#include "Object/Basic/ModelA.h"
 
 #include "Object/Landscape/Terrain.h"
 #include "Object/Landscape/TerrainEditor.h"
@@ -141,6 +142,7 @@ using namespace MyMath;
 
 #include "Model/ModelMesh.h"
 #include "Model/ModelReader.h"
+#include "Model/Model.h"
 
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"

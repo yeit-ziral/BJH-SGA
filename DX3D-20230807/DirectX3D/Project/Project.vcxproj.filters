@@ -213,7 +213,13 @@
     <ClInclude Include="Model\ModelMesh.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Basic\Knight.h">
+    <ClInclude Include="Object\Basic\BodyPart.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Model\Model.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Basic\ModelA.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -371,7 +377,13 @@
     <ClCompile Include="Model\ModelMesh.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Basic\Knight.cpp">
+    <ClCompile Include="Object\Basic\BodyPart.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Model\Model.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Basic\ModelA.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

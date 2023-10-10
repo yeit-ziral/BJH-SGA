@@ -3,26 +3,38 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "Knight D Pelegrini";
+	string name = "Y Bot";
 
-	exporter = new ModelExporter(name);
+	//exporter = new ModelExporter(name);
 
-	exporter->ExportModel();
+	//exporter->ExportModel();
 
-	reader = new ModelReader("Knight D Pelegrini");
+	//bodyparts.resize(3);
+
+	//for (UINT i = 0; i < 3; i++)
+	//{
+	//	bodyparts[i] = new BodyPart(reader->GetMaterials(), reader->GetMeshes()[i]);
+	//}
+
+
+	//model = new ModelA(name);
+
+	model = new Model(name);
 }
 
 ModelExportScene::~ModelExportScene()
 {
-	delete exporter;
+	//delete exporter;
 }
 
 void ModelExportScene::Update()
 {
-	for (ModelMesh* mesh : reader->GetMeshes())
-	{
-		mesh->GetVertices();
-	}
+	//for (BodyPart* part : bodyparts)
+	//{
+	//	part->Update();
+	//}
+
+	model->Update();
 }
 
 void ModelExportScene::PreRender()
@@ -31,9 +43,15 @@ void ModelExportScene::PreRender()
 
 void ModelExportScene::Render()
 {
-	reader->SetShader(L"NormalMapping");
+	//for (int i = 0; i < reader->GetMeshes().size(); i++)
+	//{
+	//	bodyparts[i]->Render(i);
+	//}
+
+	model->Render();
 }
 
 void ModelExportScene::PostRender()
 {
+	model->GetReader()->Debug();
 }

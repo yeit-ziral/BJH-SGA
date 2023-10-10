@@ -47,7 +47,7 @@ void TerrainScene::Render()
 
 void TerrainScene::PostRender()
 {
-	terrain->GetMaterial()->PostRender();
+	terrain->GetMaterial()->Debug();
 
 	ImGui::Text("PickedPos : %.1f, %.1f,%.1f", pickedPos.x, pickedPos.y, pickedPos.z);
 }

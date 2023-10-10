@@ -19,7 +19,7 @@ public:
 
 	MaterialBuffer* GetBuffer() { return buffer; }
 
-	void PostRender();
+	void Debug();
 
 	void SelectMap();
 

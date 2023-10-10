@@ -13,5 +13,9 @@ public:
 private:
 	ModelExporter* exporter;
 
-	ModelReader* reader;
+	//vector<BodyPart*> bodyparts;
+
+	//ModelA* model;
+
+	Model* model;
 };

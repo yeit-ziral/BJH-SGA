@@ -62,7 +62,7 @@ void MainGame::Render()
 
 	scene->PostRender();
 
-	Camera::GetInstance()->PostRender();
+	Camera::GetInstance()->Debug();
 
 	Environment::GetInstance()->PostRender();
 

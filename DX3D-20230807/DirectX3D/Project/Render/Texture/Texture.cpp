@@ -20,6 +20,9 @@ Texture* Texture::Get(wstring file)
 {
 	wstring path = file;
 
+	if (file == L"")
+		return nullptr;
+
 	if (!StartsWith(file, L"Texture")) 	// 있으면 있는거 리턴
 		file = L"Texture/" + file;
 
@@ -64,6 +67,9 @@ Texture* Texture::Get(wstring file)
 Texture* Texture::Load(wstring file)
 {
 	wstring path = file; // 멤버변수인 path는 static변수라서 같은 static변수나 함수 포인터만 받음
+
+	if (file == L"")
+		return nullptr;
 
 	// 있으면 있는거 리턴
 	file = L"Texture/" + file;

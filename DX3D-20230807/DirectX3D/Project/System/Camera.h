@@ -16,7 +16,7 @@ private:
 public:
 	void Update();
 
-	void PostRender();
+	void Debug();
 
 	Transform* GetTransform() { return transform; }
 

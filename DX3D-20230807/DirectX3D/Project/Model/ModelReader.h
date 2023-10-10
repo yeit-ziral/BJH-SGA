@@ -7,7 +7,12 @@ public:
 
 	void SetShader(wstring file);
 
+	vector<Material*> GetMaterials() { return materials; }
 	vector<ModelMesh*> GetMeshes() { return meshes; }
+
+	void Render();
+
+	void Debug();
 
 private:
 	void ReadMaterial();

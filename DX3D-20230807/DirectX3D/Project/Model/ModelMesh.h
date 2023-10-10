@@ -9,12 +9,18 @@ public:
 	vector<ModelVertex> GetVertices() { return vertices; }
 	vector<UINT>		GetIndices()  { return indices; }
 
+	Mesh* GetMesh() { return mesh; }
+
+	Material* GetMaterial() { return material; }
+
+	void Create();
+
+	void Render();
+
 private:
 	string name;
 
-	UINT materialIndex;
-
-	Material* material; // ¾µ Material
+	Material* material;
 
 	Mesh* mesh;
 

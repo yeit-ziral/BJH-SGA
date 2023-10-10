@@ -27,7 +27,7 @@ void Camera::Update()
 	FreeMode();
 }
 
-void Camera::PostRender()
+void Camera::Debug()
 {
 	Vector3 pos = transform->translation;
 	Vector3 rot = transform->rotation;

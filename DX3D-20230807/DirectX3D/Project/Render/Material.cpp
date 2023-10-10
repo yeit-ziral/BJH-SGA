@@ -7,11 +7,6 @@ Material::Material()
 {
 	buffer = new MaterialBuffer();
 
-	SetDiffuseMap(L"LandScape/Fieldstone_DM.tga");
-	SetSpecularMap(L"LandScape/fieldstone_SM.tga");
-	SetNormalMap(L"LandScape/fieldstone_NM.tga");
-
-
 	char path[128];
 
 	GetCurrentDirectoryA(128, path);
@@ -25,16 +20,12 @@ Material::Material()
 	label.resize(20);
 	label = "Material" + to_string(ID);
 
-	Load(ToWString(label + " Data"));
+	//Load(ToWString(label + " Data"));
 }
 
 Material::Material(wstring file)
 {
 	buffer = new MaterialBuffer();
-
-	SetDiffuseMap(L"Landscape/Fieldstone_DM.tga");
-	SetSpecularMap(L"Landscape/fieldstone_SM.tga");
-	SetNormalMap(L"Landscape/fieldstone_NM.tga");
 
 	SetShader(file);
 
@@ -111,7 +102,7 @@ void Material::SetNormalMap(wstring file)
 	buffer->data.hasNormalMap = true;
 }
 
-void Material::PostRender()
+void Material::Debug()
 {
 	char*  str = (char*)label.data();
 
@@ -254,17 +245,16 @@ void Material::Load(wstring file)
 
 	str = data.ReadWString();
 	if (str != L"")
-		diffuseMap = Texture::Get(str);
+		SetDiffuseMap(str);
 
 
 	str = data.ReadWString();
 	if (str != L"")
-		specularMap = Texture::Get(str);
+		SetSpecularMap(str);
 
 	str = data.ReadWString();
 	if (str != L"")
-		normalMap = Texture::Get(str);
-
+		SetNormalMap(str);
 
 	buffer->data.diffuse   = data.ReadVector4();
 	buffer->data.specular  = data.ReadVector4();
