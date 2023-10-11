@@ -1,6 +1,6 @@
 #pragma once
 
-typedef VertexTextureNormalTangent ModelVertex;
+typedef VertexTextureNormalTangentBlend ModelVertex;
 #include "Model/ModelMesh.h"
 
 class BodyPart : public Transform//∫Œ¿ß∏∏ ∑ª¥ı
