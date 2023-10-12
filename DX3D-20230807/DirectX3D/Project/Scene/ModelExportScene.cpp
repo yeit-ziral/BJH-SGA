@@ -7,14 +7,16 @@ ModelExportScene::ModelExportScene()
 
 	exporter = new ModelExporter(name);
 
-	exporter->ExportModel();
+	//exporter->ExportModel();
+
+	exporter->ExportClip("Hip Hop Dancing");
 
 	//reader = new ModelReader(name);
-
+	//
 	//reader->SetShader(L"NormalMapping");
-
+	//
 	//bodyparts.resize(reader->GetMeshes().size());
-
+	//
 	//for (UINT i = 0; i < reader->GetMeshes().size(); i++)
 	//{
 	//	bodyparts[i] = new BodyPart(reader->GetMaterials(), reader->GetMeshes()[i]);

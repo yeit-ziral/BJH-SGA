@@ -70,6 +70,8 @@ using namespace DirectX;
 
 #define Dialog ImGuiFileDialog::Instance()
 
+#define MAX_BONE 256
+#define MAX_FRAME_KEY 512
 
 typedef XMMATRIX Matrix; // typedef(typedefine)은 코드라서 ; 필요, define은 메크로라서 ; 없음
 typedef XMFLOAT4 Vector4;

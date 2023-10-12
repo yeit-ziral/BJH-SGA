@@ -64,3 +64,43 @@ struct VertexWeights // 정점마다 들어가는 가중치 -> 애니메이션이 더 자연스러워 �
 		}
 	}
 };
+
+struct KeyTransform
+{
+	float time;
+
+	Vector3 scale;
+	Vector4 rotation; // 쿼터니언 각 사용해서 vector4 사용(<-> 오일러각) : global rotation을 표현하기 더 적합하기 때문
+	Vector3 position;
+};
+
+struct KeyFrame
+{
+	string boneName;
+
+	vector<KeyTransform> transforms;
+};
+
+struct ClipNode
+{
+	vector<KeyTransform> keyFrame;
+	aiString name;
+};
+
+struct Clip
+{
+	string name;
+
+	UINT frameCount;
+
+	float ticksPerSecond;
+
+	float duration;
+
+	vector<KeyFrame*> keyFrame;
+};
+
+struct ClipTransform
+{
+	Matrix transform[MAX_FRAME_KEY][MAX_BONE];
+};
