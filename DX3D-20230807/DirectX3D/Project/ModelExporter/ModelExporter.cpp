@@ -289,4 +289,32 @@ void ModelExporter::WriteMesh()
 	}
 
 	meshes.clear();
+
+	data.WriteData((UINT)nodes.size());
+
+	for (NodeData* node : nodes)
+	{
+		data.WriteData(node->index);
+		data.WriteData(node->name);
+		data.WriteData(node->parent);
+		data.WriteData(node->tranform);
+
+		delete node;
+	}
+
+	nodes.clear();
+
+	data.WriteData((UINT)bones.size());
+
+	for (BoneData* bone : bones)
+	{
+		data.WriteData(bone->index);
+		data.WriteData(bone->name);
+		data.WriteData(bone->offset);
+
+		delete bone;
+	}
+
+	bones.clear();
+
 }
