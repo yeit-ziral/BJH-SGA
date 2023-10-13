@@ -1,7 +1,6 @@
 cbuffer World : register(b0)
 {
     matrix world;
-
 };
 
 cbuffer View : register(b1)
@@ -86,6 +85,17 @@ struct VertexTextureNormalTanagentAlpha
     float3 normal : NORMAL;
     float3 tangent : TANGENT;
     float4 alpha : ALPHA;
+};
+
+struct VertexTextureNormalTanagentBlend
+{
+    float4 pos      : POSITION;
+    float2 uv       : UV;
+    float3 normal   : NORMAL;
+    float3 tangent  : TANGENT;
+    float4 alpha    : ALPHA;
+    float4 indices  : BLENDINDICES; // 정점에 영향 받을 bone의 index들
+    float4 weight   : BLENDWEIGHT; // 영향 받을 정도
 };
 
 Texture2D  diffuseMap : register(t0);

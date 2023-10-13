@@ -1,6 +1,23 @@
 #include "Framework.h"
 #include "BinaryReader.h"
 
+BinaryReader::BinaryReader(string path)
+{
+	if (!StartsWith(path, "_")) 	// 있으면 있는거 리턴
+		path = "_TextData/" + path;
+
+	file = CreateFileA
+	(
+		path.c_str(),
+		GENERIC_READ,
+		FILE_SHARE_READ,
+		0,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		nullptr
+	);
+}
+
 BinaryReader::BinaryReader(wstring path)
 {
 	if (!StartsWith(path, L"_")) 	// 있으면 있는거 리턴
@@ -107,6 +124,15 @@ Vector4 BinaryReader::ReadVector4()
 XMFLOAT4X4 BinaryReader::ReadFloat4X4()
 {
 	XMFLOAT4X4 data;
+
+	ReadFile(file, &data, sizeof(data), &size, nullptr);
+
+	return data;
+}
+
+Matrix BinaryReader::ReadMatrix()
+{
+	Matrix data;
 
 	ReadFile(file, &data, sizeof(data), &size, nullptr);
 

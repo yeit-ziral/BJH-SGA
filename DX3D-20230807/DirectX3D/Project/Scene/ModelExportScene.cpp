@@ -7,7 +7,7 @@ ModelExportScene::ModelExportScene()
 
 	exporter = new ModelExporter(name);
 
-	//exporter->ExportModel();
+	exporter->ExportModel();
 
 	exporter->ExportClip("Hip Hop Dancing");
 
@@ -31,6 +31,7 @@ ModelExportScene::ModelExportScene()
 ModelExportScene::~ModelExportScene()
 {
 	delete exporter;
+	delete model;
 }
 
 void ModelExportScene::Update()

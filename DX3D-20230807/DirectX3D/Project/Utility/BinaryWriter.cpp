@@ -1,6 +1,25 @@
 #include "Framework.h"
 #include "BinaryWriter.h"
 
+BinaryWriter::BinaryWriter(string path)
+{
+	if (!StartsWith(path, "_")) 	// 있으면 있는거 리턴
+	{
+		if (!StartsWith(path, "Texture"))
+			path = "_TextData/" + path;
+	}
+
+	file = CreateFileA
+	(
+		path.c_str(),
+		GENERIC_WRITE,
+		0, 0,
+		CREATE_ALWAYS,
+		FILE_ATTRIBUTE_NORMAL,
+		nullptr
+	);
+}
+
 BinaryWriter::BinaryWriter(wstring path)
 {
 	//path = L"_TextData/" + path;
@@ -83,4 +102,14 @@ void BinaryWriter::WriteData(void* data, UINT dataSize)
 void BinaryWriter::WriteData(XMFLOAT4X4 data)
 {
 	WriteFile(file, &data, sizeof(data), &size, nullptr);
+}
+
+void BinaryWriter::WriteData(Matrix data)
+{
+	WriteFile(file, &data, sizeof(Matrix), &size, nullptr);
+}
+
+void BinaryWriter::WriteData(size_t data)
+{
+	WriteData((UINT)data);
 }

@@ -23,4 +23,9 @@ private:
 
 	vector<Material*> materials; // 모든 material을 모아놓는곳
 	vector<ModelMesh*> meshes;
+
+	vector<NodeData> nodes;
+	vector<BoneData> bones;
+
+	map<string, UINT> boneMap;
 };

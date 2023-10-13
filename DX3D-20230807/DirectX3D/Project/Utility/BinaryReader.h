@@ -2,6 +2,7 @@
 class BinaryReader
 {
 public:
+	BinaryReader(string path);
 	BinaryReader(wstring path);
 	~BinaryReader();
 
@@ -13,6 +14,7 @@ public:
 	Vector3 ReadVector3();
 	Vector4 ReadVector4();
 	XMFLOAT4X4 ReadFloat4X4();
+	Matrix ReadMatrix();
 
 	void ReadData(OUT void** data, UINT dataSize);
 

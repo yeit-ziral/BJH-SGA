@@ -20,7 +20,7 @@ struct NodeData
 
 	int parent;
 
-	XMFLOAT4X4 tranform;
+	Matrix tranform;
 };
 
 struct BoneData
@@ -29,7 +29,7 @@ struct BoneData
 
 	string name;
 
-	XMFLOAT4X4 offset;
+	Matrix offset;
 };
 
 struct VertexWeights // 정점마다 들어가는 가중치 -> 애니메이션이 더 자연스러워 보이도록
