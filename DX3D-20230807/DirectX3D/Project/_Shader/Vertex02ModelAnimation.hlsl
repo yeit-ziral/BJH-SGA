@@ -24,7 +24,7 @@ matrix SkinWorld(float4 indices, float4 weights)
         c1 = transformMap.Load(int4(indices[i] * 4 + 1, curFrame, clip, 0));
         c2 = transformMap.Load(int4(indices[i] * 4 + 2, curFrame, clip, 0));
         c3 = transformMap.Load(int4(indices[i] * 4 + 3, curFrame, clip, 0));
-        
+                                                                    
         curAnim = matrix(c0, c1, c2, c3);
         
         transform += mul(weights[i], curAnim);
@@ -45,7 +45,7 @@ VertexOutput
     output.pos = mul(input.pos, transform);
     ////////////////////////
     
-    output.pos = mul(input.pos, world);
+    //output.pos = mul(input.pos, world);
     
     float3 cameraPos = inverseView._41_42_43;
     
