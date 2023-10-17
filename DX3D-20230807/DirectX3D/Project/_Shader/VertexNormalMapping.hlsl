@@ -10,7 +10,7 @@ struct VertexOutput
     float3 viewDir : VIEWDIR;
 };
 
-VertexOutput main(VertexTextureNormalTanagent input)
+VertexOutput main(VertexTextureNormalTangent input)
 {
     VertexOutput output;
     

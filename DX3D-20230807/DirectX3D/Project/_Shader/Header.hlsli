@@ -37,6 +37,16 @@ cbuffer MaterialBuffer : register(b1)
     // 받아오는곳은 패딩 필요 없음
 };
 
+cbuffer FrameBuffer : register(b3)
+{
+    int clip;
+    uint curFrame;
+    float time;
+    float runningTime;
+}
+
+Texture2DArray transformMap : register(t0);
+
 struct VertexInput
 {
     float4 pos : POSITION; // 동차좌표계 쓰려고 float3가 아닌 float4로 한 차수 올림
@@ -70,7 +80,7 @@ struct VertexColorNormal
     float3 normal : NORMAL;
 };
 
-struct VertexTextureNormalTanagent
+struct VertexTextureNormalTangent
 {
     float4 pos : POSITION;
     float2 uv : UV;
@@ -78,7 +88,7 @@ struct VertexTextureNormalTanagent
     float3 tangent : TANGENT;
 };
 
-struct VertexTextureNormalTanagentAlpha
+struct VertexTextureNormalTangentAlpha
 {
     float4 pos : POSITION;
     float2 uv : UV;
@@ -87,7 +97,7 @@ struct VertexTextureNormalTanagentAlpha
     float4 alpha : ALPHA;
 };
 
-struct VertexTextureNormalTanagentBlend
+struct VertexTextureNormalTangentBlend
 {
     float4 pos      : POSITION;
     float2 uv       : UV;

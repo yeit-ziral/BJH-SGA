@@ -25,13 +25,19 @@ ModelExportScene::ModelExportScene()
 
 	//model = new ModelA(name);
 
-	model = new Model(name);
+	//model = new Model(name);
+
+	modelAnimator = new ModelAnimator(name);
+	modelAnimator->ReadClip("Hip Hop Dancing");
+	modelAnimator->CreateTexture();
 }
 
 ModelExportScene::~ModelExportScene()
 {
 	delete exporter;
-	delete model;
+	//delete model;
+
+	delete modelAnimator;
 }
 
 void ModelExportScene::Update()
@@ -41,7 +47,9 @@ void ModelExportScene::Update()
 	//	part->Update();
 	//}
 
-	model->Update();
+	//model->Update();
+
+	modelAnimator->Update();
 }
 
 void ModelExportScene::PreRender()
@@ -55,10 +63,12 @@ void ModelExportScene::Render()
 	//	bodyparts[i]->Render(i);
 	//}
 
-	model->Render();
+	//model->Render();
+
+	modelAnimator->Render();
 }
 
 void ModelExportScene::PostRender()
 {
-	model->GetReader()->Debug();
+	//model->GetReader()->Debug();
 }

@@ -14,7 +14,7 @@ struct VertexOutput
     float4 alpha : ALPHA;
 };
 
-VertexOutput main(VertexTextureNormalTanagentAlpha input)
+VertexOutput main(VertexTextureNormalTangentAlpha input)
 {
     VertexOutput output;
     

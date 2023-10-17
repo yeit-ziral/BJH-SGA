@@ -13,7 +13,7 @@ Material::Material()
 
 	projectDir = path; // GetCurrentDirectoryA에 string이 안들어가서 간접적으로 넣어줌
 
-	projectDir += "Texture";
+	projectDir += "/Texture";
 
 	ID += 1; // Key값 중복 안되게 하려고
 

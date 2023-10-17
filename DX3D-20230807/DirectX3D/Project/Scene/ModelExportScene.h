@@ -19,5 +19,7 @@ private:
 
 	//ModelA* model;
 
-	Model* model;
+	//Model* model;
+
+	ModelAnimator* modelAnimator;
 };

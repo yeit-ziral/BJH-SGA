@@ -1,6 +1,7 @@
 #pragma once
 class ModelClip // 애니메이션 하나 들고있음
 {
+	friend class ModelAnimator;
 public:
 	ModelClip();
 	~ModelClip();

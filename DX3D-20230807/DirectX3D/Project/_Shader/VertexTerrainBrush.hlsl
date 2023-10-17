@@ -13,7 +13,7 @@ struct VertexOutput
     float3 worldPos : POSITIONT;
 };
 
-VertexOutput main(VertexTextureNormalTanagent input)
+VertexOutput main(VertexTextureNormalTangent input)
 {
     VertexOutput output;
     
