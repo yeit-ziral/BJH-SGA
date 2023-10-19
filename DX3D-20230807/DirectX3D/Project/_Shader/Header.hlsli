@@ -6,12 +6,12 @@ cbuffer World : register(b0)
 cbuffer View : register(b1)
 {
     matrix view;
-    matrix inverseView;
+    matrix invView;
 };
 
 cbuffer Proj : register(b2)
 {
-    matrix projection;
+    matrix proj;
 };
 
 cbuffer LightDirection : register(b0) // pixelshader에 적용하는거라서 World에 할당된 b0와 다름
@@ -37,12 +37,27 @@ cbuffer MaterialBuffer : register(b1)
     // 받아오는곳은 패딩 필요 없음
 };
 
-cbuffer FrameBuffer : register(b3)
+struct Frame
 {
     int clip;
     uint curFrame;
     float time;
+    float speed;
+};
+
+struct Motion
+{
+    float takeTime;
+    float tweenTime;
     float runningTime;
+    float padding2;
+    
+    Frame cur, next;
+};
+
+cbuffer FrameBuffer : register(b3)
+{
+    Motion motion;
 }
 
 Texture2DArray transformMap : register(t0);
@@ -103,9 +118,8 @@ struct VertexTextureNormalTangentBlend
     float2 uv       : UV;
     float3 normal   : NORMAL;
     float3 tangent  : TANGENT;
-    float4 alpha    : ALPHA;
     float4 indices  : BLENDINDICES; // 정점에 영향 받을 bone의 index들
-    float4 weight   : BLENDWEIGHT; // 영향 받을 정도
+    float4 weight   : BLENDWEIGHTS; // 영향 받을 정도
 };
 
 Texture2D  diffuseMap : register(t0);

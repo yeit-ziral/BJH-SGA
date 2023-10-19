@@ -9,7 +9,7 @@ Model::Model(string name, wstring shaderFile)
 
 Model::~Model()
 {
-
+	delete reader;
 }
 
 void Model::Update()

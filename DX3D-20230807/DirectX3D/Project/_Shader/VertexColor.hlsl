@@ -15,7 +15,7 @@ VertexOutput main(VertexColorNormal input)
     
     output.pos = mul(input.pos, world);
     output.pos = mul(output.pos, view);
-    output.pos = mul(output.pos, projection);
+    output.pos = mul(output.pos, proj);
     
     output.color = input.color;
     

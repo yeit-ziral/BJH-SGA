@@ -10,8 +10,11 @@ public:
 
 	void ReadClip(string file, UINT clipIndex = 0); // 하나짜리가 많아서 clipIndex 기본값을 0으로 함
 
+	void PlayClip(UINT clipIndex, float speed = 1.0f, float takeTime = 0.2f);
+
 	void CreateTexture();
 
+	void UpdateFrame();
 
 private:
 	void CreateClipTransform(UINT index);

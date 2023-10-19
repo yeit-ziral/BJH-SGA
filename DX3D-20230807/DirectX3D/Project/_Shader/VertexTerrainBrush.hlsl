@@ -23,13 +23,13 @@ VertexOutput main(VertexTextureNormalTangent input)
     //화면 좌표가 곱해지기 직전에 계산해서 면 위에 얹히도록 해야 함
     output.worldPos = output.pos;
     
-    float3 cameraPos = inverseView._41_42_43;
+    float3 cameraPos = invView._41_42_43;
     
     output.viewDir = normalize(output.pos.xyz - cameraPos);
 
     
     output.pos = mul(output.pos, view);
-    output.pos = mul(output.pos, projection);
+    output.pos = mul(output.pos, proj);
     
     output.uv = input.uv;
     

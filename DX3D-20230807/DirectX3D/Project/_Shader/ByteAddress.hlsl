@@ -2,7 +2,7 @@ struct Group
 {
     uint3 groupID;
     uint3 groupThreadID;
-    uint3 dispatchTreadID;
+    uint3 dispatchThreadID;
     uint groupIndex;
 };
 
@@ -10,7 +10,7 @@ struct ComputeInput
 {
     uint3 groupID : SV_GroupID;
     uint3 groupThreadID : SV_GroupThreadID;
-    uint3 dispatchTreadID : SV_DispatchThreadID;
+    uint3 dispatchThreadID : SV_DispatchThreadID;
     uint groupIndex : SV_GroupIndex;
 };
 
@@ -27,7 +27,7 @@ void main(ComputeInput input)
     
     output.Store3(address +  0, group.groupID);
     output.Store3(address + 12, group.groupThreadID);
-    output.Store3(address + 24, group.dispatchTreadID);
+    output.Store3(address + 24, group.dispatchThreadID);
     output.Store (address + 36, group.groupIndex);
 }
 

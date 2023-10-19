@@ -14,13 +14,13 @@ VertexOutput main(VertexTextureNormal input)
     
     output.pos = mul(input.pos, world);
     
-    float3 cameraPos = inverseView._41_42_43;
+    float3 cameraPos = invView._41_42_43;
     
     output.viewDir = normalize(output.pos.xyz - cameraPos);
     
     
     output.pos = mul(output.pos, view);
-    output.pos = mul(output.pos, projection);
+    output.pos = mul(output.pos, proj);
     
     output.uv = input.uv;
     

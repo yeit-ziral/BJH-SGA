@@ -6,6 +6,9 @@ ModelExporter::ModelExporter(string name) //fbx 파일 넣음
 {
 	importer = new Assimp::Importer();
 
+	importer->SetPropertyBool(AI_CONFIG_IMPORT_FBX_PRESERVE_PIVOTS, false);
+	importer->SetPropertyInteger(AI_CONFIG_PP_RVC_FLAGS, aiComponent_TANGENTS_AND_BITANGENTS);
+
 	scene = importer->ReadFile("_ModelData/FBX/" + name + ".fbx",
 		aiProcess_ConvertToLeftHanded | aiProcessPreset_TargetRealtime_MaxQuality); // importer 해제하면 자동으로 사라짐
 
