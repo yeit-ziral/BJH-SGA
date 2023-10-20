@@ -148,6 +148,8 @@ using namespace MyMath;
 #include "Model/ModelClip.h"
 #include "Model/ModelAnimator.h"
 
+#include "Object/Model/Groot.h"
+
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"
 #include "Scene/TextureScene.h"
@@ -157,6 +159,7 @@ using namespace MyMath;
 #include "Scene/SphereScene.h"
 #include "Scene/TerrainEditorScene.h"
 #include "Scene/ModelExportScene.h"
+#include "Scene/ModelAnimationScene.h"
 
 #include "MainGame.h"
 

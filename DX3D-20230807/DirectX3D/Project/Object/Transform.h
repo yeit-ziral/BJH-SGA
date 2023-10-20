@@ -49,7 +49,7 @@ protected:
 
 	Vector3 right, up, forward; // 각 객체의 상대적인 방위(내 앞, 뒤, 옆, 위, 아래)
 
-	string label = "";
+	string label = "Label";
 
 	MatrixBuffer* worldBuffer;
 };

@@ -1,0 +1,17 @@
+#pragma once
+class ModelAnimationScene : public Scene
+{
+public:
+	ModelAnimationScene();
+	~ModelAnimationScene();
+
+	void Update();
+
+	void PreRender();
+	void Render();
+	void PostRender();
+
+private:
+
+	Groot* groot;
+};

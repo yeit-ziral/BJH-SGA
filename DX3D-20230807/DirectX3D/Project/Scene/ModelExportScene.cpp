@@ -3,15 +3,15 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "Knight D Pelegrini";
+	string name = "Groot";
 
 	//exporter = new ModelExporter(name);
 	//
 	//exporter->ExportModel();
 	//
-	//exporter->ExportClip("Hip Hop Dancing");
-	//exporter->ExportClip("Breathing Idle");
-	//exporter->ExportClip("Running");
+	//exporter->ExportClip("Sad Idle");
+	//exporter->ExportClip("Drunk Run Forward");
+	//exporter->ExportClip("Mutant Swiping");
 
 
 	//reader = new ModelReader(name);
@@ -30,11 +30,7 @@ ModelExportScene::ModelExportScene()
 
 	//model = new Model(name);
 
-	modelAnimator = new ModelAnimator(name);
-	modelAnimator->ReadClip("Hip Hop Dancing");
-	modelAnimator->ReadClip("Breathing Idle");
-	modelAnimator->ReadClip("Running");
-	modelAnimator->CreateTexture();
+	groot = new Groot();
 }
 
 ModelExportScene::~ModelExportScene()
@@ -42,6 +38,7 @@ ModelExportScene::~ModelExportScene()
 	//delete exporter;
 	//delete model;
 
+	delete groot;
 	delete modelAnimator;
 }
 
@@ -54,16 +51,7 @@ void ModelExportScene::Update()
 
 	//model->Update();
 
-	modelAnimator->Update();
-
-	if (KEY_DOWN('1'))
-		modelAnimator->PlayClip(0, speed, takeTime);
-
-	if (KEY_DOWN('2'))
-		modelAnimator->PlayClip(1, speed, takeTime);
-
-	if (KEY_DOWN('3'))
-		modelAnimator->PlayClip(2, speed, takeTime);
+	groot->Update();
 }
 
 void ModelExportScene::PreRender()
@@ -79,13 +67,12 @@ void ModelExportScene::Render()
 
 	//model->Render();
 
-	modelAnimator->Render();
+	groot->Render();
 }
 
 void ModelExportScene::PostRender()
 {
 	//model->GetReader()->Debug();
 
-	ImGui::SliderFloat("Speed", &speed, 0.0f, 10.0f);
-	ImGui::SliderFloat("TakeTime", &takeTime, 0.0f, 1.0f);
+	groot->Debug();
 }

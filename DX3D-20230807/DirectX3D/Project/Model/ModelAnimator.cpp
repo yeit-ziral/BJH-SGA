@@ -191,6 +191,29 @@ void ModelAnimator::UpdateFrame()
 	}
 }
 
+void ModelAnimator::Debug()
+{
+	reader->Debug();
+}
+
+Matrix ModelAnimator::GetTransformByBone(UINT boneIndex)
+{
+	FrameBuffer::Frame& curClip = frameBuffer->data.cur;
+
+	Matrix cur = clipTransform[curClip.clip].transform[curClip.curFrame][boneIndex];
+
+	return cur;
+}
+
+Matrix ModelAnimator::GetTransformByNode(UINT nodeIndex)
+{
+	FrameBuffer::Frame& curClip = frameBuffer->data.cur;
+
+	Matrix cur = nodeTransform[curClip.clip].transform[curClip.curFrame][nodeIndex];
+
+	return cur;
+}
+
 void ModelAnimator::CreateClipTransform(UINT index)
 {
 	ModelClip* clip = clips[index];

@@ -16,10 +16,16 @@ public:
 
 	void UpdateFrame();
 
+	void Debug();
+
+	Matrix GetTransformByBone(UINT boneIndex);
+
+	Matrix GetTransformByNode(UINT nodeIndex);
+
 private:
 	void CreateClipTransform(UINT index);
 
-private:
+protected:
 	ModelReader* reader;
 
 	vector<ModelClip*> clips;
