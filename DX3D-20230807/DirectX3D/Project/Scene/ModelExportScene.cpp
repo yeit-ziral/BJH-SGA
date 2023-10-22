@@ -3,15 +3,15 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "Groot";
+	string name = "Zombie";
 
-	//exporter = new ModelExporter(name);
-	//
-	//exporter->ExportModel();
-	//
-	//exporter->ExportClip("Sad Idle");
-	//exporter->ExportClip("Drunk Run Forward");
-	//exporter->ExportClip("Mutant Swiping");
+	exporter = new ModelExporter(name);
+	
+	exporter->ExportModel();
+	
+	exporter->ExportClip("Happy Idle");
+	exporter->ExportClip("Walking");
+	exporter->ExportClip("Throw");
 
 
 	//reader = new ModelReader(name);
@@ -30,15 +30,15 @@ ModelExportScene::ModelExportScene()
 
 	//model = new Model(name);
 
-	groot = new Groot();
+	//groot = new Groot();
 }
 
 ModelExportScene::~ModelExportScene()
 {
-	//delete exporter;
+	delete exporter;
 	//delete model;
 
-	delete groot;
+	//delete groot;
 	delete modelAnimator;
 }
 
@@ -51,7 +51,7 @@ void ModelExportScene::Update()
 
 	//model->Update();
 
-	groot->Update();
+	//groot->Update();
 }
 
 void ModelExportScene::PreRender()
@@ -67,12 +67,12 @@ void ModelExportScene::Render()
 
 	//model->Render();
 
-	groot->Render();
+	//groot->Render();
 }
 
 void ModelExportScene::PostRender()
 {
 	//model->GetReader()->Debug();
 
-	groot->Debug();
+	//groot->Debug();
 }

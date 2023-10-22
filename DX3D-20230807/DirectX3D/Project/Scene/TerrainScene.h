@@ -16,7 +16,9 @@ public:
 private:
 	Terrain* terrain;
 
-	Sphere* sphere;
+	//Sphere* sphere;
 
 	Vector3 pickedPos;
+
+	Zombie* zombie;
 };

@@ -3,17 +3,20 @@
 
 ModelAnimationScene::ModelAnimationScene()
 {
-	groot = new Groot();
+	zombie = new Zombie();
+	//groot = new Groot();
 }
 
 ModelAnimationScene::~ModelAnimationScene()
 {
-	delete groot;
+	delete zombie;
+	//delete groot;
 }
 
 void ModelAnimationScene::Update()
 {
-	groot->Update();
+	zombie->Update();
+	//groot->Update();
 }
 
 void ModelAnimationScene::PreRender()
@@ -22,10 +25,12 @@ void ModelAnimationScene::PreRender()
 
 void ModelAnimationScene::Render()
 {
-	groot->Render();
+	zombie->Render();
+	//groot->Render();
 }
 
 void ModelAnimationScene::PostRender()
 {
-	groot->Debug();
+	zombie->Debug();
+	//groot->Debug();
 }

@@ -12,6 +12,6 @@ public:
 	void PostRender();
 
 private:
-
-	Groot* groot;
+	Zombie* zombie;
+	//Groot* groot;
 };

@@ -11,26 +11,33 @@ TerrainScene::TerrainScene()
 	// normalMap 추가하기
 	//terrain->GetMaterial()->SetNormalMap(L"Landscape/fieldsone_NM.tga");
 
-	sphere = new Sphere();
+	//sphere = new Sphere();
+	zombie = new Zombie();
+	zombie->scale *= 0.1;
 }
 
 TerrainScene::~TerrainScene()
 {
 	delete terrain;
+
+	delete zombie;
 }
 
 void TerrainScene::Update()
 {
 	terrain->Update();
 
-	sphere->Update();
+	//sphere->Update();
+	zombie->Update();
 
 	if (KEY_DOWN(VK_LBUTTON))
 	{
 		terrain->Picking(&pickedPos);
 
-		sphere->translation = pickedPos;
-		sphere->translation.y += sphere->scale.y;
+		//sphere->translation = pickedPos;
+		//sphere->translation.y += sphere->scale.y;
+
+		zombie->translation = pickedPos;
 	}
 }
 
@@ -42,7 +49,9 @@ void TerrainScene::Render()
 {
 	terrain->Render();
 
-	sphere->Render();
+	//sphere->Render();
+
+	zombie->Render();
 }
 
 void TerrainScene::PostRender()

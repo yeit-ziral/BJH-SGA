@@ -196,6 +196,7 @@
     <ClInclude Include="Render\Buffer\VertexLayout.h" />
     <ClInclude Include="Utility\Time.h" />
     <ClInclude Include="Utility\Vector3.h" />
+    <ClInclude Include="Object\Model\Zombie.h" />
     <ClInclude Include="_include\DirectXTex.h" />
     <ClInclude Include="_include\imconfig.h" />
     <ClInclude Include="_include\imgui.h" />
@@ -268,6 +269,7 @@
     <ClCompile Include="Utility\Keyboard.cpp" />
     <ClCompile Include="Utility\Time.cpp" />
     <ClCompile Include="Utility\Vector3.cpp" />
+    <ClCompile Include="Object\Model\Zombie.cpp" />
     <ClCompile Include="_include\ImGuiFileDialog.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>

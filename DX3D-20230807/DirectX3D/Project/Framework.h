@@ -149,6 +149,7 @@ using namespace MyMath;
 #include "Model/ModelAnimator.h"
 
 #include "Object/Model/Groot.h"
+#include "Object/Model/Zombie.h"
 
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"
