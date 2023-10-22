@@ -12,6 +12,8 @@ public:
 
 	bool Picking(OUT Vector3* position);
 
+	bool OnTheGrount(Vector3* position);
+
 private:
 	void CreateMesh();
 	void CreateNormal();

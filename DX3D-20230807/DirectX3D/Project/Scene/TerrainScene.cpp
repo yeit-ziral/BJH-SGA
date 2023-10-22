@@ -39,6 +39,12 @@ void TerrainScene::Update()
 
 		zombie->translation = pickedPos;
 	}
+
+	if (KEY_DOWN('W'))
+	{
+		zombie->translation.z += Time::Delta();
+		zombie->translation.y = terrain->Picking(&pickedPos);
+	}
 }
 
 void TerrainScene::PreRender()

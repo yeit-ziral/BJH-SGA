@@ -79,6 +79,30 @@ bool Terrain::Picking(OUT Vector3* position)
 	return false;
 }
 
+bool Terrain::OnTheGrount(Vector3* position)
+{
+	for (UINT z = 0; z < height - 1; z++)
+	{
+		for (UINT x = 0; x < width - 1; x++)
+		{
+			UINT index[4];
+			index[0] = (x + 0) + (width * (z + 0));
+			index[1] = (x + 1) + (width * (z + 0));
+			index[2] = (x + 0) + (width * (z + 1));
+			index[3] = (x + 1) + (width * (z + 1));
+
+			Vector3 pos[4];
+			for (UINT i = 0; i < 4; i++)
+			{
+				pos[i] = vertices[index[i]].pos;
+			}
+		}
+	}
+
+
+	return false;
+}
+
 void Terrain::CreateMesh()
 {
 	width = heightMap->GetSize().x;
