@@ -21,6 +21,13 @@ void ModelAnimator::Update()
 {
 	Transform::Update();
 
+	if (!isPlay)
+		return;
+
+	FrameBuffer::Frame& curClip = frameBuffer->data.cur;
+
+	animRatio = (float)curClip.curFrame / clips[curClip.clip]->frameCount;
+
 	UpdateFrame();
 }
 
@@ -194,6 +201,8 @@ void ModelAnimator::UpdateFrame()
 void ModelAnimator::Debug()
 {
 	reader->Debug();
+
+	ImGui::Checkbox("IsPlay", &isPlay);
 }
 
 Matrix ModelAnimator::GetTransformByBone(UINT boneIndex)
@@ -209,9 +218,33 @@ Matrix ModelAnimator::GetTransformByNode(UINT nodeIndex)
 {
 	FrameBuffer::Frame& curClip = frameBuffer->data.cur;
 
-	Matrix cur = nodeTransform[curClip.clip].transform[curClip.curFrame][nodeIndex];
+	Matrix cur = nodeTransform[curClip.clip].transform[curClip.curFrame + 0][nodeIndex];
+	Matrix next = nodeTransform[curClip.clip].transform[curClip.curFrame + 1][nodeIndex];
 
-	return cur;
+	Matrix curAnim = LERP(cur, next, curClip.time);
+
+	FrameBuffer::Frame& nextClip = frameBuffer->data.cur;
+
+	if (nextClip.clip == -1)
+		return curAnim;
+
+	cur = nodeTransform[nextClip.clip].transform[nextClip.curFrame + 0][nodeIndex];
+	next = nodeTransform[nextClip.clip].transform[nextClip.curFrame + 1][nodeIndex];
+
+	Matrix nextAnim = LERP(cur, next, nextClip.time);
+
+	return LERP(curAnim, nextAnim, frameBuffer->data.tweenTime);
+}
+
+void ModelAnimator::SetEndEvent(function<void()> EndEvent, float ratio)
+{
+	if (frameBuffer->data.next.clip != -1)
+		return;
+
+	this->EndEvent = EndEvent;
+
+	if (animRatio >= ratio)
+		EndEvent();
 }
 
 void ModelAnimator::CreateClipTransform(UINT index)

@@ -12,12 +12,21 @@ Groot::Groot()
 
 	reader->GetMaterial()[0]->Load(L"Groot.mat");
 
-	weapon = new Sphere();
-	weapon->scale *= 100.0f;
+	weapon = new Model("Dwarven_Axe");
+	weapon->GetReader()->GetMaterial()[0]->Load(L"Dwarven_Axe.mat");
+	//weapon->scale *= 100.0f;
 
 	leftHand = new Transform();
 
 	weapon->SetParent(leftHand);
+
+	weapon->rotation.x = XMConvertToRadians(-44);
+	weapon->rotation.y = XMConvertToRadians(64);
+	weapon->rotation.z = XMConvertToRadians(244);
+
+	weapon->translation.x = -1;
+	weapon->translation.y = 80;
+	weapon->translation.z = -20;
 }
 
 Groot::~Groot()
@@ -43,6 +52,8 @@ void Groot::Update()
 		PlayClip(2, speed, takeTime);
 
 	UpdateLeftHand();
+
+	Move();
 }
 
 void Groot::Render()
@@ -70,4 +81,46 @@ void Groot::UpdateLeftHand()
 	leftHand->GetWorld() = nodeTransform * world;
 
 	weapon->Update();
+}
+
+void Groot::SetClip(AnimState state)
+{
+	if (curState != state)
+	{
+		PlayClip(state);
+		curState = state;
+	}
+}
+
+void Groot::Move()
+{
+	if (KEY_PRESS('W'))
+	{
+		translation -= Forward() * moveSpeed * Time::Delta();
+		SetClip(RUN);
+	}
+
+	if (KEY_PRESS('S'))
+	{
+		translation -= Backward() * moveSpeed * Time::Delta();
+		SetClip(RUN);
+	}
+	if (KEY_UP('W') || KEY_UP('S'))
+		SetClip(IDLE);
+
+	if (KEY_PRESS('A'))
+	{
+		rotation.y -= rotSpeed * Time::Delta();
+	}
+	if (KEY_PRESS('D'))
+	{
+		rotation.y += rotSpeed * Time::Delta();
+	}
+
+	if (KEY_DOWN(VK_LBUTTON))
+	{
+		SetClip(ATTACK);
+
+		PlayClip(IDLE);
+	}
 }

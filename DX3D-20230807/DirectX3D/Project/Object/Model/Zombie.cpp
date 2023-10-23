@@ -10,9 +10,9 @@ Zombie::Zombie()
 	ReadClip("Walking");
 	CreateTexture();
 
-	reader->GetMaterial()[0]->Load(L"Groot.mat");
+	reader->GetMaterial()[0]->Load(L"Zombie.mat");
 
-	weapon = new Sphere();
+	weapon = new Knife_A();
 	weapon->scale *= 100.0f;
 
 	leftHand = new Transform();

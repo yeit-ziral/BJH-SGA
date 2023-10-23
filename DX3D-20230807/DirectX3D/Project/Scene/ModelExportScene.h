@@ -15,11 +15,11 @@ private:
 
 	//vector<BodyPart*> bodyparts;
 
-	//ModelReader* reader;
+	ModelReader* reader;
 
 	//ModelA* model;
 
-	//Model* model;
+	Model* model;
 
 	ModelAnimator* modelAnimator;
 

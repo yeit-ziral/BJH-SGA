@@ -3,20 +3,20 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "Zombie";
+	string name = "Dwarven_Axe";
 
 	exporter = new ModelExporter(name);
 	
 	exporter->ExportModel();
 	
-	exporter->ExportClip("Happy Idle");
-	exporter->ExportClip("Walking");
-	exporter->ExportClip("Throw");
+	//exporter->ExportClip("Happy Idle");
+	//exporter->ExportClip("Walking");
+	//exporter->ExportClip("Throw");
 
 
-	//reader = new ModelReader(name);
-	//
-	//reader->SetShader(L"NormalMapping");
+	reader = new ModelReader(name);
+	
+	reader->SetShader(L"NormalMapping");
 	//
 	//bodyparts.resize(reader->GetMeshes().size());
 	//
@@ -28,7 +28,7 @@ ModelExportScene::ModelExportScene()
 
 	//model = new ModelA(name);
 
-	//model = new Model(name);
+	model = new Model(name);
 
 	//groot = new Groot();
 }
@@ -36,7 +36,7 @@ ModelExportScene::ModelExportScene()
 ModelExportScene::~ModelExportScene()
 {
 	delete exporter;
-	//delete model;
+	delete model;
 
 	//delete groot;
 	delete modelAnimator;
@@ -49,7 +49,7 @@ void ModelExportScene::Update()
 	//	part->Update();
 	//}
 
-	//model->Update();
+	model->Update();
 
 	//groot->Update();
 }
@@ -65,14 +65,14 @@ void ModelExportScene::Render()
 	//	bodyparts[i]->Render(i);
 	//}
 
-	//model->Render();
+	model->Render();
 
 	//groot->Render();
 }
 
 void ModelExportScene::PostRender()
 {
-	//model->GetReader()->Debug();
+	model->GetReader()->Debug();
 
 	//groot->Debug();
 }

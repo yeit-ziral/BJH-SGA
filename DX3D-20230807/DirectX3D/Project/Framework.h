@@ -73,6 +73,8 @@ using namespace DirectX;
 #define MAX_BONE 256
 #define MAX_FRAME_KEY 512
 
+#define LERP(start, end, t) (start * (1 - t) + end * t)
+
 typedef XMMATRIX Matrix; // typedef(typedefine)은 코드라서 ; 필요, define은 메크로라서 ; 없음
 typedef XMFLOAT4 Vector4;
 typedef XMFLOAT2 Vector2;
@@ -150,6 +152,7 @@ using namespace MyMath;
 
 #include "Object/Model/Groot.h"
 #include "Object/Model/Zombie.h"
+#include "Object/Model/Knife_A.h"
 
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"

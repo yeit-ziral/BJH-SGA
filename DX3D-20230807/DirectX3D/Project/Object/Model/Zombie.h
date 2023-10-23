@@ -17,7 +17,7 @@ private:
 	float speed = 1.0f;
 	float takeTime = 0.2f;
 
-	Sphere* weapon;
+	class Knife_A* weapon;
 
 	Transform* leftHand;
 };

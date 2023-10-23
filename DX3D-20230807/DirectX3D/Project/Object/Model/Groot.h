@@ -1,6 +1,10 @@
 #pragma once
 class Groot : public ModelAnimator
 {
+	enum AnimState
+	{
+		IDLE, RUN, ATTACK
+	} curState = IDLE;
 public:
 	Groot();
 	~Groot();
@@ -12,12 +16,21 @@ public:
 
 	void UpdateLeftHand();
 
+	void SetClip(AnimState state);
+
+private:
+	void Move();
+
 private:
 
 	float speed = 1.0f;
 	float takeTime = 0.2f;
 
-	Sphere* weapon;
+	Model* weapon;
 
 	Transform* leftHand;
+
+	float moveSpeed = 10.0f;
+
+	float rotSpeed = 3.0f;
 };

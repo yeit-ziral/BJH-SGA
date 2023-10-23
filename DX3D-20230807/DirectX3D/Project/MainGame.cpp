@@ -9,11 +9,11 @@ MainGame::MainGame()
 	//scene = new TutorialScene();
 	//scene = new RobotScene();
 	//scene = new BoxScene();
-	scene = new TerrainScene();
+	//scene = new TerrainScene();
 	//scene = new SphereScene();
 	//scene = new TerrainEditorScene();
 	//scene = new ModelExportScene();
-	//scene = new ModelAnimationScene();
+	scene = new ModelAnimationScene();
 
 	FONT->Add("D2Coding", L"D2Coding");
 }
