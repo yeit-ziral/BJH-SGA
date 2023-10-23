@@ -36,10 +36,10 @@ Texture* Texture::Get(wstring file)
 	// 없으면 만들어서 리턴
 	ScratchImage image;
 
-	if (extension == L"tga")
+	if (extension == L"tga" || extension == L"TGA")
 		LoadFromTGAFile(file.c_str(), nullptr, image);
 
-	else if (extension == L"dds")
+	else if (extension == L"dds" || extension == L"DDS")
 		LoadFromDDSFile(file.c_str(), DDS_FLAGS_NONE, nullptr, image);
 
 	else
@@ -86,10 +86,10 @@ Texture* Texture::Load(wstring file)
 	// 없으면 만들어서 리턴
 	ScratchImage image; // 위의 path와 같은 경우
 
-	if (extension == L"tga")
+	if (extension == L"tga" || extension == L"TGA")
 		LoadFromTGAFile(file.c_str(), nullptr, image);
 
-	else if (extension == L"dds")
+	else if (extension == L"dds" || extension == L"DDS")
 		LoadFromDDSFile(file.c_str(), DDS_FLAGS_NONE, nullptr, image);
 
 	else

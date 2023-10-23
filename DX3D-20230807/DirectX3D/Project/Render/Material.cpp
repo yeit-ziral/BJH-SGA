@@ -145,13 +145,13 @@ void Material::SelectMap()
 	if (ImGui::BeginMenu(label.c_str())) // ImGui는 Begin을 하면 꼭 End를 해줘야 함
 	{
 		if (ImGui::Button("DiffuseMap"))
-			Dialog->OpenDialog("Diffuse", "Select Diffuse", ".png, .jpg, .tga", "Texture/");
+			Dialog->OpenDialog("Diffuse", "Select Diffuse", ".png, .jpg, .tga, .TGA, .DDS", "Texture/");
 
 		if (ImGui::Button("NormalMap"))
-			Dialog->OpenDialog("Normal", "Select Normal", ".png, .jpg, .tga", "Texture/");
+			Dialog->OpenDialog("Normal", "Select Normal", ".png, .jpg, .tga, .TGA, .DDS", "Texture/");
 
 		if (ImGui::Button("SpecularMap"))
-			Dialog->OpenDialog("Specular", "Select Specular", ".png, .jpg, .tga", "Texture/");
+			Dialog->OpenDialog("Specular", "Select Specular", ".png, .jpg, .tga, .TGA, .DDS", "Texture/");
 
 		if (Dialog->Display("Diffuse") || Dialog->Display("Specular") || Dialog->Display("Normal"))
 		{
