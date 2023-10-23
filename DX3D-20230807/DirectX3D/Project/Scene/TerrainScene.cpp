@@ -40,10 +40,25 @@ void TerrainScene::Update()
 		zombie->translation = pickedPos;
 	}
 
-	if (KEY_DOWN('W'))
+	if (KEY_PRESS('W'))
 	{
-		zombie->translation.z += Time::Delta();
-		zombie->translation.y = terrain->Picking(&pickedPos);
+		zombie->translation.z += Time::Delta() * 50;
+		terrain->OnTheGround(&zombie->translation);
+		//class AnimState* state = AnimState::RUN;
+		//zombie->SetClip();
+	}
+	if (KEY_PRESS('S'))
+	{
+		zombie->translation.z -= Time::Delta() * 50;
+		terrain->OnTheGround(&zombie->translation);
+	}
+	if (KEY_PRESS('A'))
+	{
+		zombie->translation.x += Time::Delta() * 50;
+	}
+	if (KEY_PRESS('D'))
+	{
+		zombie->translation.x -= Time::Delta() * 50;
 	}
 }
 

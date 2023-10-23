@@ -71,3 +71,12 @@ void Zombie::UpdateLeftHand()
 
 	weapon->Update();
 }
+
+void Zombie::SetClip(AnimState state)
+{
+	if (curState != state)
+	{
+		//PlayClip(state);
+		curState = state;
+	}
+}

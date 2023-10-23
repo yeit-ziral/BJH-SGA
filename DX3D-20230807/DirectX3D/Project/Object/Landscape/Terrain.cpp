@@ -79,8 +79,10 @@ bool Terrain::Picking(OUT Vector3* position)
 	return false;
 }
 
-bool Terrain::OnTheGrount(Vector3* position)
+bool Terrain::OnTheGround(Vector3* position)
 {
+	float dis = 1000.0f;
+
 	for (UINT z = 0; z < height - 1; z++)
 	{
 		for (UINT x = 0; x < width - 1; x++)
@@ -95,6 +97,53 @@ bool Terrain::OnTheGrount(Vector3* position)
 			for (UINT i = 0; i < 4; i++)
 			{
 				pos[i] = vertices[index[i]].pos;
+			}
+
+			float disAll = 0;
+
+			for (int i = 0; i < 3; i++)
+			{
+				Vector3 temp = { abs(position->x - pos[i].x), 0, abs(position->z - pos[i].z) };
+				disAll += temp.Length();
+			}
+
+			float disAll2 = 0;
+
+			for (int i = 1; i < 4; i++)
+			{
+				Vector3 temp = { abs(position->x - pos[i].x), 0, abs(position->z - pos[i].z) };
+				disAll2 += temp.Length();
+			}
+
+			if (disAll <= disAll2)
+			{
+				if (disAll < dis)
+				{
+					dis = disAll;
+
+					float temp = 0;
+					for (int i = 0; i < 3; i++)
+					{
+						temp += pos[i].y;
+					}
+
+					position->y = temp / 3;
+				}
+			}
+			else
+			{
+				if (disAll2 < dis)
+				{
+					dis = disAll;
+
+					float temp = 0;
+					for (int i = 1; i < 4; i++)
+					{
+						temp += pos[i].y;
+					}
+
+					position->y = temp / 3;
+				}
 			}
 		}
 	}

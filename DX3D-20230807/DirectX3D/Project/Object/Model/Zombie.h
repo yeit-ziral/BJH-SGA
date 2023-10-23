@@ -1,6 +1,11 @@
 #pragma once
 class Zombie : public ModelAnimator
 {
+	enum class AnimState
+	{
+		IDLE, RUN, ATTACK
+	}; 
+	AnimState curState = AnimState::IDLE;
 public:
 	Zombie();
 	~Zombie();
@@ -11,6 +16,8 @@ public:
 	void Debug();
 
 	void UpdateLeftHand();
+
+	void SetClip(AnimState state);
 
 private:
 

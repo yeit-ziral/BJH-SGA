@@ -12,7 +12,7 @@ public:
 
 	bool Picking(OUT Vector3* position);
 
-	bool OnTheGrount(Vector3* position);
+	bool OnTheGround(Vector3* position);
 
 private:
 	void CreateMesh();
