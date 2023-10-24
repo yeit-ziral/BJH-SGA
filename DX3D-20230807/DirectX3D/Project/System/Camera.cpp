@@ -152,8 +152,13 @@ void Camera::TargetMode()
 
 	//viewMatrix = XMMatrixLookAtLH(transform->translation, target->translation, V_UP);
 
+	Vector3 dir = mousePos - oldPos;
 
-	destRot = LERP(destRot, target->rotation.y, rotDamping * Time::Delta());
+	rotY += dir.x * rotSpeed * Time::Delta();
+
+	oldPos = mousePos;
+
+	destRot = LERP(destRot, rotY, rotDamping * Time::Delta());
 
 	XMMATRIX rotMatrix = XMMatrixRotationY(destRot + rotY);
 

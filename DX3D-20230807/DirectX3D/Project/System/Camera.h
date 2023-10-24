@@ -24,6 +24,10 @@ public:
 
 	void SetTarget(Transform* target) { this->target = target; }
 
+	float GetRotY() { return rotY; }
+
+	void SetRotY(float value) { rotY = value; }
+
 private:
 	void FreeMode();
 	void TargetMode();

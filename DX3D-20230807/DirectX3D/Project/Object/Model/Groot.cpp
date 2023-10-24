@@ -100,6 +100,7 @@ void Groot::Move()
 	{
 		if (KEY_PRESS('W'))
 		{
+			rotation.y = Camera::GetInstance()->GetRotY() * 2;
 			translation -= Forward() * moveSpeed * Time::Delta();
 			SetClip(RUN);
 		}
