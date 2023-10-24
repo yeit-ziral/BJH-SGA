@@ -27,6 +27,8 @@ Groot::Groot()
 	weapon->translation.x = -1;
 	weapon->translation.y = 80;
 	weapon->translation.z = -20;
+
+	clips[ATTACK]->SetEndEvent(bind(&Groot::SetClip, this, IDLE), 0.7f); //bind(위치, 작동시킬 객체, (매개변수를 직접 넣어줘서 매개변수가 없는 함수처럼 사용 가능 아니면 placeholders::_10이용해서 매개변수 사용))
 }
 
 Groot::~Groot()
@@ -94,33 +96,34 @@ void Groot::SetClip(AnimState state)
 
 void Groot::Move()
 {
-	if (KEY_PRESS('W'))
+	if (!KEY_PRESS(VK_LBUTTON))
 	{
-		translation -= Forward() * moveSpeed * Time::Delta();
-		SetClip(RUN);
-	}
+		if (KEY_PRESS('W'))
+		{
+			translation -= Forward() * moveSpeed * Time::Delta();
+			SetClip(RUN);
+		}
 
-	if (KEY_PRESS('S'))
-	{
-		translation -= Backward() * moveSpeed * Time::Delta();
-		SetClip(RUN);
-	}
-	if (KEY_UP('W') || KEY_UP('S'))
-		SetClip(IDLE);
+		if (KEY_PRESS('S'))
+		{
+			translation -= Backward() * moveSpeed * Time::Delta();
+			SetClip(RUN);
+		}
+		if (KEY_UP('W') || KEY_UP('S'))
+			SetClip(IDLE);
 
-	if (KEY_PRESS('A'))
-	{
-		rotation.y -= rotSpeed * Time::Delta();
-	}
-	if (KEY_PRESS('D'))
-	{
-		rotation.y += rotSpeed * Time::Delta();
-	}
+		if (KEY_PRESS('A'))
+		{
+			rotation.y -= rotSpeed * Time::Delta();
+		}
+		if (KEY_PRESS('D'))
+		{
+			rotation.y += rotSpeed * Time::Delta();
+		}
 
-	if (KEY_DOWN(VK_LBUTTON))
-	{
-		SetClip(ATTACK);
-
-		PlayClip(IDLE);
+		if (KEY_DOWN(VK_LBUTTON))
+		{
+			SetClip(ATTACK);
+		}
 	}
 }

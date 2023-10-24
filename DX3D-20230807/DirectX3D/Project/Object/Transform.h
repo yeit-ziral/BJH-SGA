@@ -22,6 +22,9 @@ public:
 	Vector3		  Up() { return up; }
 	Vector3		Down() { return up * -1; }
 
+	Vector3 GetGlobalScale() { return globalScale; }
+	Vector3 GetGlobalPosition() { return globalPosition; }
+
 	void Debug();
 
 	void SetLabel(string label) { this->label = label; }

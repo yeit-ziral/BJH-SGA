@@ -166,6 +166,11 @@ void ModelAnimator::UpdateFrame()
 		++frameData.cur.curFrame %= (clip->frameCount - 1);
 
 		frameData.cur.time = 0.0f;
+
+		float animRatio = (float)frameData.cur.curFrame / clips[frameData.cur.clip]->frameCount;
+
+		if (clip->EndEvent != nullptr && animRatio > clip->ratio)
+			clip->EndEvent();
 	}
 
 	// Next Clip

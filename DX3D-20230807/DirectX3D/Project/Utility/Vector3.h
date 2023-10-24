@@ -6,7 +6,7 @@
 #define V_DOWN			Vector3(+0.0f, -1.0f, +0.0f)
 #define V_UP			Vector3(+0.0f, +1.0f, +0.0f)
 #define V_BACKWARD		Vector3(+0.0f, +0.0f, -1.0f)
-#define V_FRONTWARD		Vector3(+0.0f, +0.0f, +1.0f)
+#define V_FORWARD		Vector3(+0.0f, +0.0f, +1.0f)
 
 struct Vector3
 {

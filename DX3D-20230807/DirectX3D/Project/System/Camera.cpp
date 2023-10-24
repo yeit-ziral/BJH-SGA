@@ -24,17 +24,30 @@ Camera::~Camera()
 
 void Camera::Update()
 {
-	FreeMode();
+	if (target == nullptr)
+		FreeMode();
+	else
+		TargetMode();
 }
 
 void Camera::Debug()
 {
-	Vector3 pos = transform->translation;
-	Vector3 rot = transform->rotation;
+	if (ImGui::TreeNode("Camera Option"))
+	{
+		Vector3 pos = transform->translation;
+		Vector3 rot = transform->rotation;
 
-	ImGui::Text("Camera Pos : %f, %f, %f", pos.x, pos.y, pos.z);// const char* => char*은 string을 넣으라는 소리이고, const는 "abcd" 이 형식으로 넣으라는 소리이다 string a가 아니라
-	ImGui::Text("Camera Rot : %.3f, %.3f, %.3f", rot.x, rot.y, rot.z); // f앞에 .n 을 적어서 몇번째 자리까지 표현할지 정할 수 있음
-	// 서식 지정자 %d(정수), %f(실수), %c(charactor), %s(string), %p(pointer) 등에 맞게 넣어줘야 함
+		ImGui::Text("Camera Pos : %f, %f, %f", pos.x, pos.y, pos.z);// const char* => char*은 string을 넣으라는 소리이고, const는 "abcd" 이 형식으로 넣으라는 소리이다 string a가 아니라
+		ImGui::Text("Camera Rot : %.3f, %.3f, %.3f", rot.x, rot.y, rot.z); // f앞에 .n 을 적어서 몇번째 자리까지 표현할지 정할 수 있음
+		// 서식 지정자 %d(정수), %f(실수), %c(charactor), %s(string), %p(pointer) 등에 맞게 넣어줘야 함
+
+		ImGui::SliderFloat("RotationY", &rotY, 0, XM_2PI);
+
+		ImGui::SliderFloat("Camera MoveDamping", &moveDamping, 0.0f, 30.0f);
+		ImGui::SliderFloat("Camera RotationDamping", &rotDamping, 0.0f, 30.0f);
+
+		ImGui::TreePop();
+	}
 }
 
 Ray Camera::ScreenPointToRay(Vector3 screenPos) // screenPos : Near Plane에 찍히는 점의 위치
@@ -104,11 +117,9 @@ void Camera::FreeMode()
 		transform->rotation.y += dir.x * rotSpeed * Time::Delta();
 		transform->rotation.x += dir.y * rotSpeed * Time::Delta();
 
-
-
-
-
 	}
+
+	viewMatrix = XMMatrixInverse(nullptr, transform->GetWorld());
 
 	oldPos = mousePos;
 
@@ -117,6 +128,44 @@ void Camera::FreeMode()
 
 void Camera::TargetMode()
 {
+	//destination = target->translation - target->Backward() * distance + V_UP * height;
+
+	//transform->translation = destination;
+
+	//viewMatrix = XMMatrixLookAtLH(pos, target->translation, V_UP);
+
+	//destination = target->translation - V_FORWARD * distance + V_UP * height; // 기존 탑뷰
+
+	//transform->translation = destination;
+
+	//viewMatrix = XMMatrixLookAtLH(destination, target->translation, V_UP);
+
+	//destRot = LERP(destRot, target->rotation.y, rotDamping * Time::Delta()); // 살짝 숄더뷰 + 뎀핑
+
+	//XMMATRIX rotMatrix = XMMatrixRotationY(destRot + rotY);
+
+	//Vector3 forward = V_FORWARD * rotMatrix;
+
+	//destination = target->GetGlobalPosition() + forward * distance + V_UP * height;
+
+	//transform->translation = LERP(transform->translation, destination, moveDamping * Time::Delta());
+
+	//viewMatrix = XMMatrixLookAtLH(transform->translation, target->translation, V_UP);
+
+
+	destRot = LERP(destRot, target->rotation.y, rotDamping * Time::Delta());
+
+	XMMATRIX rotMatrix = XMMatrixRotationY(destRot + rotY);
+
+	Vector3 forward = V_FORWARD * rotMatrix;
+
+	destination = target->GetGlobalPosition() + forward * distance + V_UP * height;
+
+	transform->translation = LERP(transform->translation, destination, moveDamping * Time::Delta());
+
+	viewMatrix = XMMatrixLookAtLH(transform->translation, target->translation, V_UP);
+
+	SetView();
 }
 
 void Camera::SetView()
@@ -129,7 +178,6 @@ void Camera::SetView()
 
 	//viewMatrix = XMMatrixLookAtLH(eyePos, focusPos, upVector);
 
-	viewMatrix = XMMatrixInverse(nullptr, transform->GetWorld());
 
 	viewBuffer->SetData(viewMatrix, transform->GetWorld()); // transform->GetWorld()가 Inverse View이다
 	viewBuffer->SetVSBuffer(1);

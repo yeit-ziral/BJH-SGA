@@ -6,9 +6,13 @@ ModelAnimationScene::ModelAnimationScene()
 	//zombie = new Zombie();
 	groot = new Groot();
 
-	groot->scale *= 0.1;
+	groot->scale *= 0.05;
 
 	terrain = new Terrain(L"LandScape/Dirt.png", L"HeightMap/Heightmap.png");
+
+	terrain->scale *= 2.5;
+
+	Camera::GetInstance()->SetTarget(groot);
 }
 
 ModelAnimationScene::~ModelAnimationScene()
@@ -25,6 +29,8 @@ void ModelAnimationScene::Update()
 	groot->Update();
 
 	terrain->Update();
+
+	groot->translation.y = terrain->GetHeight(groot->GetGlobalPosition());
 }
 
 void ModelAnimationScene::PreRender()

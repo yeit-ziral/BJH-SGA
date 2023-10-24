@@ -14,6 +14,8 @@ public:
 
 	bool OnTheGround(Vector3* position);
 
+	float GetHeight(Vector3 position);
+
 private:
 	void CreateMesh();
 	void CreateNormal();
