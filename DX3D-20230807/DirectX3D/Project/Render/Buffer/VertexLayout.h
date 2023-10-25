@@ -2,6 +2,10 @@
 
 struct Vertex
 {
+    Vertex()
+    {
+
+    }
     Vertex(float x, float y, float z)
     {
         pos = XMFLOAT3(x, y, z);

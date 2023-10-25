@@ -27,11 +27,15 @@ void Camera::Update()
 	if (target == nullptr)
 		FreeMode();
 	else
-		TargetMode();
+		TargetMode(MODE2);
 }
 
 void Camera::Debug()
 {
+	ImGuiIO io = ImGui::GetIO();
+	distance -= io.MouseWheel * moveSpeed;
+
+
 	if (ImGui::TreeNode("Camera Option"))
 	{
 		Vector3 pos = transform->translation;
@@ -40,6 +44,9 @@ void Camera::Debug()
 		ImGui::Text("Camera Pos : %f, %f, %f", pos.x, pos.y, pos.z);// const char* => char*은 string을 넣으라는 소리이고, const는 "abcd" 이 형식으로 넣으라는 소리이다 string a가 아니라
 		ImGui::Text("Camera Rot : %.3f, %.3f, %.3f", rot.x, rot.y, rot.z); // f앞에 .n 을 적어서 몇번째 자리까지 표현할지 정할 수 있음
 		// 서식 지정자 %d(정수), %f(실수), %c(charactor), %s(string), %p(pointer) 등에 맞게 넣어줘야 함
+
+		ImGui::SliderFloat("Height",   &height,   -10.0f, 100.0f);
+		ImGui::SliderFloat("Distance", &distance, -10.0f, 100.0f);
 
 		ImGui::SliderFloat("RotationY", &rotY, 0, XM_2PI);
 
@@ -126,52 +133,107 @@ void Camera::FreeMode()
 	SetView();
 }
 
-void Camera::TargetMode()
+void Camera::TargetMode(Mode mode)
 {
-	//destination = target->translation - target->Backward() * distance + V_UP * height;
 
-	//transform->translation = destination;
+	if (KEY_PRESS(VK_UP))
+		height += moveSpeed * Time::Delta();
+	if (KEY_PRESS(VK_DOWN))
+		height -= moveSpeed * Time::Delta();
 
-	//viewMatrix = XMMatrixLookAtLH(pos, target->translation, V_UP);
+	switch (mode)
+	{
+	case Camera::MODE1: 
+	{
+		if (KEY_PRESS(VK_RBUTTON))
+		{
+			Vector3 dir = mousePos - oldPos;
 
-	//destination = target->translation - V_FORWARD * distance + V_UP * height; // 기존 탑뷰
+			rotY += dir.x * rotSpeed * Time::Delta();
+		}
+		oldPos = mousePos;
 
-	//transform->translation = destination;
+		destRotY = LERP(destRotY, rotY, rotDamping * Time::Delta());
 
-	//viewMatrix = XMMatrixLookAtLH(destination, target->translation, V_UP);
+		XMMATRIX rotMatrix = XMMatrixRotationY(destRotY + rotY);
 
-	//destRot = LERP(destRot, target->rotation.y, rotDamping * Time::Delta()); // 살짝 숄더뷰 + 뎀핑
+		Vector3 forward = V_FORWARD * rotMatrix;
 
-	//XMMATRIX rotMatrix = XMMatrixRotationY(destRot + rotY);
+		destination = target->GetGlobalPosition() + forward * distance + V_UP * height;
 
-	//Vector3 forward = V_FORWARD * rotMatrix;
+		transform->translation = LERP(transform->translation, destination, moveDamping * Time::Delta());
 
-	//destination = target->GetGlobalPosition() + forward * distance + V_UP * height;
+		viewMatrix = XMMatrixLookAtLH(transform->translation, target->translation, V_UP);
 
-	//transform->translation = LERP(transform->translation, destination, moveDamping * Time::Delta());
+	}
+		break;
+	case Camera::MODE2:
+	{
 
-	//viewMatrix = XMMatrixLookAtLH(transform->translation, target->translation, V_UP);
 
-	Vector3 dir = mousePos - oldPos;
+		if (KEY_PRESS(VK_RBUTTON))
+		{
+			Vector3 dir = mousePos - oldPos;
 
-	rotY += dir.x * rotSpeed * Time::Delta();
+			transform->rotation.y += dir.x * rotSpeed * Time::Delta();
+			transform->rotation.x += dir.y * rotSpeed * Time::Delta();
 
-	oldPos = mousePos;
 
-	destRot = LERP(destRot, rotY, rotDamping * Time::Delta());
+			rotY += dir.x * rotSpeed * Time::Delta();
+		}
 
-	XMMATRIX rotMatrix = XMMatrixRotationY(destRot + rotY);
+		oldPos = mousePos;
 
-	Vector3 forward = V_FORWARD * rotMatrix;
+		destRotX = LERP(destRotX, transform->rotation.x, rotDamping * Time::Delta());
+		destRotY = LERP(destRotY, transform->rotation.y, rotDamping * Time::Delta());
 
-	destination = target->GetGlobalPosition() + forward * distance + V_UP * height;
+		XMMATRIX rotMatrix = XMMatrixRotationRollPitchYaw(destRotX, destRotY + rotY, 0.0f);
 
-	transform->translation = LERP(transform->translation, destination, moveDamping * Time::Delta());
+		Vector3 forward = V_FORWARD * rotMatrix;
 
-	viewMatrix = XMMatrixLookAtLH(transform->translation, target->translation, V_UP);
+		destination = target->GetGlobalPosition() + forward * distance;
+
+		transform->translation = LERP(transform->translation, destination, moveDamping * Time::Delta());
+
+		viewMatrix = XMMatrixLookAtLH(transform->translation, target->translation, V_UP);
+
+		viewMatrix *= XMMatrixTranslation(0, -height, 0);
+	}
+		break;
+	default:
+		break;
+	}
 
 	SetView();
 }
+//
+//void Camera::TargetMode()
+//{
+//	//destination = target->translation - target->Backward() * distance + V_UP * height;
+//
+//	//transform->translation = destination;
+//
+//	//viewMatrix = XMMatrixLookAtLH(pos, target->translation, V_UP);
+//
+//	//destination = target->translation - V_FORWARD * distance + V_UP * height; // 기존 탑뷰
+//
+//	//transform->translation = destination;
+//
+//	//viewMatrix = XMMatrixLookAtLH(destination, target->translation, V_UP);
+//
+//	//destRot = LERP(destRot, target->rotation.y, rotDamping * Time::Delta()); // 살짝 숄더뷰 + 뎀핑
+//
+//	//XMMATRIX rotMatrix = XMMatrixRotationY(destRot + rotY);
+//
+//	//Vector3 forward = V_FORWARD * rotMatrix;
+//
+//	//destination = target->GetGlobalPosition() + forward * distance + V_UP * height;
+//
+//	//transform->translation = LERP(transform->translation, destination, moveDamping * Time::Delta());
+//
+//	//viewMatrix = XMMatrixLookAtLH(transform->translation, target->translation, V_UP);
+//
+//}
 
 void Camera::SetView()
 {

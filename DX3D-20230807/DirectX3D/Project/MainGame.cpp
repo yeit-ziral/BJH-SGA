@@ -13,7 +13,8 @@ MainGame::MainGame()
 	//scene = new SphereScene();
 	//scene = new TerrainEditorScene();
 	//scene = new ModelExportScene();
-	scene = new ModelAnimationScene();
+	//scene = new ModelAnimationScene();
+	scene = new CollisionScene();
 
 	FONT->Add("D2Coding", L"D2Coding");
 }

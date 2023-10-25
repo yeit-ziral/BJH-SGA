@@ -126,6 +126,11 @@ using namespace MyMath;
 #include "Render/State/SamplerState.h"
 #include "Render/State/StateManager.h"
 
+#include "Collider/Collider.h"
+#include "Collider/ColliderBox.h"
+#include "Collider/ColliderSphere.h"
+#include "Collider/ColliderCapsule.h"
+
 #include "System/Environment.h"
 #include "System/Camera.h"
 
@@ -165,6 +170,7 @@ using namespace MyMath;
 #include "Scene/TerrainEditorScene.h"
 #include "Scene/ModelExportScene.h"
 #include "Scene/ModelAnimationScene.h"
+#include "Scene/CollisionScene.h"
 
 #include "MainGame.h"
 

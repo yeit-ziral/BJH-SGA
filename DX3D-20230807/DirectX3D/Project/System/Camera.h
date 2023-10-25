@@ -1,14 +1,14 @@
 #pragma once
 
-struct Ray
-{
-	Vector3 origin;
-	Vector3 direction;
-};
-
 class Camera : public Singleton<Camera>
 {
 	friend class Singleton;
+
+public:
+	enum Mode
+	{
+		MODE1, MODE2
+	};
 private:
 	Camera();
 	~Camera();
@@ -30,7 +30,7 @@ public:
 
 private:
 	void FreeMode();
-	void TargetMode();
+	void TargetMode(Mode mode);
 
 	void SetView();
 
@@ -57,7 +57,8 @@ private:
 	Vector3 focusOffset;
 
 	float rotY = 0.0f;
-	float destRot = 0.0f;
+	float destRotX = 0.0f;
+	float destRotY = 0.0f;
 
 	float moveDamping = 5.0f;
 	float rotDamping = 1.0f;
