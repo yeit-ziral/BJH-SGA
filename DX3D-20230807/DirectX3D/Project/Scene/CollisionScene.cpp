@@ -7,10 +7,17 @@ CollisionScene::CollisionScene()
 	{
 		colliders.push_back(new ColliderSphere);
 		colliders[i]->SetLabel("ColliderSphere" + to_string(i));
-		colliders[i]->translation.x = 2 * i;
+		colliders[i]->translation.x = 3 * i;
 	}
 
-	Camera::GetInstance()->GetTransform()->translation = Vector3(0.34f, 4.4f, -5.1f);
+	for (UINT i = 2; i < 4; i++)
+	{
+		colliders.push_back(new ColliderBox);
+		colliders[i]->SetLabel("ColliderBox" + to_string(i));
+		colliders[i]->translation.x = 3 * i;
+	}
+
+	Camera::GetInstance()->GetTransform()->translation = Vector3(7.0f, 4.4f, -8.1f);
 }
 
 CollisionScene::~CollisionScene()
@@ -26,10 +33,21 @@ void CollisionScene::Update()
 	for (Collider* collider : colliders)
 		collider->Update();
 
-	if (colliders[0]->Collision(colliders[1]))
-		colliders[0]->SetColor(1, 0, 0);
+	Ray ray = Camera::GetInstance()->ScreenPointToRay(mousePos);
+
+	Contact contact;
+
+	//if(colliders[0]->Collision(ray, &contact))
+	//	colliders[0]->SetColor(1, 0, 0);
+	//else
+	//	colliders[0]->SetColor(0, 1, 0);
+
+	//colliders[1]->translation = contact.hitPoint;
+
+	if (colliders[2]->Collision(colliders[3]))
+		colliders[2]->SetColor(1, 0, 0);
 	else
-		colliders[0]->SetColor(0, 1, 0);
+		colliders[2]->SetColor(0, 1, 0);
 }
 
 void CollisionScene::PreRender()
