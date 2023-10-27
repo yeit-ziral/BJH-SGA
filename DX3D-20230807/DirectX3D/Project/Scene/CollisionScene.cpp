@@ -17,7 +17,7 @@ CollisionScene::CollisionScene()
 		colliders[i]->translation.x = 3 * i;
 	}
 
-	Camera::GetInstance()->GetTransform()->translation = Vector3(7.0f, 4.4f, -8.1f);
+	Camera::GetInstance()->GetTransform()->translation = Vector3(7.0f, 1.4f, -8.1f);
 }
 
 CollisionScene::~CollisionScene()
@@ -37,14 +37,14 @@ void CollisionScene::Update()
 
 	Contact contact;
 
-	//if(colliders[0]->Collision(ray, &contact))
-	//	colliders[0]->SetColor(1, 0, 0);
+	//if(colliders[2]->Collision(ray, &contact))
+	//	colliders[2]->SetColor(1, 0, 0);
 	//else
-	//	colliders[0]->SetColor(0, 1, 0);
+	//	colliders[2]->SetColor(0, 1, 0);
 
 	//colliders[1]->translation = contact.hitPoint;
 
-	if (colliders[2]->Collision(colliders[3]))
+	if (colliders[2]->Collision(colliders[1]))
 		colliders[2]->SetColor(1, 0, 0);
 	else
 		colliders[2]->SetColor(0, 1, 0);

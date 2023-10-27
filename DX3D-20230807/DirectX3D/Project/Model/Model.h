@@ -8,6 +8,8 @@ public:
 	void Update();
 	void Render();
 
+	void Debug();
+
 	ModelReader* GetReader() { return reader; }
 
 private:

@@ -14,23 +14,29 @@ MainGame::MainGame()
 	//scene = new TerrainEditorScene();
 	//scene = new ModelExportScene();
 	//scene = new ModelAnimationScene();
-	scene = new CollisionScene();
+	//scene = new CollisionScene();
+
+	SCENE->Create("Grid", new GridScene());
+	SCENE->Create("Collision", new CollisionScene());
+	SCENE->Create("ModelExport", new ModelExportScene);
+
+	SCENE->Add("Grid");
+	SCENE->Add("Collision");
+	SCENE->Add("ModelExport");
 
 	FONT->Add("D2Coding", L"D2Coding");
 }
 
 MainGame::~MainGame()
 {
-	delete scene;
-
 	Release();
 
-	FONT->Delete();
+	//FONT->Delete();
 }
 
 void MainGame::Update()
 {
-	scene->Update();
+	SCENE->Update();
 
 	Time::GetInstance()->Update();
 	Keyboard::GetInstance()->Update();
@@ -53,16 +59,16 @@ void MainGame::Render()
 		RS->ChangeState(D3D11_FILL_SOLID);
 	}
 
-	scene->PreRender();
+	SCENE->PreRender();
 
 	Device::GetInstance()->Clear();
 
 	Environment::GetInstance()->SetEnvironment();
 
-	scene->Render();
+	SCENE->Render();
 	Time::GetInstance()->Render();
 
-	scene->PostRender();
+	SCENE->PostRender();
 
 	Camera::GetInstance()->Debug();
 
@@ -110,6 +116,7 @@ void MainGame::Release()
 	StateManager::Delete();
 	Camera::Delete();
 	Texture::Delete();
+	SceneManager::Delete();
 
 	// Cleanup
 	ImGui_ImplDX11_Shutdown();

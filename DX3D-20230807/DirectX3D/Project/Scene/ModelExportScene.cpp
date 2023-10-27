@@ -3,7 +3,7 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "Dwarven_Axe";
+	string name = "Pumpkin";
 
 	exporter = new ModelExporter(name);
 	
@@ -73,6 +73,7 @@ void ModelExportScene::Render()
 void ModelExportScene::PostRender()
 {
 	model->GetReader()->Debug();
+	model->Debug();
 
 	//groot->Debug();
 }
