@@ -24,4 +24,5 @@ private:
 	ModelAnimator* modelAnimator;
 
 	//Groot* groot;
+	Ghost* pumpkin;
 };

@@ -138,6 +138,8 @@
     <ClInclude Include="Collider\ColliderCapsule.h" />
     <ClInclude Include="Collider\ColliderSphere.h" />
     <ClInclude Include="Collider\Collider.h" />
+    <ClInclude Include="Object\Model\Ghost.h" />
+    <ClInclude Include="Object\Model\Pumpkin.h" />
     <ClInclude Include="Scene\GridScene.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\CollisionScene.h" />
@@ -154,6 +156,8 @@
     <ClInclude Include="Model\ModelMesh.h" />
     <ClInclude Include="Model\ModelReader.h" />
     <ClInclude Include="Scene\ModelExportScene.h" />
+    <ClInclude Include="Object\Model\Skeleton.h" />
+    <ClInclude Include="Scene\ShootingScene.h" />
     <ClInclude Include="Utility\MyMath.h" />
     <ClInclude Include="Utility\BinaryReader.h" />
     <ClInclude Include="Utility\BinaryWriter.h" />
@@ -222,6 +226,8 @@
     <ClCompile Include="Collider\ColliderCapsule.cpp" />
     <ClCompile Include="Collider\ColliderSphere.cpp" />
     <ClCompile Include="Collider\Collider.cpp" />
+    <ClCompile Include="Object\Model\Ghost.cpp" />
+    <ClCompile Include="Object\Model\Pumpkin.cpp" />
     <ClCompile Include="Scene\GridScene.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\CollisionScene.cpp" />
@@ -237,6 +243,8 @@
     <ClCompile Include="Model\ModelMesh.cpp" />
     <ClCompile Include="Model\ModelReader.cpp" />
     <ClCompile Include="Scene\ModelExportScene.cpp" />
+    <ClCompile Include="Object\Model\Skeleton.cpp" />
+    <ClCompile Include="Scene\ShootingScene.cpp" />
     <ClCompile Include="Utility\MyMath.cpp" />
     <ClCompile Include="Utility\BinaryReader.cpp" />
     <ClCompile Include="Utility\BinaryWriter.cpp" />

@@ -161,6 +161,9 @@ using namespace MyMath;
 #include "Object/Model/Groot.h"
 #include "Object/Model/Zombie.h"
 #include "Object/Model/Knife_A.h"
+#include "Object/Model/Pumpkin.h"
+#include "Object/Model/Ghost.h"
+#include "Object/Model/Skeleton.h"
 
 #include "Scene/Scene.h"
 #include "Scene/TutorialScene.h"
@@ -174,6 +177,7 @@ using namespace MyMath;
 #include "Scene/ModelAnimationScene.h"
 #include "Scene/CollisionScene.h"
 #include "Scene/GridScene.h"
+#include "Scene/ShootingScene.h"
 
 #include "Scene/SceneManager.h"
 

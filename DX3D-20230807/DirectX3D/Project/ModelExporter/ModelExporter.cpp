@@ -71,6 +71,7 @@ void ModelExporter::ExportMaterial()
 		aiString file;
 
 		srcMaterial->GetTexture(aiTextureType_DIFFUSE, 0, &file);
+
 		material->SetDiffuseMap(CreateTexture(file.C_Str()));
 
 		srcMaterial->GetTexture(aiTextureType_SPECULAR, 0, &file);
