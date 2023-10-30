@@ -3,7 +3,6 @@
 
 SceneManager::SceneManager()
 {
-
 }
 
 SceneManager::~SceneManager()

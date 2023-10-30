@@ -159,3 +159,33 @@ public:
 		Frame cur, next;
 	} data;
 };
+
+class FloatValueBuffer : public ConstBuffer
+{
+public:
+	FloatValueBuffer()
+		: ConstBuffer(&data, sizeof(data))
+	{
+
+	}
+
+	struct Data
+	{
+		float values[4] = {};
+	} data;
+};
+
+class IntValueBuffer : public ConstBuffer
+{
+public:
+	IntValueBuffer()
+		: ConstBuffer(&data, sizeof(data))
+	{
+
+	}
+
+	struct Data
+	{
+		int values[4] = {};
+	} data;
+};

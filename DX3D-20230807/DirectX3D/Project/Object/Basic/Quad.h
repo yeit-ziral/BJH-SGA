@@ -4,11 +4,14 @@ class Quad : public Transform
 public:
 	Quad(Vector2 size = {1,1});
 	Quad(vector<Vector3> points);
+	Quad(wstring file);
 	~Quad();
 
 	void Render();
 
-private:
+	Material* GetMaterial() { return material; }
+
+protected:
 	Material* material = nullptr;
 	Mesh*	  mesh	   = nullptr;
 

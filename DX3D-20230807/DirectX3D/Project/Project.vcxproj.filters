@@ -273,6 +273,12 @@
     <ClInclude Include="Scene\ShootingScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Render\State\BlendState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\UI\ProgressBar.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -488,6 +494,12 @@
     <ClCompile Include="Scene\ShootingScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Render\State\BlendState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\UI\ProgressBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="__Others\Project.rc">
@@ -598,6 +610,8 @@
     <FxCompile Include="_Shader\Pixel02ModelAnimation.hlsl" />
     <FxCompile Include="_Shader\Vertex03Collider.hlsl" />
     <FxCompile Include="_Shader\Pixel03Collider.hlsl" />
+    <FxCompile Include="_Shader\Vertex04ProgressBar.hlsl" />
+    <FxCompile Include="_Shader\Pixel04ProgressBar.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

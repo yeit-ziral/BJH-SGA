@@ -20,8 +20,8 @@ Texture* Texture::Get(wstring file)
 {
 	wstring path = file;
 
-	if (file == L"Texture/Model/Pumpkin/Pumpkin.fbm\\Pumpkin_DefaultMaterial_BaseColor.png")
-		file = L"Texture/Model/Pumpkin/Pumpkin_DefaultMaterial_BaseColor.png";
+	//if (file == L"Texture/Model/Pumpkin/Pumpkin.fbm\\Pumpkin_DefaultMaterial_BaseColor.png")
+	//	file = L"Texture/Model/Pumpkin/Pumpkin_DefaultMaterial_BaseColor.png";
 
 	if (file == L"")
 		return nullptr;

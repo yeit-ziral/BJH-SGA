@@ -33,6 +33,8 @@ public:
 
 	string GetLabel() { return label; }
 
+	Texture* GetDiffuseMap() { return diffuseMap; }
+
 private:
 	VertexShader* vertexShader = nullptr;
 	PixelShader*   pixelShader = nullptr;

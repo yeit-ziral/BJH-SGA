@@ -13,6 +13,11 @@ ModelAnimationScene::ModelAnimationScene()
 	terrain->scale *= 2.5;
 
 	Camera::GetInstance()->SetTarget(groot);
+
+	crosshair = new Quad();
+	crosshair->GetMaterial()->SetDiffuseMap(L"UI/CrossHair.png");
+	crosshair->GetMaterial()->SetShader(L"Texture");
+	crosshair->scale = { 200, 200, 1 };
 }
 
 ModelAnimationScene::~ModelAnimationScene()
@@ -21,6 +26,8 @@ ModelAnimationScene::~ModelAnimationScene()
 	delete groot;
 
 	delete  terrain;
+
+	delete crosshair;
 }
 
 void ModelAnimationScene::Update()
@@ -31,6 +38,11 @@ void ModelAnimationScene::Update()
 	terrain->Update();
 
 	groot->translation.y = terrain->GetHeight(groot->GetGlobalPosition());
+
+	crosshair->translation.x = mousePos.x;
+	crosshair->translation.y = WIN_HEIGHT - mousePos.y;
+
+	crosshair->Update();
 }
 
 void ModelAnimationScene::PreRender()
@@ -43,12 +55,19 @@ void ModelAnimationScene::Render()
 	groot->Render();
 
 	terrain->Render();
+
 }
 
 void ModelAnimationScene::PostRender()
 {
 	//zombie->Debug();
 	groot->Debug();
+
+	StateManager::GetInstance()->AlphaBegin();
+
+	crosshair->Render();
+
+	StateManager::GetInstance()->AlphaEnd();
 
 	terrain->Debug();
 }

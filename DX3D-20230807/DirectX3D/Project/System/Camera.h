@@ -51,7 +51,7 @@ private:
 	Transform* target;
 
 	float distance = 60.0f;
-	float height = 60.0f;
+	float height = 10.0f;
 
 	Vector3 destination;
 	Vector3 focusOffset;
@@ -60,6 +60,6 @@ private:
 	float destRotX = 0.0f;
 	float destRotY = 0.0f;
 
-	float moveDamping = 5.0f;
-	float rotDamping = 1.0f;
+	float moveDamping = 30.0f;
+	float rotDamping = 30.0f;
 };

@@ -16,15 +16,17 @@ MainGame::MainGame()
 	//scene = new ModelAnimationScene();
 	//scene = new CollisionScene();
 
-	//SCENE->Create("Grid", new GridScene());
-	//SCENE->Create("Collision", new CollisionScene());
+	SCENE->Create("Grid", new GridScene());
+	SCENE->Create("Collision", new CollisionScene());
 	//SCENE->Create("ModelExport", new ModelExportScene);
-	SCENE->Create("Shooting", new ShootingScene);
+	SCENE->Create("ModelAnimation", new ModelAnimationScene);
+	//SCENE->Create("Shooting", new ShootingScene);
 
-	//SCENE->Add("Grid");
-	//SCENE->Add("Collision");
+	SCENE->Add("Grid");
+	SCENE->Add("Collision");
 	//SCENE->Add("ModelExport");
-	SCENE->Add("Shooting");
+	SCENE->Add("ModelAnimation");
+	//SCENE->Add("Shooting");
 
 	FONT->Add("D2Coding", L"D2Coding");
 }
@@ -69,6 +71,8 @@ void MainGame::Render()
 
 	SCENE->Render();
 	Time::GetInstance()->Render();
+
+	Environment::GetInstance()->PostSet();
 
 	SCENE->PostRender();
 

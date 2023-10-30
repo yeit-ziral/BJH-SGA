@@ -5,13 +5,14 @@ Environment::Environment()
 {
     CreateViewport();
     CreatePerspective();
+    CreateOrthographic();
 
     lightBuffer = new LightBuffer();
 }
 
 Environment::~Environment()
 {
-    delete  projBuffer;
+    delete  persBuffer;
     delete lightBuffer;
 }
 
@@ -30,11 +31,11 @@ void Environment::CreateViewport() // 3D 절두체를 2D로 압축하면서 어떻게 표현할�
 
 void Environment::CreatePerspective()
 {
-    projBuffer = new MatrixBuffer();
+    persBuffer = new MatrixBuffer();
 
 
 
-    projMatrix = XMMatrixPerspectiveFovLH
+    persMatrix = XMMatrixPerspectiveFovLH
     (
         XM_PIDIV4/*1.8151424221f*/, // 그냥 실수를 넣어도 됨
         WIN_WIDTH / WIN_HEIGHT,
@@ -42,15 +43,31 @@ void Environment::CreatePerspective()
         1000.0f
     ); //Fov : Fild of view 시야각
 
-    projBuffer->SetData(projMatrix);
+    persBuffer->SetData(persMatrix);
+}
 
-    projBuffer->SetVSBuffer(2);
+void Environment::CreateOrthographic()
+{
+    orthoBuffer = new MatrixBuffer();
+
+    orthoMatrix = XMMatrixOrthographicOffCenterLH(0.0f, WIN_WIDTH, 0.0f, WIN_HEIGHT, -1.0f, 1.0f);
+
+    orthoBuffer->SetData(orthoMatrix);
+
+    UIViewBuffer = new ViewBuffer();
 }
 
 void Environment::SetEnvironment()
 {
     lightBuffer->SetPSBuffer(0);
 
+    persBuffer->SetVSBuffer(2);
+}
+
+void Environment::PostSet()
+{
+    UIViewBuffer->SetVSBuffer(1);
+     orthoBuffer->SetVSBuffer(2);
 }
 
 void Environment::PostRender()

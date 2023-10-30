@@ -3,11 +3,11 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "Pumpkin";
+	string name = "Dwarven_Axe";
 
-	//exporter = new ModelExporter(name);
-	//
-	//exporter->ExportModel();
+	exporter = new ModelExporter(name);
+	
+	exporter->ExportModel();
 	
 	//exporter->ExportClip("Happy Idle");
 	//exporter->ExportClip("Walking");
@@ -29,7 +29,7 @@ ModelExportScene::ModelExportScene()
 
 	//model = new ModelA(name);
 
-	//model = new Model(name);
+	model = new Model(name);
 	//model->scale *= 0.01;
 
 	//groot = new Groot();
@@ -38,8 +38,8 @@ ModelExportScene::ModelExportScene()
 
 ModelExportScene::~ModelExportScene()
 {
-	//delete exporter;
-	//delete model;
+	delete exporter;
+	delete model;
 
 	//delete groot;
 	delete modelAnimator;
@@ -52,7 +52,7 @@ void ModelExportScene::Update()
 	//	part->Update();
 	//}
 
-	//model->Update();
+	model->Update();
 
 	//groot->Update();
 
@@ -70,7 +70,7 @@ void ModelExportScene::Render()
 	//	bodyparts[i]->Render(i);
 	//}
 
-	//model->Render();
+	model->Render();
 
 	//groot->Render();
 
@@ -79,8 +79,8 @@ void ModelExportScene::Render()
 
 void ModelExportScene::PostRender()
 {
-	//model->GetReader()->Debug();
-	//model->Debug();
+	model->GetReader()->Debug();
+	model->Debug();
 
 	//groot->Debug();
 
