@@ -3,7 +3,7 @@
 
 GridScene::GridScene()
 {
-	material = new Material(L"TuTorial");
+	material = new Material(L"Tutorial");
 
 	worldBuffer = new MatrixBuffer();
 

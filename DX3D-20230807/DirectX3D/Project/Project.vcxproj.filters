@@ -279,6 +279,15 @@
     <ClInclude Include="Object\UI\ProgressBar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Render\State\DepthStencilState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Landscape\Sky.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Landscape\SkyBox.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -500,6 +509,15 @@
     <ClCompile Include="Object\UI\ProgressBar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Render\State\DepthStencilState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Landscape\Sky.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Landscape\SkyBox.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="__Others\Project.rc">
@@ -612,6 +630,8 @@
     <FxCompile Include="_Shader\Pixel03Collider.hlsl" />
     <FxCompile Include="_Shader\Vertex04ProgressBar.hlsl" />
     <FxCompile Include="_Shader\Pixel04ProgressBar.hlsl" />
+    <FxCompile Include="_Shader\Vertex05Sky.hlsl" />
+    <FxCompile Include="_Shader\Pixel05Sky.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="imgui.ini" />

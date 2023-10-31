@@ -18,6 +18,8 @@ ModelAnimationScene::ModelAnimationScene()
 	crosshair->GetMaterial()->SetDiffuseMap(L"UI/CrossHair.png");
 	crosshair->GetMaterial()->SetShader(L"Texture");
 	crosshair->scale = { 200, 200, 1 };
+
+	sky = new SkyBox(L"Landscape/SpaceBox.dds");
 }
 
 ModelAnimationScene::~ModelAnimationScene()
@@ -28,6 +30,8 @@ ModelAnimationScene::~ModelAnimationScene()
 	delete  terrain;
 
 	delete crosshair;
+
+	delete sky;
 }
 
 void ModelAnimationScene::Update()
@@ -51,6 +55,7 @@ void ModelAnimationScene::PreRender()
 
 void ModelAnimationScene::Render()
 {
+	sky->Render();
 	//zombie->Render();
 	groot->Render();
 
@@ -60,14 +65,14 @@ void ModelAnimationScene::Render()
 
 void ModelAnimationScene::PostRender()
 {
-	//zombie->Debug();
-	groot->Debug();
-
-	StateManager::GetInstance()->AlphaBegin();
+	//StateManager::GetInstance()->AlphaBegin();
 
 	crosshair->Render();
 
-	StateManager::GetInstance()->AlphaEnd();
+	//StateManager::GetInstance()->AlphaEnd();
 
 	terrain->Debug();
+	groot->PostRender();
+
+	//sky->PostRender();
 }

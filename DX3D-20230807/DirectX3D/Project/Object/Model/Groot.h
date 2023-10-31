@@ -13,6 +13,7 @@ public:
 	void Render();
 
 	void Debug();
+	void PostRender();
 
 	void UpdateLeftHand();
 

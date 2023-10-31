@@ -32,7 +32,7 @@ Groot::Groot()
 
 	hpBar = new ProgressBar(L"UI/hp_bar.png", L"UI/hp_bar_BG.png");
 	hpBar->SetLabel("HP Bar");
-	hpBar->scale *= 0.1f;
+	hpBar->scale.x *= 0.5f;
 }
 
 Groot::~Groot()
@@ -60,8 +60,7 @@ void Groot::Update()
 		PlayClip(2, speed, takeTime);
 
 	hpBar->Update();
-	hpBar->translation = this->translation;
-	hpBar->translation.y += 30.0f;
+	hpBar->translation = Camera::GetInstance()->WorldToScreenPoint(this->globalPosition + V_UP);
 
 	UpdateLeftHand();
 
@@ -72,7 +71,6 @@ void Groot::Render()
 {
 	ModelAnimator::Render();
 	weapon->Render();
-	hpBar->Render();
 }
 
 void Groot::Debug()
@@ -93,6 +91,12 @@ void Groot::Debug()
 	hpBar->SetValue(value);
 
 	ImGui::SliderFloat("HP", &value, 0.0f, 1.0f);
+}
+
+void Groot::PostRender()
+{
+	Debug();
+	hpBar->Render();
 }
 
 void Groot::UpdateLeftHand()

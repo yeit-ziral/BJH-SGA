@@ -18,4 +18,6 @@ private:
 	Terrain* terrain;
 
 	Quad* crosshair;
+
+	SkyBox* sky;
 };
