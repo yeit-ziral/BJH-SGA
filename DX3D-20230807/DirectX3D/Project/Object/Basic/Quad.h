@@ -1,6 +1,7 @@
 #pragma once
 class Quad : public Transform
 {
+	typedef VertexTextureNormalTangent VertexType;
 public:
 	Quad(Vector2 size = {1,1});
 	Quad(vector<Vector3> points);
@@ -8,6 +9,7 @@ public:
 	~Quad();
 
 	void Render();
+	void RenderInstanced(UINT instacnceCount);
 
 	Material* GetMaterial() { return material; }
 
@@ -15,8 +17,8 @@ protected:
 	Material* material = nullptr;
 	Mesh*	  mesh	   = nullptr;
 
-	vector<VertexTextureNormal> vertices;
-	vector<UINT>				indices;
+	vector<VertexType>	vertices;
+	vector<UINT>		indices;
 
 
 	MatrixBuffer* worldBuffer = nullptr;

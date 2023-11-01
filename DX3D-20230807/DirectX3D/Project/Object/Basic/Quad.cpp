@@ -10,10 +10,10 @@ Quad::Quad(Vector2 size)
 
 	vertices =
 	{
-		{Vector3(L, T, 0.0f), Vector2(0,0), Vector3(0, 0, -1)},
-		{Vector3(R, T, 0.0f), Vector2(1,0), Vector3(0, 0, -1)},
-		{Vector3(L, B, 0.0f), Vector2(0,1), Vector3(0, 0, -1)},
-		{Vector3(R, B, 0.0f), Vector2(1,1), Vector3(0, 0, -1)}
+		{Vector3(L, T, 0.0f), Vector2(0,0), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(R, T, 0.0f), Vector2(1,0), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(L, B, 0.0f), Vector2(0,1), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(R, B, 0.0f), Vector2(1,1), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)}
 	};
 
 	indices =
@@ -26,7 +26,7 @@ Quad::Quad(Vector2 size)
 
 	material = new Material();
 	//material->SetShader(L"Diffuse");
-	material->SetShader(L"TerrainBrush");
+	material->SetShader(L"NormalMapping");
 	material->SetDiffuseMap(L"Landscape/Box.png");
 
 	worldBuffer = new MatrixBuffer();
@@ -38,10 +38,10 @@ Quad::Quad(vector<Vector3> points)
 {
 	vertices =
 	{
-		{Vector3(points[0].x, points[0].y, points[0].z), Vector2(0,0), Vector3(0, 0, -1)},
-		{Vector3(points[1].x, points[1].y, points[1].z), Vector2(1,0), Vector3(0, 0, -1)},
-		{Vector3(points[2].x, points[2].y, points[2].z), Vector2(0,1), Vector3(0, 0, -1)},
-		{Vector3(points[3].x, points[3].y, points[3].z), Vector2(1,1), Vector3(0, 0, -1)}
+		{Vector3(points[0].x, points[0].y, points[0].z), Vector2(0,0), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(points[1].x, points[1].y, points[1].z), Vector2(1,0), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(points[2].x, points[2].y, points[2].z), Vector2(0,1), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(points[3].x, points[3].y, points[3].z), Vector2(1,1), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)}
 	};
 
 	indices =
@@ -75,10 +75,10 @@ Quad::Quad(wstring file)
 
 	vertices =
 	{
-		{Vector3(L, T, 0.0f), Vector2(0,0), Vector3(0, 0, -1)},
-		{Vector3(R, T, 0.0f), Vector2(1,0), Vector3(0, 0, -1)},
-		{Vector3(L, B, 0.0f), Vector2(0,1), Vector3(0, 0, -1)},
-		{Vector3(R, B, 0.0f), Vector2(1,1), Vector3(0, 0, -1)}
+		{Vector3(L, T, 0.0f), Vector2(0,0), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(R, T, 0.0f), Vector2(1,0), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(L, B, 0.0f), Vector2(0,1), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)},
+		{Vector3(R, B, 0.0f), Vector2(1,1), Vector3(0, 0, -1), Vector3(1.0f, 0.0f, 0.0f)}
 	};
 
 	indices =
@@ -110,4 +110,17 @@ void Quad::Render()
 
 
 	DC->DrawIndexed(indices.size(), 0, 0);
+}
+
+void Quad::RenderInstanced(UINT instacnceCount)
+{
+	worldBuffer->SetData(world);
+	worldBuffer->SetVSBuffer(0);
+
+	material->SetMaterial();
+	mesh->SetMesh();
+
+
+
+	DC->DrawIndexedInstanced(indices.size(), instacnceCount, 0, 0, 0);
 }

@@ -18,6 +18,8 @@ DepthStencilState::DepthStencilState()
     desc.BackFace.StencilDepthFailOp   = D3D11_STENCIL_OP_DECR;
     desc.BackFace.StencilPassOp        = D3D11_STENCIL_OP_KEEP;
     desc.BackFace.StencilFunc          = D3D11_COMPARISON_ALWAYS;
+
+    ChangeState();
 }
 
 DepthStencilState::~DepthStencilState()

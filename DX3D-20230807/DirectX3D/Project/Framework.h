@@ -184,6 +184,7 @@ using namespace MyMath;
 #include "Scene/CollisionScene.h"
 #include "Scene/GridScene.h"
 #include "Scene/ShootingScene.h"
+#include "Scene/InstancingScene.h"
 
 #include "Scene/SceneManager.h"
 

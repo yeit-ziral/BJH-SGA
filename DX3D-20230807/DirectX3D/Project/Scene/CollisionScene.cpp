@@ -17,7 +17,7 @@ CollisionScene::CollisionScene()
 		colliders[i]->translation.x = 3 * i;
 	}
 
-	Camera::GetInstance()->GetTransform()->translation = Vector3(7.0f, 1.4f, -8.1f);
+	//Camera::GetInstance()->GetTransform()->translation = Vector3(7.0f, 1.4f, -8.1f);
 }
 
 CollisionScene::~CollisionScene()

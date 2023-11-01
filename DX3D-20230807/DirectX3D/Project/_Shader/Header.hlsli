@@ -62,11 +62,11 @@ cbuffer FrameBuffer : register(b3)
 
 Texture2DArray transformMap : register(t0);
 
-struct VertexInput
-{
-    float4 pos : POSITION; // 동차좌표계 쓰려고 float3가 아닌 float4로 한 차수 올림
-    float4 color : COLOR;
-};
+//struct VertexInput
+//{
+//    float4 pos : POSITION; // 동차좌표계 쓰려고 float3가 아닌 float4로 한 차수 올림
+//    float4 color : COLOR;
+//};
 
 struct VertexColor
 {
