@@ -12,6 +12,7 @@ public:
 	vector<ModelMesh*> GetMeshes() { return meshes; }
 
 	void Render();
+	void RenderInstanced(UINT instanceCount);
 
 	void Debug();
 

@@ -17,6 +17,8 @@ public:
 
 	void Render();
 
+	void RenderInstanced(UINT instanceCount);
+
 private:
 	string name;
 

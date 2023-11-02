@@ -42,6 +42,17 @@ void ModelAnimator::Render()
 	reader->Render();
 }
 
+void ModelAnimator::RenderInstanced(UINT instanceCount)
+{
+	Transform::SetWorld();
+
+	frameBuffer->SetVSBuffer(3);
+
+	DC->VSSetShaderResources(0, 1, &srv);
+
+	reader->RenderInstanced(instanceCount);
+}
+
 void ModelAnimator::ReadClip(string file, UINT clipIndex)
 {
 	string path = "_ModelData/Clip/" + name + "/" + file + to_string(clipIndex) + ".clip";

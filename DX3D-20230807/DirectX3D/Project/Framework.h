@@ -75,6 +75,8 @@ using namespace DirectX;
 #define MAX_BONE 256
 #define MAX_FRAME_KEY 512
 
+#define MAX_INSTANCE 128 // 모델 수 늘리고 싶으면 이거 조절하면 됨
+
 //#define LERP(start, end, t) (start * (1 - t) + end * t)
 #define LERP(start, end, t) (start + (end - start) * t)
 
@@ -163,6 +165,8 @@ using namespace MyMath;
 #include "Model/Model.h"
 #include "Model/ModelClip.h"
 #include "Model/ModelAnimator.h"
+#include "Model/ModelInstancing.h" // Model 보다 밑에 있으면 됨
+#include "Model/ModelAnimatorInstancing.h"
 
 #include "Object/Model/Groot.h"
 #include "Object/Model/Zombie.h"
@@ -185,6 +189,7 @@ using namespace MyMath;
 #include "Scene/GridScene.h"
 #include "Scene/ShootingScene.h"
 #include "Scene/InstancingScene.h"
+#include "Scene/ModelInstancingScene.h"
 
 #include "Scene/SceneManager.h"
 

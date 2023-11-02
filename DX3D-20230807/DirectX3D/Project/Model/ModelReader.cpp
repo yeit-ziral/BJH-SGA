@@ -34,6 +34,14 @@ void ModelReader::Render()
 	}
 }
 
+void ModelReader::RenderInstanced(UINT instanceCount)
+{
+	for (ModelMesh* mesh : meshes)
+	{
+		mesh->RenderInstanced(instanceCount);
+	}
+}
+
 void ModelReader::Debug()
 {
 	for (Material* material : materials)

@@ -31,6 +31,8 @@ public:
 
 	void SetWorld();
 
+	bool& IsActive() { return isActive; }
+
 public:
 	Vector3 scale = { 1.0f, 1.0f, 1.0f };
 	Vector3 rotation = { 0.0f, 0.0f, 0.0f };
@@ -55,4 +57,6 @@ protected:
 	string label = "Label";
 
 	MatrixBuffer* worldBuffer;
+
+	bool isActive = true; // 원래는 꺼놓고 쓸 때에만 키는게 정석이지만 이걸로 실수가 많이 나와서 true로 설정함
 };

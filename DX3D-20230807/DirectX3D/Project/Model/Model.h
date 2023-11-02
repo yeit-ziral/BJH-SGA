@@ -7,12 +7,13 @@ public:
 
 	void Update();
 	void Render();
+	void RenderInstanced(UINT instanceCount);
 
 	void Debug();
 
 	ModelReader* GetReader() { return reader; }
 
-private:
+protected:
 	ModelReader* reader;
 };
 

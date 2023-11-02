@@ -10,14 +10,16 @@ struct VertexOutput
     float3 viewDir : VIEWDIR;
 };
 
+
+
 VertexOutput
-    main(VertexTextureNormalTangentBlend input)
+    main(VertexInstancing input)
 {
     VertexOutput output;
     
     /////////////////////////
     
-    matrix transform = mul(SkinWorld(input.indices, input.weight), world);
+    matrix transform = mul(SkinWorld(input.index, input.indices, input.weight), input.transform);
     
     output.pos = mul(input.pos, transform);
     ////////////////////////
@@ -34,9 +36,9 @@ VertexOutput
     
     output.uv = input.uv;
     
-    output.normal = normalize(mul(input.normal, (float3x3) world));
+    output.normal = normalize(mul(input.normal, (float3x3) input.transform));
 
-    output.tangent = normalize(mul(input.tangent, (float3x3) world));
+    output.tangent = normalize(mul(input.tangent, (float3x3) input.transform));
     
     output.binormal = cross(output.normal, output.tangent);
     
