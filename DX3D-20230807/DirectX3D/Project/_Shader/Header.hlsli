@@ -1,6 +1,7 @@
 cbuffer World : register(b0)
 {
     matrix world;
+    int hasAnimation;
 };
 
 cbuffer View : register(b1)
@@ -148,6 +149,48 @@ Texture2D normalMap : register(t2);
 
 
 SamplerState samp : register(s0); // Desc 같은 것, Sampling 할 때 세부적인 사항을 설명
+
+///Light
+
+struct Light
+{
+    float4 color;
+    
+    float3 directon;
+    int    type;
+    
+    float3 posiiton;
+    float  range;
+    
+    float inner;
+    float outer;
+    float length;
+    int   active;
+};
+
+struct LightData
+{
+    float3 normal;
+    float4 difuseColor;
+    float4 emissive;
+    float4 specularIntecsity;
+    
+    float shininess;
+    
+    float3 viewPos;
+    float3 worldPos;
+};
+
+struct LightPixelInput
+{
+    float4 pos       : SV_POSITION;
+    float2 uv        : UV;
+    float3 normal    : NORMAL;
+    float3 tangent   : TANGENT;
+    float3 binormal  : BINORMAL;
+    float3 viewPos   : POSITION0;
+    float3 worldPos  : POSITION1;
+};
 
 
 

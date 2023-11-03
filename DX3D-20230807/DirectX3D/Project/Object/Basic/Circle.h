@@ -18,8 +18,6 @@ private:
 
     Mesh* mesh;
 
-    MatrixBuffer* worldBuffer;
-
     vector<VertexColorNormal> vertices;
     vector<UINT> indices;
 };

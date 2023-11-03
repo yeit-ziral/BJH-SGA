@@ -45,7 +45,7 @@ void ModelInstancingScene::Render()
 void ModelInstancingScene::PostRender()
 {
 	ImGui::SliderInt("InstanceIndex", &instanceIndex, 0, 100);
-	ImGui::SliderInt("ClipIndex", &clip, 0, 2);
+	ImGui::SliderInt("ClipIndex", &clip, 0, 2); // 현재 groot가 가지고 있는 clip은 3개밖에 없음
 
 	if (ImGui::Button("Play"))
 		model->PlayClip(instanceIndex, clip);

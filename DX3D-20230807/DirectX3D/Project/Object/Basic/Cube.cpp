@@ -14,7 +14,7 @@ Cube::Cube(Vector4 color)
 
     //WVP
 
-    worldBuffer = new MatrixBuffer();
+    worldBuffer = new WorldBuffer();
 
     count++;
 }

@@ -22,13 +22,10 @@ BodyPart::BodyPart(vector<Material*>materials, ModelMesh* _mesh)
 	material = materials[0];
 
 	mesh = new Mesh(vertices, indices);
-
-	worldBuffer = new MatrixBuffer();
 }
 
 BodyPart::~BodyPart()
 {
-	delete worldBuffer;
 }
 
 void BodyPart::Update()
@@ -38,8 +35,7 @@ void BodyPart::Update()
 
 void BodyPart::Render(int num)
 {
-	worldBuffer->SetData(world);
-	worldBuffer->SetVSBuffer(num);
+	Transform::SetWorld();
 
 	mesh->SetMesh();
 	material->SetMaterial();

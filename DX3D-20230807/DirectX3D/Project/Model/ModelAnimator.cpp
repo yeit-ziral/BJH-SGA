@@ -33,7 +33,7 @@ void ModelAnimator::Update()
 
 void ModelAnimator::Render()
 {
-	Transform::SetWorld();
+	Transform::SetWorld(true);
 
 	frameBuffer->SetVSBuffer(3);
 

@@ -7,8 +7,6 @@ Terrain::Terrain(wstring diffuseFile, wstring heightFile) // Specular 적용시키기
 	material->SetShader(L"NormalMapping");
 	material->SetDiffuseMap(diffuseFile);
 
-	worldBuffer = new MatrixBuffer();
-
 	heightMap = Texture::Get(heightFile);
 
 	CreateMesh();
@@ -23,14 +21,12 @@ Terrain::Terrain(wstring diffuseFile, wstring heightFile) // Specular 적용시키기
 Terrain::~Terrain()
 {
 	delete mesh;
-	delete worldBuffer;
 	delete material;
 }
 
 void Terrain::Render()
 {
-	worldBuffer->SetData(world);
-	worldBuffer->SetVSBuffer(0);
+	Transform::SetWorld(0);
 
 	mesh->SetMesh();
 	material->SetMaterial();

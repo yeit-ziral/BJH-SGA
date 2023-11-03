@@ -9,8 +9,6 @@ Circle::Circle(Vector4 color, float radius)
     CreateNormal();
 
     //WVP
-    worldBuffer = new MatrixBuffer();
-
     mesh = new Mesh(vertices, indices);
 }
 
@@ -18,15 +16,11 @@ Circle::~Circle()
 {
     delete mesh;
     delete material;
-
-    delete worldBuffer;
 }
 
 void Circle::Update()
 {
     Transform::Update();
-
-    worldBuffer->SetData(world);
 }
 
 void Circle::Render()
@@ -34,7 +28,7 @@ void Circle::Render()
     material->SetMaterial();
     mesh->SetMesh(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
-    worldBuffer->SetVSBuffer(0);
+    Transform::SetWorld();
 
     DC->DrawIndexed(indices.size(), 0, 0);
 }

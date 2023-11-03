@@ -65,7 +65,7 @@ void Zombie::UpdateLeftHand()
 {
 	UINT nodeIndex = reader->GetNodeIndex("mixamorig:LeftHand");
 
-	Matrix nodeTransform = GetTransformByNode(nodeIndex);
+	Matrix nodeTransform = GetTransformByNode( nodeIndex);
 
 	leftHand->GetWorld() = nodeTransform * world;
 
@@ -76,7 +76,7 @@ void Zombie::SetClip(AnimState state)
 {
 	if (curState != state)
 	{
-		//PlayClip(state);
+		PlayClip( state);
 		curState = state;
 	}
 }

@@ -62,7 +62,7 @@ private:
 
     Mesh* mesh;
 
-    MatrixBuffer* worldBuffer;
+    WorldBuffer* worldBuffer;
 
     vector<VertexType> vertices;
     vector<UINT> indices;

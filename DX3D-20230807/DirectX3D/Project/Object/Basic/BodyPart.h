@@ -21,7 +21,5 @@ private:
 
 	Material* material;
 	Mesh* mesh;
-
-	MatrixBuffer* worldBuffer;
 };
 

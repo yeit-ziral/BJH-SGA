@@ -27,9 +27,7 @@ Quad::Quad(Vector2 size)
 	material = new Material();
 	//material->SetShader(L"Diffuse");
 	material->SetShader(L"NormalMapping");
-	material->SetDiffuseMap(L"Landscape/Box.png");
-
-	worldBuffer = new MatrixBuffer();
+	//material->SetDiffuseMap(L"Landscape/Box.png");
 
 
 }
@@ -55,8 +53,6 @@ Quad::Quad(vector<Vector3> points)
 	material = new Material();
 	material->SetShader(L"Texture");
 	material->SetDiffuseMap(L"Landscape/Box.png");
-
-	worldBuffer = new MatrixBuffer();
 
 }
 
@@ -88,34 +84,26 @@ Quad::Quad(wstring file)
 	};
 
 	mesh = new Mesh(vertices, indices);
-
-	worldBuffer = new MatrixBuffer();
 }
 
 Quad::~Quad()
 {
 	delete mesh;
-	delete worldBuffer;
 
 }
 
 void Quad::Render()
 {
-	worldBuffer->SetData(world);
-	worldBuffer->SetVSBuffer(0);
+	Transform::SetWorld();
 
 	material->SetMaterial();
 	mesh->SetMesh();
-
-
 
 	DC->DrawIndexed(indices.size(), 0, 0);
 }
 
 void Quad::RenderInstanced(UINT instacnceCount)
 {
-	worldBuffer->SetData(world);
-	worldBuffer->SetVSBuffer(0);
 
 	material->SetMaterial();
 	mesh->SetMesh();

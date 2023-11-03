@@ -4,7 +4,7 @@
 Groot::Groot()
 	:ModelAnimator("Groot")
 {
-	scale *= 0.35f;
+	scale *= 0.04f;
 	ReadClip("Sad Idle");
 	ReadClip("Drunk Run Forward");
 	ReadClip("Mutant Swiping");
@@ -51,13 +51,13 @@ void Groot::Update()
 	//leftHand->Update();
 
 	if (KEY_DOWN('1'))
-		PlayClip(0, speed, takeTime);
+		PlayClip( 0, speed, takeTime);
 
 	if (KEY_DOWN('2'))
-		PlayClip(1, speed, takeTime);
+		PlayClip( 1, speed, takeTime);
 
 	if (KEY_DOWN('3'))
-		PlayClip(2, speed, takeTime);
+		PlayClip( 2, speed, takeTime);
 
 	hpBar->Update();
 	hpBar->translation = Camera::GetInstance()->WorldToScreenPoint(this->globalPosition + V_UP);
@@ -103,7 +103,7 @@ void Groot::UpdateLeftHand()
 {
 	UINT nodeIndex = reader->GetNodeIndex("mixamorig:LeftHand");
 
-	Matrix nodeTransform = GetTransformByNode(nodeIndex);
+	Matrix nodeTransform = GetTransformByNode(nodeIndex); // 하나만 들어와서 instanceIndex에 0 넣어줌
 
 	leftHand->GetWorld() = nodeTransform * world;
 
@@ -114,7 +114,7 @@ void Groot::SetClip(AnimState state)
 {
 	if (curState != state)
 	{
-		PlayClip(state);
+		PlayClip(state);  // 하나만 들어와서 instanceIndex에 0 넣어줌
 		curState = state;
 	}
 }
@@ -125,13 +125,13 @@ void Groot::Move()
 	{
 		if (KEY_PRESS('W'))
 		{
-			Ray ray = Camera::GetInstance()->ScreenPointToRay({ WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f, 0.0f });
+			//Ray ray = Camera::GetInstance()->ScreenPointToRay({ WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f, 0.0f });
 
-			Vector2 dir = { ray.direction.x, ray.direction.z };
-			
-			float theta = -atan2f(dir.y, dir.x) * 2;
+			//Vector2 dir = { ray.direction.x, ray.direction.z };
+			//
+			//float theta = -atan2f(dir.y, dir.x) * 2;
 
-			rotation.y = theta + (PI * 1.304f);//Camera::GetInstance()->GetRotY();
+			//rotation.y = theta + (PI * 1.304f);//Camera::GetInstance()->GetRotY();
 			translation -= Forward() * moveSpeed * Time::Delta();
 			SetClip(RUN);
 		}

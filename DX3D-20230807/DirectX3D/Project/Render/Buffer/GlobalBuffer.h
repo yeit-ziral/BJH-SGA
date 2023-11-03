@@ -42,6 +42,31 @@ public:
 	} data;
 };
 
+class WorldBuffer : public ConstBuffer
+{
+public:
+	WorldBuffer()
+		: ConstBuffer(&data, sizeof(data)) // 부모의 생서자 호출해서 데이터 생성을 같이 해줌
+	{
+		data.view = XMMatrixIdentity();
+		data.hasAnimation = 0;
+	}
+
+	void SetData(Matrix view, int hasAnimation = 0)
+	{
+		data.view = XMMatrixTranspose(view);
+		data.hasAnimation = hasAnimation;
+	}
+
+private:
+	struct Data
+	{
+		Matrix view;
+		int hasAnimation;
+		Vector3 padding;
+	} data;
+};
+
 class ViewBuffer : public ConstBuffer
 {
 public:

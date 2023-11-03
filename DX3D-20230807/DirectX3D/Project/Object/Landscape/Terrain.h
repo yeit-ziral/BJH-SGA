@@ -28,8 +28,6 @@ private:
 	Material* material;
 	Mesh* mesh;
 
-	MatrixBuffer* worldBuffer;
-
 	UINT width = 10;
 	UINT height = 10;
 

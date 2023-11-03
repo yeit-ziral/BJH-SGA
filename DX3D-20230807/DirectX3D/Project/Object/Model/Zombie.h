@@ -1,7 +1,7 @@
 #pragma once
 class Zombie : public ModelAnimator
 {
-	enum class AnimState
+	enum AnimState
 	{
 		IDLE, RUN, ATTACK
 	}; 

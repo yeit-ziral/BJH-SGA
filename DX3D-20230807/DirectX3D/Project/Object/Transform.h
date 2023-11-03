@@ -1,6 +1,6 @@
 #pragma once
 
-class MatrixBuffer;
+class WorldBuffer;
 
 class Transform
 {
@@ -29,7 +29,7 @@ public:
 
 	void SetLabel(string label) { this->label = label; }
 
-	void SetWorld();
+	void SetWorld(int hasAnimation = 0);
 
 	bool& IsActive() { return isActive; }
 
@@ -56,7 +56,7 @@ protected:
 
 	string label = "Label";
 
-	MatrixBuffer* worldBuffer;
+	WorldBuffer* worldBuffer;
 
 	bool isActive = true; // 원래는 꺼놓고 쓸 때에만 키는게 정석이지만 이걸로 실수가 많이 나와서 true로 설정함
 };

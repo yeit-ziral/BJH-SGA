@@ -3,7 +3,7 @@
 
 ModelExportScene::ModelExportScene()
 {
-	string name = "Dwarven_Axe";
+	string name = "StanfordBunny";
 
 	exporter = new ModelExporter(name);
 	
@@ -30,10 +30,11 @@ ModelExportScene::ModelExportScene()
 	//model = new ModelA(name);
 
 	model = new Model(name);
+	model->scale *= 0.1;
 	//model->scale *= 0.01;
 
 	//groot = new Groot();
-	pumpkin = new Ghost();
+	//pumpkin = new Ghost();
 }
 
 ModelExportScene::~ModelExportScene()
@@ -56,7 +57,7 @@ void ModelExportScene::Update()
 
 	//groot->Update();
 
-	pumpkin->Update();
+	//pumpkin->Update();
 }
 
 void ModelExportScene::PreRender()
@@ -74,7 +75,7 @@ void ModelExportScene::Render()
 
 	//groot->Render();
 
-	pumpkin->Render();
+	//pumpkin->Render();
 }
 
 void ModelExportScene::PostRender()
@@ -84,5 +85,5 @@ void ModelExportScene::PostRender()
 
 	//groot->Debug();
 
-	pumpkin->Debug();
+	//pumpkin->Debug();
 }
