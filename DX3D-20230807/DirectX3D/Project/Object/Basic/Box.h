@@ -19,4 +19,6 @@ private:
 	Quad* quadBack;
 	Quad* quadRight;
 	Quad* quadLeft;
+
+	ColliderBox* collider;
 };

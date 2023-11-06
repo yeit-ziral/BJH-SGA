@@ -3,13 +3,13 @@
 
 ModelInstancingScene::ModelInstancingScene()
 {
-	model = new ModelAnimatorInstancing("Groot");
-	model->ReadClip("Sad Idle");
-	model->ReadClip("Drunk Run Forward");
-	model->ReadClip("Mutant Swiping");
+	model = new ModelAnimatorInstancing("Zombie");
+	model->ReadClip("Happy Idle");
+	model->ReadClip("Walking");
+	model->ReadClip("Throw");
 
-	model->GetReader()->GetMaterial()[0]->SetDiffuseMap(L"Model/Groot/groot_diffuse.png");    	// 수동으로 성정해 줘야 됨
-	model->GetReader()->GetMaterial()[0]->SetNormalMap(L"Model/Groot/groot_normal_map.png"); 	// 수동으로 성정해 줘야 됨
+	model->GetReader()->GetMaterial()[0]->SetDiffuseMap(L"Model/Zombie/creature_Base_color.png");    	// 수동으로 성정해 줘야 됨
+	model->GetReader()->GetMaterial()[0]->SetNormalMap(L"Model/Zombie/creature_Base_color.png"); 	// 수동으로 성정해 줘야 됨
 
 	for (float z = 0; z < 10; z++) // 같은 모델 100 개 생성
 	{

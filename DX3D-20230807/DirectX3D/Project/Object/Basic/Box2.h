@@ -19,4 +19,6 @@ private:
 	Quad* quad6;
 
 	Vector2 size = { 1,1 };
+
+	ColliderBox* collider;
 };

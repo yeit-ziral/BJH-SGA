@@ -23,7 +23,7 @@ MainGame::MainGame()
 	//SCENE->Create("ModelExport", new ModelExportScene);
 	//SCENE->Create("ModelAnimation", new ModelAnimationScene);
 	//SCENE->Create("Shooting", new ShootingScene);
-	SCENE->Create("Start", new LightScene);
+	SCENE->Create("Start", new ModelInstancingScene);
 
 	SCENE->Add("Grid");
 	//SCENE->Add("Collision");
