@@ -1,19 +1,10 @@
 #include "Header.hlsli"
 
-struct VertexOutput
-{
-    float4 pos : SV_POSITION;
-    float2 uv : UV;
-    float3 normal : NORMAL;
-    float3 tangent : TANGENT; // uv의 x축
-    float3 binormal : BINORMAL; // uv의 y축
-    float3 viewDir : VIEWDIR;
-};
 
-VertexOutput
+LightVertexOutput
     main(VertexTextureNormalTangentBlend input)
 {
-    VertexOutput output;
+    LightVertexOutput output;
     
     /////////////////////////
     
@@ -30,10 +21,8 @@ VertexOutput
     
     //output.pos = mul(output.pos, world);
     
-    float3 cameraPos = invView._41_42_43;
-    
-    output.viewDir = normalize(output.pos.xyz - cameraPos);
-    
+    output.viewPos = invView._41_42_43;
+    output.worldPos = output.pos;
     
     output.pos = mul(output.pos, view);
     output.pos = mul(output.pos, proj);

@@ -76,6 +76,7 @@ using namespace DirectX;
 #define MAX_FRAME_KEY 512
 
 #define MAX_INSTANCE 128 // 모델 수 늘리고 싶으면 이거 조절하면 됨
+#define MAX_LIGHT 10
 
 //#define LERP(start, end, t) (start * (1 - t) + end * t)
 #define LERP(start, end, t) (start + (end - start) * t)

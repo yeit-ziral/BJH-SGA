@@ -26,7 +26,7 @@ Quad::Quad(Vector2 size)
 
 	material = new Material();
 	//material->SetShader(L"Diffuse");
-	material->SetShader(L"NormalMapping");
+	material->SetShader(L"09Light");
 	//material->SetDiffuseMap(L"Landscape/Box.png");
 
 
@@ -51,7 +51,7 @@ Quad::Quad(vector<Vector3> points)
 	mesh = new Mesh(vertices, indices);
 
 	material = new Material();
-	material->SetShader(L"Texture");
+	material->SetShader(L"09Light");
 	material->SetDiffuseMap(L"Landscape/Box.png");
 
 }
@@ -59,7 +59,7 @@ Quad::Quad(vector<Vector3> points)
 Quad::Quad(wstring file)
 {
 	material = new Material();
-	material->SetShader(L"Diffuse");
+	material->SetShader(L"09Light");
 	material->SetDiffuseMap(file);
 
 	Vector2 size = material->GetDiffuseMap()->GetSize();

@@ -56,7 +56,7 @@ float3 SetBrushColor(float3 pos) // VertexOutput의 worldPos값을 받아서 계산함
 
 float4 main(VertexOutput input) : SV_TARGET
 {
-    float3 L = normalize(lightDirection);
+    float3 L = normalize(lights[0].direction);
     
     float4 albedo = float4(1, 1, 1, 1);
     
@@ -103,7 +103,7 @@ float4 main(VertexOutput input) : SV_TARGET
     
     float4 diffuse = albedo * diffuseIntensity * mDiffuse;
     
-    float4 ambient = albedo * ambientLight * mAmbient;
+    float4 ambient = albedo * float4(ambientLight, 1.0f) * mAmbient;
     
     float4 brushColor = float4(SetBrushColor(input.worldPos), 1.0f);
     

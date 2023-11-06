@@ -15,13 +15,6 @@ cbuffer Proj : register(b2)
     matrix proj;
 };
 
-cbuffer LightDirection : register(b0) // pixelshader에 적용하는거라서 World에 할당된 b0와 다름
-{
-    float3 lightDirection;
-    float padding; // 위와 아래의 메모리 용량이 맞지 않아서 padding 넣음
-    float4 ambientLight;
-};
-
 cbuffer MaterialBuffer : register(b1)
 {
     float4 mDiffuse;
@@ -152,11 +145,11 @@ SamplerState samp : register(s0); // Desc 같은 것, Sampling 할 때 세부적인 사항�
 
 ///Light
 
-struct Light
+struct LightData
 {
     float4 color;
     
-    float3 directon;
+    float3 direction;
     int    type;
     
     float3 posiiton;
@@ -168,10 +161,10 @@ struct Light
     int   active;
 };
 
-struct LightData
+struct LightMaterial
 {
     float3 normal;
-    float4 difuseColor;
+    float4 diffuseColor;
     float4 emissive;
     float4 specularIntecsity;
     
@@ -181,7 +174,7 @@ struct LightData
     float3 worldPos;
 };
 
-struct LightPixelInput
+struct LightVertexOutput
 {
     float4 pos       : SV_POSITION;
     float2 uv        : UV;
@@ -192,7 +185,86 @@ struct LightPixelInput
     float3 worldPos  : POSITION1;
 };
 
+#define MAX_LIGHT 10
 
+cbuffer LightBuffer : register(b0) // pixelshader에 적용하는거라서 World에 할당된 b0와 다름
+{
+    LightData lights[MAX_LIGHT];
+    
+    int     lightCount;
+    float3  ambientLight;
+    float3  ambientCeil;
+};
+
+float3 GetNormal(float3 t, float3 b, float3 n, float2 uv)
+{
+    float3 T = normalize(t);
+    float3 B = normalize(b);
+    float3 N = normalize(n);
+    
+    float3 normal = N;
+    
+    if (hasNormalMap)
+    {
+        float4 normalSample = normalMap.Sample(samp, uv);
+        
+        normal = normalSample * 2.0f - 1.0f;
+        
+        float3x3 TBN = float3x3(T, B, N);
+        
+        normal = normalize(mul(normal, TBN));
+    }
+    
+    return normal;
+}
+
+LightMaterial GetLightMaterial(LightVertexOutput input)
+{
+    LightMaterial material;
+    
+    material.normal             = GetNormal(input.tangent, input.binormal, input.normal, input.uv);
+    material.emissive           = float4(0.1f, 0.1f, 0.1f, 0.1f);
+    
+    if(hasDiffuseMap)
+        material.diffuseColor = diffuseMap.Sample(samp, input.uv);
+    else
+        material.diffuseColor = float4(1, 1, 1, 1);
+    
+    material.specularIntecsity  = specularMap.Sample(samp, input.uv);
+    
+    material.viewPos  = input.viewPos;
+    material.worldPos = input.worldPos;
+    
+    return material;
+}
+
+float4 CalculateAmbient(LightMaterial material)
+{
+    float up = material.normal.y * 0.5f + 0.5f;
+    
+    float4 result = (float4(ambientLight + up * ambientCeil, 1.0f));
+    
+    return result * material.diffuseColor * mAmbient;
+}
+
+float4 CalculateDirectional(LightMaterial material, LightData data)
+{
+    float3 toLight = normalize(data.direction);
+    
+    float diffuseIntensity = saturate(dot(material.normal, -toLight));
+    
+    float4 finalColor = data.color * diffuseIntensity * mDiffuse;
+    
+    // Blinn Phong Shading
+    
+    float3 viewDir = normalize(material.worldPos - material.viewPos); // 카메라가 정점을 바라보는 방향
+    float3 halfWay = normalize(viewDir + toLight);
+    float specular = saturate(dot(material.normal, -halfWay));
+    
+    finalColor += data.color * pow(specular, shininess) * material.specularIntecsity * mSpecular;
+    
+    return finalColor * material.diffuseColor;
+}
 
 matrix SkinWorld(float4 indices, float4 weights)
 {

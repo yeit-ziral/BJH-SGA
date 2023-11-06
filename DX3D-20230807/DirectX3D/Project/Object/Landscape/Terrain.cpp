@@ -4,7 +4,7 @@
 Terrain::Terrain(wstring diffuseFile, wstring heightFile) // Specular 적용시키기
 {
 	material = new Material();
-	material->SetShader(L"NormalMapping");
+	material->SetShader(L"09Light");
 	material->SetDiffuseMap(diffuseFile);
 
 	heightMap = Texture::Get(heightFile);

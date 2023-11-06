@@ -11,7 +11,7 @@ struct VertexOutput
 
 float4 main(VertexOutput input) : SV_TARGET
 {
-    float3 L = normalize(-lightDirection);
+    float3 L = normalize(-lights[0].direction);
     
     float diffuseIntensity = saturate(dot(input.normal, -L)); //N dot L
     
@@ -38,7 +38,7 @@ float4 main(VertexOutput input) : SV_TARGET
     
     float4 diffuse = albedo * diffuseIntensity * mDiffuse;
     
-    float4 ambient = albedo * ambientLight * mAmbient;
+    float4 ambient = albedo * float4(ambientLight, 1.0f) * mAmbient;
     
     return diffuse + specular + ambient;
 }

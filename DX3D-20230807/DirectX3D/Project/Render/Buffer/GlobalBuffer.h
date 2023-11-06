@@ -23,22 +23,43 @@ private:
 
 class LightBuffer : public ConstBuffer
 {
+
+public:
+	struct LightData
+	{
+		Vector4 color = Vector4(1, 1, 1, 1);
+
+		Vector3 direction = Vector3(0, -1, 1);
+		int		type = 0;
+
+		// Point Light
+		Vector3 position = Vector3();
+		float	range = 100.0f;
+
+		// Spot Light
+		float inner = 55.0f;
+		float outer = 70.0f;
+
+		//Capsule Light
+		float length = 50.0f;
+		int	  active = true;
+	};
+
 public:
 	LightBuffer()
 		: ConstBuffer(&data, sizeof(data)) // 부모의 생서자 호출해서 데이터 생성을 같이 해줌
 	{
-		data.direction = V_DOWN;
-		data.padding = 0.0f;
-		data.ambientLight = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+
 	}
 
 	struct Data
 	{
-		Vector3 direction;
+		LightData lights[MAX_LIGHT];
 
+		int lightCount = 1;
+		Vector3 ambientLight = Vector3(0.1f, 0.1f, 0.1f);
+		Vector3 ambientCeil = Vector3(0.1f, 0.1f, 0.1f);
 		float padding;
-
-		Vector4 ambientLight;
 	} data;
 };
 
