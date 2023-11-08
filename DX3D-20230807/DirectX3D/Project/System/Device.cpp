@@ -97,11 +97,12 @@ void Device::CreateBackBuffer()
 
     depthBuffer->Release();
 
-    deviceContext->OMSetRenderTargets(1, &renderTargetView, depthStencilView); // 랜더링 파이프라인의 Output Merge 단계
 }
 
 void Device::Clear()
 {
+    deviceContext->OMSetRenderTargets(1, &renderTargetView, depthStencilView); // 랜더링 파이프라인의 Output Merge 단계
+
     float clearColor[4] = { 0.33f, 0.33f, 0.4f, 1.0f };
 
     deviceContext->ClearRenderTargetView(renderTargetView, clearColor); // backBuffer를 clear 함

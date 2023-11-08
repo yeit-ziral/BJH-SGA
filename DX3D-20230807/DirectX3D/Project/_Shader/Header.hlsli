@@ -225,12 +225,19 @@ LightMaterial GetLightMaterial(LightVertexOutput input)
     material.normal             = GetNormal(input.tangent, input.binormal, input.normal, input.uv);
     material.emissive           = float4(0.1f, 0.1f, 0.1f, 0.1f);
     
+    [branch]
     if(hasDiffuseMap)
         material.diffuseColor = diffuseMap.Sample(samp, input.uv);
     else
         material.diffuseColor = float4(1, 1, 1, 1);
     
-    material.specularIntecsity  = specularMap.Sample(samp, input.uv);
+    [branch]
+    if(hasSpecularMap)
+        material.specularIntecsity = specularMap.Sample(samp, input.uv);
+    else
+        material.specularIntecsity = float4(1, 1, 1, 1);
+    
+    //material.specularIntecsity  = specularMap.Sample(samp, input.uv);
     
     material.viewPos  = input.viewPos;
     material.worldPos = input.worldPos;
@@ -246,6 +253,11 @@ float4 CalculateAmbient(LightMaterial material)
     
     return result * material.diffuseColor * mAmbient;
 }
+
+//float4 CalculateEmissive(LightMaterial material)
+//{
+    
+//}
 
 float4 CalculateDirectional(LightMaterial material, LightData data)
 {
@@ -264,6 +276,120 @@ float4 CalculateDirectional(LightMaterial material, LightData data)
     finalColor += data.color * pow(specular, shininess) * material.specularIntecsity * mSpecular;
     
     return finalColor * material.diffuseColor;
+}
+
+float4 CalculatePoint(LightMaterial material, LightData data)
+{
+    float3 toLight = material.worldPos - data.posiiton;
+    float distanceToLight = length(toLight);
+    
+    toLight /= distanceToLight;
+    
+    float diffuseIntensity = saturate(dot(material.normal, -toLight));
+    
+    float4 finalColor = data.color * diffuseIntensity * mDiffuse;
+    
+    float3 viewDir = normalize(material.worldPos - material.viewPos); // 카메라가 정점을 바라보는 방향
+    float3 halfWay = normalize(viewDir + toLight);
+    float specular = saturate(dot(material.normal, -halfWay));
+    
+    finalColor += data.color * pow(specular, shininess) * material.specularIntecsity * mSpecular;
+    
+    float distanceToLightNormal = 1.0f - saturate(distanceToLight / data.range);
+    
+    float attention = pow(distanceToLightNormal, 2);
+    
+    return finalColor * material.diffuseColor * attention;
+}
+
+float4 CalculateSpot(LightMaterial material, LightData data)
+{
+    float3 toLight = material.worldPos - data.posiiton;
+    float distanceToLight = length(toLight);
+    
+    toLight /= distanceToLight;
+    
+    float diffuseIntensity = saturate(dot(material.normal, -toLight));
+    
+    float4 finalColor = data.color * diffuseIntensity * mDiffuse;
+    
+    float3 viewDir = normalize(material.worldPos - material.viewPos); // 카메라가 정점을 바라보는 방향
+    float3 halfWay = normalize(viewDir + toLight);
+    float specular = saturate(dot(material.normal, -halfWay));
+    
+    finalColor += data.color * pow(specular, shininess) * material.specularIntecsity * mSpecular;
+    
+    float3 dir = normalize(data.direction);
+    float cosAngle = dot(dir, toLight);
+    
+    float outer = cos(radians(data.outer));
+    float inner = 1.0f / cos(radians(data.inner));
+    
+    float4 conAttention = saturate((cosAngle - outer) * inner);
+    
+    conAttention = pow(conAttention, 2);
+    
+    
+    float distanceToLightNormal = 1.0f - saturate(distanceToLight / data.range);
+    
+    float attention = pow(distanceToLightNormal, 2);
+    
+    return finalColor * material.diffuseColor * attention * conAttention;
+}
+
+float4 CalculateCapsule(LightMaterial material, LightData data)
+{
+    float3 direction = normalize(data.direction);
+    float3 start = material.worldPos - data.posiiton;
+    float distanceOnLine = dot(start, direction) / data.length;
+    distanceOnLine = saturate(distanceOnLine) * data.length;
+    
+    float3 pointOnLine = data.posiiton + direction * distanceOnLine;
+    
+    float3 toLight = material.worldPos - pointOnLine;
+    float distanceToLight = length(toLight);
+    
+    toLight /= distanceToLight;
+    
+    float diffuseIntensity = saturate(dot(material.normal, -toLight));
+    
+    float4 finalColor = data.color * diffuseIntensity * mDiffuse;
+    
+    float3 viewDir = normalize(material.worldPos - material.viewPos); // 카메라가 정점을 바라보는 방향
+    float3 halfWay = normalize(viewDir + toLight);
+    float specular = saturate(dot(material.normal, -halfWay));
+    
+    finalColor += data.color * pow(specular, shininess) * material.specularIntecsity * mSpecular;
+    
+    float distanceToLightNormal = 1.0f - saturate(distanceToLight / data.range);
+    
+    float attention = pow(distanceToLightNormal, 2);
+    
+    return finalColor * material.diffuseColor * attention;
+}
+
+float4 CalculateLights(LightMaterial material)
+{
+    float4 color = 0;
+    
+    [unroll(MAX_LIGHT)] // for문을 최적화 하는데 [MAX_LIGHT] 만큼만 하도록 제한함
+    for (int i = 0; i < lightCount; i++)
+    {
+        if(!lights[i].active)
+            continue;
+        
+        [branch]
+        if(lights[i].type == 0)
+            color += CalculateDirectional(material, lights[i]);
+        else if(lights[i].type == 1)
+            color += CalculatePoint(material, lights[i]);
+        else if (lights[i].type == 2)
+            color += CalculateSpot(material, lights[i]);
+        else if (lights[i].type == 3)
+            color += CalculateCapsule(material, lights[i]);
+    }
+    
+    return color;
 }
 
 matrix SkinWorld(float4 indices, float4 weights)

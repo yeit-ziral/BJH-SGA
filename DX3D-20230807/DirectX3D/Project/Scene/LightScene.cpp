@@ -61,5 +61,5 @@ void LightScene::PostRender()
 	floor ->Debug();
 	groot ->Debug();
 	bunny ->GetReader()->Debug();
-	sphere->Debug();
+	sphere->GetMaterial()->Debug();
 }

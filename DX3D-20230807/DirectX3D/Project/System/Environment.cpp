@@ -77,7 +77,7 @@ void Environment::DebugLight(int lightIndex)
 
         ImGui::SliderFloat("Range", &light.range, 1, 1000);
 
-        ImGui::SliderFloat("Inner", &light.inner, 1, 1000);
+        ImGui::SliderFloat("Inner", &light.inner, 1, light.outer);
         ImGui::SliderFloat("Outer", &light.outer, light.inner, 180.0f);
 
         ImGui::SliderFloat("Length", &light.length, 0, 500.0f);
