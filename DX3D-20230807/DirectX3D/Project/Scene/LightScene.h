@@ -11,11 +11,20 @@ public:
 	virtual void PostRender()	override;
 
 private:
+	void CreateObjects();
+
+private:
 	Quad* floor;
+	Quad* floor2;
 
 	Groot* groot;
 
 	Model* bunny;
 
 	Sphere* sphere;
+
+	DepthStencil* depthStencil;
+	RenderTarget* renderTarget;
+
+	FloatValueBuffer* buffer;
 };

@@ -88,6 +88,13 @@ void Material::SetDiffuseMap(wstring file)
 	buffer->data.hasDiffuseMap = true;
 }
 
+void Material::SetDiffuseMap(Texture* texture)
+{
+	diffuseMap = texture; // 가상으로만 존재해서 포인터 필요없음
+
+	buffer->data.hasDiffuseMap = true;
+}
+
 void Material::SetSpecularMap(wstring file)
 {
 	specularMap = Texture::Get(file);

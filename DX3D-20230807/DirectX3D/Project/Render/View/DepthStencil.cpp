@@ -25,8 +25,8 @@ void DepthStencil::CreateDSVTexture()
 {
     D3D11_TEXTURE2D_DESC depthDesc;
 
-    depthDesc.Width                 = WIN_WIDTH;
-    depthDesc.Height                = WIN_HEIGHT;
+    depthDesc.Width                 = width;
+    depthDesc.Height                = height;
     depthDesc.MipLevels             = 1; // 확대 축소에 관한 내용
     depthDesc.ArraySize             = 1;
     depthDesc.Format                = isStencil ? DXGI_FORMAT_R24G8_TYPELESS : DXGI_FORMAT_R32_TYPELESS;
