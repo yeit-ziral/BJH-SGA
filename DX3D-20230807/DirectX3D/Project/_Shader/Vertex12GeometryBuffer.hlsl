@@ -1,6 +1,5 @@
 #include "Header.hlsli"
 
-
 LightVertexOutput
     main(VertexTextureNormalTangentBlend input)
 {
@@ -11,7 +10,7 @@ LightVertexOutput
     matrix transform = mul(SkinWorld(input.indices, input.weight), world);
     
     [branch]
-    if(hasAnimation)
+    if (hasAnimation)
         transform = mul(SkinWorld(input.indices, input.weight), world);
     else
         transform = world;

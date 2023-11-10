@@ -132,10 +132,13 @@ using namespace MyMath;
 #include "Render/State/BlendState.h"
 #include "Render/State/DepthStencilState.h"
 
+
 #include "Render/State/StateManager.h"
 
 #include "Render/View/DepthStencil.h"
 #include "Render/View/RenderTarget.h"
+
+#include "Render/Buffer/GeometryBuffer.h"
 
 #include "Collider/Collider.h"
 #include "Collider/ColliderBox.h"
@@ -196,6 +199,7 @@ using namespace MyMath;
 #include "Scene/InstancingScene.h"
 #include "Scene/ModelInstancingScene.h"
 #include "Scene/LightScene.h"
+#include "Scene/DeferredRenderScene.h"
 
 #include "Scene/SceneManager.h"
 

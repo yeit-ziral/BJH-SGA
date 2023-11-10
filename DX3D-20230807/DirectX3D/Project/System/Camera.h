@@ -30,6 +30,8 @@ public:
 
 	void SetRotY(float value) { rotY = value; }
 
+	ViewBuffer* GetViewBuffer() { return viewBuffer; }
+
 private:
 	void FreeMode();
 	void TargetMode(Mode mode);

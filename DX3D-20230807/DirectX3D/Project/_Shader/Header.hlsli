@@ -537,3 +537,36 @@ matrix SkinWorld(uint instancedIndex, float4 indices, float4 weights)
     
     return transform;
 }
+
+
+
+
+
+///////////////////////// Deferred Render///////////////////////////////
+#pragma region Deferred Render
+
+#define MIN_SHININESS  0.1f
+#define MAX_SHININESS 50.0f
+
+
+struct GBufferOutput
+{
+    float4  diffuse : SV_Target0;
+    float4 specular : SV_Target1;
+    float4   normal : SV_Target2;
+};
+
+GBufferOutput PackGBuffer(float3 baseColor, float3 normal, float specularIntensity)
+{
+    GBufferOutput output;
+    
+    float specPowNorm = (shininess - MIN_SHININESS) / MAX_SHININESS;
+    
+    output.diffuse = float4(baseColor, 1.0f);
+    output.specular = float4(specPowNorm, specularIntensity, 0, 1);
+    output.normal = float4(normal * 0.5f + 0.5f, 1);
+    
+    return output;
+}
+
+#pragma endregion Deferred Render

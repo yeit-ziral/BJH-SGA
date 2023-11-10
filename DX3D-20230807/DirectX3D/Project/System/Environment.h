@@ -22,6 +22,8 @@ public:
 
 	Matrix GetProjMatrix() { return persMatrix; } // 수정할 것이 아니라서 값복사로 넘김
 
+	MatrixBuffer* GetPerspectiveBuffer() { return persBuffer; }
+
 private:
 	MatrixBuffer* persBuffer;
 	Matrix		  persMatrix;
