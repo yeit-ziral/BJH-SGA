@@ -60,7 +60,8 @@ void DeferredRenderScene::Render()
 
 void DeferredRenderScene::PostRender()
 {
-	//gBuffer->PostRender();
+	gBuffer->PostRender();
+	Environment::GetInstance()->PostRender();
 }
 
 void DeferredRenderScene::CreateObjects()

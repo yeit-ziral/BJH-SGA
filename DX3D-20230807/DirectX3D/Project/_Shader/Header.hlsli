@@ -554,9 +554,11 @@ struct GBufferOutput
     float4  diffuse : SV_Target0;
     float4 specular : SV_Target1;
     float4   normal : SV_Target2;
+    float4  ambient : SV_Target3;
+    float4 emissive : SV_Target4;
 };
 
-GBufferOutput PackGBuffer(float3 baseColor, float3 normal, float specularIntensity)
+GBufferOutput PackGBuffer(float3 baseColor, float3 normal, float specularIntensity, float4 ambient)
 {
     GBufferOutput output;
     
@@ -565,7 +567,9 @@ GBufferOutput PackGBuffer(float3 baseColor, float3 normal, float specularIntensi
     output.diffuse = float4(baseColor, 1.0f);
     output.specular = float4(specPowNorm, specularIntensity, 0, 1);
     output.normal = float4(normal * 0.5f + 0.5f, 1);
-    
+    output.ambient = ambient;
+    output.emissive = mEmissive;
+
     return output;
 }
 

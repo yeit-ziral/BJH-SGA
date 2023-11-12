@@ -72,7 +72,7 @@ void LightScene::PostRender()
 	//floor2->Debug();
 	//groot ->Debug();
 	//bunny ->GetReader()->Debug();
-	//sphere->GetMaterial()->Debug();
+	sphere->GetMaterial()->Debug();
 }
 
 void LightScene::CreateObjects()
