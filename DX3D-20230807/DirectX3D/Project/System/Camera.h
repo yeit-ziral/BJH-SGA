@@ -1,24 +1,20 @@
 #pragma once
 
-class Camera : public Singleton<Camera>
+class Camera : public Transform
 {
-	friend class Singleton;
-
 public:
 	enum Mode
 	{
 		MODE1, MODE2
 	};
-private:
+
+public:
 	Camera();
 	~Camera();
 
-public:
 	void Update();
 
 	void Debug();
-
-	Transform* GetTransform() { return transform; }
 
 	Ray ScreenPointToRay(Vector3 screenPos);
 
@@ -32,6 +28,9 @@ public:
 
 	ViewBuffer* GetViewBuffer() { return viewBuffer; }
 
+	bool ContainPoint(Vector3 point);
+	bool ContainSphere(Vector3 center, float radius);
+
 private:
 	void FreeMode();
 	void TargetMode(Mode mode);
@@ -41,8 +40,9 @@ private:
 	void Save();
 	void Load();
 
+	void CalculateFrustum();
+
 private:
-	Transform* transform;
 
 	float moveSpeed = 20.0f;
 	float rotSpeed = 5.0f;
@@ -66,4 +66,7 @@ private:
 
 	float moveDamping = 30.0f;
 	float rotDamping = 30.0f;
+
+	XMVECTOR planes[6];
+	float a, b, c, d;
 };

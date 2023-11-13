@@ -65,7 +65,7 @@ void Pumpkin::Throw()
 	}
 	else
 	{
-		Ray ray = Camera::GetInstance()->ScreenPointToRay(mousePos);
+		Ray ray = CAMERA->ScreenPointToRay(mousePos);
 
 		direction = ray.direction.GetNormalized();
 

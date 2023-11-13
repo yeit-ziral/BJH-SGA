@@ -1,4 +1,7 @@
 #pragma once
+
+class Camera;
+
 class Environment : public Singleton<Environment>
 {
 	friend class Singleton;
@@ -24,6 +27,8 @@ public:
 
 	MatrixBuffer* GetPerspectiveBuffer() { return persBuffer; }
 
+	Camera* GetMainCamera() { return mainCamera; }
+
 private:
 	MatrixBuffer* persBuffer;
 	Matrix		  persMatrix;
@@ -34,5 +39,7 @@ private:
 	ViewBuffer* UIViewBuffer;
 
 	LightBuffer* lightBuffer;
+
+	Camera* mainCamera;
 };
 

@@ -17,7 +17,7 @@ CollisionScene::CollisionScene()
 		colliders[i]->translation.x = 3 * i;
 	}
 
-	//Camera::GetInstance()->GetTransform()->translation = Vector3(7.0f, 1.4f, -8.1f);
+	//CAMERA->GetTransform()->translation = Vector3(7.0f, 1.4f, -8.1f);
 }
 
 CollisionScene::~CollisionScene()
@@ -33,7 +33,7 @@ void CollisionScene::Update()
 	for (Collider* collider : colliders)
 		collider->Update();
 
-	Ray ray = Camera::GetInstance()->ScreenPointToRay(mousePos);
+	Ray ray = CAMERA->ScreenPointToRay(mousePos);
 
 	Contact contact;
 

@@ -12,7 +12,7 @@ ModelAnimationScene::ModelAnimationScene()
 
 	terrain->scale *= 2.5;
 
-	Camera::GetInstance()->SetTarget(groot);
+	CAMERA->SetTarget(groot);
 
 	crosshair = new Quad();
 	crosshair->GetMaterial()->SetDiffuseMap(L"UI/CrossHair.png");

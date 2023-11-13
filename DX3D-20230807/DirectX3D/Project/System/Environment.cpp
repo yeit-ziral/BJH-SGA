@@ -8,12 +8,16 @@ Environment::Environment()
     CreateOrthographic();
 
     lightBuffer = new LightBuffer();
+
+    mainCamera = new Camera();
 }
 
 Environment::~Environment()
 {
     delete  persBuffer;
     delete lightBuffer;
+
+    delete mainCamera;
 }
 
 void Environment::SetViewport(UINT width, UINT height) // 3D 절두체를 2D로 압축하면서 어떻게 표현할지 결정
@@ -88,6 +92,8 @@ void Environment::DebugLight(int lightIndex)
 
 void Environment::SetEnvironment()
 {
+    mainCamera->Update();
+
     lightBuffer->SetPSBuffer(0);
 
     persBuffer->SetVSBuffer(2);
@@ -120,4 +126,6 @@ void Environment::PostRender()
 
         ImGui::TreePop();
     }
+
+    mainCamera->Debug();
 }

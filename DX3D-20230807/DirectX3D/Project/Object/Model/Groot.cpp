@@ -60,7 +60,7 @@ void Groot::Update()
 		PlayClip( 2, speed, takeTime);
 
 	hpBar->Update();
-	hpBar->translation = Camera::GetInstance()->WorldToScreenPoint(this->globalPosition + V_UP);
+	hpBar->translation = CAMERA->WorldToScreenPoint(this->globalPosition + V_UP);
 
 	UpdateLeftHand();
 
@@ -125,13 +125,13 @@ void Groot::Move()
 	{
 		if (KEY_PRESS('W'))
 		{
-			//Ray ray = Camera::GetInstance()->ScreenPointToRay({ WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f, 0.0f });
+			//Ray ray = CAMERA->ScreenPointToRay({ WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f, 0.0f });
 
 			//Vector2 dir = { ray.direction.x, ray.direction.z };
 			//
 			//float theta = -atan2f(dir.y, dir.x) * 2;
 
-			//rotation.y = theta + (PI * 1.304f);//Camera::GetInstance()->GetRotY();
+			//rotation.y = theta + (PI * 1.304f);//CAMERA->GetRotY();
 			translation -= Forward() * moveSpeed * Time::Delta();
 			SetClip(RUN);
 		}

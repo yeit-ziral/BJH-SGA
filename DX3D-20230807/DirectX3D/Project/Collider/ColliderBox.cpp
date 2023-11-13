@@ -131,9 +131,30 @@ bool ColliderBox::Collision(ColliderSphere* other)
 
 bool ColliderBox::Collision(ColliderCapsule* other)
 {
-	return false;
+	Obb box = GetOBB();
 
+	Vector3 pos = box.position;//박스에서 구에 가장 가까운 점
 
+	Vector3 direction = other->Up();
+	Vector3 a = other->GetGlobalPosition() - direction * other->Height() * 0.5f;
+	Vector3 b = other->GetGlobalPosition() + direction * other->Height() * 0.5f;
+
+	Vector3 pointOnLine = ClosestPointOnLine(a, b, pos);
+
+	for (UINT i = 0; i < 3; i++)
+	{
+		float length = Vector3::Dot(box.axis[i], pointOnLine - box.position);
+
+		float mult = (length < 0.0f) ? -1.0f : 1.0f;
+
+		length = min(abs(length), box.halfSize[i]);
+
+		pos += box.axis[i] * length * mult;
+	}
+
+	float distance = MyMath::Distance(pointOnLine, pos);
+
+	return distance <= other->Radius();
 }
 
 ColliderBox::Obb ColliderBox::GetOBB()

@@ -52,7 +52,7 @@ void DeferredRenderScene::Render()
 	gBuffer->SetSRVs();
 	material->SetMaterial();
 
-	//Camera::GetInstance()->GetViewBuffer()->SetPSBuffer(1);
+	//CAMERA->GetViewBuffer()->SetPSBuffer(1);
 	//Environment::GetInstance()->GetPerspectiveBuffer()->SetPSBuffer(2);
 
 	DC->Draw(4, 0);
