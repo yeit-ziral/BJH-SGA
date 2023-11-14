@@ -30,6 +30,8 @@ public:
 
 	ModelReader* GetReader() { return reader; }
 
+	vector<ModelClip*> GetClip() { return clips; }
+
 private:
 	void CreateClipTransform(UINT index);
 

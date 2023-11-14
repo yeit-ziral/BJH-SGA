@@ -44,9 +44,11 @@ void ModelAnimationScene::Update()
 	groot->translation.y = terrain->GetHeight(groot->GetGlobalPosition());
 
 	crosshair->translation.x = mousePos.x;
-	crosshair->translation.y = WIN_HEIGHT - mousePos.y;
+	crosshair->translation.y = 2 * WIN_HEIGHT - mousePos.y;
 
 	crosshair->Update();
+
+	//groot->rotation.y = CAMERA->rotation.y;
 }
 
 void ModelAnimationScene::PreRender()

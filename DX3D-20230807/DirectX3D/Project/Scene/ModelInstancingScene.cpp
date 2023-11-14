@@ -11,6 +11,7 @@ ModelInstancingScene::ModelInstancingScene()
 	model->GetReader()->GetMaterial()[0]->SetDiffuseMap(L"Model/Zombie/creature_Base_color.png");    	// 수동으로 성정해 줘야 됨
 	model->GetReader()->GetMaterial()[0]->SetNormalMap(L"Model/Zombie/creature_Base_color.png"); 	// 수동으로 성정해 줘야 됨
 
+
 	for (float z = 0; z < 10; z++) // 같은 모델 100 개 생성
 	{
 		for (float x = 0; x < 10; x++)

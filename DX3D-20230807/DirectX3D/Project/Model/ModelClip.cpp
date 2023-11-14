@@ -21,3 +21,27 @@ KeyFrame* ModelClip::GetKeyFrames(string name)
 
     return keyFrames[name];
 }
+
+void ModelClip::SetEndEvent(float ratio, function<void()> EndEvent)
+{
+    EndEvents.emplace(ratio, EndEvent);
+}
+
+void ModelClip::Init()
+{
+    eventIter = EndEvents.begin();
+}
+
+void ModelClip::Execute(float ratio)
+{
+    if (EndEvents.empty())
+        return;
+    if (eventIter == EndEvents.end())
+        return;
+
+    if (eventIter->first > ratio) 
+        return;
+
+    eventIter->second();
+    eventIter++;
+}

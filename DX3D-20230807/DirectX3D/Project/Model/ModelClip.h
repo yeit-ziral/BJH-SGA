@@ -9,12 +9,10 @@ public:
 
 	KeyFrame* GetKeyFrames(string name);
 
-	void SetEndEvent(function<void()> EndEvent, float ratio)
-	{
-		this->EndEvent	= EndEvent;
+	void SetEndEvent(float ratio, function<void()> EndEvent);
 
-		this->ratio		= ratio;
-	}
+	void Init();
+	void Execute(float ratio);
 	
 private:
 	string name = "";
@@ -26,7 +24,9 @@ private:
 
 	unordered_map<string, KeyFrame*> keyFrames = {};
 
-	function<void()> EndEvent;
+	multimap<float, function<void()>> EndEvents;
+
+	multimap<float, function<void()>>::iterator eventIter; // 자료값의 주소값을 받는 변수
 
 	float ratio;
 };

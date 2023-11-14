@@ -28,7 +28,7 @@ Groot::Groot()
 	weapon->translation.y = 80;
 	weapon->translation.z = -20;
 
-	clips[ATTACK]->SetEndEvent(bind(&Groot::SetClip, this, IDLE), 0.7f); //bind(위치, 작동시킬 객체, (매개변수를 직접 넣어줘서 매개변수가 없는 함수처럼 사용 가능 아니면 placeholders::_10이용해서 매개변수 사용))
+	clips[ATTACK]->SetEndEvent(0.7f, bind(&Groot::SetClip, this, IDLE)); //bind(위치, 작동시킬 객체, (매개변수를 직접 넣어줘서 매개변수가 없는 함수처럼 사용 가능 아니면 placeholders::_10이용해서 매개변수 사용))
 
 	hpBar = new ProgressBar(L"UI/hp_bar.png", L"UI/hp_bar_BG.png");
 	hpBar->SetLabel("HP Bar");
