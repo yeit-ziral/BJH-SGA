@@ -11,7 +11,18 @@ public:
 	virtual void PostRender()	override;
 
 private:
-	vector<Quad*> trees;
+	//vector<Quad*> trees;
 
 	Terrain* terrain;
+
+	Material*		material;
+	VertexBuffer*	vertexBuffer;
+	GeometryShader* geometryShader;
+
+	vector<VertexTexture> vertices;
+	vector<VertexTexture> drawVertices;
+
+	const UINT COUNT = 1000;
+
+	UINT drawCount = COUNT;
 };
