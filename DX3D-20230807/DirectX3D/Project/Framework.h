@@ -68,6 +68,8 @@ using namespace DirectX;
 
 #define RS StateManager::GetInstance()->GetRS()
 
+#define STATE StateManager::GetInstance()
+
 #define PI 3.141592
 
 #define Dialog ImGuiFileDialog::Instance()
@@ -164,6 +166,10 @@ using namespace MyMath;
 #include "Object/Landscape/Sky.h"
 #include "Object/Landscape/SkyBox.h"
 
+#include "Object/Effect/Particle.h"
+#include "Object/Effect/Sprite.h"
+#include "Object/Effect/Spark.h"
+
 #include "Object/UI/ProgressBar.h"
 
 #include "ModelExporter/ModelType.h"
@@ -203,6 +209,7 @@ using namespace MyMath;
 #include "Scene/DeferredRenderScene.h"
 #include "Scene/FrustumCullingScene.h"
 #include "Scene/BillboardScene.h"
+#include "Scene/ParticleScene.h"
 
 #include "Scene/SceneManager.h"
 
