@@ -49,6 +49,8 @@ void Spark::Render()
 		 valuebuffer->SetPSBuffer(10);
 	startColorbuffer->SetPSBuffer(11);
 	  endColorbuffer->SetPSBuffer(12);
+
+	  Particle::Render();
 }
 
 void Spark::Debug()
@@ -59,6 +61,8 @@ void Spark::Debug()
 
 	ImGui::ColorEdit4("StartColor", startColorbuffer->data.values);
 	ImGui::ColorEdit4(  "EndColor",   endColorbuffer->data.values);
+
+
 }
 
 void Spark::Play(Vector3 position)
