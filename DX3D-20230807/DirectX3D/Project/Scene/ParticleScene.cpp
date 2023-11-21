@@ -10,7 +10,7 @@ ParticleScene::ParticleScene()
 	//particle = new Spark(L"Effect/Star.png", true);
 	//particle = new Spark(L"Effect/Star.png", false); // => °ËÀº»öÀÌ¶û º° µÚ ¹ÙÅÁÀÌ ³ª¿È
 
-	particle = new Rain(L"Effect/rain.png");
+	particle = new Snow(L"Effect/Snow.png");
 	particle->Play({});
 }
 

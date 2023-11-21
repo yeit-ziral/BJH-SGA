@@ -24,6 +24,7 @@ MainGame::MainGame()
 	//SCENE->Create("ModelAnimation", new ModelAnimationScene);
 	//SCENE->Create("Shooting", new ShootingScene);
 	SCENE->Create("Start", new ParticleScene());
+	//SCENE->Create("Start", new ParticleEditorScene());
 
 	SCENE->Add("Grid");
 	//SCENE->Add("Collision");

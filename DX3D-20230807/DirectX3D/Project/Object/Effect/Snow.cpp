@@ -39,6 +39,7 @@ void Snow::Debug()
 	ImGui::DragFloat3("Origin", (float*)&buffer->data.origin, 0.1f);
 	ImGui::DragFloat3("Size", (float*)&buffer->data.size, 0.1f);
 	ImGui::ColorEdit3("Color", (float*)&buffer->data.color);
+
 }
 
 void Snow::SetVertex()
@@ -49,9 +50,7 @@ void Snow::SetVertex()
 
 	for (UINT i = 0; i < drawCount; i++)
 	{
-		float size;
-
-		size = Random(0.5f, 2.0f);
+		float size = Random(0.5f, 2.0f);
 
 		vertices[i].size = { size, size };
 
@@ -60,6 +59,8 @@ void Snow::SetVertex()
 		pos.x = Random(-buffer->data.size.x, +buffer->data.size.x);
 		pos.y = Random(-buffer->data.size.y, +buffer->data.size.y);
 		pos.z = Random(-buffer->data.size.z, +buffer->data.size.z);
+
+		vertices[i].pos = pos;
 
 		vertices[i].random.x = Random(0.0f, 1.0f);
 		vertices[i].random.y = Random(0.0f, 1.0f);
