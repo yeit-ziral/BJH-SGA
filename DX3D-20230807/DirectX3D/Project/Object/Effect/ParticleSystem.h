@@ -1,12 +1,10 @@
 #pragma once
-class ParticleEditorScene : public Scene
+class ParticleSystem
 {
-	const UINT MAX_COUNT = 1000;
-
 	struct ParticleData // 넘겨줄 데이터
 	{
-		bool isLoop		 = false;
-		bool isAdditive  = true;
+		bool isLoop = false;
+		bool isAdditive = true;
 		bool isBillboard = true;
 
 		UINT count = 100;
@@ -62,13 +60,16 @@ class ParticleEditorScene : public Scene
 	};
 
 public:
-	ParticleEditorScene();
-	~ParticleEditorScene();
+	ParticleSystem(string file);
+	~ParticleSystem();
 
-	virtual void Update()		override;
-	virtual void PreRender()	override;
-	virtual void Render()		override;
-	virtual void PostRender()	override;
+	void Update();
+	void Render();
+
+	void Play(Vector3 pos, Vector3 rot = Vector3());
+	void Stop();
+
+	bool IsActive() { return quad->IsActive(); }
 
 private:
 	void UpdatePhysics();
@@ -76,13 +77,7 @@ private:
 
 	void Init();
 
-	void Save(string file);
 	void Load(string file);
-
-	void SaveDialog();
-	void LoadDialog();
-
-	void EditTexture();
 
 private:
 	Quad* quad;
@@ -93,8 +88,9 @@ private:
 	VertexBuffer* instanceBuffer;
 
 	ParticleData particleData;
-	
+
 	float	  lifeTime = 0.0f;
 	UINT	 drawCount = 0;
 	UINT particleCount = 100;
 };
+

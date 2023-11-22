@@ -22,6 +22,8 @@ public:
 
 	wstring GetPath() { return path; }
 
+	ID3D11ShaderResourceView* GetSRV() { return srv; }
+
 private:
 	ID3D11ShaderResourceView* srv = nullptr;
 
