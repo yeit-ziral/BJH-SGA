@@ -31,11 +31,11 @@ public:
 	bool ContainPoint(Vector3 point);
 	bool ContainSphere(Vector3 center, float radius);
 
+	void SetView();
+
 private:
 	void FreeMode();
 	void TargetMode(Mode mode);
-
-	void SetView();
 
 	void Save();
 	void Load();

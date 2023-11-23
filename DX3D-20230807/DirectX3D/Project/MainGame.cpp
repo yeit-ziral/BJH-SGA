@@ -23,8 +23,9 @@ MainGame::MainGame()
 	//SCENE->Create("ModelExport", new ModelExportScene);
 	//SCENE->Create("ModelAnimation", new ModelAnimationScene);
 	//SCENE->Create("Shooting", new ShootingScene);
-	SCENE->Create("Start", new ParticleScene());
+	//SCENE->Create("Start", new ParticleScene());
 	//SCENE->Create("Start", new ParticleEditorScene());
+	SCENE->Create("Start", new WaterScene());
 
 	SCENE->Add("Grid");
 	//SCENE->Add("Collision");

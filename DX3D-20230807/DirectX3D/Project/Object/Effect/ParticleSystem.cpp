@@ -64,6 +64,7 @@ void ParticleSystem::Play(Vector3 pos, Vector3 rot)
 	quad->IsActive() = true;
 
 	quad->translation = pos;
+
 	quad->rotation = rot;
 
 	Init();

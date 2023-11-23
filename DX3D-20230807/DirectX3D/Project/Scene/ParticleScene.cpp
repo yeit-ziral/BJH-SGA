@@ -22,6 +22,8 @@ ParticleScene::~ParticleScene()
 
 void ParticleScene::Update()
 {
+	particle->Update();
+
 	if (KEY_DOWN(VK_LBUTTON))
 	{
 		Ray ray = CAMERA->ScreenPointToRay(mousePos);
@@ -35,7 +37,6 @@ void ParticleScene::Update()
 	}
 
 	collider->Update();
-	particle->Update();
 }
 
 void ParticleScene::PreRender()

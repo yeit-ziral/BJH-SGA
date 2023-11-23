@@ -59,4 +59,6 @@ protected:
 	WorldBuffer* worldBuffer;
 
 	bool isActive = true; // 원래는 꺼놓고 쓸 때에만 키는게 정석이지만 이걸로 실수가 많이 나와서 true로 설정함
+
+	static UINT index;
 };
