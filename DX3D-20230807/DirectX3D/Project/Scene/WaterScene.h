@@ -22,10 +22,10 @@ private:
 	Model* bunny;
 	Sphere* sphere;
 
-	//Reflection* reflection;
-	//Refraction* refraction;
-
-	Water* water;
+	Reflection* reflection;
+	Refraction* refraction;
 
 	SkyBox* sky;
+
+	Water* water;
 };

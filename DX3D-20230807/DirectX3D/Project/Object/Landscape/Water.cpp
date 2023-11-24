@@ -4,7 +4,7 @@
 Water::Water(wstring normalFile, float width, float height)
 	:size(width, height)
 {
-	label = "Water" + to_string(index);
+	label = "Water_" + to_string(index);
 
 	reflection = new Reflection(this);
 	refraction = new Refraction(normalFile);

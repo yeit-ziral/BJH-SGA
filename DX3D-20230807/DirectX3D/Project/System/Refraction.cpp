@@ -1,7 +1,7 @@
 #include "Framework.h"
 #include "Refraction.h"
 
-UINT Refraction::index = 0.0f;
+UINT Refraction::index = 0;
 
 Refraction::Refraction(wstring file)
 {
@@ -17,7 +17,7 @@ Refraction::Refraction(wstring file)
 	quad = new Quad(Vector2(200, 200));
 	quad->translation = { 100, 100, 0 };
 
-	Texture* texture = Texture::Get(L"Refraction" + to_wstring(index++), renderTarget->GetSRV());
+	Texture* texture = Texture::Get(L"Refraction_" + to_wstring(index++), renderTarget->GetSRV());
 
 	quad->GetMaterial()->SetDiffuseMap(texture);
 	quad->Update();

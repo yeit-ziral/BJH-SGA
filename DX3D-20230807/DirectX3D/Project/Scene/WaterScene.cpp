@@ -11,7 +11,7 @@ WaterScene::WaterScene()
 	sky = new SkyBox(L"Landscape/Snow_ENV.dds");
 
 	//floor->GetMaterial()->SetShader(L"19Reflection");
-	floor->GetMaterial()->SetShader(L"21Water");
+	//floor->GetMaterial()->SetShader(L"21Water");
 
 	water = new Water(L"Landscape/WaveNormal.png");
 }
@@ -48,7 +48,7 @@ void WaterScene::PreRender()
 	//reflection->SetPreRender(); // sky보다 위에 있어야지 sky도 반사 됨
 	//refraction->SetPreRender();
 
-	water->SetReflection();
+	water->SetReflection(); // PreRender에서는 skybox보다 먼저 해줘야 함
 
 	sky->Render();
 
@@ -83,11 +83,11 @@ void WaterScene::PostRender()
 {
 	//reflection->PostRender();
 	//refraction->PostRender();
+	//refraction->Debug();
+	
 	water->Debug();
 
 	floor->Debug();
-
-	//Environment::GetInstance()->PostRender();
 }
 
 void WaterScene::CreateObjects()
