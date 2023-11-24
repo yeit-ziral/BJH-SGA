@@ -137,6 +137,7 @@
     <ClInclude Include="Object\Effect\Particle.h" />
     <ClInclude Include="Object\Effect\Rain.h" />
     <ClInclude Include="Object\Effect\ParticleSystem.h" />
+    <ClInclude Include="System\Refraction.h" />
     <ClInclude Include="System\Reflection.h" />
     <ClInclude Include="Scene\ParticleEditorScene.h" />
     <ClInclude Include="Scene\ParticleScene.h" />
@@ -236,6 +237,7 @@
     <ClInclude Include="Utility\Vector3.h" />
     <ClInclude Include="Object\Model\Zombie.h" />
     <ClInclude Include="Scene\WaterScene.h" />
+    <ClInclude Include="Object\Landscape\Water.h" />
     <ClInclude Include="_include\DirectXTex.h" />
     <ClInclude Include="_include\imconfig.h" />
     <ClInclude Include="_include\imgui.h" />
@@ -252,6 +254,7 @@
     <ClCompile Include="Object\Effect\Particle.cpp" />
     <ClCompile Include="Object\Effect\Rain.cpp" />
     <ClCompile Include="Object\Effect\ParticleSystem.cpp" />
+    <ClCompile Include="System\Refraction.cpp" />
     <ClCompile Include="System\Reflection.cpp" />
     <ClCompile Include="Scene\ParticleEditorScene.cpp" />
     <ClCompile Include="Scene\ParticleScene.cpp" />
@@ -348,6 +351,7 @@
     <ClCompile Include="Utility\Vector3.cpp" />
     <ClCompile Include="Object\Model\Zombie.cpp" />
     <ClCompile Include="Scene\WaterScene.cpp" />
+    <ClCompile Include="Object\Landscape\Water.cpp" />
     <ClCompile Include="_include\ImGuiFileDialog.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -573,6 +577,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="_Shader\Pixel20Refraction.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="_Shader\Pixel21Water.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="_Shader\PixelColor.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -712,6 +728,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="_Shader\Vertex19Reflection.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="_Shader\Vertex20Refraction.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="_Shader\Vertex21Water.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

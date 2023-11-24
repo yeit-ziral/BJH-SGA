@@ -315,3 +315,27 @@ public:
 		float turbulence = 0.1f;
 	} data;
 };
+
+class WaterBuffer : public ConstBuffer
+{
+public:
+	WaterBuffer()
+		: ConstBuffer(&data, sizeof(data))
+	{
+
+	}
+
+	struct Data
+	{
+		Vector4 color = { 1,1,1,1 };
+
+		float waveTime = 0.0f;
+		float waveSpeed = 0.1f;
+		float waveScale = 0.1f;
+		float waveShiniess = 24.0f;
+
+		float fresnel = 0.5f;
+		float padding[3];
+
+	} data;
+};

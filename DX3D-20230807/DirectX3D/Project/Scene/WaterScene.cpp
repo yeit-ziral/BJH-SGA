@@ -5,11 +5,15 @@ WaterScene::WaterScene()
 {
 	CreateObjects();
 
-	reflection = new Reflection(floor);
+	//reflection = new Reflection(floor);
+	//refraction = new Refraction(L"Landscape/Wave.dds");
 
 	sky = new SkyBox(L"Landscape/Snow_ENV.dds");
 
-	floor->GetMaterial()->SetShader(L"19Reflection");
+	//floor->GetMaterial()->SetShader(L"19Reflection");
+	floor->GetMaterial()->SetShader(L"21Water");
+
+	water = new Water(L"Landscape/WaveNormal.png");
 }
 
 WaterScene::~WaterScene()
@@ -19,11 +23,19 @@ WaterScene::~WaterScene()
 	delete bunny;
 	delete sphere;
 	delete sky;
+
+	//delete reflection;
+	//delete refraction;
+
+	delete water;
 }
 
 void WaterScene::Update()
 {
-	reflection->Update();
+	//reflection->Update();
+	//refraction->Update();
+
+	water->Update();
 
 	floor->Update();
 	groot->Update();
@@ -33,11 +45,21 @@ void WaterScene::Update()
 
 void WaterScene::PreRender()
 {
-	reflection->SetPreRender(); // sky보다 위에 있어야지 sky도 반사 됨
+	//reflection->SetPreRender(); // sky보다 위에 있어야지 sky도 반사 됨
+	//refraction->SetPreRender();
+
+	water->SetReflection();
 
 	sky->Render();
 
-	//floor->Render();
+	groot->Render();
+	bunny->Render();
+	sphere->Render();
+
+	water->SetRefraction();
+
+	sky->Render();
+
 	groot->Render();
 	bunny->Render();
 	sphere->Render();
@@ -47,9 +69,11 @@ void WaterScene::Render()
 {
 	sky->Render();
 
-	reflection->SetRender();
+	//reflection->SetRender();
+	//refraction->SetRender();
+	water->Render();
 
-	floor->Render();
+	//floor->Render();
 	groot->Render();
 	bunny->Render();
 	sphere->Render();
@@ -57,9 +81,13 @@ void WaterScene::Render()
 
 void WaterScene::PostRender()
 {
-	reflection->PostRender();
+	//reflection->PostRender();
+	//refraction->PostRender();
+	water->Debug();
 
-	Environment::GetInstance()->PostRender();
+	floor->Debug();
+
+	//Environment::GetInstance()->PostRender();
 }
 
 void WaterScene::CreateObjects()

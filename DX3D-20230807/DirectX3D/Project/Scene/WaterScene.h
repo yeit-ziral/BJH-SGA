@@ -17,12 +17,15 @@ private:
 	void CreateObjects();
 
 private:
-	Reflection* reflection;
-
 	Quad* floor;
 	Groot* groot;
 	Model* bunny;
 	Sphere* sphere;
+
+	//Reflection* reflection;
+	//Refraction* refraction;
+
+	Water* water;
 
 	SkyBox* sky;
 };
