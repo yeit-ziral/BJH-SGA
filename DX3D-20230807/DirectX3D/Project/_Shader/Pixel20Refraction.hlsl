@@ -29,7 +29,7 @@ float4 main(VertexOutput input) : SV_TARGET
     uv.x = +input.refractPos.x / input.refractPos.w * 0.5f + 0.5f;
     uv.y = -input.refractPos.y / input.refractPos.w * 0.5f + 0.5f;
     
-    input.uv = waveTime * waveSpeed;
+    input.uv += waveTime * waveSpeed;
     
     float4 normal = refractionNormalMap.Sample(samp, input.uv) * 2.0f - 1.0f;
     uv += normal.xy * waveScale;

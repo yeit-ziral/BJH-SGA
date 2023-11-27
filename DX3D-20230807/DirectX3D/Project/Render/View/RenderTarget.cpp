@@ -24,7 +24,7 @@ void RenderTarget::Set(DepthStencil* depthStencil, Vector4 clearColor)
 	depthStencil->Clear();
 
 	Environment::GetInstance()->SetEnvironment();
-	Environment::GetInstance()->SetViewport(width, height);
+	Environment::GetInstance()->SetViewport(width, height); // t새로 만들 viewPort크기를 정해주지만 그 크기를 원래대로 되돌리지 않음
 }
 
 void RenderTarget::SetMulti(RenderTarget** targets, UINT count, DepthStencil* depthStencil, Vector4 clearColor)

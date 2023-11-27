@@ -33,6 +33,8 @@ public:
 
 	void SetView();
 
+	void Set();
+
 private:
 	void FreeMode();
 	void TargetMode(Mode mode);

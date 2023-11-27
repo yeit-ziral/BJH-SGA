@@ -6,8 +6,8 @@ UINT Reflection::index = 0;
 Reflection::Reflection(Transform* target)
 	:target(target)
 {
-	renderTarget = new RenderTarget(1280, 720);
-	depthStencil = new DepthStencil(1280, 720);
+	renderTarget = new RenderTarget(2048, 2048);
+	depthStencil = new DepthStencil(2048, 2048);
 
 	camera = new Camera();
 
@@ -49,6 +49,7 @@ void Reflection::SetPreRender()
 {
 	renderTarget->Set(depthStencil);
 
+	//camera->Set();
 	camera->SetView(); // Slot 1 ม฿บน
 }
 
