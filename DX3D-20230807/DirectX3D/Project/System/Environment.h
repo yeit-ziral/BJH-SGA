@@ -29,7 +29,7 @@ public:
 
 	Camera* GetMainCamera() { return mainCamera; }
 
-	LightBuffer* GetLightBuffer() { return lightBuffer; }
+	LightBuffer* GetLightBuffer() { return lightBuffer; } // light 위치를 받아오기 위해 lightBuffer를 가져옴
 
 private:
 	MatrixBuffer* persBuffer;

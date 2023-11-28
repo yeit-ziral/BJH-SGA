@@ -13,10 +13,10 @@ WaterScene::WaterScene()
 	//floor->GetMaterial()->SetShader(L"19Reflection");
 	//floor->GetMaterial()->SetShader(L"21Water");
 
-	//water = new Water(L"Landscape/WaveNormal.png");
+	water = new Water(L"Landscape/WaveNormal.png");
 
 
-	shadow = new Shadow(10000, 10000);
+	shadow = new Shadow(4000, 4000);
 
 	LightBuffer::LightData& light = Environment::GetInstance()->GetLightBuffer()->data.lights[0];
 
@@ -31,12 +31,13 @@ WaterScene::~WaterScene()
 	delete groot;
 	delete bunny;
 	delete sphere;
+
 	delete sky;
 
 	//delete reflection;
 	//delete refraction;
 
-	//delete water;
+	delete water;
 
 	delete shadow;
 }
@@ -62,8 +63,6 @@ void WaterScene::PreRender()
 	//water->SetReflection(); // PreRender에서는 skybox보다 먼저 해줘야 함
 
 	//sky->Render();
-
-	//floor->Render();
 	//groot->Render();
 	//bunny->Render();
 	//sphere->Render();
@@ -78,9 +77,8 @@ void WaterScene::PreRender()
 
 	shadow->SetPreRender();
 
-	floor->Render();
-	groot->Render();
 	bunny->Render();
+	groot->Render();
 	sphere->Render();
 }
 
@@ -121,9 +119,8 @@ void WaterScene::CreateObjects()
 	floor->SetLabel("Floor");
 
 	floor->rotation.x = XM_PIDIV2;
+	floor->translation.y = -1.0f;
 	floor->scale *= 100.0f;
-
-	floor->translation.y = 1.0f;
 
 	floor->GetMaterial()->SetShader(shaderFile);
 

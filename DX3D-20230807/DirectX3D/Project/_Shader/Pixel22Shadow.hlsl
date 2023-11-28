@@ -2,10 +2,10 @@
 
 struct VertexOutput
 {
-    float4     pos : SV_POSITION;
-    float2      uv : UV;
-    float3   normal : NORMAL;
-    float3  tangent : TANGENT;
+    float4 pos      : SV_POSITION;
+    float2 uv       : UV;
+    float3 normal   : NORMAL;
+    float3 tangent  : TANGENT;
     float3 binormal : BINORMAL;
     
     float3 viewPos : POSITION0;
@@ -19,12 +19,12 @@ float4 main(VertexOutput input) : SV_TARGET
 {
     LightVertexOutput data;
     
-    data     .pos = input.     pos;
-    data.      uv = input.      uv;
-    data.  normal = input.  normal;
-    data. tangent = input. tangent;
+    data.pos      = input.pos     ;
+    data.uv       = input.uv      ;
+    data.normal   = input.normal  ;
+    data.tangent  = input.tangent ;
     data.binormal = input.binormal;
-    data. viewPos = input. viewPos;
+    data.viewPos  = input.viewPos ;
     data.worldPos = input.worldPos;
     
     LightMaterial material = GetLightMaterial(data);
@@ -38,10 +38,10 @@ float4 main(VertexOutput input) : SV_TARGET
     uv.y = -uv.y;
     uv = uv * 0.5f + 0.5f;
     
-    //if(uv.x < 0.0f || uv.x > 1.0f || uv.y < 0.0f || uv.y > 1.0f)
-    //    return result;
+    //if(uv.x < 0.0f || uv.x > 1.0f || uv.y < 0.0f || uv.y > 1.0f) 
+    //    return result; // 시야를 벗어나면 원본색 나오게 함
     
-    float shadowDepth = depthMap.Sample(samp, uv).r;
+    float shadowDepth = depthMap.Sample(samp, uv).r; // 깊이값만 필요함
     
     float currentDepth = input.clipPos.z / input.clipPos.w;
     

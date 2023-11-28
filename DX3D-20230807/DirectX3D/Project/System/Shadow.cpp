@@ -2,10 +2,10 @@
 #include "Shadow.h"
 
 Shadow::Shadow(UINT width, UINT height)
-	: width(width), height(height)
+	:width(width), height(height)
 {
-	renderTarget = new RenderTarget(2048, 2048);
-	depthStencil = new DepthStencil(2048, 2048);
+	renderTarget = new RenderTarget(width, height);
+	depthStencil = new DepthStencil(width, height);
 
 	viewBuffer = new   ViewBuffer();
 	projBuffer = new MatrixBuffer();
@@ -48,9 +48,9 @@ void Shadow::PostRender()
 
 void Shadow::SetViewProjection()
 {
-	LightBuffer::LightData& lightData = Environment::GetInstance()->GetLightBuffer()->data.lights[0];
+	LightBuffer::LightData& lightData = Environment::GetInstance()->GetLightBuffer()->data.lights[0];  // 광원이 여려개일경우 이 수를 늘려야 함 지금은 0번의 빛만 계산
 
-	Matrix view = XMMatrixLookAtLH(lightData.position, Vector3(0, 0, 0), Vector3(0, 1, 0));
+	Matrix view = XMMatrixLookAtLH(lightData.position, Vector3(), Vector3(0, 1, 0));
 
 	Matrix proj = XMMatrixPerspectiveFovLH(XM_PIDIV2, 1.0f, 0.1f, 5000.0f);
 

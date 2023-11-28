@@ -2,7 +2,7 @@
 class Shadow
 {
 public:
-	Shadow(UINT width = 2000, UINT height = 2000);
+	Shadow(UINT width = 2000, UINT height = 2000); // 크기가 작으면 계단현상이 나타남
 	~Shadow();
 
 	void SetPreRender();
@@ -18,6 +18,7 @@ private:
 	RenderTarget* renderTarget;
 	DepthStencil* depthStencil;
 
+	// viewProjection을 따로 잡음
 	  ViewBuffer* viewBuffer;
 	MatrixBuffer* projBuffer;
 

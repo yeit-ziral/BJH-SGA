@@ -2,10 +2,10 @@
 
 struct VertexOutput
 {
-    float4      pos : SV_POSITION;
-    float2       uv : UV;
-    float3   normal : NORMAL;
-    float3  tangent : TANGENT;
+    float4 pos      : SV_POSITION;
+    float2 uv       : UV;
+    float3 normal   : NORMAL;
+    float3 tangent  : TANGENT;
     float3 binormal : BINORMAL;
     
     float3  viewPos : POSITION0;
@@ -27,8 +27,6 @@ VertexOutput main(VertexTextureNormalTangentBlend input)
 {
     VertexOutput output;
     
-    /////////////////////////
-    
     matrix transform;
     
     [branch]
@@ -38,14 +36,11 @@ VertexOutput main(VertexTextureNormalTangentBlend input)
         transform = world;
     
     output.pos = mul(input.pos, transform);
-    ////////////////////////
-    
-    //output.pos = mul(output.pos, world);
     
     output.viewPos = invView._41_42_43;
     output.worldPos = output.pos;
     
-    output.clipPos = mul(output.pos, lightView);
+    output.clipPos = mul(output.pos,     lightView);
     output.clipPos = mul(output.clipPos, lightProj);
     
     output.pos = mul(output.pos, view);
