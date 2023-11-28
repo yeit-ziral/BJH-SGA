@@ -13,7 +13,16 @@ WaterScene::WaterScene()
 	//floor->GetMaterial()->SetShader(L"19Reflection");
 	//floor->GetMaterial()->SetShader(L"21Water");
 
-	water = new Water(L"Landscape/WaveNormal.png");
+	//water = new Water(L"Landscape/WaveNormal.png");
+
+
+	shadow = new Shadow(10000, 10000);
+
+	LightBuffer::LightData& light = Environment::GetInstance()->GetLightBuffer()->data.lights[0];
+
+	light.type = 1;
+	light.position = { 0, 100, -50 };
+	light.range = 2000.0f;
 }
 
 WaterScene::~WaterScene()
@@ -27,7 +36,9 @@ WaterScene::~WaterScene()
 	//delete reflection;
 	//delete refraction;
 
-	delete water;
+	//delete water;
+
+	delete shadow;
 }
 
 void WaterScene::Update()
@@ -35,7 +46,7 @@ void WaterScene::Update()
 	//reflection->Update();
 	//refraction->Update();
 
-	water->Update();
+	//water->Update();
 
 	floor->Update();
 	groot->Update();
@@ -48,18 +59,26 @@ void WaterScene::PreRender()
 	//reflection->SetPreRender(); // sky보다 위에 있어야지 sky도 반사 됨
 	//refraction->SetPreRender();
 
-	water->SetReflection(); // PreRender에서는 skybox보다 먼저 해줘야 함
+	//water->SetReflection(); // PreRender에서는 skybox보다 먼저 해줘야 함
 
-	sky->Render();
+	//sky->Render();
 
-	groot->Render();
-	bunny->Render();
-	sphere->Render();
+	//floor->Render();
+	//groot->Render();
+	//bunny->Render();
+	//sphere->Render();
 
-	water->SetRefraction();
+	//water->SetRefraction();
 
-	sky->Render();
+	//sky->Render();
 
+	//groot->Render();
+	//bunny->Render();
+	//sphere->Render();
+
+	shadow->SetPreRender();
+
+	floor->Render();
 	groot->Render();
 	bunny->Render();
 	sphere->Render();
@@ -71,9 +90,11 @@ void WaterScene::Render()
 
 	//reflection->SetRender();
 	//refraction->SetRender();
-	water->Render();
+	//water->Render();
 
-	//floor->Render();
+	shadow->SetRender();
+
+	floor->Render();
 	groot->Render();
 	bunny->Render();
 	sphere->Render();
@@ -85,13 +106,17 @@ void WaterScene::PostRender()
 	//refraction->PostRender();
 	//refraction->Debug();
 	
-	water->Debug();
+	//water->Debug();
 
 	floor->Debug();
+
+	shadow->PostRender();
 }
 
 void WaterScene::CreateObjects()
 {
+	wstring shaderFile = L"22Shadow";
+
 	floor = new Quad();
 	floor->SetLabel("Floor");
 
@@ -100,7 +125,7 @@ void WaterScene::CreateObjects()
 
 	floor->translation.y = 1.0f;
 
-	floor->GetMaterial()->SetShader(L"09Light");
+	floor->GetMaterial()->SetShader(shaderFile);
 
 	groot = new Groot();
 	groot->GetReader()->SetShader(L"09Light");

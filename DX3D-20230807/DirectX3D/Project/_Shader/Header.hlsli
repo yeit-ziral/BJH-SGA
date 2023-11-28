@@ -543,7 +543,7 @@ matrix SkinWorld(uint instancedIndex, float4 indices, float4 weights)
 
 
 ///////////////////////// Deferred Render///////////////////////////////
-#pragma region Deferred Render
+//#pragma region Deferred Render
 
 #define MIN_SHININESS  0.1f
 #define MAX_SHININESS 50.0f
@@ -573,4 +573,4 @@ GBufferOutput PackGBuffer(float3 baseColor, float3 normal, float specularIntensi
     return output;
 }
 
-#pragma endregion Deferred Render
+//#pragma endregion Deferred Render
