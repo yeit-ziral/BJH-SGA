@@ -116,6 +116,8 @@ using namespace MyMath;
 #include "Render/Shader/PixelShader.h"
 #include "Render/Shader/ComputeShader.h"
 #include "Render/Shader/GeometryShader.h"
+#include "Render/Shader/HullShader.h"
+#include "Render/Shader/DomainShader.h"
 
 
 #include "Render/Buffer/VertexLayout.h"
@@ -220,6 +222,7 @@ using namespace MyMath;
 #include "Scene/ParticleScene.h"
 #include "Scene/ParticleEditorScene.h"
 #include "Scene/WaterScene.h"
+#include "Scene/TessellationScene.h"
 
 #include "Scene/SceneManager.h"
 

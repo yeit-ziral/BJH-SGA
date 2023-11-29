@@ -69,6 +69,11 @@ Texture2DArray transformMap : register(t0);
 //    float4 color : COLOR;
 //};
 
+struct Vertex
+{
+    float4 pos : POSITION;
+};
+
 struct VertexColor
 {
     float4 pos : POSITIONT;
