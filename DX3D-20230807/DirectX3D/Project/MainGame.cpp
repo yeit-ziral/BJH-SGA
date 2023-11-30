@@ -25,7 +25,7 @@ MainGame::MainGame()
 	//SCENE->Create("Shooting", new ShootingScene);
 	//SCENE->Create("Start", new ParticleScene());
 	//SCENE->Create("Start", new ParticleEditorScene());
-	SCENE->Create("Start", new TessellationScene());
+	SCENE->Create("Start", new TerrainLODScene());
 
 	//SCENE->Add("Grid");
 	//SCENE->Add("Collision");

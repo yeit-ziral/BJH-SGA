@@ -21,5 +21,6 @@ inline Mesh::Mesh(vector<T>& vertices, vector<UINT>& indices)
 {
 	vertexBuffer = new VertexBuffer(vertices);
 
-	indexBuffer = new IndexBuffer(indices);
+	if (indices.size() > 0)
+		indexBuffer = new IndexBuffer(indices);
 }

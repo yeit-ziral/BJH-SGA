@@ -2,10 +2,11 @@
 class HullShader : public Shader
 {
 	friend class Shader;
-public:
+private:
 	HullShader(wstring file);
 	~HullShader();
 
+public:
 	virtual void SetShader() override;
 
 private:

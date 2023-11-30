@@ -144,6 +144,11 @@ void Texture::PSSetShaderResources(UINT slot)
 	DC->PSSetShaderResources(slot, 1, &srv);
 }
 
+void Texture::DSSetShaderResources(UINT slot)
+{
+	DC->DSSetShaderResources(slot, 1, &srv);
+}
+
 vector<Vector4> Texture::ReadPixels()
 {
 	unsigned char* pixels = image.GetPixels(); // 리턴값을 uint8_t(unsigned char)*로 받음 -> 배열의 주소가 연속적이여서 첫번째 주소값만 알아도 나머지 값을 다 가져올 수 있다.
