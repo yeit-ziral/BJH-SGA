@@ -18,14 +18,14 @@ cbuffer EdgeInfo : register(b10)
 
 float CalculateTessFactor(float3 pos)
 {
-    float d        = distance(pos, invView._41_42_43);
-    float factor   = saturate((distance - minDistance) / (minDistance - maxDistance));
+    float d      = distance(pos, invView._41_42_43);
+    float factor = saturate((d - minDistance) / (minDistance - maxDistance));
     
     return lerp(minQuality, maxQuality, factor);
 
 }
 
-#define NUM_CONTROL_POINTS 3
+#define NUM_CONTROL_POINTS 4
 
 CHullOutput CHS(InputPatch<VertexTexture, NUM_CONTROL_POINTS> input)
 {
@@ -53,10 +53,10 @@ CHullOutput CHS(InputPatch<VertexTexture, NUM_CONTROL_POINTS> input)
 struct HullOutput
 {
     float4 pos : POSITION;
-    float2 uv : UV;
+    float2 uv  : UV;
 };
 
-[domain("tri")]
+[domain("quad")]
 [partitioning("integer")]
 [outputtopology("triangle_cw")]
 [outputcontrolpoints(4)]
@@ -67,7 +67,7 @@ HullOutput main(
     HullOutput output;
 
     output.pos = input[i].pos;
-    output.uv = input[i].uv;
+    output.uv  = input[i].uv;
 
     return output;
 }

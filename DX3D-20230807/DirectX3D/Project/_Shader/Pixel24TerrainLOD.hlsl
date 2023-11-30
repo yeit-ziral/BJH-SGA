@@ -8,5 +8,5 @@ struct DomainOutput
 
 float4 main(DomainOutput input) : SV_TARGET
 {
-    return diffuseMap.Sample(samp, input);
+    return diffuseMap.Sample(samp, input.uv);
 }

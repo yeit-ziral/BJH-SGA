@@ -1,7 +1,9 @@
+#include "Header.hlsli"
+
 struct DomainOutput
 {
-    float4 vPosition : SV_POSITION;
-    float2 uv        : UV;
+    float4 pos : SV_POSITION;
+    float2 uv  : UV;
 };
 
 struct HullOutput
@@ -20,15 +22,15 @@ struct CHullOutput
 
 Texture2D heightMap : register(t10);
 
-cbuffer HeightBuffer : regiter(b10)
+cbuffer HeightBuffer : register(b10)
 {
     float heightScale;
 }
 
-[domain("tri")]
+[domain("quad")]
 DomainOutput main(
 	CHullOutput input,
-	float2 domain : SV_DomainLocation,
+	float2 domain : SV_DomainLocation, // 가중치 z값 필요 없음
 	const OutputPatch<HullOutput, NUM_CONTROL_POINTS> patch)
 {
     DomainOutput output;
@@ -42,11 +44,14 @@ DomainOutput main(
     float2 uv2 = lerp(patch[2].uv, patch[3].uv, domain.x);
     float2 texCoord = lerp(uv1, uv2, domain.y);
     
-    pos.y = heightMap.SampleLevel(samp, texCoord, 0).r * heightScale;
+    // Sample함수는 pixelShder에서만 쓰는거라서 SampleLevel 씀
+    pos.y = heightMap.SampleLevel(samp, texCoord, 0).r * heightScale; 
     
     output.pos = float4(pos.xyz, 1.0f);
-    output.pos = mul(output.pos, world);
-    output.pos = mul(output.pos, scale);
+    output.pos = mul(output.pos, view);
+    output.pos = mul(output.pos, proj);
+    
+    output.uv = texCoord;
     
     return output;
 }

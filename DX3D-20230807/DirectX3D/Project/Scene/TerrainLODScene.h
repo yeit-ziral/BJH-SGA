@@ -11,6 +11,5 @@ public:
 	virtual void PostRender() override;
 
 private:
-	TerrainEditor* terrainEditor;
-
+	TerrainLOD* terrain;
 };

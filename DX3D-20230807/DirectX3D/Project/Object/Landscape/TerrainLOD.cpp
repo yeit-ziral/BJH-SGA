@@ -89,7 +89,7 @@ void TerrainLOD::CreateMesh()
 	{
 		float tempZ = halfHeight - z * tempHeight;
 
-		for (UINT x = 0; < patchWidth; x++)
+		for (UINT x = 0; x < patchWidth; x++)
 		{
 			float tempX = -halfHeight + x * tempHeight;
 
