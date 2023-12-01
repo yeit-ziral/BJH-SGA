@@ -18,7 +18,7 @@ MainGame::MainGame()
 	//scene = new ModelAnimationScene();
 	//scene = new CollisionScene();
 
-	//SCENE->Create("Grid", new GridScene());
+	SCENE->Create("Grid", new GridScene());
 	//SCENE->Create("Collision", new CollisionScene());
 	//SCENE->Create("ModelExport", new ModelExportScene);
 	//SCENE->Create("ModelAnimation", new ModelAnimationScene);
@@ -27,12 +27,12 @@ MainGame::MainGame()
 	//SCENE->Create("Start", new ParticleEditorScene());
 	SCENE->Create("Start", new TerrainLODScene());
 
-	//SCENE->Add("Grid");
+	SCENE->Add("Grid");
 	//SCENE->Add("Collision");
 	//SCENE->Add("ModelExport");
 	//SCENE->Add("ModelAnimation");
 	//SCENE->Add("Shooting");
-	SCENE->Add("Start");
+	//SCENE->Add("Start");
 
 	FONT->Add("D2Coding", L"D2Coding");
 }
@@ -50,6 +50,12 @@ void MainGame::Update()
 
 	Time::GetInstance()->Update();
 	Keyboard::GetInstance()->Update();
+
+	if (KEY_PRESS('0'))
+	{
+		SCENE->Add("Start");
+		SCENE->Remove("Grid");
+	}
 }
 
 void MainGame::Render()

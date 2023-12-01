@@ -238,8 +238,8 @@ void Camera::FreeMode()
 		if (abs(dir.x) > 15.0f || abs(dir.y) > 15.0f)
 			dir = Vector3(0.0f, 0.0f, 0.0f);
 
-		Transform::rotation.y += dir.x * rotSpeed * Time::Delta();
-		Transform::rotation.x += dir.y * rotSpeed * Time::Delta();
+		Transform::rotation.y += dir.x * rotSpeed;
+		Transform::rotation.x += dir.y * rotSpeed;
 
 	}
 
@@ -266,7 +266,7 @@ void Camera::TargetMode(Mode mode)
 		{
 			Vector3 dir = mousePos - oldPos;
 
-			rotY += dir.x * rotSpeed * Time::Delta();
+			rotY += dir.x * rotSpeed;
 		}
 		oldPos = mousePos;
 
@@ -292,8 +292,8 @@ void Camera::TargetMode(Mode mode)
 		{
 			Vector3 dir = mousePos - oldPos;
 
-			Transform::rotation.y += dir.x * rotSpeed * Time::Delta();
-			Transform::rotation.x += dir.y * rotSpeed * Time::Delta();
+			Transform::rotation.y += dir.x * rotSpeed;
+			Transform::rotation.x += dir.y * rotSpeed;
 
 
 			rotY += dir.x * rotSpeed * Time::Delta();
@@ -312,9 +312,15 @@ void Camera::TargetMode(Mode mode)
 
 		Transform::translation = LERP(Transform::translation, destination, moveDamping * Time::Delta());
 
-		viewMatrix = XMMatrixLookAtLH(Transform::translation, target->translation, V_UP);
+		Vector3	   eyePos = Transform::translation;
+		Vector3 targetPos =    target->translation;
 
-		viewMatrix *= XMMatrixTranslation(0, -height, 0);
+		   eyePos.y += height;
+		targetPos.y += height;
+
+		viewMatrix = XMMatrixLookAtLH(eyePos, targetPos, V_UP);
+
+		//viewMatrix *= XMMatrixTranslation(0, -height, 0);
 	}
 		break;
 	default:
@@ -365,6 +371,8 @@ void Camera::SetView()
 	viewMatrix = XMMatrixInverse(nullptr, world);
 	viewBuffer->SetData(viewMatrix, Transform::GetWorld()); // Transform::GetWorld()°¡ Inverse ViewÀÌ´Ù
 	viewBuffer->SetVSBuffer(1);
+	viewBuffer->SetDSBuffer(1);
+	viewBuffer->SetHSBuffer(1);
 }
 
 void Camera::Set()

@@ -95,8 +95,8 @@ void Environment::SetEnvironment()
     mainCamera->Update();
 
     lightBuffer->SetPSBuffer(0);
-
-    persBuffer->SetVSBuffer(2);
+     persBuffer->SetVSBuffer(2);
+     persBuffer->SetDSBuffer(2);
 
     StateManager::GetInstance()->Set();
 }

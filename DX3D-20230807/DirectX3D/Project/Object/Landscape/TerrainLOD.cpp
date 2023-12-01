@@ -46,7 +46,7 @@ void TerrainLOD::Render()
 	hullShader->SetShader();
 	domainShader->SetShader();
 
-	DC->Draw(indices.size(), 0);
+	DC->DrawIndexed(indices.size(), 0, 0);
 
 	DC->HSSetShader(nullptr, nullptr, 0);
 	DC->DSSetShader(nullptr, nullptr, 0);
@@ -54,8 +54,9 @@ void TerrainLOD::Render()
 
 void TerrainLOD::Debug()
 {
-	ImGui::Text("TerrainLOD Option");
+	Transform::Debug();                                                                                                                                                                               
 
+	ImGui::Text("TerrainLOD Option");
 	ImGui::DragFloat("MinDistance", &terrainBuffer->data.values[0]);
 	ImGui::DragFloat("MaxDistance", &terrainBuffer->data.values[1]);
 	ImGui::DragFloat("MinQuality" , &terrainBuffer->data.values[2]);
